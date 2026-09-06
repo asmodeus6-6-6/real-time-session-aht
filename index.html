@@ -1,0 +1,1579 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Real Time Session AHT Tracker</title><style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--text);background:var(--bg);font-size:var(--base-size)}
+body[data-theme=normal]{--bg:#f2f4f6;--panel:#ffffff;--panel2:#e8ecef;--line:#c9d0d6;--text:#26313a;--muted:#68737d;--accent:#4f6878;--accent2:#718694}
+body[data-theme=white]{--bg:#ffffff;--panel:#ffffff;--panel2:#f5f6f7;--line:#d7dce0;--text:#28323a;--muted:#707981;--accent:#526b7a;--accent2:#8a9aa5}
+body[data-theme=lightgrey]{--bg:#e5e8eb;--panel:#f5f6f7;--panel2:#dfe3e6;--line:#bcc4ca;--text:#2c353c;--muted:#69747d;--accent:#536b78;--accent2:#7d8e98}
+body[data-theme=darkgrey]{--bg:#3f4449;--panel:#4b5157;--panel2:#555c62;--line:#697178;--text:#f0f2f3;--muted:#c1c6ca;--accent:#9fb5c0;--accent2:#bac6cc}
+body[data-theme=black]{--bg:#17191b;--panel:#202326;--panel2:#292c2f;--line:#3e4347;--text:#eeeeee;--muted:#aeb3b7;--accent:#b8c5ca;--accent2:#d0d6d9}
+body[data-theme=redgrey]{--bg:#f1eeee;--panel:#fbf8f8;--panel2:#e9dddd;--line:#d0bfc1;--text:#302a2b;--muted:#766b6d;--accent:#9a5d63;--accent2:#b47b80}
+body[data-theme=yellowgrey]{--bg:#f2f1eb;--panel:#fcfbf6;--panel2:#e9e7db;--line:#d1ccb8;--text:#302f29;--muted:#777467;--accent:#8b8052;--accent2:#a59b70}
+body[data-theme=greygreen]{--bg:#edf2ef;--panel:#f9fbfa;--panel2:#e0e9e4;--line:#c4d1ca;--text:#28332e;--muted:#68756e;--accent:#5d8171;--accent2:#82a095}
+body[data-theme=slateblue]{--bg:#edf1f5;--panel:#f9fafb;--panel2:#e0e6ec;--line:#c3ccd5;--text:#29343e;--muted:#697681;--accent:#5b7185;--accent2:#8295a5}
+
+.app{display:flex;min-height:100vh;background:radial-gradient(circle at 80% 0%,color-mix(in srgb,var(--accent2) 10%,transparent),transparent 35%),var(--bg)}
+.sidebar{width:255px;flex:0 0 255px;height:100vh;position:sticky;top:0;padding:18px;border-right:1px solid var(--line);background:var(--panel);transition:.25s;overflow:hidden}
+.sidebar-collapsed .sidebar{width:70px;flex-basis:70px}
+.sidebar-collapsed .sidebar{
+  width:70px;flex-basis:70px;padding:14px 9px;overflow:hidden;
+}
+.sidebar-collapsed .label{display:none!important}
+.sidebar-collapsed .brand{justify-content:center;margin-bottom:15px}
+.sidebar-collapsed .brand>div:not(.logo){display:none!important}
+.sidebar-collapsed .card{
+  width:52px;min-height:42px;padding:7px 3px;margin:0 auto 8px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;text-align:center;
+}
+.sidebar-collapsed .card>b{
+  font-size:0;line-height:1;white-space:nowrap;
+}
+.sidebar-collapsed .card>b .dot{width:7px;height:7px;margin:0}
+.sidebar-collapsed .card .copy{display:none!important}
+.sidebar-collapsed .card input{display:none}
+.sidebar-collapsed .themes{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.sidebar-collapsed .theme-btn{
+  width:42px;height:32px;padding:0;display:grid;place-items:center;
+  overflow:hidden;font-size:0;
+}
+.sidebar-collapsed .theme-btn span{display:none!important}
+.sidebar-collapsed .theme-btn::after{
+  content:"✦";font-size:17px;line-height:1;color:var(--accent);font-weight:900;
+}
+.sidebar-collapsed .theme-btn[data-theme="normal"]::after{content:"◻"}
+.sidebar-collapsed .theme-btn[data-theme="white"]::after{content:"○"}
+.sidebar-collapsed .theme-btn[data-theme="lightgrey"]::after{content:"◐"}
+.sidebar-collapsed .theme-btn[data-theme="darkgrey"]::after{content:"◑"}
+.sidebar-collapsed .theme-btn[data-theme="black"]::after{content:"●"}
+.sidebar-collapsed .theme-btn[data-theme="aurora"]::after{content:"✦"}
+.sidebar-collapsed .theme-btn[data-theme="violet"]::after{content:"◆"}
+.sidebar-collapsed .theme-btn[data-theme="ember"]::after{content:"◈"}
+.sidebar-collapsed .setting-content{display:none!important}
+.sidebar-collapsed .collapse{
+  width:52px;height:40px;padding:0;margin:10px auto 0;
+  display:grid;place-items:center;font-size:0;
+}
+.sidebar-collapsed .collapse::after{
+  content:"☰";font-size:17px;color:var(--accent);
+}
+
+.brand{display:flex;gap:10px;align-items:center;margin-bottom:22px}.logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06101c;font-weight:1000}.brand b{white-space:nowrap}.brand small{display:block;color:var(--muted);font-size:10px}.sidebar-collapsed .brand>div:not(.logo),.sidebar-collapsed .copy,.sidebar-collapsed .theme-btn span,.sidebar-collapsed .setting-content{display:none}
+.label{color:var(--muted);font-size:9px;letter-spacing:2px;margin:17px 6px 8px}.card{border:1px solid var(--line);background:var(--panel2);padding:11px;border-radius:14px;margin-bottom:8px;font-size:11px}.copy{color:var(--muted);margin-top:6px;line-height:1.4}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#32c98a;box-shadow:0 0 10px #32c98a;margin-right:6px;animation:pulse 1.5s infinite}.themes{display:grid;grid-template-columns:1fr 1fr;gap:6px}.theme-btn,.collapse,.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:8px;cursor:pointer;font-size:10px}.theme-btn.active{outline:2px solid var(--accent)}
+.gt-icon{display:none}.sidebar-collapsed .gt-icon{display:grid;place-items:center;width:27px;height:27px;border:1px solid var(--line);border-radius:8px;color:var(--accent);font-weight:900;font-size:14px}.setting{margin-bottom:8px}.setting label{display:block;font-size:9px;color:var(--muted);margin-bottom:5px}.setting select,.setting input[type=range]{width:100%}.setting select{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px;font-size:10px}.range-line{display:flex;align-items:center;gap:7px}.range-line input{flex:1}.range-value{font-size:9px;color:var(--accent);min-width:32px;text-align:right}
+.main{flex:1;min-width:0;padding:22px 25px 38px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.top h1{margin:0;font-size:29px}.top p{margin:4px 0;color:var(--muted);font-size:11px}.live{border:1px solid var(--line);padding:8px 12px;border-radius:99px;background:var(--panel);font-size:10px}
+.hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:23px;padding:25px;background:linear-gradient(120deg,var(--panel),var(--panel2));min-height:150px}.grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:38px 38px;opacity:.12}.hero-content{position:relative;z-index:2}.kicker{color:var(--accent);font-weight:900;font-size:10px;letter-spacing:2px}.hero h2{margin:7px 0;font-size:28px}.hero p{margin:0;color:var(--muted);font-size:12px;max-width:720px}.pulsebars{position:absolute;right:28px;bottom:20px;display:flex;gap:4px;align-items:end;height:55px}.pulsebars i{width:4px;height:14px;background:var(--accent);border-radius:4px;animation:bars .8s infinite alternate}.pulsebars i:nth-child(2n){animation-delay:.15s}.pulsebars i:nth-child(3n){animation-delay:.3s}
+.input{margin-top:13px;border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:13px}.inputhead{display:flex;justify-content:space-between;color:var(--muted);font-size:9px;margin-bottom:7px}textarea,input{font:inherit}textarea{width:100%;min-height:105px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:10px;resize:vertical}.controls{display:grid;grid-template-columns:150px 1fr 1fr 1fr;gap:7px;margin-top:8px}input[type=number]{background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:8px}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06111b;border:0;font-weight:900}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:13px 0}.metric{border:1px solid var(--line);background:var(--panel);border-radius:15px;padding:13px}.metric small{color:var(--muted);font-size:8px;letter-spacing:1px}.metric b{display:block;font-size:24px;margin-top:4px}.good b{color:var(--good,#2fbf83)}.warn b{color:var(--warn,#d49b00)}.bad b{color:var(--bad,#df4759)}
+.dashboard{display:grid;grid-template-columns:1fr 290px;gap:9px;margin-bottom:13px}.dash{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:14px}.dash h3{font-size:12px;margin:0}.bar-row{display:grid;grid-template-columns:140px 1fr 38px;gap:8px;align-items:center;margin:8px 0;font-size:10px}.bar-row span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track{height:8px;background:var(--line);border-radius:10px;overflow:hidden}.track i{display:block;height:100%;border-radius:10px}.ring{width:145px;height:145px;margin:4px auto 12px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent),var(--accent2),var(--line),var(--accent))}.ringin{width:106px;height:106px;border-radius:50%;background:var(--panel);display:grid;place-items:center;text-align:center}.ringin b{font-size:20px}.ringin small{font-size:8px;color:var(--muted)}.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.mini div{text-align:center;border:1px solid var(--line);border-radius:9px;padding:7px}.mini b{display:block;font-size:15px}.mini small{font-size:7px;color:var(--muted)}
+.tablecard{border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 92%,transparent);border-radius:18px;overflow:hidden;position:relative}.tablehead{display:flex;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line);font-size:11px}.tablehead span{color:var(--muted);font-size:9px}.wrap{overflow:auto;position:relative}.wrap{background:transparent}table{background:transparent;width:var(--table-width,100%);min-width:600px;border-collapse:separate;border-spacing:0;position:relative;z-index:2}
+th,td{background:transparent;padding:var(--cell-y,11px) var(--cell-x,9px);text-align:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:var(--table-font,13px);line-height:1.35}
+th{background:var(--panel2);color:var(--accent);font-size:var(--table-font,13px);font-weight:850;letter-spacing:.6px;position:sticky;top:0;z-index:3}
+.agent{min-width:205px;font-size:calc(var(--table-font,13px) + 1px);font-weight:900}
+.rank{display:none}
+.aht{font-weight:1000;font-size:var(--table-font,12px)}
+.aht em{font-style:normal;margin-left:4px}
+.watermark{
+position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+z-index:1;pointer-events:none;overflow:hidden;opacity:.055;
+color:var(--accent);font-size:clamp(38px,6vw,68px);font-weight:800;
+letter-spacing:6px;transform:rotate(-18deg);white-space:nowrap;
+}
+#grandTotalRow td{background:var(--panel2);font-weight:1000;font-size:var(--table-font,13px);line-height:1.35}.empty{text-align:center;color:var(--muted);padding:25px}
+@keyframes pulse{50%{opacity:.3;transform:scale(.75)}}@keyframes bars{to{height:52px}}
+@media(max-width:900px){.dashboard{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.summary{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.sidebar{width:70px;flex-basis:70px}.brand>div:not(.logo),.copy,.theme-btn span,.setting-content{display:none}.main{padding:13px}.top h1{font-size:21px}.pulsebars{display:none}}
+
+/* Browser-safe fallbacks */
+.aht-good{background:#eaf7f0;color:#16764d}
+.aht-warn{background:#fff5d8;color:#9a6b00}
+.aht-bad{background:#ffe8ec;color:#c63c50}
+
+/* Visual enhancement layer */
+.tablecard{box-shadow:0 10px 28px rgba(0,0,0,.08)}
+.tablehead{min-height:44px;align-items:center}
+table tbody tr{transition:transform .12s ease,filter .12s ease}
+table tbody tr:hover{filter:brightness(1.025)}
+th:first-child{border-top-left-radius:4px}th:last-child{border-top-right-radius:4px}
+.aht{letter-spacing:.2px}
+.aht em{font-size:1.05em;font-weight:1000}
+.header-watermark{
+position:absolute;right:24px;top:14px;z-index:3;pointer-events:none;
+font-size:10px;font-weight:800;letter-spacing:2.5px;
+color:var(--accent);opacity:.22;text-transform:none;
+}
+.sidebar-watermark{
+position:absolute;left:0;right:0;bottom:58px;text-align:center;
+font-size:9px;font-weight:800;letter-spacing:2px;color:var(--accent);
+opacity:.25;pointer-events:none;white-space:nowrap;
+}
+.footer-watermark{
+position:absolute;right:18px;bottom:12px;font-size:8px;
+font-weight:800;letter-spacing:2px;color:var(--accent);opacity:.24;
+pointer-events:none;
+}
+.tablecard .watermark{opacity:.045!important}
+.format-badge{display:inline-block;padding:2px 7px;border-radius:999px;font-weight:900}
+
+body[data-theme=redgrey] .hero{box-shadow:inset 0 2px 0 rgba(154,93,99,.35)}
+body[data-theme=yellowgrey] .hero{box-shadow:inset 0 2px 0 rgba(139,128,82,.35)}
+body[data-theme=greygreen] .hero{box-shadow:inset 0 2px 0 rgba(93,129,113,.35)}
+body[data-theme=slateblue] .hero{box-shadow:inset 0 2px 0 rgba(91,113,133,.35)}
+body[data-theme=white] .hero,body[data-theme=normal] .hero{box-shadow:0 6px 20px rgba(40,50,60,.06)}
+
+/* ===== Multi-page analytics workspace ===== */
+.app-nav{display:grid;gap:7px;margin:4px 0 12px}
+.app-nav button{width:100%;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:10px 11px;text-align:left;font-weight:800;cursor:pointer;transition:.18s}
+.app-nav button:hover,.app-nav button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.app-nav button span:first-child{display:inline-block;width:24px;text-align:center;margin-right:6px}
+.sidebar-collapsed .app-nav button{padding:11px 0;text-align:center}
+.sidebar-collapsed .app-nav button span:last-child{display:none}
+.page{display:none}
+.page.active{display:block}
+.page-title{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:14px}
+.page-title h2{margin:0;font-size:24px}
+.page-title p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.analytics-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px;box-shadow:0 4px 16px rgba(0,0,0,.04)}
+.kpi small{display:block;color:var(--muted);font-size:10px;font-weight:900;letter-spacing:.08em}
+.kpi b{display:block;font-size:27px;margin-top:5px}
+.kpi .sub{font-size:11px;color:var(--muted);margin-top:3px}
+.analysis-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:14px;margin-bottom:14px}
+.analytics-card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px;overflow:auto}
+.analytics-card h3{margin:0 0 12px;font-size:15px}
+.chart-bars{display:grid;gap:9px}
+.chart-item{display:grid;grid-template-columns:minmax(110px,1.1fr) 2fr 54px;gap:9px;align-items:center;font-size:12px}
+.chart-item .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.chart-track{height:12px;border-radius:20px;background:var(--panel2);overflow:hidden;border:1px solid var(--line)}
+.chart-track i{display:block;height:100%;border-radius:20px;background:var(--accent)}
+.chart-item b{text-align:right}
+.group-table,.detail-table{width:100%;border-collapse:collapse;min-width:720px}
+.group-table th,.group-table td,.detail-table th,.detail-table td{border:1px solid var(--line);padding:9px 10px;font-size:12px;text-align:center}
+.group-table th,.detail-table th{background:var(--panel2);font-weight:900;color:var(--accent)}
+.group-table td:first-child,.detail-table td:first-child{text-align:left;font-weight:800}
+.filterbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.filterbar label,.import-grid label{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+.filterbar select,.filterbar input,.import-grid input{width:100%;margin-top:5px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:9px;padding:9px}
+.filter-actions{display:flex;gap:8px;align-items:end}
+.directory-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.directory-input{min-height:210px;width:100%;resize:vertical;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:12px;font-family:Consolas,monospace;font-size:12px}
+.import-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.help-note{background:var(--panel2);border:1px dashed var(--line);padding:10px;border-radius:9px;color:var(--muted);font-size:11px;line-height:1.5;margin:10px 0}
+.pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}
+.status-good{color:#07834f;font-weight:900}.status-warn{color:#a77700;font-weight:900}.status-bad{color:#cf3047;font-weight:900}
+.empty-panel{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
+@media(max-width:1050px){.analytics-grid{grid-template-columns:repeat(2,1fr)}.analysis-grid,.directory-layout{grid-template-columns:1fr}.filterbar{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.analytics-grid{grid-template-columns:1fr 1fr}.filterbar,.import-grid{grid-template-columns:1fr}.page-title{display:block}}
+
+/* ===== Admin + monitoring ===== */
+.admin-lock{max-width:520px;margin:60px auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.admin-lock h2{margin:0 0 5px}.admin-lock p{color:var(--muted);font-size:12px}
+.admin-form{display:grid;gap:10px;margin-top:18px}.admin-form input{padding:11px;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text)}
+.admin-alert{color:#cf3047;font-size:12px;font-weight:800;min-height:16px}
+.monitor-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.monitor-card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px}
+.monitor-card small{display:block;color:var(--muted);font-weight:900;font-size:10px}.monitor-card b{font-size:24px;display:block;margin-top:5px}
+.copy-grid{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.copy-grid .btn{font-size:11px}
+.mapping-rule{display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:7px;margin-bottom:7px}
+.mapping-rule input,.mapping-rule select{min-width:0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text)}
+@media(max-width:900px){.monitor-grid{grid-template-columns:repeat(2,1fr)}.mapping-rule{grid-template-columns:1fr 1fr}}
+
+/* ===== Admin-only Agent Details lock ===== */
+#page-directory .admin-only-content{display:none}
+#page-directory.admin-unlocked .admin-only-content{display:block}
+.admin-lock-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:14px}
+.admin-lock-banner b{font-size:13px}.admin-lock-banner span{font-size:11px;color:var(--muted)}
+
+/* ===== SIDEBAR V2: structured / animated / responsive ===== */
+:root{--sidebar-w:292px;--sidebar-collapsed-w:78px}
+.sidebar{
+ width:var(--sidebar-w)!important;flex:0 0 var(--sidebar-w)!important;height:100vh;
+ position:sticky;top:0;z-index:100;padding:0!important;display:flex;flex-direction:column;
+ overflow:hidden!important;background:linear-gradient(180deg,var(--panel),color-mix(in srgb,var(--panel) 94%,var(--accent) 6%));
+ border-right:1px solid var(--line);box-shadow:8px 0 30px rgba(20,30,40,.07);
+ transition:width .32s cubic-bezier(.22,.8,.25,1),flex-basis .32s cubic-bezier(.22,.8,.25,1),box-shadow .25s;
+}
+.sidebar-head{height:76px;flex:0 0 76px;padding:13px 13px 13px 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:relative;z-index:2}
+.brand{margin:0!important;display:flex;gap:10px;align-items:center;min-width:0}
+.brand .logo{width:42px;height:42px;flex:0 0 42px;border-radius:13px;box-shadow:0 7px 18px color-mix(in srgb,var(--accent) 16%,transparent);transition:transform .3s}
+.brand .logo:hover{transform:rotate(-4deg) scale(1.04)}
+.brand-copy{min-width:0;overflow:hidden}.brand-copy b{display:block;white-space:nowrap;font-size:13px}.brand-copy small{display:block;color:var(--muted);font-size:9px;margin-top:2px}
+.sidebar-toggle{width:31px;height:31px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text);display:grid;place-items:center;cursor:pointer;font-size:23px;line-height:1;transition:.25s}
+.sidebar-toggle:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateX(-2px)}
+.sidebar-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:14px 12px 18px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.side-status{position:relative;padding:12px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(135deg,var(--panel2),var(--panel));box-shadow:0 5px 18px rgba(20,30,40,.045);overflow:hidden}
+.side-status:after{content:"";position:absolute;width:80px;height:80px;right:-38px;top:-40px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);box-shadow:0 0 0 12px color-mix(in srgb,var(--accent) 4%,transparent)}
+.status-top{display:flex;align-items:center;font-size:10px;letter-spacing:.7px}.status-ping{margin-left:auto;width:5px;height:5px;border-radius:50%;background:#32c98a;box-shadow:0 0 0 4px color-mix(in srgb,#32c98a 13%,transparent);animation:pulse 1.6s infinite}
+.status-copy{font-size:10px;color:var(--muted);line-height:1.42;margin:7px 0 9px}.status-meta{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:9px}.status-meta strong{color:var(--text)}
+.side-section{margin-top:17px}.side-section-title{height:21px;display:flex;align-items:center;gap:8px;padding:0 5px;color:var(--muted);font-size:8px;letter-spacing:1.9px;font-weight:900}.side-section-title i{height:1px;flex:1;background:linear-gradient(90deg,var(--line),transparent)}
+.side-nav{display:grid!important;gap:6px!important;margin:3px 0 0!important}
+.side-nav button{position:relative;width:100%;height:43px!important;min-height:43px!important;display:grid!important;grid-template-columns:30px 1fr auto;align-items:center;gap:8px;padding:0 10px!important;border:1px solid transparent!important;border-radius:12px!important;background:transparent!important;color:var(--text)!important;text-align:left!important;font-weight:800!important;overflow:hidden;transition:.22s}
+.side-nav button:before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:0 4px 4px 0;background:transparent;transition:.22s}
+.side-nav button .nav-icon{width:30px!important;height:30px;display:grid!important;place-items:center;margin:0!important;border-radius:9px;background:var(--panel2);border:1px solid var(--line);font-size:12px;color:var(--accent);transition:.22s}
+.side-nav button .nav-text{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.side-nav button em{font-style:normal;font-size:7px;letter-spacing:.8px;color:var(--muted);opacity:.75}
+.side-nav button:hover{transform:translateX(3px)!important;background:color-mix(in srgb,var(--accent) 7%,var(--panel))!important;border-color:color-mix(in srgb,var(--accent) 20%,var(--line))!important}
+.side-nav button:hover .nav-icon{transform:scale(1.05);border-color:var(--accent)}
+.side-nav button.active{background:linear-gradient(100deg,var(--accent),color-mix(in srgb,var(--accent) 78%,var(--accent2)))!important;color:#fff!important;border-color:var(--accent)!important;box-shadow:0 7px 18px color-mix(in srgb,var(--accent) 18%,transparent)!important}
+.side-nav button.active:before{background:#fff}.side-nav button.active .nav-icon{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25);color:#fff}.side-nav button.active em{color:#fff;opacity:.72}
+.side-themes{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important}.side-themes .theme-btn{min-height:33px;border-radius:10px;padding:7px!important;font-size:9px!important;display:flex;align-items:center;justify-content:space-between;transition:.2s}.side-themes .theme-btn:hover{transform:translateY(-1px);border-color:var(--accent)}.side-themes .theme-btn.active{outline:2px solid var(--accent);outline-offset:1px}
+.display-card{border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:10px;display:grid;gap:8px}.display-card label{font-size:8px;color:var(--muted);font-weight:800}.display-card select{width:100%;height:34px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:0 8px;font-size:9px}
+.toggle-row{display:flex!important;align-items:center;gap:8px!important;font-size:10px!important;color:var(--text)!important;cursor:pointer}.toggle-row input{position:absolute;opacity:0;pointer-events:none}.toggle-ui{width:30px;height:17px;border-radius:20px;background:var(--line);position:relative;transition:.2s;flex:0 0 30px}.toggle-ui:after{content:"";position:absolute;width:13px;height:13px;left:2px;top:2px;border-radius:50%;background:var(--panel);box-shadow:0 1px 3px rgba(0,0,0,.2);transition:.2s}.toggle-row input:checked+.toggle-ui{background:var(--accent)}.toggle-row input:checked+.toggle-ui:after{transform:translateX(13px)}.display-card small{font-size:8px;line-height:1.4;color:var(--muted)}
+.sidebar-foot{flex:0 0 48px;border-top:1px solid var(--line);padding:10px 14px;position:relative;background:var(--panel)}.foot-line{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:8px}.foot-dot{width:6px;height:6px;border-radius:50%;background:#32c98a;box-shadow:0 0 7px #32c98a}.foot-version{margin-left:auto;letter-spacing:1px;font-weight:900;opacity:.55}
+.sidebar-watermark{position:absolute!important;right:13px!important;bottom:8px!important;left:auto!important;font-size:7px!important;letter-spacing:1.6px!important;opacity:.18!important;pointer-events:none}
+body.sidebar-collapsed .sidebar{width:var(--sidebar-collapsed-w)!important;flex-basis:var(--sidebar-collapsed-w)!important}
+body.sidebar-collapsed .sidebar-head{height:76px;padding:12px 8px;justify-content:center}.sidebar-collapsed .brand-copy{display:none!important}
+body.sidebar-collapsed .sidebar-toggle{position:absolute;right:7px;bottom:-11px;width:23px;height:23px;font-size:18px;transform:rotate(180deg);z-index:8}
+body.sidebar-collapsed .sidebar-toggle:hover{transform:rotate(180deg) translateX(-2px)}
+body.sidebar-collapsed .sidebar-scroll{padding:14px 10px}.sidebar-collapsed .side-status{height:45px;padding:0;display:grid;place-items:center;border-radius:12px}.sidebar-collapsed .status-top{font-size:0}.sidebar-collapsed .status-top .dot{margin:0;width:6px;height:6px}.sidebar-collapsed .status-ping,.sidebar-collapsed .status-copy,.sidebar-collapsed .status-meta{display:none!important}
+body.sidebar-collapsed .side-section{margin-top:14px}.sidebar-collapsed .side-section-title{display:none}.sidebar-collapsed .side-nav{gap:6px!important}
+.sidebar-collapsed .side-nav button{width:56px!important;height:43px!important;min-height:43px!important;margin:0 auto!important;padding:0!important;display:grid!important;grid-template-columns:1fr!important;place-items:center!important;border-radius:12px!important}
+.sidebar-collapsed .side-nav button:before{display:none}.sidebar-collapsed .side-nav button .nav-icon{width:56px!important;height:43px!important;border-radius:12px}.sidebar-collapsed .side-nav button .nav-text,.sidebar-collapsed .side-nav button em{display:none!important}
+.sidebar-collapsed .side-nav button:hover{transform:translateY(-2px)!important}
+.sidebar-collapsed .side-themes{display:flex!important;flex-direction:column;align-items:center;gap:6px!important}.sidebar-collapsed .side-themes .theme-btn{width:56px;height:34px;min-height:34px;padding:0!important;display:grid;place-items:center;font-size:0!important}.sidebar-collapsed .side-themes .theme-btn span{display:none!important}.sidebar-collapsed .side-themes .theme-btn:after{content:"✦";font-size:15px;color:var(--accent);font-weight:900}
+.sidebar-collapsed .side-themes .theme-btn[data-theme="normal"]:after{content:"◻"}.sidebar-collapsed .side-themes .theme-btn[data-theme="white"]:after{content:"○"}.sidebar-collapsed .side-themes .theme-btn[data-theme="lightgrey"]:after{content:"◐"}.sidebar-collapsed .side-themes .theme-btn[data-theme="darkgrey"]:after{content:"◑"}.sidebar-collapsed .side-themes .theme-btn[data-theme="black"]:after{content:"●"}.sidebar-collapsed .side-themes .theme-btn[data-theme="redgrey"]:after{content:"◆"}.sidebar-collapsed .side-themes .theme-btn[data-theme="yellowgrey"]:after{content:"◇"}.sidebar-collapsed .side-themes .theme-btn[data-theme="greygreen"]:after{content:"✦"}.sidebar-collapsed .side-themes .theme-btn[data-theme="slateblue"]:after{content:"◆"}
+body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .sidebar-foot{padding:9px 0;flex-basis:42px}.sidebar-collapsed .foot-line{justify-content:center}.sidebar-collapsed .foot-copy,.sidebar-collapsed .foot-version,.sidebar-collapsed .sidebar-watermark{display:none!important}
+@media(max-width:760px){:root{--sidebar-w:280px;--sidebar-collapsed-w:68px}.sidebar{position:fixed!important;left:0;top:0;bottom:0;height:100dvh}.main{width:100%;padding:18px 14px 30px!important}}
+</style><style id="heavy-input-style">
+#rawInput{
+  min-height:260px!important;
+  max-height:68vh!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  overflow:auto!important;
+  resize:vertical!important;
+  white-space:pre!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  tab-size:4!important;
+  font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace!important;
+  font-size:13px!important;
+  line-height:1.45!important;
+  contain:content;
+}
+#rawInput:focus{
+  outline:2px solid var(--accent)!important;
+  outline-offset:1px;
+}
+</style>
+<style>
+.copy-image-btn{cursor:pointer;min-width:145px;font-weight:700}
+</style>
+<style id="saht-prod-css">
+#sahtGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:var(--bg,#eef2f7);padding:24px}
+#sahtGate .card{width:min(460px,100%);padding:30px;border-radius:22px;background:var(--panel,#fff);border:1px solid var(--border,#ddd);box-shadow:0 20px 60px rgba(0,0,0,.16)}
+#sahtGate h1{margin:6px 0 8px;font-size:28px}.saht-auth-form{display:grid;gap:11px}.saht-auth-msg{display:none;padding:10px;border-radius:10px;background:rgba(100,110,130,.12);font-size:13px}.saht-auth-msg.show{display:block}
+</style></head><body data-theme="normal"><div id="sahtGate"><div class="card">
+<div style="font-size:11px;letter-spacing:.15em;font-weight:800;opacity:.6">SESSION AHT MONITOR</div>
+<h1 id="sahtGateTitle">Secure Sign In</h1>
+<div id="sahtGateSub" style="opacity:.7;margin-bottom:20px">Sign in to use the shared dashboard.</div>
+<div class="saht-auth-form">
+<input class="input" id="sahtName" placeholder="Full name" style="display:none">
+<input class="input" id="sahtEmail" type="email" placeholder="Work email">
+<input class="input" id="sahtPassword" type="password" placeholder="Password">
+<input class="input" id="sahtReason" placeholder="Reason / team (optional)" style="display:none">
+<div style="display:flex;gap:8px"><button class="btn" id="sahtSignInTab">Sign In</button><button class="btn" id="sahtRequestTab">Request Access</button></div>
+<button class="btn" id="sahtSubmit">Sign In</button><div class="saht-auth-msg" id="sahtMsg"></div>
+</div></div></div><div class="app"><aside class="sidebar" id="appSidebar">
+  <div class="sidebar-head">
+    <div class="brand">
+      <div class="logo">SA</div>
+      <div class="brand-copy"><b>Session AHT Monitor</b><small>Operations Control</small></div>
+    </div>
+    <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
+  </div>
+  <div class="sidebar-scroll">
+    <div class="side-status">
+      <div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
+      <div class="status-copy">Live agent performance, AHT sorting and duplicate-value handling are active.</div>
+      <div class="status-meta"><span id="sideAgentCount">0 agents</span><span>•</span><span>Target <strong id="sideTarget">180s</strong></span></div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-section-title"><span>WORKSPACE</span><i></i></div>
+      <nav class="app-nav side-nav" aria-label="Workspace pages">
+        <button class="active" data-page="live" onclick="showPage('live')" title="Live Monitor"><span class="nav-icon">◉</span><span class="nav-text">Live Monitor</span><em>LIVE</em></button>
+        <button data-page="dashboard" onclick="showPage('dashboard')" title="Performance Dashboard"><span class="nav-icon">▦</span><span class="nav-text">Dashboard</span><em>VIEW</em></button>
+        <button data-page="agents" onclick="showPage('agents')" title="Agent-wise AHT Analysis"><span class="nav-icon">♙</span><span class="nav-text">Agent Analysis</span><em>ANALYSIS</em></button>
+        <button data-page="teams" onclick="showPage('teams')" title="TL / AM / Process Analysis"><span class="nav-icon">▤</span><span class="nav-text">TL / AM / Process</span><em>GROUP</em></button>
+        <button data-page="directory" onclick="showPage('directory')" title="Agent Details"><span class="nav-icon">＋</span><span class="nav-text">Agent Details</span><em>ADMIN</em></button>
+        <button data-page="admin" onclick="showPage('admin')" title="Admin Portal"><span class="nav-icon">⚙</span><span class="nav-text">Admin Portal</span><em>SECURE</em></button>
+      </nav>
+    </div>
+
+    <div class="side-section">
+      <div class="side-section-title"><span>APPEARANCE</span><i></i></div>
+      <div class="themes side-themes">
+        <button class="theme-btn active" data-theme="normal" title="Normal Theme" onclick="setTheme('normal')"><span>Normal</span>◻</button>
+        <button class="theme-btn" data-theme="white" title="White Theme" onclick="setTheme('white')"><span>White</span>○</button>
+        <button class="theme-btn" data-theme="lightgrey" title="Light Grey Theme" onclick="setTheme('lightgrey')"><span>Light Grey</span>◐</button>
+        <button class="theme-btn" data-theme="darkgrey" title="Dark Grey Theme" onclick="setTheme('darkgrey')"><span>Dark Grey</span>◑</button>
+        <button class="theme-btn" data-theme="black" title="Black Theme" onclick="setTheme('black')"><span>Black</span>●</button>
+        <button class="theme-btn" data-theme="redgrey" title="Red Grey Theme" onclick="setTheme('redgrey')"><span>Red Grey</span>◆</button>
+        <button class="theme-btn" data-theme="yellowgrey" title="Yellow Grey Theme" onclick="setTheme('yellowgrey')"><span>Yellow Grey</span>◇</button>
+        <button class="theme-btn" data-theme="greygreen" title="Grey Green Theme" onclick="setTheme('greygreen')"><span>Grey Green</span>✦</button>
+        <button class="theme-btn" data-theme="slateblue" title="Slate Blue Theme" onclick="setTheme('slateblue')"><span>Slate Blue</span>◆</button>
+      </div>
+    </div>
+
+    <div class="side-section side-display-section">
+      <div class="side-section-title"><span>DISPLAY</span><i></i></div>
+      <div class="display-card">
+        <label>Conditional Formatting</label>
+        <select id="formatTheme">
+          <option value="classic">Classic Green / Yellow / Red</option><option value="soft">Soft Pastel</option><option value="strong">Strong Contrast</option><option value="minimal">Minimal Border Accent</option><option value="mono">Monochrome</option><option value="badge">Badge Style</option><option value="neon">Neon Glow</option><option value="outline">Outline Highlight</option><option value="gradient">Soft Gradient</option><option value="heat">Heatmap</option><option value="clean">Clean Professional</option>
+        </select>
+        <label class="toggle-row"><input id="grandTotalToggle" type="checkbox" checked><span class="toggle-ui"></span><span>Grand Total</span></label>
+        <small>Totals and averages appear at the bottom of the live table.</small>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-foot">
+    <div class="foot-line"><span class="foot-dot"></span><span class="foot-copy">System ready</span><span class="foot-version">SAHT</span></div>
+    <div class="sidebar-watermark">Abhijith</div>
+  </div>
+</aside><main class="main"><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
+<section class="page active" id="page-live">
+<div class="top"><div><h1>Real Time Session AHT Tracker</h1><p>Agent-level live performance • AHT sorted High → Low</p></div><div class="live"><span class="dot"></span>LIVE • <span id="recordCount">0 agents</span></div><div class="header-watermark">Abhijith</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" title="Copy table as PNG image; browser security may require a secure page" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section id="summary" class="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div style="display:flex;justify-content:space-between"><h3>Live Status</h3><small>Target: <span id="targetView">180</span>s</small></div><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span></div><div class="wrap"><div class="watermark" aria-hidden="true">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
+</section>
+
+<section class="page" id="page-dashboard">
+  <div class="page-title"><div><h2>Performance Dashboard</h2><p>Management view built from the live AHT data and agent hierarchy.</p></div><button type="button" class="btn" id="dashboardCopyImage" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;" style="margin:0 0 12px 0">📷 Copy Dashboard as Image</button><span class="pill">LIVE DATA • <span id="dashPageAgents">0</span> agents</span></div><button class="btn" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;">Copy Dashboard as Image</button>
+  <div id="dashboardFilters" style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:14px 0 18px;padding:14px;border:1px solid var(--border,#d9dee8);border-radius:12px;background:var(--panel,#fff)">
+<label style="min-width:170px;flex:1">TL<select id="dashboardTlFilter" class="input" style="width:100%"><option value="">All TLs</option></select></label>
+<label style="min-width:170px;flex:1">AM<select id="dashboardAmFilter" class="input" style="width:100%"><option value="">All AMs</option></select></label>
+<label style="min-width:170px;flex:1">Process<select id="dashboardProcessFilter" class="input" style="width:100%"><option value="">All Processes</option></select></label>
+<label style="min-width:170px;flex:1">Agent<select id="dashboardAgentFilter" class="input" style="width:100%"><option value="">All Agents</option></select></label>
+<button type="button" class="btn" id="dashboardResetFilters">Reset Filters</button>
+<span class="pill" id="dashboardFilterStatus">All data</span>
+</div>
+<div class="analytics-grid">
+    <div class="kpi"><small>RECEIVED</small><b id="kpiReceived">0</b><div class="sub">Total calls received</div></div>
+    <div class="kpi"><small>RESOLVED</small><b id="kpiResolved">0</b><div class="sub">Total calls resolved</div></div>
+    <div class="kpi"><small>RESOLUTION RATE</small><b id="kpiResolution">0%</b><div class="sub">Resolved ÷ Received</div></div>
+    <div class="kpi"><small>AVG AHT</small><b id="kpiAht">0 s</b><div class="sub">Average agent AHT</div></div>
+    <div class="kpi"><small>AVG LOGIN HOURS</small><b id="kpiLogin">0</b><div class="sub">Average available login time</div></div><div class="kpi"><small>AVG FRT</small><b id="kpiFrt">0 s</b><div class="sub">Average first response time</div></div>
+    <div class="kpi"><small>AVG HANDLE TIME</small><b id="kpiHt">0 s</b><div class="sub">Average Avg. HT</div></div>
+    <div class="kpi"><small>ABOVE TARGET</small><b id="kpiAbove">0</b><div class="sub">Agents above target</div></div>
+    <div class="kpi"><small>BELOW TARGET</small><b id="kpiBelow">0</b><div class="sub">Agents below target</div></div>
+  </div>
+  <div class="analysis-grid">
+    <div class="analytics-card"><h3>Top 10 AHT — High to Low</h3><button class="btn" onclick="copyPanelAsImage('dashboardAhtBars','Top 10 AHT')">Copy Image</button><div id="dashboardAhtBars" class="chart-bars"></div></div>
+    <div class="analytics-card"><h3>Workload & Resolution</h3><button class="btn" onclick="copyPanelAsImage('dashboardVolumeBars','Workload and Resolution')">Copy Image</button><div id="dashboardVolumeBars" class="chart-bars"></div></div>
+  </div>
+  <div class="analysis-grid">
+    <div class="analytics-card"><h3>Highest AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardTopTable','Highest AHT Agents')">Copy Image</button><div id="dashboardTopTable"></div></div>
+    <div class="analytics-card"><h3>Best AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardBestTable','Best AHT Agents')">Copy Image</button><div id="dashboardBestTable"></div></div>
+  </div>
+</section>
+
+<section class="page" id="page-agents">
+  <div class="page-title"><div><h2>Agent-wise AHT Analysis</h2><p>Filter one agent or combine TL, AM and Process hierarchy with live performance.</p></div><button type="button" class="btn" id="agentCopyImage" onclick="copyPanelAsImage('page-agents','Agent Analysis');return false;" style="margin:0 0 12px 0">📷 Copy Agent Analysis as Image</button><span class="pill">Sorted by AHT ↓</span></div>
+  <div class="filterbar">
+    <label>Agent<select id="agentFilter"><option value="">All Agents</option></select></label>
+    <label>TL<select id="agentTlFilter"><option value="">All TLs</option></select></label>
+    <label>AM<select id="agentAmFilter"><option value="">All AMs</option></select></label>
+    <label>Process<select id="agentProcessFilter"><option value="">All Processes</option></select></label>
+    <label>Bucket<select id="agentBucketFilter"><option value="">All Buckets</option></select></label>
+    <label>OJT / NonOJT<select id="agentOjtFilter"><option value="">All</option></select></label>
+    <label>Shift Status<select id="agentShiftFilter"><option value="">All Shifts</option></select></label>
+    <label>Sub Process<select id="agentSubProcessFilter"><option value="">All Sub Processes</option></select></label>
+  </div>
+  <div class="filter-actions" style="margin:-5px 0 12px"><button class="btn" onclick="resetAnalyticsFilters()">Reset Filters</button><span class="pill" id="agentFilterCount">0 agents</span></div>
+  <div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('agentAnalysisTable','Agent Wise AHT Analysis')">Copy Agent Analysis as Image</button></div><div class="analytics-card"><div id="agentAnalysisTable"></div></div>
+</section>
+
+<section class="page" id="page-teams">
+  <div class="page-title"><div><h2>Hierarchy Analysis</h2><p>Compare performance at TL, AM and Process level using the agent directory mapping.</p></div><span class="pill">Derived from agent details + live AHT</span></div>
+  <div class="filterbar">
+    <label>View By<select id="groupByFilter"><option value="TL">TL</option><option value="AM">AM</option><option value="Process">Process</option><option value="Bucket">Bucket</option><option value="OJT/NonOJT">OJT/NonOJT</option><option value="Shift Status">Shift Status</option><option value="Sub Process">Sub Process</option></select></label>
+    <label>TL<select id="teamTlFilter"><option value="">All TLs</option></select></label>
+    <label>AM<select id="teamAmFilter"><option value="">All AMs</option></select></label>
+    <label>Process<select id="teamProcessFilter"><option value="">All Processes</option></select></label>
+    <label>Bucket<select id="teamBucketFilter"><option value="">All Buckets</option></select></label>
+    <label>OJT / NonOJT<select id="teamOjtFilter"><option value="">All</option></select></label>
+    <label>Shift Status<select id="teamShiftFilter"><option value="">All Shifts</option></select></label>
+    <label>Sub Process<select id="teamSubProcessFilter"><option value="">All Sub Processes</option></select></label>
+  </div>
+  <div class="analytics-grid">
+    <div class="kpi"><small>GROUPS</small><b id="teamGroups">0</b><div class="sub">Visible groups</div></div>
+    <div class="kpi"><small>RECEIVED</small><b id="teamReceived">0</b><div class="sub">Filtered workload</div></div>
+    <div class="kpi"><small>RESOLVED</small><b id="teamResolved">0</b><div class="sub">Filtered resolutions</div></div>
+    <div class="kpi"><small>AVG AHT</small><b id="teamAht">0 s</b><div class="sub">Filtered average</div></div>
+  </div>
+  <div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('teamAnalysisTable','Hierarchy Analysis')">Copy Hierarchy Analysis as Image</button></div><div class="analytics-card"><div id="teamAnalysisTable"></div></div>
+</section>
+
+
+<section class="page" id="page-admin">
+  <div id="adminLocked">
+    <div class="admin-lock">
+      <h2>Admin Portal</h2><p>Restricted monitoring and smart identity-mapping controls.</p>
+      <div class="admin-form">
+        <input id="adminUser" placeholder="Username" autocomplete="username">
+        <input id="adminPass" type="password" placeholder="Password" autocomplete="current-password">
+        <div class="admin-alert" id="adminAlert"></div>
+        <button class="btn primary" onclick="adminLogin()">Login</button>
+      </div>
+    </div>
+  </div>
+  <div id="adminPanel" style="display:none">
+    <div class="page-title"><div><h2>Admin Monitoring Portal</h2><p>Live health, zero-value exclusions, duplicate resolution and smart identity mapping.</p></div><button class="btn primary" onclick="unlockDirectory()">Unlock Agent Details</button><button class="btn" onclick="adminLogout()">Lock Portal</button></div>
+    <div class="monitor-grid">
+      <div class="monitor-card"><small>VALID AGENTS SHOWN</small><b id="adminValid">0</b></div>
+      <div class="monitor-card"><small>EXCLUDED ZERO-VALUE</small><b id="adminExcluded">0</b></div>
+      <div class="monitor-card"><small>DUPLICATE RECORDS REMOVED</small><b id="adminDuplicates">0</b></div>
+      <div class="monitor-card"><small>LAST REFRESH</small><b id="adminRefresh">—</b></div>
+    </div>
+    <div class="analytics-card" style="margin-top:14px">
+      <h3>Smart Identity Mapping Rules</h3>
+      <div class="help-note">If Login Id / Startek ID contains a recognizable token, rules below can automatically assign TL, AM or Process. Anything not confidently mapped remains <b>Unmapped</b> instead of being guessed.</div>
+      <div id="mappingRules"></div>
+      <div class="controls"><button class="btn" onclick="addMappingRule()">Add Rule</button><button class="btn primary" onclick="saveMappingRules()">Save Rules</button></div>
+    </div>
+    <div class="analytics-card" style="margin-top:14px">
+      <h3>Unmapped / Needs Review</h3>
+      <div id="unmappedAdmin"></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="page-directory">
+  <div class="page-title">
+    <div><h2>Agent Details</h2><p>Admin-controlled agent master data.</p></div>
+    <span class="pill"><span id="directoryCount">0</span> mapped agents</span>
+  </div>
+  <div id="directoryLocked" class="admin-lock">
+    <h2>🔒 Admin Access Required</h2>
+    <p>Agent Details can only be viewed or changed after Admin Portal authentication.</p>
+    <button class="btn primary" onclick="showPage('admin')">Go to Admin Portal</button>
+  </div>
+  <div id="directoryAdminContent" class="admin-only-content">
+    <div class="admin-lock-banner">
+      <div><b>🔐 Admin mode active</b><br><span>Only the authenticated administrator can edit Agent Details.</span></div>
+      <button class="btn" onclick="lockDirectory()">Lock Agent Details</button>
+    </div>
+    <div class="analytics-card" style="margin-bottom:14px">
+      <h3>Agent Master Data</h3>
+      <div class="help-note"><b>Excel columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process<br>Paste directly from Excel. The first row may contain headers.</div>
+      <textarea id="directoryInput" class="directory-input" style="min-height:180px" placeholder="Sap code&#9;Login Id&#9;Agent ID&#9;TL&#9;AM&#9;Bucket&#9;OJT/NonOJT&#9;Shift Status&#9;Sub Process"></textarea>
+      <div class="controls" style="margin-top:10px">
+        <button class="btn primary" onclick="saveDirectory()">Save Agent Details</button>
+        <button class="btn" onclick="clearDirectory()">Clear</button>
+        <button class="btn" onclick="downloadDirectoryTemplate()">Download Template</button>
+        <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Import CSV/TSV<input id="directoryFile" type="file" accept=".csv,.tsv,.txt" style="display:none" onchange="importDirectoryFile(this)"></label>
+        <button class="btn" onclick="copyPanelAsImage('directoryTable','Agent Master Data')">Copy as Image</button>
+      </div>
+    </div>
+    <div class="analytics-card"><h3>Mapped Agent Details</h3><div id="directoryTable"></div></div>
+  </div>
+</section>
+</main></div><script>
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function clean(v){return String(v??"").trim()}
+function parseNumber(v){const n=parseFloat(String(v??"").replace(/,/g,"").replace(/[^\d.-]/g,""));return Number.isFinite(n)?n:0}
+function parseDurationToSeconds(x){
+ const s=clean(x).toLowerCase(); if(!s)return 0;
+ if(/^\d+(\.\d+)?$/.test(s))return Math.round(Number(s));
+ let t=0,m;
+ if((m=s.match(/(\d+(?:\.\d+)?)\s*h/)))t+=parseFloat(m[1])*3600;
+ if((m=s.match(/(\d+(?:\.\d+)?)\s*m/)))t+=parseFloat(m[1])*60;
+ if((m=s.match(/(\d+(?:\.\d+)?)\s*s/)))t+=parseFloat(m[1]);
+ if(!t&&s.includes(":")){const p=s.split(":").map(v=>parseFloat(v)||0);if(p.length===2)t=p[0]*60+p[1];if(p.length===3)t=p[0]*3600+p[1]*60+p[2]}
+ return Math.round(t)
+}
+function normalizeName(n){return clean(n).toLowerCase().replace(/\s+/g," ")}
+function meaningfulScore(r){let s=0;[r.received,r.resolved,r.avgHt,r.ahtSec,r.avgFrt].forEach(v=>{const x=clean(v);if(x&&x!=="0"&&x!=="0 s"&&x!=="0 m")s+=2;if(parseNumber(x)>0)s+=2});if(r.ahtSec>0)s+=3;return s}
+function identityKey(r){
+ const email=clean(r.email||"").toLowerCase();
+ const login=clean(r.loginId||"").toLowerCase();
+ if(email)return "email:"+email;
+ if(login)return "login:"+login;
+ return "name:"+normalizeName(r.name);
+}
+function loginHoursValue(r){
+ const v=clean(r.loginHours||"");
+ return parseDurationToSeconds(v)>0 || parseNumber(v)>0 ? 1 : 0;
+}
+function meaningfulScore(r){
+ let s=0;
+ if(Number(r.ahtSec)>0)s+=100;
+ if(loginHoursValue(r))s+=100;
+ [r.received,r.resolved,r.avgHt,r.avgFrt].forEach(v=>{
+   const x=clean(v);
+   if(x&&x!=="0"&&x!=="0 s"&&x!=="0 m")s+=2;
+ });
+ return s;
+}
+function mergeDuplicates(rows){
+ const map=new Map();
+ rows.forEach(r=>{
+   const k=identityKey(r);
+   if(!k)return;
+   const old=map.get(k);
+   if(!old || meaningfulScore(r)>meaningfulScore(old))map.set(k,r);
+ });
+ return [...map.values()];
+}
+function parseTabular(text){
+ const lines=text.replace(/\r/g,"").split("\n").filter(x=>x.trim());
+ if(!lines.length)return [];
+ const splitLine=l=>l.includes("\t")?l.split("\t"):l.split(/\s{2,}/);
+ const first=splitLine(lines[0]).map(clean);
+ const h=first.map(normalizeHeader);
+ const find=names=>{for(const n of names){const i=h.indexOf(normalizeHeader(n));if(i>=0)return i;}return -1};
+ let ni=find(["agentname","agent","name"]), ei=find(["email","mail","loginid"]);
+ let oi=find(["onlinetime","loginhours","loginhrs","onlinehrs","loginhour"]);
+ let bi=find(["breaktime","break"]);
+ let ri=find(["received","callsreceived","chats","calls"]);
+ let si=find(["resolved","callsresolved"]);
+ let hi=find(["avght","averagehandletime","handletime"]);
+ let ai=find(["aht","ahtsec","sessionaht"]);
+ let fi=find(["avgfrt","frt","averagefrt"]);
+ const headerDetected=[ni,ei,oi,bi,ri,si,hi,ai,fi].some(x=>x>=0);
+ const out=[];
+ const data=headerDetected?lines.slice(1):lines;
+ if(!headerDetected){ni=0;ri=1;si=2;hi=3;ai=4;fi=5;}
+ data.forEach(line=>{
+   const p=splitLine(line).map(clean);if(!p[ni])return;
+   const avgHt=p[hi]||"0 s";
+   const rawAht=ai>=0?p[ai]:"";
+   const ahtSec=rawAht&&(/^\d+(\.\d+)?$/.test(rawAht))?Math.round(Number(rawAht)):parseDurationToSeconds(rawAht||avgHt);
+   out.push({
+     name:p[ni],email:ei>=0?(p[ei]||""):"",
+     loginHours:oi>=0?(p[oi]||""):"",
+     breakTime:bi>=0?(p[bi]||""):"",
+     received:p[ri]||"0",resolved:p[si]||"0",avgHt,
+     ahtSec,avgFrt:p[fi]||"0 s"
+   });
+ });
+ return out;
+}
+function parseBlockText(text){
+ const lines=text.replace(/\r/g,"").split("\n").map(clean).filter(Boolean);
+ if(lines.some(x=>x.includes("\t")))return parseTabular(text);
+ const out=[];
+ for(let i=0;i<lines.length;){
+  const l=lines[i].toLowerCase();
+  if(l.includes("agent name")||l==="name"||l.includes("online time")){i++;continue}
+  if(i+1<lines.length&&lines[i+1].includes("@")){
+   const name=lines[i],email=lines[i+1],j=i+2;
+   if(j+5<lines.length){
+     out.push({
+       name,email,
+       loginHours:lines[j]||"",
+       breakTime:lines[j+1]||"",
+       received:lines[j+2]||"0",
+       resolved:lines[j+3]||"0",
+       avgHt:lines[j+4]||"0 s",
+       ahtSec:parseDurationToSeconds(lines[j+4]||"0 s"),
+       avgFrt:lines[j+5]||"0 s"
+     });
+     i=j+6;if(lines[i]?.toLowerCase()==="view")i++
+   }else i++
+  }else i++
+ }
+ return out
+}
+
+function exactAHTStatus(v,t){return Number(v)>Number(t)?{cls:"aht-bad",symbol:"▲"}:Number(v)===Number(t)?{cls:"aht-warn",symbol:"!"}:{cls:"aht-good",symbol:"▼"}}
+function sortByAHTHighToLow(r){return [...r].sort((a,b)=>Number(b.ahtSec||0)-Number(a.ahtSec||0))}
+
+let processedData=[];
+function fmtPct(v){return ((Number(v)||0)*100).toFixed(2)+"%"}
+function dur(s){s=Math.round(Number(s)||0);return s>=60?`${Math.floor(s/60)} m ${s%60} s`:`${s} s`}
+function avg(rows,f){return rows.length?rows.reduce((a,r)=>a+parseDurationToSeconds(r[f]),0)/rows.length:0}
+function processData(){
+ const target=parseNumber(document.getElementById("threshold").value)||180;
+ const parsedRecords=parseBlockText(document.getElementById("rawInput").value||"");
+ window._sahtRawCount=parsedRecords.length;
+ const validRecords=parsedRecords.filter(r=>Number(r.ahtSec)>0);
+ window._sahtExcludedCount=parsedRecords.length-validRecords.length;
+ const merged=mergeDuplicates(validRecords);
+ window._sahtDuplicateCount=validRecords.length-merged.length;
+ processedData=sortByAHTHighToLow(merged);
+  const sideCount=document.getElementById("sideAgentCount");
+  const sideTarget=document.getElementById("sideTarget");
+  if(sideCount)sideCount.textContent=processedData.length+" agent"+(processedData.length===1?"":"s");
+  if(sideTarget)sideTarget.textContent=(parseNumber(document.getElementById("threshold")?.value)||180)+"s";
+ const body=document.getElementById("tableBody");body.innerHTML="";
+ processedData.forEach((r,i)=>{const st=exactAHTStatus(r.ahtSec,target);body.insertAdjacentHTML("beforeend",`<tr><td class="agent">${escapeHtml(r.name)}</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${escapeHtml(r.avgHt)}</td><td class="aht ${st.cls}">${r.ahtSec} <em>${st.symbol}</em></td><td>${escapeHtml(r.avgFrt)}</td></tr>`)});
+ const gt=document.getElementById("grandTotalRow");
+ if(document.getElementById("grandTotalToggle").checked&&processedData.length){
+  const rec=processedData.reduce((a,r)=>a+parseNumber(r.received),0),res=processedData.reduce((a,r)=>a+parseNumber(r.resolved),0);
+  const ah=processedData.reduce((a,r)=>a+r.ahtSec,0)/processedData.length;
+  gt.innerHTML=`<td class="agent">GRAND TOTAL / AVG</td><td>${rec}</td><td>${res}</td><td>${dur(avg(processedData,"avgHt"))}</td><td class="aht">${Math.round(ah)} —</td><td>${dur(avg(processedData,"avgFrt"))}</td>`;gt.style.display="table-row"
+ }else gt.style.display="none";
+ const n=processedData.length,below=processedData.filter(r=>r.ahtSec<target).length,equal=processedData.filter(r=>r.ahtSec===target).length;
+ document.getElementById("summary").innerHTML=`<div class="metric"><small>TOTAL AGENTS</small><b>${n}</b></div><div class="metric good"><small>BELOW TARGET</small><b>${below}</b></div><div class="metric warn"><small>AT TARGET</small><b>${equal}</b></div><div class="metric bad"><small>ABOVE TARGET</small><b>${n-below-equal}</b></div>`;
+ document.getElementById("recordCount").textContent=n+" agents";document.getElementById("targetView").textContent=target;
+ const av=n?Math.round(processedData.reduce((a,r)=>a+r.ahtSec,0)/n):0;document.getElementById("dashAvg").textContent=av+" sec";
+ document.getElementById("dashAbove").textContent=n-below-equal;document.getElementById("dashEqual").textContent=equal;document.getElementById("dashBelow").textContent=below;
+ const max=Math.max(target*1.5,...processedData.map(r=>r.ahtSec),1);
+ document.getElementById("chart").innerHTML=processedData.slice(0,10).map(r=>{const st=exactAHTStatus(r.ahtSec,target);return `<div class="bar-row"><span>${escapeHtml(r.name)}</span><div class="track"><i class="${st.cls}" style="width:${Math.max(4,Math.min(100,r.ahtSec/max*100))}%"></i></div><b>${r.ahtSec}</b></div>`}).join("")||`<div class="empty">Paste data to display live AHT.</div>`;
+ refreshAllAnalytics(); if(typeof refreshAdmin==="function")refreshAdmin();
+}
+
+
+async function copyPanelAsImage(id,title){
+  const el=document.getElementById(id);
+  if(!el){alert("Nothing to copy yet.");return;}
+
+  try{
+    /* Load html2canvas from CDN only when needed. */
+    if(!window.html2canvas){
+      await new Promise((resolve,reject)=>{
+        const old=document.querySelector('script[data-html2canvas]');
+        if(old){old.addEventListener("load",resolve);old.addEventListener("error",reject);return;}
+        const sc=document.createElement("script");
+        sc.src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+        sc.async=true;sc.dataset.html2canvas="1";
+        sc.onload=resolve;sc.onerror=reject;
+        document.head.appendChild(sc);
+      });
+    }
+
+    const canvas=await window.html2canvas(el,{
+      scale:3,
+      useCORS:true,
+      allowTaint:false,
+      backgroundColor:null,
+      logging:false,
+      imageTimeout:15000,
+      width:Math.max(el.scrollWidth,el.clientWidth),
+      height:Math.max(el.scrollHeight,el.clientHeight),
+      windowWidth:Math.max(document.documentElement.clientWidth,el.scrollWidth),
+      windowHeight:Math.max(document.documentElement.clientHeight,el.scrollHeight),
+      onclone:(doc)=>{
+        const cloned=doc.getElementById(id);
+        if(cloned){
+          cloned.style.width=Math.max(el.scrollWidth,el.clientWidth)+"px";
+          cloned.style.maxWidth="none";
+          cloned.style.height="auto";
+          cloned.style.maxHeight="none";
+          cloned.style.overflow="visible";
+        }
+        doc.querySelectorAll("button").forEach(b=>{
+          if(/copy|reset/i.test(b.textContent||"")) b.style.display="none";
+        });
+      }
+    });
+
+    const png=await new Promise(resolve=>canvas.toBlob(resolve,"image/png",1));
+    if(!png)throw new Error("PNG creation failed.");
+
+    /* Try native clipboard first. */
+    if(navigator.clipboard && typeof ClipboardItem!=="undefined"){
+      try{
+        await navigator.clipboard.write([
+          new ClipboardItem({"image/png":png})
+        ]);
+        alert("✓ Image copied to clipboard.");
+        return;
+      }catch(err){
+        console.warn("Clipboard write blocked:",err);
+      }
+    }
+
+    /* Reliable fallback: download the exact generated PNG. */
+    const url=URL.createObjectURL(png);
+    const a=document.createElement("a");
+    a.href=url;
+    a.download=(title||"Real_Time_AHT").replace(/[^a-z0-9_-]+/gi,"_")+".png";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),5000);
+    alert("PNG created. Your browser blocked direct clipboard access, so the image was downloaded instead.");
+  }catch(err){
+    console.error("Copy Image:",err);
+    alert("Image capture failed: "+(err.message||err));
+  }
+}
+
+/* ===== Analytics / hierarchy engine ===== */
+let directoryData=[];
+let activePage="live";
+
+function uniqueSorted(arr){return [...new Set(arr.filter(v=>clean(v)))].sort((a,b)=>a.localeCompare(b));}
+function normalizeHeader(v){return clean(v).toLowerCase().replace(/[^a-z0-9]/g,"");}
+function directoryKey(value){return clean(value).toLowerCase().trim();}
+function directoryIdentity(r){
+ const login=directoryKey(r.loginId);
+ if(login)return "login:"+login;
+ const agentId=directoryKey(r.agentId);
+ if(agentId)return "id:"+agentId;
+ return "name:"+directoryKey(r.agent);
+}
+function readDirectoryText(text){
+  const lines=String(text||"").replace(/\r/g,"").split("\n").filter(x=>x.trim());
+  if(!lines.length)return [];
+  const delim=lines[0].includes("\t")?"\t":(lines[0].includes(",")?",":"\t");
+  const rows=lines.map(l=>l.split(delim).map(x=>clean(x.replace(/^"|"$/g,""))));
+  const wanted=["sapcode","loginid","agentid","tl","am","bucket","ojtnono jt","ojtnono","shiftstatus","subprocess"];
+  const h=rows[0].map(normalizeHeader);
+  const find=(names)=>{for(const n of names){const i=h.indexOf(normalizeHeader(n));if(i>=0)return i;}return -1;};
+  let si=find(["sapcode","sap"]);
+  let li=find(["loginid","login","loginid"]);
+  let ai=find(["agentid","agent","agentname","name"]);
+  let ti=find(["tl","teamlead","teamleader"]);
+  let mi=find(["am","accountmanager","manager"]);
+  let bi=find(["bucket"]);
+  let oi=find(["ojtnonojt","ojtnono","ojtnonojt","ojt"]);
+  let shi=find(["shiftstatus","shift"]);
+  let pi=find(["subprocess","subprocessname"]);
+  const hasHeader=[si,li,ai,ti,mi,bi,oi,shi,pi].some(i=>i>=0);
+  if(!hasHeader){si=0;li=1;ai=2;ti=3;mi=4;bi=5;oi=6;shi=7;pi=8;}
+  const dataRows=hasHeader?rows.slice(1):rows;
+  const out=[];
+  dataRows.forEach(r=>{
+    const agent=r[ai]||r[li]||r[si];
+    if(!agent)return;
+    out.push({
+      sapCode:r[si]||"",
+      loginId:r[li]||"",
+      agentId:r[ai]||"",
+      agent:agent,
+      tl:r[ti]||"",
+      am:r[mi]||"",
+      bucket:r[bi]||"",
+      ojt:r[oi]||"",
+      shiftStatus:r[shi]||"",
+      subProcess:r[pi]||""
+    });
+  });
+  const map=new Map();
+  out.forEach(r=>map.set(directoryIdentity(r),r));
+  return [...map.values()];
+}
+function saveDirectory(){
+ if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
+  const parsed=readDirectoryText(document.getElementById("directoryInput").value);
+  directoryData=parsed;
+  storageSet("saht-directory",JSON.stringify(directoryData));
+  renderDirectory();
+  refreshAllAnalytics();
+  alert(parsed.length+" agent details saved.");
+}
+function loadDirectory(){
+  try{directoryData=JSON.parse(storageGet("saht-directory","[]"))||[];if(!Array.isArray(directoryData))directoryData=[];}catch(e){directoryData=[]}
+  renderDirectory();
+}
+function clearDirectory(){
+ if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
+  directoryData=[];
+  storageSet("saht-directory","[]");
+  document.getElementById("directoryInput").value="";
+  renderDirectory();
+  refreshAllAnalytics(); if(activePage==="admin")ensureAdmin();
+}
+function downloadDirectoryTemplate(){
+  const csv="Sap code,Login Id,Agent ID,TL,AM,Bucket,OJT/NonOJT,Shift Status,Sub Process\n";
+  const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Agent_Details_Template.csv";a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function importDirectoryFile(input){
+ if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
+  const file=input.files&&input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{document.getElementById("directoryInput").value=reader.result||"";};
+  reader.readAsText(file);
+}
+
+let mappingRules=[];
+function loadMappingRules(){
+ try{mappingRules=JSON.parse(storageGet("saht-mapping-rules","[]"))||[];if(!Array.isArray(mappingRules))mappingRules=[]}catch(e){mappingRules=[]}
+ renderMappingRules();
+}
+function renderMappingRules(){
+ const box=document.getElementById("mappingRules");if(!box)return;
+ box.innerHTML=mappingRules.map((r,i)=>`<div class="mapping-rule">
+ <input value="${escapeHtml(r.token||"")}" placeholder="Token in Login/Startek ID" data-mi="${i}" data-field="token">
+ <select data-mi="${i}" data-field="type"><option ${r.type==="TL"?"selected":""}>TL</option><option ${r.type==="AM"?"selected":""}>AM</option><option ${r.type==="Process"?"selected":""}>Process</option><option ${r.type==="Bucket"?"selected":""}>Bucket</option><option ${r.type==="Sub Process"?"selected":""}>Sub Process</option></select>
+ <input value="${escapeHtml(r.value||"")}" placeholder="Value to assign" data-mi="${i}" data-field="value">
+ <input value="${escapeHtml(r.note||"")}" placeholder="Optional note" data-mi="${i}" data-field="note">
+ <button class="btn" onclick="removeMappingRule(${i})">×</button></div>`).join("")||'<div class="empty-panel">No smart mapping rules yet.</div>';
+}
+function addMappingRule(){mappingRules.push({token:"",type:"TL",value:"",note:""});renderMappingRules();}
+function removeMappingRule(i){mappingRules.splice(i,1);renderMappingRules();}
+function saveMappingRules(){
+ document.querySelectorAll("[data-mi]").forEach(el=>{const i=+el.dataset.mi;if(mappingRules[i])mappingRules[i][el.dataset.field]=el.value});
+ mappingRules=mappingRules.filter(r=>clean(r.token)&&clean(r.value));
+ storageSet("saht-mapping-rules",JSON.stringify(mappingRules));renderMappingRules();refreshAllAnalytics();alert("Smart mapping rules saved.");
+}
+function smartMap(r){
+ const base=(`${r.loginId||""} ${r.email||""} ${r.agentId||""} ${r.agent||""}`).toLowerCase();
+ const m={...r};
+ mappingRules.forEach(rule=>{
+   if(rule.token && base.includes(String(rule.token).toLowerCase())){
+     if(rule.type==="TL")m.tl=rule.value;
+     if(rule.type==="AM")m.am=rule.value;
+     if(rule.type==="Process")m.process=rule.value;
+     if(rule.type==="Bucket")m.bucket=rule.value;
+     if(rule.type==="Sub Process")m.subProcess=rule.value;
+   }
+ });
+ return m;
+}
+function getMapping(name){
+ let found=directoryData.find(x=>{
+  const q=directoryKey(name);
+  return directoryKey(x.loginId)===q || directoryKey(x.agentId)===q;
+});
+if(!found) found=directoryData.find(x=>directoryKey(x.agent)===directoryKey(name));
+ if(!found){
+   found={agent:name,sapCode:"",loginId:"",agentId:name,tl:"Unmapped",am:"Unmapped",bucket:"Unmapped",ojt:"Unmapped",shiftStatus:"Unmapped",subProcess:"Unmapped",process:"Unmapped"};
+ }
+ return smartMap(found);
+}
+function adminLogin(){
+ const u=document.getElementById("adminUser")?.value||"",pw=document.getElementById("adminPass")?.value||"";
+ const alertBox=document.getElementById("adminAlert");
+ if(u==="Abhijith"&&pw==="Daddyshere"){
+   storageSet("saht-admin-session","1");
+   document.getElementById("adminLocked").style.display="none";
+   document.getElementById("adminPanel").style.display="block";
+   refreshAdmin();
+ }else if(alertBox)alertBox.textContent="Invalid username or password.";
+}
+function adminLogout(){
+ storageSet("saht-admin-session","0");
+ document.getElementById("adminLocked").style.display="block";
+ document.getElementById("adminPanel").style.display="none";
+ lockDirectory();
+ showPage("admin");
+}
+function ensureAdmin(){
+ lockDirectory();
+ const ok=storageGet("saht-admin-session","0")==="1";
+ document.getElementById("adminLocked").style.display=ok?"none":"block";
+ document.getElementById("adminPanel").style.display=ok?"block":"none";
+ if(ok)refreshAdmin();
+}
+function refreshAdmin(){
+ const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+ set("adminValid",processedData.length);
+ set("adminExcluded",window._sahtExcludedCount||0);
+ set("adminDuplicates",window._sahtDuplicateCount||0);
+ set("adminRefresh",new Date().toLocaleTimeString());
+ const unmapped=processedData.filter(r=>{const m=getMapping(r.email||r.loginId||r.name);return m.tl==="Unmapped"||m.am==="Unmapped"||m.process==="Unmapped"});
+ const box=document.getElementById("unmappedAdmin");
+ if(box)box.innerHTML=unmapped.length?`<div class="wrap"><table class="group-table"><thead><tr><th>Agent</th><th>Email</th><th>Login Hours</th><th>AHT</th><th>TL</th><th>AM</th><th>Process</th></tr></thead><tbody>${unmapped.map(r=>{const m=getMapping(r.email||r.loginId||r.name);return `<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.email||"")}</td><td>${escapeHtml(r.loginHours||"")}</td><td>${r.ahtSec}s</td><td>${escapeHtml(m.tl)}</td><td>${escapeHtml(m.am)}</td><td>${escapeHtml(m.process)}</td></tr>`}).join("")}</tbody></table></div>`:'<div class="empty-panel">All currently valid agents are mapped.</div>';
+}
+
+function fillHierarchyFilters(){
+  const mapped=processedData.map(r=>getMapping(r.email||r.loginId||r.name));
+  fillSelect("agentFilter",processedData.map(r=>r.name));
+  fillSelect("agentTlFilter",mapped.map(x=>x.tl));
+  fillSelect("agentAmFilter",mapped.map(x=>x.am));
+  fillSelect("agentProcessFilter",mapped.map(x=>x.process));
+  fillSelect("agentBucketFilter",mapped.map(x=>x.bucket));
+  fillSelect("agentOjtFilter",mapped.map(x=>x.ojt));
+  fillSelect("agentShiftFilter",mapped.map(x=>x.shiftStatus));
+  fillSelect("agentSubProcessFilter",mapped.map(x=>x.subProcess));
+  fillSelect("teamTlFilter",mapped.map(x=>x.tl));
+  fillSelect("teamAmFilter",mapped.map(x=>x.am));
+  fillSelect("teamProcessFilter",mapped.map(x=>x.process));
+  fillSelect("teamBucketFilter",mapped.map(x=>x.bucket));
+  fillSelect("teamOjtFilter",mapped.map(x=>x.ojt));
+  fillSelect("teamShiftFilter",mapped.map(x=>x.shiftStatus));
+  fillSelect("teamSubProcessFilter",mapped.map(x=>x.subProcess));
+}
+function selectedAgentRecords(){
+  const ids=["agentFilter","agentTlFilter","agentAmFilter","agentProcessFilter","agentBucketFilter","agentOjtFilter","agentShiftFilter","agentSubProcessFilter"];
+  const vals=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)?.value||""]));
+  return processedData.filter(r=>{
+    const m=getMapping(r.email||r.loginId||r.name);
+    return (!vals.agentFilter||r.name===vals.agentFilter)&&(!vals.agentTlFilter||m.tl===vals.agentTlFilter)&&(!vals.agentAmFilter||m.am===vals.agentAmFilter)&&(!vals.agentProcessFilter||m.process===vals.agentProcessFilter)&&(!vals.agentBucketFilter||m.bucket===vals.agentBucketFilter)&&(!vals.agentOjtFilter||m.ojt===vals.agentOjtFilter)&&(!vals.agentShiftFilter||m.shiftStatus===vals.agentShiftFilter)&&(!vals.agentSubProcessFilter||m.subProcess===vals.agentSubProcessFilter);
+  });
+}
+function selectedTeamRecords(){
+  const ids=["teamTlFilter","teamAmFilter","teamProcessFilter","teamBucketFilter","teamOjtFilter","teamShiftFilter","teamSubProcessFilter"];
+  const vals=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)?.value||""]));
+  return processedData.filter(r=>{
+    const m=getMapping(r.email||r.loginId||r.name);
+    return (!vals.teamTlFilter||m.tl===vals.teamTlFilter)&&(!vals.teamAmFilter||m.am===vals.teamAmFilter)&&(!vals.teamProcessFilter||m.process===vals.teamProcessFilter)&&(!vals.teamBucketFilter||m.bucket===vals.teamBucketFilter)&&(!vals.teamOjtFilter||m.ojt===vals.teamOjtFilter)&&(!vals.teamShiftFilter||m.shiftStatus===vals.teamShiftFilter)&&(!vals.teamSubProcessFilter||m.subProcess===vals.teamSubProcessFilter);
+  });
+}
+function renderDirectory(){
+  const box=document.getElementById("directoryTable"),count=document.getElementById("directoryCount");
+  if(count)count.textContent=directoryData.length;
+  if(!box)return;
+  if(!directoryData.length){box.innerHTML='<div class="empty-panel">No agent details mapped yet.</div>';return;}
+  const cols=[
+    ["Sap code","sapCode"],["Login Id","loginId"],["Agent ID","agentId"],["TL","tl"],["AM","am"],
+    ["Bucket","bucket"],["OJT/NonOJT","ojt"],["Shift Status","shiftStatus"],["Sub Process","subProcess"]
+  ];
+  box.innerHTML=`<div class="wrap"><table class="detail-table" id="directoryMasterTable"><thead><tr>${cols.map(c=>`<th>${c[0]}</th>`).join("")}</tr></thead><tbody>${directoryData.map(r=>`<tr>${cols.map(c=>`<td>${escapeHtml(r[c[1]]||"")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+function fillSelect(id,values){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const current=el.value||"";
+  const vals=uniqueSorted(values||[]);
+  el.innerHTML='<option value="">All</option>'+vals.map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
+  if(vals.includes(current))el.value=current;
+}
+function avgNum(rows,field){
+  if(!rows||!rows.length)return 0;
+  return rows.reduce((sum,r)=>{
+    if(field==="avgHt"||field==="avgFrt"||field==="loginHours") return sum+parseDurationToSeconds(r[field]||"0");
+    return sum+parseNumber(r[field]);
+  },0)/rows.length;
+}
+function groupRecords(rows,field){
+  const groups=new Map();
+  (rows||[]).forEach(r=>{
+    const m=getMapping(r.email||r.loginId||r.name);
+    const key=field==="TL"?m.tl:
+      field==="AM"?m.am:
+      field==="Process"?m.process:
+      field==="Bucket"?m.bucket:
+      field==="OJT/NonOJT"?m.ojt:
+      field==="Shift Status"?m.shiftStatus:
+      field==="Sub Process"?m.subProcess:"Unmapped";
+    const k=clean(key)||"Unmapped";
+    if(!groups.has(k))groups.set(k,[]);
+    groups.get(k).push(r);
+  });
+  return [...groups.entries()].map(([name,items])=>{
+    const received=items.reduce((a,r)=>a+parseNumber(r.received),0);
+    const resolved=items.reduce((a,r)=>a+parseNumber(r.resolved),0);
+    return {
+      name,count:items.length,rows:items,received,resolved,
+      resRate:received?resolved/received:0,
+      ht:avgNum(items,"avgHt"),
+      aht:avgNum(items,"ahtSec"),
+      frt:avgNum(items,"avgFrt")
+    };
+  }).sort((a,b)=>b.aht-a.aht);
+}
+
+function renderAgentAnalysis(){
+  const rows=selectedAgentRecords(),box=document.getElementById("agentAnalysisTable"),count=document.getElementById("agentFilterCount");
+  if(count)count.textContent=rows.length+" agents";
+  if(!box)return;
+  if(!rows.length){box.innerHTML='<div class="empty-panel">No agents match the selected filters.</div>';return;}
+  const target=parseNumber(document.getElementById("threshold")?.value)||180;
+  const rec=rows.reduce((a,r)=>a+parseNumber(r.received),0),res=rows.reduce((a,r)=>a+parseNumber(r.resolved),0);
+  box.innerHTML=`<div class="help-note"><b>${rows.length}</b> agents • Received <b>${rec}</b> • Resolved <b>${res}</b> • Resolution <b>${fmtPct(rec?res/rec:0)}</b></div>
+  <div class="wrap"><table class="detail-table"><thead><tr><th>Rank</th><th>Agent</th><th>TL</th><th>AM</th><th>Process</th><th>Login Hrs</th><th>Received</th><th>Resolved</th><th>Resolution</th><th>Avg. HT</th><th>AHT</th><th>Avg. FRT</th></tr></thead><tbody>
+  ${rows.map((r,i)=>{const m=getMapping(r.email||r.loginId||r.name),st=exactAHTStatus(r.ahtSec,target);return `<tr><td>${i+1}</td><td>${escapeHtml(r.name)}</td><td>${escapeHtml(m.tl)}</td><td>${escapeHtml(m.am)}</td><td>${escapeHtml(m.process)}</td><td>${escapeHtml(r.loginHours||"")}</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${fmtPct(parseNumber(r.received)?parseNumber(r.resolved)/parseNumber(r.received):0)}</td><td>${escapeHtml(r.avgHt)}</td><td class="${st.cls}">${r.ahtSec} ${st.symbol}</td><td>${escapeHtml(r.avgFrt)}</td></tr>`}).join("")}</tbody></table></div>`;
+}
+function renderTeamAnalysis(){
+  const field=document.getElementById("groupByFilter")?.value||"TL";
+  const rows=groupRecords(selectedTeamRecords(),field);
+  const box=document.getElementById("teamAnalysisTable");
+  const g=document.getElementById("teamGroups"),rc=document.getElementById("teamReceived"),rs=document.getElementById("teamResolved"),aa=document.getElementById("teamAht");
+  if(g)g.textContent=rows.length;
+  if(rc)rc.textContent=rows.reduce((a,r)=>a+r.received,0);
+  if(rs)rs.textContent=rows.reduce((a,r)=>a+r.resolved,0);
+  if(aa)aa.textContent=Math.round(avgNum(rows,"aht"))+" s";
+  if(!box)return;
+  if(!rows.length){box.innerHTML='<div class="empty-panel">No mapped data matches the selected hierarchy filters.</div>';return;}
+  box.innerHTML=`<div class="wrap"><table class="group-table"><thead><tr><th>${field}</th><th>Agents</th><th>Received</th><th>Resolved</th><th>Resolution %</th><th>Avg. HT</th><th>Avg. AHT</th><th>Avg. FRT</th><th>Above Target</th><th>Below Target</th></tr></thead><tbody>
+  ${rows.map(g=>`<tr><td>${escapeHtml(g.name)}</td><td>${g.count}</td><td>${g.received}</td><td>${g.resolved}</td><td>${fmtPct(g.resRate)}</td><td>${dur(g.ht)}</td><td>${Math.round(g.aht)} s</td><td>${dur(g.frt)}</td><td>${g.rows.filter(r=>r.ahtSec>(parseNumber(document.getElementById("threshold")?.value)||180)).length}</td><td>${g.rows.filter(r=>r.ahtSec<(parseNumber(document.getElementById("threshold")?.value)||180)).length}</td></tr>`).join("")}</tbody></table></div>`;
+}
+function renderManagementDashboardOriginal(){
+  const rows=processedData,target=parseNumber(document.getElementById("threshold")?.value)||180;
+  const received=rows.reduce((a,r)=>a+parseNumber(r.received),0),resolved=rows.reduce((a,r)=>a+parseNumber(r.resolved),0);
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set("dashPageAgents",rows.length);set("kpiReceived",received);set("kpiResolved",resolved);set("kpiResolution",fmtPct(received?resolved/received:0));
+  set("kpiAht",Math.round(avgNum(rows,"ahtSec"))+" s");set("kpiLogin",rows.length?dur(rows.reduce((a,r)=>a+parseDurationToSeconds(r.loginHours||"0"),0)/rows.length):"0 s");set("kpiFrt",dur(avgNum(rows,"avgFrt")));set("kpiHt",dur(avgNum(rows,"avgHt")));
+  set("kpiAbove",rows.filter(r=>r.ahtSec>target).length);set("kpiBelow",rows.filter(r=>r.ahtSec<target).length);
+  const max=Math.max(...rows.map(r=>r.ahtSec),target,1);
+  const ab=document.getElementById("dashboardAhtBars");
+  if(ab)ab.innerHTML=rows.slice(0,10).map(r=>`<div class="chart-item"><span class="name">${escapeHtml(r.name)}</span><div class="chart-track"><i style="width:${Math.max(3,Math.min(100,r.ahtSec/max*100))}%"></i></div><b>${r.ahtSec}s</b></div>`).join("")||'<div class="empty-panel">Paste live data first.</div>';
+  const vb=document.getElementById("dashboardVolumeBars");
+  const volume=[...rows].sort((a,b)=>parseNumber(b.received)-parseNumber(a.received)).slice(0,10);
+  const vm=Math.max(...volume.map(r=>parseNumber(r.received)),1);
+  if(vb)vb.innerHTML=volume.map(r=>`<div class="chart-item"><span class="name">${escapeHtml(r.name)}</span><div class="chart-track"><i style="width:${Math.max(3,parseNumber(r.received)/vm*100)}%"></i></div><b>${parseNumber(r.received)}</b></div>`).join("")||'<div class="empty-panel">Paste live data first.</div>';
+  const makeTable=(arr)=>`<div class="wrap"><table class="group-table"><thead><tr><th>Agent</th><th>AHT</th><th>Received</th><th>Resolved</th><th>Resolution</th></tr></thead><tbody>${arr.map(r=>`<tr><td>${escapeHtml(r.name)}</td><td>${r.ahtSec}s</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${fmtPct(parseNumber(r.received)?parseNumber(r.resolved)/parseNumber(r.received):0)}</td></tr>`).join("")}</tbody></table></div>`;
+  const top=document.getElementById("dashboardTopTable"),best=document.getElementById("dashboardBestTable");
+  if(top)top.innerHTML=makeTable(rows.slice(0,8));
+  if(best)best.innerHTML=makeTable([...rows].sort((a,b)=>a.ahtSec-b.ahtSec).slice(0,8));
+}
+function dashboardFilterField(r,key){
+  const m=getMapping(r.email||r.loginId||r.name);
+  if(key==="TL")return clean(m.tl);
+  if(key==="AM")return clean(m.am);
+  if(key==="Process")return clean(m.process||m.subProcess);
+  return "";
+}
+function dashboardAgentKey(r){return clean(r.email||r.loginId||r.name);}
+function populateDashboardFilters(){
+  const defs=[["dashboardTlFilter","TL","All TLs"],["dashboardAmFilter","AM","All AMs"],["dashboardProcessFilter","Process","All Processes"]];
+  defs.forEach(([id,key,first])=>{
+    const s=document.getElementById(id);if(!s)return;
+    const old=s.value||"",vals=uniqueSorted(processedData.map(r=>dashboardFilterField(r,key)));
+    s.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
+    if(vals.includes(old))s.value=old;
+  });
+  const a=document.getElementById("dashboardAgentFilter");
+  if(a){
+    const old=a.value||"",vals=uniqueSorted(processedData.map(dashboardAgentKey));
+    a.innerHTML='<option value="">All Agents</option>'+vals.map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
+    if(vals.includes(old))a.value=old;
+  }
+}
+function getDashboardFilteredRows(){
+  const tl=document.getElementById("dashboardTlFilter")?.value||"";
+  const am=document.getElementById("dashboardAmFilter")?.value||"";
+  const pr=document.getElementById("dashboardProcessFilter")?.value||"";
+  const ag=document.getElementById("dashboardAgentFilter")?.value||"";
+  return processedData.filter(r=>
+    (!tl||dashboardFilterField(r,"TL")===tl)&&
+    (!am||dashboardFilterField(r,"AM")===am)&&
+    (!pr||dashboardFilterField(r,"Process")===pr)&&
+    (!ag||dashboardAgentKey(r)===ag)
+  );
+}
+function renderManagementDashboard(){
+  const original=processedData;
+  processedData=getDashboardFilteredRows();
+  try{renderManagementDashboardOriginal();}finally{processedData=original;}
+  const st=document.getElementById("dashboardFilterStatus");
+  if(st)st.textContent="Showing "+getDashboardFilteredRows().length+" agents";
+}
+
+function refreshAllAnalytics(){
+  fillHierarchyFilters();
+  populateDashboardFilters();
+  renderDirectory();
+  renderAgentAnalysis();
+  renderTeamAnalysis();
+  renderManagementDashboard();
+}
+
+function isAdminAuthenticated(){return storageGet("saht-admin-session","0")==="1";}
+function lockDirectory(){
+  const content=document.getElementById("directoryAdminContent");
+  const locked=document.getElementById("directoryLocked");
+  if(content) content.style.display="none";
+  if(locked) locked.style.display="block";
+}
+function unlockDirectory(){
+  if(!isAdminAuthenticated()){showPage("admin");return false;}
+  const content=document.getElementById("directoryAdminContent");
+  const locked=document.getElementById("directoryLocked");
+  if(locked) locked.style.display="none";
+  if(content) content.style.display="block";
+  return true;
+}
+
+function showPage(page){
+  if(page==="directory" && !isAdminAuthenticated()){ page="admin"; }
+  activePage=page;
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
+  document.querySelectorAll(".app-nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+  refreshAllAnalytics();
+  if(page==="admin")ensureAdmin();
+  if(page==="directory")unlockDirectory();
+}
+function resetAnalyticsFilters(){
+  ["agentFilter","agentTlFilter","agentAmFilter","agentProcessFilter","agentBucketFilter","agentOjtFilter","agentShiftFilter","agentSubProcessFilter","teamTlFilter","teamAmFilter","teamProcessFilter","teamBucketFilter","teamOjtFilter","teamShiftFilter","teamSubProcessFilter"].forEach(id=>{const e=document.getElementById(id);if(e)e.value="";});
+  renderAgentAnalysis();renderTeamAnalysis();
+}
+
+function storageGet(key,fallback=""){
+  try{return localStorage.getItem(key) ?? fallback}catch(e){return fallback}
+}
+function storageSet(key,value){
+  try{localStorage.setItem(key,value)}catch(e){}
+}
+
+function setTheme(t){document.body.dataset.theme=t;storageSet("saht-theme",t);document.querySelectorAll(".theme-btn").forEach(b=>b.classList.toggle("active",b.dataset.theme===t))}
+function restoreCustomization(){
+  try{
+    const savedTheme=storageGet("saht-theme","");
+    if(savedTheme) setTheme(savedTheme);
+    const ft=document.getElementById("formatTheme");
+    const savedFormat=storageGet("saht-format-theme","");
+    if(ft && savedFormat) ft.value=savedFormat;
+  }catch(e){console.warn("Customization restore failed:",e)}
+}
+function toggleSidebar(){
+  const collapsed=document.body.classList.toggle("sidebar-collapsed");
+  storageSet("saht-sidebar-collapsed",collapsed?"1":"0");
+  const btn=document.getElementById("sidebarToggle");
+  if(btn){
+    btn.setAttribute("aria-label",collapsed?"Expand sidebar":"Collapse sidebar");
+    btn.setAttribute("title",collapsed?"Expand sidebar":"Collapse sidebar");
+    const sp=btn.querySelector("span"); if(sp)sp.textContent=collapsed?"›":"‹";
+  }
+}
+function clearAll(){document.getElementById("rawInput").value="";processData()}
+function exportToExcel(){const b=new Blob([`<html><body>${document.getElementById("reportTable").outerHTML}<p>Abhijith</p><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+(function(){
+ const C=window.SAHT_CONFIG||{},configured=C.SUPABASE_URL&&!/YOUR-/i.test(C.SUPABASE_URL)&&C.SUPABASE_ANON_KEY&&!/YOUR_/i.test(C.SUPABASE_ANON_KEY);
+ const gate=document.getElementById("sahtGate"),msg=document.getElementById("sahtMsg");let mode="login",client,profile;
+ const setMsg=x=>{msg.textContent=x||"";msg.classList.toggle("show",!!x)};
+ const setMode=m=>{mode=m;const r=m==="request";document.getElementById("sahtName").style.display=r?"block":"none";document.getElementById("sahtReason").style.display=r?"block":"none";document.getElementById("sahtGateTitle").textContent=r?"Request Dashboard Access":"Secure Sign In";document.getElementById("sahtGateSub").textContent=r?"Create an account. Access stays pending until approved.":"Sign in to use the shared dashboard.";document.getElementById("sahtSubmit").textContent=r?"Request Access":"Sign In";setMsg("")};
+ const locked=()=>gate.style.display="flex",open=()=>gate.style.display="none";
+ async function enter(u){const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();if(q.error)throw q.error;profile=q.data;
+   if(!profile){setMsg("Your profile is not ready yet.");return} if(profile.status!=="approved"){locked();setMsg(profile.status==="pending"?"Your access request is pending admin approval.":"Access is "+profile.status+".");return}
+   open(); await syncAgents();
+ }
+ async function syncAgents(){const q=await client.from("agent_details").select("*").order("email");if(q.error)return;
+   window.directoryData=(q.data||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
+   try{renderDirectory();refreshAllAnalytics()}catch(e){}
+ }
+ if(!configured){gate.style.display="none";return}
+ client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY);window.sahtSupabase=client;
+ document.getElementById("sahtSignInTab").onclick=()=>setMode("login");document.getElementById("sahtRequestTab").onclick=()=>setMode("request");
+ document.getElementById("sahtSubmit").onclick=async()=>{try{
+   const email=sahtEmail.value.trim(),pw=sahtPassword.value;if(!email||!pw)return setMsg("Email and password are required.");
+   if(mode==="request"){const r=await client.auth.signUp({email,password:pw,options:{data:{full_name:sahtName.value.trim(),reason:sahtReason.value.trim()}}});if(r.error)throw r.error;setMsg("Request submitted. Wait for admin approval.");}
+   else{const r=await client.auth.signInWithPassword({email,password:pw});if(r.error)throw r.error;await enter(r.data.user)}
+ }catch(e){setMsg(e.message||"Authentication failed.")}};
+ client.auth.onAuthStateChange(async(_,s)=>{if(s?.user){try{await enter(s.user)}catch(e){locked();setMsg(e.message)}}else locked()});
+ client.channel("agent-details-live").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},syncAgents).subscribe();
+ setMode("login");
+})();
+</script></body></html>`],{type:"application/vnd.ms-excel"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="Real_Time_Session_AHT.xls";a.click()}
+async function copyTableAsImage(){
+  const table=document.getElementById('reportTable');
+  if(!table || !table.querySelector('tr')){
+    alert('There is no table data to copy.');
+    return;
+  }
+
+  /*
+   * EXPORT DESIGN
+   * ---------------
+   * The on-screen table can be very wide/tall depending on the browser.
+   * The copied image therefore does NOT use the screen size.
+   *
+   * Instead, its dimensions are calculated from the actual data:
+   * - readable font size
+   * - comfortable row height
+   * - content-driven column widths
+   * - 3x raster resolution for sharp educational/presentation use
+   *
+   * Styling is read from the LIVE table so the selected theme and the
+   * selected AHT conditional-formatting treatment travel into the image.
+   */
+  const rows=[...table.querySelectorAll('tr')];
+  const liveBody=getComputedStyle(document.body);
+  const rootStyle=getComputedStyle(document.documentElement);
+  const fontFamily=liveBody.fontFamily || 'Arial, sans-serif';
+
+  const cssVar=(name,fallback)=>{
+    const v=liveBody.getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
+  const pageBg=cssVar('--bg','#f2f4f6');
+  const panelBg=cssVar('--panel','#ffffff');
+  const panel2Bg=cssVar('--panel2','#e8ecef');
+  const lineColor=cssVar('--line','#c9d0d6');
+  const textColor=cssVar('--text','#26313a');
+  const mutedColor=cssVar('--muted','#68737d');
+  const accentColor=cssVar('--accent','#526b7a');
+
+  // Read the actual visible AHT conditional-formatting colors from the
+  // currently rendered table. This is deliberately not hard-coded.
+  function readAHTStyle(cls){
+    const el=table.querySelector('.'+cls);
+    if(!el) return null;
+    const cs=getComputedStyle(el);
+    return {
+      color:cs.color || textColor,
+      background:cs.backgroundColor || 'transparent',
+      borderColor:cs.borderColor || 'transparent',
+      borderWidth:parseFloat(cs.borderWidth)||0,
+      borderStyle:cs.borderStyle || 'none',
+      borderRadius:parseFloat(cs.borderRadius)||0,
+      boxShadow:cs.boxShadow || 'none'
+    };
+  }
+
+  const ahtStyles={
+    good:readAHTStyle('aht-good'),
+    warn:readAHTStyle('aht-warn'),
+    bad:readAHTStyle('aht-bad')
+  };
+
+  function effectiveBackground(el){
+    let n=el;
+    while(n && n!==document.documentElement){
+      const cs=getComputedStyle(n);
+      const bg=cs.backgroundColor;
+      if(bg && bg!=='rgba(0, 0, 0, 0)' && bg!=='transparent') return bg;
+      n=n.parentElement;
+    }
+    return panelBg;
+  }
+
+  function parseRGB(value, fallback){
+    if(!value) return fallback;
+    const m=value.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?\s*\)/i);
+    if(!m) return fallback;
+    return {r:+m[1],g:+m[2],b:+m[3],a:m[4]===undefined?1:+m[4]};
+  }
+
+  function mixWithWhiteOrBlack(color, amount){
+    const c=parseRGB(color,{r:255,g:255,b:255,a:1});
+    const dark=(c.r+c.g+c.b)/3<128;
+    const target=dark?255:0;
+    const p=amount;
+    return {
+      r:Math.round(c.r+(target-c.r)*p),
+      g:Math.round(c.g+(target-c.g)*p),
+      b:Math.round(c.b+(target-c.b)*p),
+      a:1
+    };
+  }
+
+  function rgb(c){
+    return `rgba(${c.r},${c.g},${c.b},${c.a??1})`;
+  }
+
+  // ---- Data-driven sizing ----
+  const dataRows=rows.slice(1); // header + body/total
+  const header=rows[0];
+
+  // Comfortable, deliberately readable export font.
+  // It is independent of browser zoom/screen width.
+  const fontPx=22;
+  const headerFontPx=22;
+  const titleFontPx=32;
+  const rowH=52;
+  const headerH=58;
+  const totalH=58;
+  const horizontalPad=34;
+  const verticalPad=22;
+  const titleH=58;
+
+  // Width is based on the data actually present, not the current viewport.
+  const headers=header ? [...header.children].map(c=>c.innerText.replace(/\s+/g,' ').trim()) : [];
+  const colCount=Math.max(headers.length,...rows.map(r=>r.children.length));
+  const colWidths=new Array(colCount).fill(0);
+
+  // Reasonable width limits; Agent Name gets more space because names are longer.
+  const minWidths=[250,145,145,170,170,155];
+  const maxWidths=[390,230,230,220,220,210];
+
+  rows.forEach((row,ri)=>{
+    [...row.children].forEach((cell,ci)=>{
+      const text=cell.innerText.replace(/\s+/g,' ').trim();
+      const cs=getComputedStyle(cell);
+      const liveSize=parseFloat(cs.fontSize)||13;
+      const weight=cs.fontWeight||'400';
+      // Approximate text width without letting long text make the image absurdly wide.
+      const weightFactor=(parseInt(weight,10)||400)>=600?0.60:0.56;
+      const estimate=Math.ceil(text.length*fontPx*weightFactor);
+      const padding=Math.max(28,(parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.paddingRight)||0)+20);
+      colWidths[ci]=Math.max(colWidths[ci],estimate+padding);
+    });
+  });
+
+  for(let i=0;i<colCount;i++){
+    colWidths[i]=Math.max(minWidths[i]||130,Math.min(maxWidths[i]||240,colWidths[i]||130));
+  }
+
+  // Ensure the total export is compact enough to paste/use, while retaining readability.
+  const contentW=colWidths.reduce((a,b)=>a+b,0);
+  const W=contentW+horizontalPad*2;
+  const H=verticalPad+titleH+headerH+(Math.max(0,rows.length-2)*rowH)+(rows.length>1?totalH:0)+verticalPad;
+
+  // 3x output = crisp when pasted into PowerPoint/Docs/Teams/WhatsApp.
+  const scale=3;
+  const canvas=document.createElement('canvas');
+  canvas.width=Math.ceil(W*scale);
+  canvas.height=Math.ceil(H*scale);
+  const ctx=canvas.getContext('2d');
+  ctx.scale(scale,scale);
+  ctx.textBaseline='middle';
+  ctx.imageSmoothingEnabled=true;
+  ctx.imageSmoothingQuality='high';
+
+  // Entire image uses the exact current theme background.
+  ctx.fillStyle=pageBg;
+  ctx.fillRect(0,0,W,H);
+
+  // Helper for rounded rectangles.
+  function roundRectPath(x,y,w,h,r){
+    const rr=Math.max(0,Math.min(r,Math.min(w,h)/2));
+    ctx.beginPath();
+    ctx.moveTo(x+rr,y);
+    ctx.arcTo(x+w,y,x+w,y+h,rr);
+    ctx.arcTo(x+w,y+h,x,y+h,rr);
+    ctx.arcTo(x,y+h,x,y,rr);
+    ctx.arcTo(x,y,x+w,y,rr);
+    ctx.closePath();
+  }
+
+  function drawCellBackground(x,y,w,h,cs){
+    const bg=cs.backgroundColor && cs.backgroundColor!=='rgba(0, 0, 0, 0)'
+      ? cs.backgroundColor : effectiveBackground(cs._el);
+    ctx.fillStyle=bg;
+    ctx.fillRect(x,y,w,h);
+  }
+
+  function drawCellBorder(x,y,w,h,cs){
+    const sides=[
+      ['top','borderTopWidth','borderTopStyle','borderTopColor'],
+      ['right','borderRightWidth','borderRightStyle','borderRightColor'],
+      ['bottom','borderBottomWidth','borderBottomStyle','borderBottomColor'],
+      ['left','borderLeftWidth','borderLeftStyle','borderLeftColor']
+    ];
+    sides.forEach(([,wp,sp,cp])=>{
+      const bw=parseFloat(cs[wp])||0;
+      const bs=cs[sp]||'none';
+      if(!bw || bs==='none' || bs==='hidden') return;
+      ctx.strokeStyle=cs[cp]||lineColor;
+      ctx.lineWidth=Math.max(1,bw);
+      ctx.setLineDash(bs==='dashed'?[6,4]:bs==='dotted'?[2,3]:[]);
+      if(wp==='borderTopWidth') {ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+w,y);ctx.stroke();}
+      if(wp==='borderRightWidth') {ctx.beginPath();ctx.moveTo(x+w,y);ctx.lineTo(x+w,y+h);ctx.stroke();}
+      if(wp==='borderBottomWidth') {ctx.beginPath();ctx.moveTo(x,y+h);ctx.lineTo(x+w,y+h);ctx.stroke();}
+      if(wp==='borderLeftWidth') {ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+h);ctx.stroke();}
+      ctx.setLineDash([]);
+    });
+  }
+
+  function drawText(cell,x,y,w,h,isHeader){
+    const cs=getComputedStyle(cell);
+    const text=cell.innerText.replace(/\s+/g,' ').trim();
+    if(!text) return;
+
+    const color=cs.color||textColor;
+    const weight=isHeader?'700':(cs.fontWeight||'400');
+    const size=(isHeader?headerFontPx:fontPx);
+    const align=cs.textAlign==='left'?'left':cs.textAlign==='right'?'right':'center';
+    const family=cs.fontFamily||fontFamily;
+    ctx.font=`${weight} ${size}px ${family}`;
+    ctx.fillStyle=color;
+    ctx.textAlign=align;
+
+    let tx=x+w/2;
+    if(align==='left') tx=x+20;
+    if(align==='right') tx=x+w-20;
+
+    // Center text exactly in the exported row.
+    let display=text;
+    if(cs.textTransform==='uppercase') display=text.toUpperCase();
+    if(cs.textTransform==='lowercase') display=text.toLowerCase();
+
+    ctx.fillText(display,tx,y+h/2);
+  }
+
+  // Render header and rows.
+  let y=verticalPad+titleH;
+
+  rows.forEach((row,rowIndex)=>{
+    const isHeader=rowIndex===0;
+    const isTotal=rowIndex===rows.length-1 && rows.length>1;
+    const h=isHeader?headerH:(isTotal?totalH:rowH);
+    let x=horizontalPad;
+
+    [...row.children].forEach((cell,ci)=>{
+      const w=colWidths[ci]||140;
+      const cs=getComputedStyle(cell);
+      cs._el=cell;
+
+      // Header/total inherit the exact live theme surface; body cells use their
+      // effective live background so dark/black themes remain dark.
+      let bg=cs.backgroundColor;
+      if(!bg || bg==='rgba(0, 0, 0, 0)') bg=effectiveBackground(cell);
+      if(isHeader || isTotal){
+        bg=cs.backgroundColor && cs.backgroundColor!=='rgba(0, 0, 0, 0)'
+          ? cs.backgroundColor : panel2Bg;
+      }
+
+      ctx.fillStyle=bg;
+      ctx.fillRect(x,y,w,h);
+
+      // Live table border.
+      drawCellBorder(x,y,w,h,cs);
+
+      // Draw the AHT conditional-formatting treatment exactly as it appears:
+      // outline/border + color + symbol, without forcing a background fill.
+      const ahtEl=cell.querySelector('.aht-good,.aht-warn,.aht-bad');
+      if(ahtEl && !isHeader && !isTotal){
+        const ahtCs=getComputedStyle(ahtEl);
+        const rect=ahtEl.getBoundingClientRect();
+        const cellRect=cell.getBoundingClientRect();
+        // Scale the live badge geometry to the export cell.
+        const badgeLeft=Math.max(4,(rect.left-cellRect.left));
+        const badgeTop=Math.max(2,(rect.top-cellRect.top));
+        const badgeW=Math.min(w-8,Math.max(40,rect.width));
+        const badgeH=Math.min(h-4,Math.max(28,rect.height));
+
+        const bc=ahtCs.borderColor || lineColor;
+        const bw=parseFloat(ahtCs.borderWidth)||2;
+        const radius=parseFloat(ahtCs.borderRadius)||10;
+        ctx.strokeStyle=bc;
+        ctx.lineWidth=Math.max(1,bw);
+        ctx.fillStyle=ahtCs.backgroundColor && ahtCs.backgroundColor!=='rgba(0, 0, 0, 0)'
+          ? ahtCs.backgroundColor : 'transparent';
+
+        roundRectPath(x+badgeLeft,y+badgeTop,badgeW,badgeH,radius);
+        if(ctx.fillStyle!=='transparent') ctx.fill();
+        ctx.stroke();
+
+        // Render the badge text using the actual badge color/weight.
+        const text=ahtEl.innerText.replace(/\s+/g,' ').trim();
+        ctx.fillStyle=ahtCs.color||textColor;
+        ctx.font=`${ahtCs.fontWeight||'700'} ${fontPx}px ${ahtCs.fontFamily||fontFamily}`;
+        ctx.textAlign='center';
+        ctx.fillText(text,x+badgeLeft+badgeW/2,y+badgeTop+badgeH/2);
+      }else{
+        drawText(cell,x,y,w,h,isHeader||isTotal);
+      }
+
+      x+=w;
+    });
+    y+=h;
+  });
+
+  // Title.
+  ctx.fillStyle=textColor;
+  ctx.font=`800 ${titleFontPx}px ${fontFamily}`;
+  ctx.textAlign='left';
+  ctx.fillText('Real Time AHT',horizontalPad,verticalPad+titleFontPx*0.75);
+
+  // Multiple subtle watermarks. They are deliberately low opacity so they
+  // cannot reduce educational readability.
+  ctx.save();
+  ctx.fillStyle=accentColor;
+  ctx.globalAlpha=0.065;
+  ctx.font=`800 54px ${fontFamily}`;
+  ctx.textAlign='center';
+  const wmY=verticalPad+titleH+headerH+((H-(verticalPad+titleH+headerH))/2);
+  [
+    [W*0.22,wmY-30,-18],
+    [W*0.50,wmY+5,-18],
+    [W*0.78,wmY-25,-18]
+  ].forEach(([wx,wy,angle])=>{
+    ctx.save();
+    ctx.translate(wx,wy);
+    ctx.rotate(angle*Math.PI/180);
+    ctx.fillText('Abhijith',0,0);
+    ctx.restore();
+  });
+  ctx.restore();
+
+  // Small visible watermark at bottom-right.
+  ctx.save();
+  ctx.globalAlpha=0.28;
+  ctx.fillStyle=accentColor;
+  ctx.font=`800 13px ${fontFamily}`;
+  ctx.textAlign='right';
+  ctx.fillText('Abhijith',W-horizontalPad,H-7);
+  ctx.restore();
+
+  const blob=await new Promise((resolve,reject)=>{
+    canvas.toBlob(b=>b?resolve(b):reject(new Error('PNG conversion failed')),'image/png');
+  });
+
+  // Direct image clipboard when the browser permits it.
+  let copied=false;
+  try{
+    if(navigator.clipboard && window.ClipboardItem){
+      await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+      copied=true;
+    }
+  }catch(err){
+    console.warn('Direct image clipboard blocked:',err);
+  }
+
+  if(copied){
+    alert('Real Time AHT image copied successfully.');
+    return;
+  }
+
+  // Local file:// pages frequently cannot write image clipboard data.
+  // Always give the user the exact high-resolution PNG rather than failing.
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='Real_Time_AHT_High_Resolution.png';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2500);
+  alert('Direct image copy is blocked by this browser/page. The exact high-resolution image has been saved as PNG.');
+}
+
+function applyFormatTheme(){
+ const el=document.getElementById("formatTheme"); if(!el)return;
+ const v=el.value||"classic", old=document.getElementById("formatThemeCss");
+ if(old)old.remove();
+ const s=document.createElement("style");s.id="formatThemeCss";
+ const rules={
+ classic:".aht-good{color:#138a57;background:#e9f8f0}.aht-warn{color:#a86d00;background:#fff6d8}.aht-bad{color:#c9364b;background:#ffe8ec}",
+ soft:".aht-good{color:#32856b;background:#eefaf5}.aht-warn{color:#9b7a2f;background:#fffaf0}.aht-bad{color:#ad5968;background:#fff2f4}",
+ strong:".aht-good{color:#fff;background:#16824f}.aht-warn{color:#2b2400;background:#ffd84d}.aht-bad{color:#fff;background:#d92f4b}",
+ minimal:".aht-good{color:#15835a;background:transparent;border-left:4px solid #38b77d}.aht-warn{color:#a36d00;background:transparent;border-left:4px solid #e0b83f}.aht-bad{color:#c5354b;background:transparent;border-left:4px solid #e15b70}",
+ mono:".aht-good{color:var(--text);background:#ededed}.aht-warn{color:var(--text);background:#d8d8d8}.aht-bad{color:#fff;background:#666}",
+ badge:".aht{border-radius:999px}.aht-good{color:#087f52;background:#e3f7ed}.aht-warn{color:#9a6800;background:#fff1c7}.aht-bad{color:#b4233c;background:#ffe0e7}",
+ neon:".aht-good{color:#27966d;background:rgba(57,185,128,.10)}.aht-warn{color:#a47d1e;background:rgba(181,138,32,.10)}.aht-bad{color:#c95163;background:rgba(207,86,103,.10)}",
+ outline:".aht-good{color:#148454;background:transparent;box-shadow:inset 0 0 0 2px #4bc98f;border-radius:8px}.aht-warn{color:#a16f00;background:transparent;box-shadow:inset 0 0 0 2px #e2b83e;border-radius:8px}.aht-bad{color:#c33b51;background:transparent;box-shadow:inset 0 0 0 2px #e15b70;border-radius:8px}",
+ gradient:".aht-good{color:#117c51;background:linear-gradient(90deg,#e9f9f1,#f7fcf9)}.aht-warn{color:#996b00;background:linear-gradient(90deg,#fff6d8,#fffdf5)}.aht-bad{color:#bd334a;background:linear-gradient(90deg,#ffe8ed,#fff8f9)}",
+ heat:".aht-good{color:#087443;background:#dff5e8}.aht-warn{color:#946300;background:#ffe9a8}.aht-bad{color:#b71f38;background:#ffcbd4}",
+ clean:".aht-good{color:#13784f;background:#f1faf5}.aht-warn{color:#967000;background:#fffaf0}.aht-bad{color:#bb3d52;background:#fff4f6}"
+ };
+ s.textContent=rules[v]||rules.classic;document.head.appendChild(s);
+ try{localStorage.setItem("saht-format-theme",v)}catch(e){}
+}
+function bootApp(){
+  try{
+    loadDirectory();
+    loadMappingRules();
+    restoreCustomization();
+    setTheme(storageGet("saht-theme")||"normal");
+    if(storageGet("saht-sidebar-collapsed")==="1"){
+      document.body.classList.add("sidebar-collapsed");
+      const sb=document.getElementById("sidebarToggle");
+      if(sb){sb.setAttribute("aria-label","Expand sidebar");sb.setAttribute("title","Expand sidebar");const sp=sb.querySelector("span");if(sp)sp.textContent="›";}
+    }
+
+    const raw=document.getElementById("rawInput");
+    const threshold=document.getElementById("threshold");
+    const total=document.getElementById("grandTotalToggle");
+    if(raw) raw.addEventListener("input",()=>{clearTimeout(window._saht);window._saht=setTimeout(processData,120)});
+    if(threshold) threshold.addEventListener("input",processData);
+    if(total) total.addEventListener("change",processData);
+
+    const ft=document.getElementById("formatTheme");
+    if(ft) ft.addEventListener("change",applyFormatTheme);
+
+    ["agentFilter","agentTlFilter","agentAmFilter","agentProcessFilter","agentBucketFilter","agentOjtFilter","agentShiftFilter","agentSubProcessFilter"]
+      .forEach(id=>document.getElementById(id)?.addEventListener("change",renderAgentAnalysis));
+
+    ["teamTlFilter","teamAmFilter","teamProcessFilter","teamBucketFilter","teamOjtFilter","teamShiftFilter","teamSubProcessFilter","groupByFilter"]
+      .forEach(id=>document.getElementById(id)?.addEventListener("change",renderTeamAnalysis));
+
+    applyFormatTheme();
+    processData();
+    ensureAdmin();
+  }catch(err){
+    console.error("Tracker startup error:",err);
+    const msg=document.getElementById("startupError");
+    if(msg){
+      msg.style.display="block";
+      msg.textContent="The tracker could not start: "+(err&&err.message?err.message:"Unknown error")+". Please reload the page.";
+    }
+  }
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",bootApp);
+else bootApp();
+</script><script>
+document.addEventListener("DOMContentLoaded",function(){
+  ["dashboardTlFilter","dashboardAmFilter","dashboardProcessFilter","dashboardAgentFilter"].forEach(function(id){
+    const s=document.getElementById(id);
+    if(s)s.addEventListener("change",function(){try{refreshAllAnalytics();}catch(e){console.error(e);}});
+  });
+  const r=document.getElementById("dashboardResetFilters");
+  if(r)r.addEventListener("click",function(){
+    ["dashboardTlFilter","dashboardAmFilter","dashboardProcessFilter","dashboardAgentFilter"].forEach(function(id){const s=document.getElementById(id);if(s)s.value="";});
+    try{refreshAllAnalytics();}catch(e){console.error(e);}
+  });
+});
+</script>
+</body></html>
