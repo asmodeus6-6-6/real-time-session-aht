@@ -1630,7 +1630,7 @@ document.addEventListener("DOMContentLoaded",function(){
  const C=window.SAHT_CONFIG||{},configured=C.SUPABASE_URL&&!/YOUR-/i.test(C.SUPABASE_URL)&&C.SUPABASE_ANON_KEY&&!/YOUR_/i.test(C.SUPABASE_ANON_KEY);
  const gate=document.getElementById("sahtGate"),msg=document.getElementById("sahtMsg");let mode="login",client,profile;
  const setMsg=x=>{msg.textContent=x||"";msg.classList.toggle("show",!!x)};
- const setMode=m=>{mode=m;const r=m==="request";document.getElementById("sahtName").style.display=r?"block":"none";document.getElementById("sahtReason").style.display=r?"block":"none";document.getElementById("sahtGateTitle").textContent=r?"Request Dashboard Access":"Secure Sign In";document.getElementById("sahtGateSub").textContent=r?"Create an account. Access stays pending until approved.":"Sign in to use the shared dashboard.";document.getElementById("sahtSubmit").textContent=r?"Request Access":"Sign In";setMsg("")};
+ const setMode=m=>{mode=m;const r=m==="request";document.getElementById("sahtName").style.display=r?"block":"none";document.getElementById("sahtReason").style.display=r?"block":"none";document.getElementById("sahtGateTitle").textContent=r?"Request Dashboard Access":"Secure Sign In";document.getElementById("sahtGateSub").textContent=r?"Create an account. No email confirmation is required. Access stays pending until approved.":"Sign in to use the shared dashboard.";document.getElementById("sahtSubmit").textContent=r?"Request Access":"Sign In";setMsg("")};
  const locked=()=>gate.style.display="flex",open=()=>gate.style.display="none";
  async function enter(u){const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();if(q.error)throw q.error;profile=q.data;
    if(!profile){setMsg("Your profile is not ready yet.");return} if(profile.status!=="approved"){locked();setMsg(profile.status==="pending"?"Your access request is pending admin approval.":"Access is "+profile.status+".");return}
@@ -1649,8 +1649,29 @@ document.addEventListener("DOMContentLoaded",function(){
  document.getElementById("sahtSignInTab").onclick=()=>setMode("login");document.getElementById("sahtRequestTab").onclick=()=>setMode("request");
  document.getElementById("sahtSubmit").onclick=async()=>{try{
    const email=sahtEmail.value.trim(),pw=sahtPassword.value;if(!email||!pw)return setMsg("Email and password are required.");
-   if(mode==="request"){const r=await client.auth.signUp({email,password:pw,options:{data:{full_name:sahtName.value.trim(),reason:sahtReason.value.trim()}}});if(r.error)throw r.error;setMsg("Request submitted. Wait for admin approval.");}
-   else{const r=await client.auth.signInWithPassword({email,password:pw});if(r.error)throw r.error;await enter(r.data.user)}
+   if(mode==="request"){
+     const r=await client.auth.signUp({email,password:pw,options:{data:{full_name:sahtName.value.trim(),reason:sahtReason.value.trim()}}});
+     if(r.error)throw r.error;
+     if(r.data?.user){
+       if(r.data.session){
+         await enter(r.data.user);
+       }else{
+         setMsg("Account created, but the Supabase project still requires email confirmation. Disable Confirm Email in Supabase Auth settings, then submit the request again.");
+       }
+     }else{
+       setMsg("Request submitted. Your account is pending admin approval. You can sign in once approved.");
+     }
+   }
+   else{
+     const r=await client.auth.signInWithPassword({email,password:pw});
+     if(r.error){
+       if(r.error.code==="email_not_confirmed" || /email.*not.*confirm/i.test(r.error.message||"")){
+         throw new Error("Email confirmation is still enabled in Supabase. Disable Confirm Email in Authentication settings; dashboard access is controlled by admin approval.");
+       }
+       throw r.error;
+     }
+     await enter(r.data.user);
+   }
  }catch(e){setMsg(e.message||"Authentication failed.")}};
  client.auth.onAuthStateChange(async(_,s)=>{if(s?.user){try{await enter(s.user)}catch(e){locked();setMsg(e.message)}}else locked()});
  client.channel("agent-details-live").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},syncAgents).subscribe();
