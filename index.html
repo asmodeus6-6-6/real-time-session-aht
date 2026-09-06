@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Real Time Session AHT Tracker</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Real Time Session AHT Tracker</title><style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--text);background:var(--bg);font-size:var(--base-size)}
 body[data-theme=normal]{--bg:#f2f4f6;--panel:#ffffff;--panel2:#e8ecef;--line:#c9d0d6;--text:#26313a;--muted:#68737d;--accent:#4f6878;--accent2:#718694}
@@ -261,239 +260,198 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
 <style>
 .copy-image-btn{cursor:pointer;min-width:145px;font-weight:700}
 </style>
-<style id="saht-prod-css">
-#sahtGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:var(--bg,#eef2f7);padding:24px}
-#sahtGate .card{width:min(460px,100%);padding:30px;border-radius:22px;background:var(--panel,#fff);border:1px solid var(--border,#ddd);box-shadow:0 20px 60px rgba(0,0,0,.16)}
-#sahtGate h1{margin:6px 0 8px;font-size:28px}.saht-auth-form{display:grid;gap:11px}.saht-auth-msg{display:none;padding:10px;border-radius:10px;background:rgba(100,110,130,.12);font-size:13px}.saht-auth-msg.show{display:block}
-</style>
-<style id="saht-access-css">
-.access-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
-.access-card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px}
-.access-card small{display:block;color:var(--muted);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-.access-card b{display:block;font-size:22px;margin-top:5px}
-.access-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
-.access-table{width:100%;border-collapse:collapse;min-width:860px}
-.access-table th,.access-table td{border:1px solid var(--line);padding:9px 10px;text-align:center;font-size:11px}
-.access-table th{background:var(--panel2);color:var(--accent);font-weight:900}
-.access-table td:first-child,.access-table td:nth-child(2){text-align:left}
-.access-actions{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
-.access-actions .btn{padding:6px 9px;font-size:10px}
-.access-status{font-weight:900}
-.access-status.pending{color:#a77700}.access-status.approved{color:#07834f}.access-status.rejected,.access-status.disabled{color:#cf3047}
-.access-empty{padding:26px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
-.admin-session-badge{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:var(--panel2);font-size:11px;font-weight:800}
-.admin-session-badge .dot{width:8px;height:8px;border-radius:50%;background:#1dbf73;display:inline-block}
-@media(max-width:900px){.access-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.access-grid{grid-template-columns:1fr}}
-</style>
-</head><body data-theme="normal"><div id="sahtGate"><div class="card">
-<div style="font-size:11px;letter-spacing:.15em;font-weight:800;opacity:.6">SESSION AHT MONITOR</div>
-<h1 id="sahtGateTitle">Secure Sign In</h1>
-<div id="sahtGateSub" style="opacity:.7;margin-bottom:20px">Sign in to use the shared dashboard.</div>
-<div class="saht-auth-form">
-<input class="input" id="sahtName" placeholder="Full name" style="display:none"/>
-<input class="input" id="sahtEmail" placeholder="Work email" type="email"/>
-<input class="input" id="sahtPassword" placeholder="Password" type="password"/>
-<input class="input" id="sahtReason" placeholder="Reason / team (optional)" style="display:none"/>
-<div style="display:flex;gap:8px"><button class="btn" id="sahtSignInTab">Sign In</button><button class="btn" id="sahtRequestTab">Request Access</button></div>
-<button class="btn" id="sahtSubmit">Sign In</button><div class="saht-auth-msg" id="sahtMsg"></div>
-</div></div></div><div class="app"><aside class="sidebar" id="appSidebar">
-<div class="sidebar-head">
-<div class="brand">
-<div class="logo">SA</div>
-<div class="brand-copy"><b>Session AHT Monitor</b><small>Operations Control</small></div>
-</div>
-<button aria-label="Collapse sidebar" class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="Collapse sidebar" type="button"><span>‹</span></button>
-</div>
-<div class="sidebar-scroll">
-<div class="side-status">
-<div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
-<div class="status-copy">Live agent performance, AHT sorting and duplicate-value handling are active.</div>
-<div class="status-meta"><span id="sideAgentCount">0 agents</span><span>•</span><span>Target <strong id="sideTarget">180s</strong></span></div>
-</div>
-<div class="side-section">
-<div class="side-section-title"><span>WORKSPACE</span><i></i></div>
-<nav aria-label="Workspace pages" class="app-nav side-nav">
-<button class="active" data-page="live" onclick="showPage('live')" title="Live Monitor"><span class="nav-icon">◉</span><span class="nav-text">Live Monitor</span><em>LIVE</em></button>
-<button data-page="dashboard" onclick="showPage('dashboard')" title="Performance Dashboard"><span class="nav-icon">▦</span><span class="nav-text">Dashboard</span><em>VIEW</em></button>
-<button data-page="agents" onclick="showPage('agents')" title="Agent-wise AHT Analysis"><span class="nav-icon">♙</span><span class="nav-text">Agent Analysis</span><em>ANALYSIS</em></button>
-<button data-page="teams" onclick="showPage('teams')" title="TL / AM / Process Analysis"><span class="nav-icon">▤</span><span class="nav-text">TL / AM / Process</span><em>GROUP</em></button>
-<button data-page="directory" onclick="showPage('directory')" title="Agent Details"><span class="nav-icon">＋</span><span class="nav-text">Agent Details</span><em>ADMIN</em></button>
-<button data-page="admin" onclick="showPage('admin')" title="Admin Portal"><span class="nav-icon">⚙</span><span class="nav-text">Admin Portal</span><em>SECURE</em></button>
-</nav>
-</div>
-<div class="side-section">
-<div class="side-section-title"><span>APPEARANCE</span><i></i></div>
-<div class="themes side-themes">
-<button class="theme-btn active" data-theme="normal" onclick="setTheme('normal')" title="Normal Theme"><span>Normal</span>◻</button>
-<button class="theme-btn" data-theme="white" onclick="setTheme('white')" title="White Theme"><span>White</span>○</button>
-<button class="theme-btn" data-theme="lightgrey" onclick="setTheme('lightgrey')" title="Light Grey Theme"><span>Light Grey</span>◐</button>
-<button class="theme-btn" data-theme="darkgrey" onclick="setTheme('darkgrey')" title="Dark Grey Theme"><span>Dark Grey</span>◑</button>
-<button class="theme-btn" data-theme="black" onclick="setTheme('black')" title="Black Theme"><span>Black</span>●</button>
-<button class="theme-btn" data-theme="redgrey" onclick="setTheme('redgrey')" title="Red Grey Theme"><span>Red Grey</span>◆</button>
-<button class="theme-btn" data-theme="yellowgrey" onclick="setTheme('yellowgrey')" title="Yellow Grey Theme"><span>Yellow Grey</span>◇</button>
-<button class="theme-btn" data-theme="greygreen" onclick="setTheme('greygreen')" title="Grey Green Theme"><span>Grey Green</span>✦</button>
-<button class="theme-btn" data-theme="slateblue" onclick="setTheme('slateblue')" title="Slate Blue Theme"><span>Slate Blue</span>◆</button>
-</div>
-</div>
-<div class="side-section side-display-section">
-<div class="side-section-title"><span>DISPLAY</span><i></i></div>
-<div class="display-card">
-<label>Conditional Formatting</label>
-<select id="formatTheme">
-<option value="classic">Classic Green / Yellow / Red</option><option value="soft">Soft Pastel</option><option value="strong">Strong Contrast</option><option value="minimal">Minimal Border Accent</option><option value="mono">Monochrome</option><option value="badge">Badge Style</option><option value="neon">Neon Glow</option><option value="outline">Outline Highlight</option><option value="gradient">Soft Gradient</option><option value="heat">Heatmap</option><option value="clean">Clean Professional</option>
-</select>
-<label class="toggle-row"><input checked="" id="grandTotalToggle" type="checkbox"/><span class="toggle-ui"></span><span>Grand Total</span></label>
-<small>Totals and averages appear at the bottom of the live table.</small>
-</div>
-</div>
-</div>
-<div class="sidebar-foot">
-<div class="foot-line"><span class="foot-dot"></span><span class="foot-copy">System ready</span><span class="foot-version">SAHT</span></div>
-<div class="sidebar-watermark">Abhijith</div>
-</div>
-</aside><main class="main"><div class="empty-panel" id="startupError" style="display:none;margin-bottom:12px"></div>
+<style id="saht-prod-css">#sahtGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:var(--bg,#eef2f7);padding:24px}#sahtGate .saht-card{width:min(460px,100%);padding:30px;border-radius:22px;background:var(--panel,#fff);border:1px solid var(--line,#ddd);box-shadow:0 20px 60px rgba(0,0,0,.16)}#sahtGate h1{margin:6px 0 8px;font-size:28px}.saht-auth-form{display:grid;gap:11px}.saht-auth-msg{display:none;padding:10px;border-radius:10px;background:rgba(100,110,130,.12);font-size:13px}.saht-auth-msg.show{display:block}.saht-auth-tabs{display:flex;gap:8px}.saht-auth-tabs .btn.active{outline:2px solid var(--accent)}</style></head><body data-theme="normal"><div id="sahtGate"><div class="saht-card"><div style="font-size:11px;letter-spacing:.15em;font-weight:800;opacity:.6">SESSION AHT MONITOR</div><h1 id="sahtGateTitle">Secure Sign In</h1><div id="sahtGateSub" style="opacity:.7;margin-bottom:20px">Sign in to use the shared dashboard.</div><div class="saht-auth-form"><input class="input" id="sahtName" placeholder="Full name" style="display:none"><input class="input" id="sahtEmail" type="email" placeholder="Work email"><input class="input" id="sahtPassword" type="password" placeholder="Password"><input class="input" id="sahtReason" placeholder="Reason / team (optional)" style="display:none"><div class="saht-auth-tabs"><button class="btn" id="sahtSignInTab" type="button">Sign In</button><button class="btn" id="sahtRequestTab" type="button">Request Access</button></div><button class="btn" id="sahtSubmit" type="button">Sign In</button><div class="saht-auth-msg" id="sahtMsg"></div></div></div></div><div class="app"><aside class="sidebar" id="appSidebar">
+  <div class="sidebar-head">
+    <div class="brand">
+      <div class="logo">SA</div>
+      <div class="brand-copy"><b>Session AHT Monitor</b><small>Operations Control</small></div>
+    </div>
+    <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
+  </div>
+  <div class="sidebar-scroll">
+    <div class="side-status">
+      <div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
+      <div class="status-copy">Live agent performance, AHT sorting and duplicate-value handling are active.</div>
+      <div class="status-meta"><span id="sideAgentCount">0 agents</span><span>•</span><span>Target <strong id="sideTarget">180s</strong></span></div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-section-title"><span>WORKSPACE</span><i></i></div>
+      <nav class="app-nav side-nav" aria-label="Workspace pages">
+        <button class="active" data-page="live" onclick="showPage('live')" title="Live Monitor"><span class="nav-icon">◉</span><span class="nav-text">Live Monitor</span><em>LIVE</em></button>
+        <button data-page="dashboard" onclick="showPage('dashboard')" title="Performance Dashboard"><span class="nav-icon">▦</span><span class="nav-text">Dashboard</span><em>VIEW</em></button>
+        <button data-page="agents" onclick="showPage('agents')" title="Agent-wise AHT Analysis"><span class="nav-icon">♙</span><span class="nav-text">Agent Analysis</span><em>ANALYSIS</em></button>
+        <button data-page="teams" onclick="showPage('teams')" title="TL / AM / Process Analysis"><span class="nav-icon">▤</span><span class="nav-text">TL / AM / Process</span><em>GROUP</em></button>
+        <button data-page="directory" onclick="showPage('directory')" title="Agent Details"><span class="nav-icon">＋</span><span class="nav-text">Agent Details</span><em>ADMIN</em></button>
+        <button data-page="admin" onclick="showPage('admin')" title="Admin Portal"><span class="nav-icon">⚙</span><span class="nav-text">Admin Portal</span><em>SECURE</em></button>
+      </nav>
+    </div>
+
+    <div class="side-section">
+      <div class="side-section-title"><span>APPEARANCE</span><i></i></div>
+      <div class="themes side-themes">
+        <button class="theme-btn active" data-theme="normal" title="Normal Theme" onclick="setTheme('normal')"><span>Normal</span>◻</button>
+        <button class="theme-btn" data-theme="white" title="White Theme" onclick="setTheme('white')"><span>White</span>○</button>
+        <button class="theme-btn" data-theme="lightgrey" title="Light Grey Theme" onclick="setTheme('lightgrey')"><span>Light Grey</span>◐</button>
+        <button class="theme-btn" data-theme="darkgrey" title="Dark Grey Theme" onclick="setTheme('darkgrey')"><span>Dark Grey</span>◑</button>
+        <button class="theme-btn" data-theme="black" title="Black Theme" onclick="setTheme('black')"><span>Black</span>●</button>
+        <button class="theme-btn" data-theme="redgrey" title="Red Grey Theme" onclick="setTheme('redgrey')"><span>Red Grey</span>◆</button>
+        <button class="theme-btn" data-theme="yellowgrey" title="Yellow Grey Theme" onclick="setTheme('yellowgrey')"><span>Yellow Grey</span>◇</button>
+        <button class="theme-btn" data-theme="greygreen" title="Grey Green Theme" onclick="setTheme('greygreen')"><span>Grey Green</span>✦</button>
+        <button class="theme-btn" data-theme="slateblue" title="Slate Blue Theme" onclick="setTheme('slateblue')"><span>Slate Blue</span>◆</button>
+      </div>
+    </div>
+
+    <div class="side-section side-display-section">
+      <div class="side-section-title"><span>DISPLAY</span><i></i></div>
+      <div class="display-card">
+        <label>Conditional Formatting</label>
+        <select id="formatTheme">
+          <option value="classic">Classic Green / Yellow / Red</option><option value="soft">Soft Pastel</option><option value="strong">Strong Contrast</option><option value="minimal">Minimal Border Accent</option><option value="mono">Monochrome</option><option value="badge">Badge Style</option><option value="neon">Neon Glow</option><option value="outline">Outline Highlight</option><option value="gradient">Soft Gradient</option><option value="heat">Heatmap</option><option value="clean">Clean Professional</option>
+        </select>
+        <label class="toggle-row"><input id="grandTotalToggle" type="checkbox" checked><span class="toggle-ui"></span><span>Grand Total</span></label>
+        <small>Totals and averages appear at the bottom of the live table.</small>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-foot">
+    <div class="foot-line"><span class="foot-dot"></span><span class="foot-copy">System ready</span><span class="foot-version">SAHT</span></div>
+    <div class="sidebar-watermark">Abhijith</div>
+  </div>
+</aside><main class="main"><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
 <section class="page active" id="page-live">
-<div class="top"><div><h1>Real Time Session AHT Tracker</h1><p>Agent-level live performance • AHT sorted High → Low</p></div><div class="live"><span class="dot"></span>LIVE • <span id="recordCount">0 agents</span></div><div class="header-watermark">Abhijith</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea autocapitalize="off" autocomplete="off" autocorrect="off" id="rawInput" placeholder="Paste Agent / Name data here..." spellcheck="false" wrap="off"></textarea><div class="controls"><input id="threshold" min="0" placeholder="AHT Target (Sec)" type="number" value="180"/><button class="btn" onclick="clearAll()">Clear</button><button class="btn" onclick="copyTableAsImage()" title="Copy table as PNG image; browser security may require a secure page">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section class="summary" id="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div style="display:flex;justify-content:space-between"><h3>Live Status</h3><small>Target: <span id="targetView">180</span>s</small></div><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span></div><div class="wrap"><div aria-hidden="true" class="watermark">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
+<div class="top"><div><h1>Real Time Session AHT Tracker</h1><p>Agent-level live performance • AHT sorted High → Low</p></div><div class="live"><span class="dot"></span>LIVE • <span id="recordCount">0 agents</span></div><div class="header-watermark">Abhijith</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" title="Copy table as PNG image; browser security may require a secure page" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section id="summary" class="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div style="display:flex;justify-content:space-between"><h3>Live Status</h3><small>Target: <span id="targetView">180</span>s</small></div><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span></div><div class="wrap"><div class="watermark" aria-hidden="true">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
 </section>
+
 <section class="page" id="page-dashboard">
-<div class="page-title"><div><h2>Performance Dashboard</h2><p>Management view built from the live AHT data and agent hierarchy.</p></div><button class="btn" id="dashboardCopyImage" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;" style="margin:0 0 12px 0" type="button">📷 Copy Dashboard as Image</button><span class="pill">LIVE DATA • <span id="dashPageAgents">0</span> agents</span></div><button class="btn" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;">Copy Dashboard as Image</button>
-<div id="dashboardFilters" style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:14px 0 18px;padding:14px;border:1px solid var(--border,#d9dee8);border-radius:12px;background:var(--panel,#fff)">
-<label style="min-width:170px;flex:1">TL<select class="input" id="dashboardTlFilter" style="width:100%"><option value="">All TLs</option></select></label>
-<label style="min-width:170px;flex:1">AM<select class="input" id="dashboardAmFilter" style="width:100%"><option value="">All AMs</option></select></label>
-<label style="min-width:170px;flex:1">Process<select class="input" id="dashboardProcessFilter" style="width:100%"><option value="">All Processes</option></select></label>
-<label style="min-width:170px;flex:1">Agent<select class="input" id="dashboardAgentFilter" style="width:100%"><option value="">All Agents</option></select></label>
-<button class="btn" id="dashboardResetFilters" type="button">Reset Filters</button>
+  <div class="page-title"><div><h2>Performance Dashboard</h2><p>Management view built from the live AHT data and agent hierarchy.</p></div><button type="button" class="btn" id="dashboardCopyImage" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;" style="margin:0 0 12px 0">📷 Copy Dashboard as Image</button><span class="pill">LIVE DATA • <span id="dashPageAgents">0</span> agents</span></div><button class="btn" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;">Copy Dashboard as Image</button>
+  <div id="dashboardFilters" style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:14px 0 18px;padding:14px;border:1px solid var(--border,#d9dee8);border-radius:12px;background:var(--panel,#fff)">
+<label style="min-width:170px;flex:1">TL<select id="dashboardTlFilter" class="input" style="width:100%"><option value="">All TLs</option></select></label>
+<label style="min-width:170px;flex:1">AM<select id="dashboardAmFilter" class="input" style="width:100%"><option value="">All AMs</option></select></label>
+<label style="min-width:170px;flex:1">Process<select id="dashboardProcessFilter" class="input" style="width:100%"><option value="">All Processes</option></select></label>
+<label style="min-width:170px;flex:1">Agent<select id="dashboardAgentFilter" class="input" style="width:100%"><option value="">All Agents</option></select></label>
+<button type="button" class="btn" id="dashboardResetFilters">Reset Filters</button>
 <span class="pill" id="dashboardFilterStatus">All data</span>
 </div>
 <div class="analytics-grid">
-<div class="kpi"><small>RECEIVED</small><b id="kpiReceived">0</b><div class="sub">Total calls received</div></div>
-<div class="kpi"><small>RESOLVED</small><b id="kpiResolved">0</b><div class="sub">Total calls resolved</div></div>
-<div class="kpi"><small>RESOLUTION RATE</small><b id="kpiResolution">0%</b><div class="sub">Resolved ÷ Received</div></div>
-<div class="kpi"><small>AVG AHT</small><b id="kpiAht">0 s</b><div class="sub">Average agent AHT</div></div>
-<div class="kpi"><small>AVG LOGIN HOURS</small><b id="kpiLogin">0</b><div class="sub">Average available login time</div></div><div class="kpi"><small>AVG FRT</small><b id="kpiFrt">0 s</b><div class="sub">Average first response time</div></div>
-<div class="kpi"><small>AVG HANDLE TIME</small><b id="kpiHt">0 s</b><div class="sub">Average Avg. HT</div></div>
-<div class="kpi"><small>ABOVE TARGET</small><b id="kpiAbove">0</b><div class="sub">Agents above target</div></div>
-<div class="kpi"><small>BELOW TARGET</small><b id="kpiBelow">0</b><div class="sub">Agents below target</div></div>
-</div>
-<div class="analysis-grid">
-<div class="analytics-card"><h3>Top 10 AHT — High to Low</h3><button class="btn" onclick="copyPanelAsImage('dashboardAhtBars','Top 10 AHT')">Copy Image</button><div class="chart-bars" id="dashboardAhtBars"></div></div>
-<div class="analytics-card"><h3>Workload &amp; Resolution</h3><button class="btn" onclick="copyPanelAsImage('dashboardVolumeBars','Workload and Resolution')">Copy Image</button><div class="chart-bars" id="dashboardVolumeBars"></div></div>
-</div>
-<div class="analysis-grid">
-<div class="analytics-card"><h3>Highest AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardTopTable','Highest AHT Agents')">Copy Image</button><div id="dashboardTopTable"></div></div>
-<div class="analytics-card"><h3>Best AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardBestTable','Best AHT Agents')">Copy Image</button><div id="dashboardBestTable"></div></div>
-</div>
+    <div class="kpi"><small>RECEIVED</small><b id="kpiReceived">0</b><div class="sub">Total calls received</div></div>
+    <div class="kpi"><small>RESOLVED</small><b id="kpiResolved">0</b><div class="sub">Total calls resolved</div></div>
+    <div class="kpi"><small>RESOLUTION RATE</small><b id="kpiResolution">0%</b><div class="sub">Resolved ÷ Received</div></div>
+    <div class="kpi"><small>AVG AHT</small><b id="kpiAht">0 s</b><div class="sub">Average agent AHT</div></div>
+    <div class="kpi"><small>AVG LOGIN HOURS</small><b id="kpiLogin">0</b><div class="sub">Average available login time</div></div><div class="kpi"><small>AVG FRT</small><b id="kpiFrt">0 s</b><div class="sub">Average first response time</div></div>
+    <div class="kpi"><small>AVG HANDLE TIME</small><b id="kpiHt">0 s</b><div class="sub">Average Avg. HT</div></div>
+    <div class="kpi"><small>ABOVE TARGET</small><b id="kpiAbove">0</b><div class="sub">Agents above target</div></div>
+    <div class="kpi"><small>BELOW TARGET</small><b id="kpiBelow">0</b><div class="sub">Agents below target</div></div>
+  </div>
+  <div class="analysis-grid">
+    <div class="analytics-card"><h3>Top 10 AHT — High to Low</h3><button class="btn" onclick="copyPanelAsImage('dashboardAhtBars','Top 10 AHT')">Copy Image</button><div id="dashboardAhtBars" class="chart-bars"></div></div>
+    <div class="analytics-card"><h3>Workload & Resolution</h3><button class="btn" onclick="copyPanelAsImage('dashboardVolumeBars','Workload and Resolution')">Copy Image</button><div id="dashboardVolumeBars" class="chart-bars"></div></div>
+  </div>
+  <div class="analysis-grid">
+    <div class="analytics-card"><h3>Highest AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardTopTable','Highest AHT Agents')">Copy Image</button><div id="dashboardTopTable"></div></div>
+    <div class="analytics-card"><h3>Best AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardBestTable','Best AHT Agents')">Copy Image</button><div id="dashboardBestTable"></div></div>
+  </div>
 </section>
+
 <section class="page" id="page-agents">
-<div class="page-title"><div><h2>Agent-wise AHT Analysis</h2><p>Filter one agent or combine TL, AM and Process hierarchy with live performance.</p></div><button class="btn" id="agentCopyImage" onclick="copyPanelAsImage('page-agents','Agent Analysis');return false;" style="margin:0 0 12px 0" type="button">📷 Copy Agent Analysis as Image</button><span class="pill">Sorted by AHT ↓</span></div>
-<div class="filterbar">
-<label>Agent<select id="agentFilter"><option value="">All Agents</option></select></label>
-<label>TL<select id="agentTlFilter"><option value="">All TLs</option></select></label>
-<label>AM<select id="agentAmFilter"><option value="">All AMs</option></select></label>
-<label>Process<select id="agentProcessFilter"><option value="">All Processes</option></select></label>
-<label>Bucket<select id="agentBucketFilter"><option value="">All Buckets</option></select></label>
-<label>OJT / NonOJT<select id="agentOjtFilter"><option value="">All</option></select></label>
-<label>Shift Status<select id="agentShiftFilter"><option value="">All Shifts</option></select></label>
-<label>Sub Process<select id="agentSubProcessFilter"><option value="">All Sub Processes</option></select></label>
-</div>
-<div class="filter-actions" style="margin:-5px 0 12px"><button class="btn" onclick="resetAnalyticsFilters()">Reset Filters</button><span class="pill" id="agentFilterCount">0 agents</span></div>
-<div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('agentAnalysisTable','Agent Wise AHT Analysis')">Copy Agent Analysis as Image</button></div><div class="analytics-card"><div id="agentAnalysisTable"></div></div>
+  <div class="page-title"><div><h2>Agent-wise AHT Analysis</h2><p>Filter one agent or combine TL, AM and Process hierarchy with live performance.</p></div><button type="button" class="btn" id="agentCopyImage" onclick="copyPanelAsImage('page-agents','Agent Analysis');return false;" style="margin:0 0 12px 0">📷 Copy Agent Analysis as Image</button><span class="pill">Sorted by AHT ↓</span></div>
+  <div class="filterbar">
+    <label>Agent<select id="agentFilter"><option value="">All Agents</option></select></label>
+    <label>TL<select id="agentTlFilter"><option value="">All TLs</option></select></label>
+    <label>AM<select id="agentAmFilter"><option value="">All AMs</option></select></label>
+    <label>Process<select id="agentProcessFilter"><option value="">All Processes</option></select></label>
+    <label>Bucket<select id="agentBucketFilter"><option value="">All Buckets</option></select></label>
+    <label>OJT / NonOJT<select id="agentOjtFilter"><option value="">All</option></select></label>
+    <label>Shift Status<select id="agentShiftFilter"><option value="">All Shifts</option></select></label>
+    <label>Sub Process<select id="agentSubProcessFilter"><option value="">All Sub Processes</option></select></label>
+  </div>
+  <div class="filter-actions" style="margin:-5px 0 12px"><button class="btn" onclick="resetAnalyticsFilters()">Reset Filters</button><span class="pill" id="agentFilterCount">0 agents</span></div>
+  <div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('agentAnalysisTable','Agent Wise AHT Analysis')">Copy Agent Analysis as Image</button></div><div class="analytics-card"><div id="agentAnalysisTable"></div></div>
 </section>
+
 <section class="page" id="page-teams">
-<div class="page-title"><div><h2>Hierarchy Analysis</h2><p>Compare performance at TL, AM and Process level using the agent directory mapping.</p></div><span class="pill">Derived from agent details + live AHT</span></div>
-<div class="filterbar">
-<label>View By<select id="groupByFilter"><option value="TL">TL</option><option value="AM">AM</option><option value="Process">Process</option><option value="Bucket">Bucket</option><option value="OJT/NonOJT">OJT/NonOJT</option><option value="Shift Status">Shift Status</option><option value="Sub Process">Sub Process</option></select></label>
-<label>TL<select id="teamTlFilter"><option value="">All TLs</option></select></label>
-<label>AM<select id="teamAmFilter"><option value="">All AMs</option></select></label>
-<label>Process<select id="teamProcessFilter"><option value="">All Processes</option></select></label>
-<label>Bucket<select id="teamBucketFilter"><option value="">All Buckets</option></select></label>
-<label>OJT / NonOJT<select id="teamOjtFilter"><option value="">All</option></select></label>
-<label>Shift Status<select id="teamShiftFilter"><option value="">All Shifts</option></select></label>
-<label>Sub Process<select id="teamSubProcessFilter"><option value="">All Sub Processes</option></select></label>
-</div>
-<div class="analytics-grid">
-<div class="kpi"><small>GROUPS</small><b id="teamGroups">0</b><div class="sub">Visible groups</div></div>
-<div class="kpi"><small>RECEIVED</small><b id="teamReceived">0</b><div class="sub">Filtered workload</div></div>
-<div class="kpi"><small>RESOLVED</small><b id="teamResolved">0</b><div class="sub">Filtered resolutions</div></div>
-<div class="kpi"><small>AVG AHT</small><b id="teamAht">0 s</b><div class="sub">Filtered average</div></div>
-</div>
-<div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('teamAnalysisTable','Hierarchy Analysis')">Copy Hierarchy Analysis as Image</button></div><div class="analytics-card"><div id="teamAnalysisTable"></div></div>
+  <div class="page-title"><div><h2>Hierarchy Analysis</h2><p>Compare performance at TL, AM and Process level using the agent directory mapping.</p></div><span class="pill">Derived from agent details + live AHT</span></div>
+  <div class="filterbar">
+    <label>View By<select id="groupByFilter"><option value="TL">TL</option><option value="AM">AM</option><option value="Process">Process</option><option value="Bucket">Bucket</option><option value="OJT/NonOJT">OJT/NonOJT</option><option value="Shift Status">Shift Status</option><option value="Sub Process">Sub Process</option></select></label>
+    <label>TL<select id="teamTlFilter"><option value="">All TLs</option></select></label>
+    <label>AM<select id="teamAmFilter"><option value="">All AMs</option></select></label>
+    <label>Process<select id="teamProcessFilter"><option value="">All Processes</option></select></label>
+    <label>Bucket<select id="teamBucketFilter"><option value="">All Buckets</option></select></label>
+    <label>OJT / NonOJT<select id="teamOjtFilter"><option value="">All</option></select></label>
+    <label>Shift Status<select id="teamShiftFilter"><option value="">All Shifts</option></select></label>
+    <label>Sub Process<select id="teamSubProcessFilter"><option value="">All Sub Processes</option></select></label>
+  </div>
+  <div class="analytics-grid">
+    <div class="kpi"><small>GROUPS</small><b id="teamGroups">0</b><div class="sub">Visible groups</div></div>
+    <div class="kpi"><small>RECEIVED</small><b id="teamReceived">0</b><div class="sub">Filtered workload</div></div>
+    <div class="kpi"><small>RESOLVED</small><b id="teamResolved">0</b><div class="sub">Filtered resolutions</div></div>
+    <div class="kpi"><small>AVG AHT</small><b id="teamAht">0 s</b><div class="sub">Filtered average</div></div>
+  </div>
+  <div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('teamAnalysisTable','Hierarchy Analysis')">Copy Hierarchy Analysis as Image</button></div><div class="analytics-card"><div id="teamAnalysisTable"></div></div>
 </section>
+
+
 <section class="page" id="page-admin">
-<div id="adminLocked">
-<div class="admin-lock">
-<h2>Admin Portal</h2>
-<p>Admin access is controlled by your authenticated Supabase account. No separate dashboard password is required.</p>
-<div class="admin-session-badge" id="adminAccessState"><span class="dot"></span><span>Checking secure admin session…</span></div>
-<div class="admin-alert" id="adminAlert"></div>
-<button class="btn primary" onclick="refreshAdmin()">Refresh Admin Status</button>
-</div>
-</div>
-<div id="adminPanel" style="display:none">
-<div class="page-title"><div><h2>Admin Monitoring Portal</h2><p>Live health, zero-value exclusions, duplicate resolution and smart identity mapping.</p></div><button class="btn primary" onclick="unlockDirectory()">Unlock Agent Details</button><button class="btn" onclick="adminLogout()">Lock Portal</button></div>
-<div class="monitor-grid">
-<div class="monitor-card"><small>VALID AGENTS SHOWN</small><b id="adminValid">0</b></div>
-<div class="monitor-card"><small>EXCLUDED ZERO-VALUE</small><b id="adminExcluded">0</b></div>
-<div class="monitor-card"><small>DUPLICATE RECORDS REMOVED</small><b id="adminDuplicates">0</b></div>
-<div class="monitor-card"><small>LAST REFRESH</small><b id="adminRefresh">—</b></div>
-</div>
-<div class="analytics-card" style="margin-top:14px">
-<div class="page-title" style="margin-bottom:0">
-<div><h3 style="margin:0">User Access Management</h3><p>Approve, reject, or disable dashboard users. Changes are synchronized through Supabase.</p></div>
-<button class="btn" onclick="refreshAccessRequests()">↻ Refresh Users</button>
-</div>
-<div class="access-grid">
-<div class="access-card"><small>Pending Requests</small><b id="accessPending">0</b></div>
-<div class="access-card"><small>Approved Users</small><b id="accessApproved">0</b></div>
-<div class="access-card"><small>Rejected</small><b id="accessRejected">0</b></div>
-<div class="access-card"><small>Disabled</small><b id="accessDisabled">0</b></div>
-</div>
-<div class="help-note"><b>Access policy:</b> New users remain <b>Pending</b> until an administrator approves them. Approved users can use the dashboard and read the centrally stored Agent Details. Rejected/disabled users are blocked automatically.</div>
-<div class="access-toolbar"><span class="pill">Realtime access monitoring</span><span class="pill" id="accessLastRefresh">Last refresh —</span></div>
-<div id="accessRequestsTable"></div>
-</div>
-<div class="analytics-card" style="margin-top:14px">
-<h3>Smart Identity Mapping Rules</h3>
-<div class="help-note">If Login Id / Startek ID contains a recognizable token, rules below can automatically assign TL, AM or Process. Anything not confidently mapped remains <b>Unmapped</b> instead of being guessed.</div>
-<div id="mappingRules"></div>
-<div class="controls"><button class="btn" onclick="addMappingRule()">Add Rule</button><button class="btn primary" onclick="saveMappingRules()">Save Rules</button></div>
-</div>
-<div class="analytics-card" style="margin-top:14px">
-<h3>Unmapped / Needs Review</h3>
-<div id="unmappedAdmin"></div>
-</div>
-</div>
+  <div id="adminLocked">
+    <div class="admin-lock">
+      <h2>Admin Portal</h2><p>Restricted monitoring and smart identity-mapping controls.</p>
+      <div class="admin-form">
+        <input id="adminUser" placeholder="Username" autocomplete="username">
+        <input id="adminPass" type="password" placeholder="Password" autocomplete="current-password">
+        <div class="admin-alert" id="adminAlert"></div>
+        <button class="btn primary" onclick="adminLogin()">Login</button>
+      </div>
+    </div>
+  </div>
+  <div id="adminPanel" style="display:none">
+    <div class="page-title"><div><h2>Admin Monitoring Portal</h2><p>Live health, zero-value exclusions, duplicate resolution and smart identity mapping.</p></div><button class="btn primary" onclick="unlockDirectory()">Unlock Agent Details</button><button class="btn" onclick="adminLogout()">Lock Portal</button></div>
+    <div class="monitor-grid">
+      <div class="monitor-card"><small>VALID AGENTS SHOWN</small><b id="adminValid">0</b></div>
+      <div class="monitor-card"><small>EXCLUDED ZERO-VALUE</small><b id="adminExcluded">0</b></div>
+      <div class="monitor-card"><small>DUPLICATE RECORDS REMOVED</small><b id="adminDuplicates">0</b></div>
+      <div class="monitor-card"><small>LAST REFRESH</small><b id="adminRefresh">—</b></div>
+    </div>
+    <div class="analytics-card" style="margin-top:14px">
+      <h3>Smart Identity Mapping Rules</h3>
+      <div class="help-note">If Login Id / Startek ID contains a recognizable token, rules below can automatically assign TL, AM or Process. Anything not confidently mapped remains <b>Unmapped</b> instead of being guessed.</div>
+      <div id="mappingRules"></div>
+      <div class="controls"><button class="btn" onclick="addMappingRule()">Add Rule</button><button class="btn primary" onclick="saveMappingRules()">Save Rules</button></div>
+    </div>
+    <div class="analytics-card" style="margin-top:14px">
+      <h3>Unmapped / Needs Review</h3>
+      <div id="unmappedAdmin"></div>
+    </div>
+  </div>
 </section>
 <section class="page" id="page-directory">
-<div class="page-title">
-<div><h2>Agent Details</h2><p>Admin-controlled agent master data.</p></div>
-<span class="pill"><span id="directoryCount">0</span> mapped agents</span>
-</div>
-<div class="admin-lock" id="directoryLocked">
-<h2>🔒 Admin Access Required</h2>
-<p>Agent Details can only be viewed or changed after Admin Portal authentication.</p>
-<button class="btn primary" onclick="showPage('admin')">Go to Admin Portal</button>
-</div>
-<div class="admin-only-content" id="directoryAdminContent">
-<div class="admin-lock-banner">
-<div><b>🔐 Admin mode active</b><br/><span>Only the authenticated administrator can edit Agent Details.</span></div>
-<button class="btn" onclick="lockDirectory()">Lock Agent Details</button>
-</div>
-<div class="analytics-card" style="margin-bottom:14px">
-<h3>Agent Master Data</h3>
-<div class="help-note"><b>Excel columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process<br/>Paste directly from Excel. The first row may contain headers.</div>
-<textarea class="directory-input" id="directoryInput" placeholder="Sap code	Login Id	Agent ID	TL	AM	Bucket	OJT/NonOJT	Shift Status	Sub Process" style="min-height:180px"></textarea>
-<div class="controls" style="margin-top:10px">
-<button class="btn primary" onclick="saveDirectory()">Save Agent Details</button>
-<button class="btn" onclick="clearDirectory()">Clear</button>
-<button class="btn" onclick="downloadDirectoryTemplate()">Download Template</button>
-<label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Import CSV/TSV<input accept=".csv,.tsv,.txt" id="directoryFile" onchange="importDirectoryFile(this)" style="display:none" type="file"/></label>
-<button class="btn" onclick="copyPanelAsImage('directoryTable','Agent Master Data')">Copy as Image</button>
-</div>
-</div>
-<div class="analytics-card"><h3>Mapped Agent Details</h3><div id="directoryTable"></div></div>
-</div>
+  <div class="page-title">
+    <div><h2>Agent Details</h2><p>Admin-controlled agent master data.</p></div>
+    <span class="pill"><span id="directoryCount">0</span> mapped agents</span>
+  </div>
+  <div id="directoryLocked" class="admin-lock">
+    <h2>🔒 Admin Access Required</h2>
+    <p>Agent Details can only be viewed or changed after Admin Portal authentication.</p>
+    <button class="btn primary" onclick="showPage('admin')">Go to Admin Portal</button>
+  </div>
+  <div id="directoryAdminContent" class="admin-only-content">
+    <div class="admin-lock-banner">
+      <div><b>🔐 Admin mode active</b><br><span>Only the authenticated administrator can edit Agent Details.</span></div>
+      <button class="btn" onclick="lockDirectory()">Lock Agent Details</button>
+    </div>
+    <div class="analytics-card" style="margin-bottom:14px">
+      <h3>Agent Master Data</h3>
+      <div class="help-note"><b>Excel columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process<br>Paste directly from Excel. The first row may contain headers.</div>
+      <textarea id="directoryInput" class="directory-input" style="min-height:180px" placeholder="Sap code&#9;Login Id&#9;Agent ID&#9;TL&#9;AM&#9;Bucket&#9;OJT/NonOJT&#9;Shift Status&#9;Sub Process"></textarea>
+      <div class="controls" style="margin-top:10px">
+        <button class="btn primary" onclick="saveDirectory()">Save Agent Details</button>
+        <button class="btn" onclick="clearDirectory()">Clear</button>
+        <button class="btn" onclick="downloadDirectoryTemplate()">Download Template</button>
+        <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Import CSV/TSV<input id="directoryFile" type="file" accept=".csv,.tsv,.txt" style="display:none" onchange="importDirectoryFile(this)"></label>
+        <button class="btn" onclick="copyPanelAsImage('directoryTable','Agent Master Data')">Copy as Image</button>
+      </div>
+    </div>
+    <div class="analytics-card"><h3>Mapped Agent Details</h3><div id="directoryTable"></div></div>
+  </div>
 </section>
 </main></div><script>
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
@@ -773,49 +731,26 @@ function readDirectoryText(text){
   out.forEach(r=>map.set(directoryIdentity(r),r));
   return [...map.values()];
 }
-async function saveDirectory(){
-  if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
-  const input=document.getElementById("directoryInput");
-  const parsed=readDirectoryText(input?.value||"");
-  if(!parsed.length){alert("No valid agent rows were found. Nothing was saved.");return;}
-  const sb=window.sahtSupabase;
-  if(!sb){alert("Secure database connection is not ready. Please refresh the page and try again.");return;}
-  const payload=parsed.map(r=>({
-    sap_code:r.sapCode||"", login_id:r.loginId||"", agent_id:r.agentId||"",
-    email:r.email||r.loginId||"", tl:r.tl||"", am:r.am||"", bucket:r.bucket||"",
-    ojt_nonojt:r.ojt||"", shift_status:r.shiftStatus||"", sub_process:r.subProcess||""
-  }));
-  try{
-    const q=await sb.rpc("replace_agent_details",{p_rows:payload});
-    if(q.error)throw q.error;
-    storageSet("saht-directory",JSON.stringify(parsed));
-    directoryData=parsed;
-    renderDirectory();
-    refreshAllAnalytics();
-    await syncAgentsFromSupabase();
-    alert((q.data??parsed.length)+" agent details saved to the shared database.");
-  }catch(e){
-    console.error("Agent Details save failed",e);
-    alert("Agent Details could not be saved to Supabase.\n\n"+(e.message||e));
-  }
+function saveDirectory(){
+ if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
+  const parsed=readDirectoryText(document.getElementById("directoryInput").value);
+  directoryData=parsed;
+  storageSet("saht-directory",JSON.stringify(directoryData));
+  renderDirectory();
+  refreshAllAnalytics();
+  alert(parsed.length+" agent details saved.");
 }
-async function loadDirectory(){
+function loadDirectory(){
   try{directoryData=JSON.parse(storageGet("saht-directory","[]"))||[];if(!Array.isArray(directoryData))directoryData=[];}catch(e){directoryData=[]}
   renderDirectory();
-  if(window.sahtSupabase) await syncAgentsFromSupabase();
 }
-async function clearDirectory(){
-  if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
-  if(!confirm("Clear all 445+ Agent Details from the shared database? This affects every approved user."))return;
-  const sb=window.sahtSupabase;
-  if(!sb){alert("Secure database connection is not ready.");return;}
-  try{
-    const q=await sb.rpc("replace_agent_details",{p_rows:[]});
-    if(q.error)throw q.error;
-    directoryData=[];storageSet("saht-directory","[]");
-    document.getElementById("directoryInput").value="";renderDirectory();refreshAllAnalytics();
-    alert("Shared Agent Details cleared successfully.");
-  }catch(e){alert("Could not clear Agent Details.\\n\\n"+(e.message||e));}
+function clearDirectory(){
+ if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
+  directoryData=[];
+  storageSet("saht-directory","[]");
+  document.getElementById("directoryInput").value="";
+  renderDirectory();
+  refreshAllAnalytics(); if(activePage==="admin")ensureAdmin();
 }
 function downloadDirectoryTemplate(){
   const csv="Sap code,Login Id,Agent ID,TL,AM,Bucket,OJT/NonOJT,Shift Status,Sub Process\n";
@@ -832,9 +767,8 @@ function importDirectoryFile(input){
 }
 
 let mappingRules=[];
-async function loadMappingRules(){
+function loadMappingRules(){
  try{mappingRules=JSON.parse(storageGet("saht-mapping-rules","[]"))||[];if(!Array.isArray(mappingRules))mappingRules=[]}catch(e){mappingRules=[]}
- if(window.sahtSupabase){try{const q=await window.sahtSupabase.from("mapping_rules").select("token,type,value,note").order("created_at");if(!q.error&&q.data)mappingRules=q.data}catch(e){console.warn("Mapping rules remote load failed",e)}}
  renderMappingRules();
 }
 function renderMappingRules(){
@@ -848,18 +782,10 @@ function renderMappingRules(){
 }
 function addMappingRule(){mappingRules.push({token:"",type:"TL",value:"",note:""});renderMappingRules();}
 function removeMappingRule(i){mappingRules.splice(i,1);renderMappingRules();}
-async function saveMappingRules(){
+function saveMappingRules(){
  document.querySelectorAll("[data-mi]").forEach(el=>{const i=+el.dataset.mi;if(mappingRules[i])mappingRules[i][el.dataset.field]=el.value});
  mappingRules=mappingRules.filter(r=>clean(r.token)&&clean(r.value));
- storageSet("saht-mapping-rules",JSON.stringify(mappingRules));
- if(window.sahtSupabase&&currentSupabaseAdmin()){
-   try{
-     const d=await window.sahtSupabase.from("mapping_rules").delete().neq("token","");
-     if(d.error)throw d.error;
-     if(mappingRules.length){const q=await window.sahtSupabase.from("mapping_rules").insert(mappingRules.map(r=>({token:r.token,type:r.type,value:r.value,note:r.note||"",updated_by:window.sahtProfile.id})));if(q.error)throw q.error;}
-   }catch(e){alert("Mapping rules were saved locally, but not to Supabase.\\n\\n"+(e.message||e));return;}
- }
- renderMappingRules();refreshAllAnalytics();alert("Smart mapping rules saved to the shared database.");
+ storageSet("saht-mapping-rules",JSON.stringify(mappingRules));renderMappingRules();refreshAllAnalytics();alert("Smart mapping rules saved.");
 }
 function smartMap(r){
  const base=(`${r.loginId||""} ${r.email||""} ${r.agentId||""} ${r.agent||""}`).toLowerCase();
@@ -1163,153 +1089,13 @@ function toggleSidebar(){
   }
 }
 function clearAll(){document.getElementById("rawInput").value="";processData()}
-async function syncAgentsFromSupabase(){
-  const sb=window.sahtSupabase;
-  if(!sb)return;
-  try{
-    const q=await sb.from("agent_details").select("*").order("email");
-    if(q.error)throw q.error;
-    const rows=q.data||[];
-    directoryData=rows.map(r=>({
-      sapCode:r.sap_code||"",loginId:r.login_id||"",agentId:r.agent_id||"",agent:r.agent_id||r.login_id||r.email||"",
-      email:r.email||"",tl:r.tl||"",am:r.am||"",bucket:r.bucket||"",ojt:r.ojt_nonojt||"",
-      shiftStatus:r.shift_status||"",subProcess:r.sub_process||""
-    }));
-    storageSet("saht-directory",JSON.stringify(directoryData));
-    renderDirectory();
-    refreshAllAnalytics();
-    const c=document.getElementById("directoryCount");if(c)c.textContent=directoryData.length;
-  }catch(e){console.warn("Supabase Agent Details sync failed",e)}
+function exportToExcel(){
+ const table=document.getElementById("reportTable");
+ if(!table){alert("Nothing to export yet.");return;}
+ const html=`<html><head><meta charset="utf-8"></head><body>${table.outerHTML}<p>Abhijith</p></body></html>`;
+ const blob=new Blob([html],{type:"application/vnd.ms-excel"});
+ const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="Real_Time_AHT_Report.xls"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
-
-function currentSupabaseAdmin(){
-  const p=window.sahtProfile;
-  return !!(p&&p.role==="admin"&&p.status==="approved");
-}
-function isAdminAuthenticated(){return currentSupabaseAdmin();}
-
-async function loadAccessRequests(){
-  const sb=window.sahtSupabase;
-  if(!sb||!currentSupabaseAdmin())return;
-  try{
-    const q=await sb.from("access_requests").select("*").order("created_at",{ascending:false});
-    if(q.error)throw q.error;
-    const requests=q.data||[];
-    const ids=[...new Set(requests.map(r=>r.user_id).filter(Boolean))];
-    let profiles=[];
-    if(ids.length){
-      const pq=await sb.from("profiles").select("id,full_name,email,role,status,created_at,approved_at").in("id",ids);
-      if(pq.error)throw pq.error;
-      profiles=pq.data||[];
-    }
-    const byId=new Map(profiles.map(p=>[p.id,p]));
-    const merged=requests.map(r=>({...r,profile:byId.get(r.user_id)||null}));
-    window.sahtAccessRequests=merged;
-    renderAccessRequests(merged);
-    const now=new Date().toLocaleTimeString();
-    const el=document.getElementById("accessLastRefresh");if(el)el.textContent="Last refresh "+now;
-  }catch(e){
-    console.error("Access request load failed",e);
-    const box=document.getElementById("accessRequestsTable");
-    if(box)box.innerHTML='<div class="access-empty">Unable to load access requests. Check the Supabase policies and refresh.</div>';
-  }
-}
-
-function renderAccessRequests(requests){
-  const counts={pending:0,approved:0,rejected:0,disabled:0};
-  (requests||[]).forEach(r=>{const s=String(r.profile?.status||r.status||"pending").toLowerCase();if(counts[s]!==undefined)counts[s]++});
-  ["pending","approved","rejected","disabled"].forEach(s=>{const e=document.getElementById("access"+s.charAt(0).toUpperCase()+s.slice(1));if(e)e.textContent=counts[s]||0});
-  const box=document.getElementById("accessRequestsTable");if(!box)return;
-  if(!requests.length){box.innerHTML='<div class="access-empty">No access requests found.</div>';return;}
-  const rows=requests.map(r=>{
-    const profile=r.profile||{};
-    const status=String(profile.status||r.status||"pending").toLowerCase();
-    const role=String(profile.role||"user").toLowerCase();
-    const safe=escapeHtml;
-    let actions='';
-    if(status==='pending') actions=`<button class="btn primary" onclick="approveUser('${safe(r.id)}','${safe(r.user_id||"")}')">Approve</button><button class="btn" onclick="rejectUser('${safe(r.id)}','${safe(r.user_id||"")}')">Reject</button>`;
-    else if(status==='approved' && role!=='admin') actions=`<button class="btn" onclick="disableUser('${safe(r.id)}','${safe(r.user_id||"")}')">Disable</button>`;
-    else if((status==='disabled'||status==='rejected') && role!=='admin') actions=`<button class="btn primary" onclick="approveUser('${safe(r.id)}','${safe(r.user_id||"")}')">Approve</button>`;
-    else actions='<span class="pill">Admin account</span>';
-    return `<tr><td>${safe(profile.full_name||r.full_name||"—")}</td><td>${safe(profile.email||r.email||"—")}</td><td>${safe(role)}</td><td>${safe(r.reason||"—")}</td><td>${safe(new Date(r.created_at).toLocaleString())}</td><td class="access-status ${status}">${safe(status.toUpperCase())}</td><td>${safe(r.reviewed_at?new Date(r.reviewed_at).toLocaleString():"—")}</td><td><div class="access-actions">${actions}</div></td></tr>`;
-  }).join("");
-  box.innerHTML=`<div class="wrap"><table class="access-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Reason / Team</th><th>Requested</th><th>Status</th><th>Reviewed</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-}
-
-async function refreshAccessRequests(){await loadAccessRequests();}
-
-async function updateUserAccess(requestId,userId,nextStatus){
-  const sb=window.sahtSupabase;
-  if(!sb||!currentSupabaseAdmin()){alert("Admin access required.");return;}
-  try{
-    const profileUpdate={status:nextStatus};
-    if(nextStatus==='approved'){profileUpdate.role='user';profileUpdate.approved_at=new Date().toISOString();}
-    const p=await sb.from("profiles").update(profileUpdate).eq("id",userId);
-    if(p.error)throw p.error;
-    const r=await sb.from("access_requests").update({status:nextStatus==='disabled'?'rejected':nextStatus,reviewed_at:new Date().toISOString(),reviewed_by:window.sahtProfile.id}).eq("id",requestId);
-    if(r.error)throw r.error;
-    await loadAccessRequests();
-    alert(nextStatus==='approved'?"User approved successfully.":nextStatus==='disabled'?"User disabled successfully.":"User rejected successfully.");
-  }catch(e){console.error(e);alert("Could not update user access.\\n\\n"+(e.message||e));}
-}
-function approveUser(requestId,userId){if(confirm("Approve this user for dashboard access?"))updateUserAccess(requestId,userId,"approved")}
-function rejectUser(requestId,userId){if(confirm("Reject this access request?"))updateUserAccess(requestId,userId,"rejected")}
-function disableUser(requestId,userId){if(confirm("Disable this user's dashboard access?"))updateUserAccess(requestId,userId,"disabled")}
-
-async function adminLogin(){
-  if(currentSupabaseAdmin()){storageSet("saht-admin-session","1");ensureAdmin();return true;}
-  const e=document.getElementById("adminAccessState");if(e)e.innerHTML='<span class="dot" style="background:#cf3047"></span><span>Admin access is not available for this account.</span>';
-  return false;
-}
-function adminLogout(){storageSet("saht-admin-session","0");showPage("live");}
-function ensureAdmin(){
-  const ok=currentSupabaseAdmin();
-  const locked=document.getElementById("adminLocked"),panel=document.getElementById("adminPanel"),state=document.getElementById("adminAccessState");
-  if(locked)locked.style.display=ok?"none":"block";
-  if(panel)panel.style.display=ok?"block":"none";
-  if(state)state.innerHTML=ok?'<span class="dot"></span><span>Authenticated administrator</span>':'<span class="dot" style="background:#cf3047"></span><span>Admin account required</span>';
-  if(ok){refreshAdmin();loadAccessRequests();}
-}
-function refreshAdmin(){
-  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
-  set("adminValid",processedData.length);set("adminExcluded",window._sahtExcludedCount||0);set("adminDuplicates",window._sahtDuplicateCount||0);set("adminRefresh",new Date().toLocaleTimeString());
-  const unmapped=processedData.filter(r=>{const m=getMapping(r.email||r.loginId||r.name);return m.tl==="Unmapped"||m.am==="Unmapped"||m.process==="Unmapped"});
-  const box=document.getElementById("unmappedAdmin");
-  if(box)box.innerHTML=unmapped.length?`<div class="wrap"><table class="group-table"><thead><tr><th>Agent</th><th>Email</th><th>Login Hours</th><th>AHT</th><th>TL</th><th>AM</th><th>Process</th></tr></thead><tbody>${unmapped.map(r=>{const m=getMapping(r.email||r.loginId||r.name);return `<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.email||"")}</td><td>${escapeHtml(r.loginHours||"")}</td><td>${r.ahtSec}s</td><td>${escapeHtml(m.tl)}</td><td>${escapeHtml(m.am)}</td><td>${escapeHtml(m.process)}</td></tr>`}).join("")}</tbody></table></div>`:'<div class="empty-panel">All currently valid agents are mapped.</div>';
-  loadAccessRequests();
-}
-
-function exportToExcel(){const b=new Blob([`<html><body>${document.getElementById("reportTable").outerHTML}<p>Abhijith</p><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
-<script>
-(function(){
- const C=window.SAHT_CONFIG||{},configured=C.SUPABASE_URL&&!/YOUR-/i.test(C.SUPABASE_URL)&&C.SUPABASE_ANON_KEY&&!/YOUR_/i.test(C.SUPABASE_ANON_KEY);
- const gate=document.getElementById("sahtGate"),msg=document.getElementById("sahtMsg");let mode="login",client,profile;
- const setMsg=x=>{msg.textContent=x||"";msg.classList.toggle("show",!!x)};
- const setMode=m=>{mode=m;const r=m==="request";document.getElementById("sahtName").style.display=r?"block":"none";document.getElementById("sahtReason").style.display=r?"block":"none";document.getElementById("sahtGateTitle").textContent=r?"Request Dashboard Access":"Secure Sign In";document.getElementById("sahtGateSub").textContent=r?"Create an account. Access stays pending until approved.":"Sign in to use the shared dashboard.";document.getElementById("sahtSubmit").textContent=r?"Request Access":"Sign In";setMsg("")};
- const locked=()=>gate.style.display="flex",open=()=>gate.style.display="none";
- async function enter(u){const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();if(q.error)throw q.error;profile=q.data; window.sahtProfile=profile;
-   if(!profile){setMsg("Your profile is not ready yet.");return} if(profile.status!=="approved"){locked();setMsg(profile.status==="pending"?"Your access request is pending admin approval.":"Access is "+profile.status+".");return}
-   open(); await syncAgents(); if(window.syncAgentsFromSupabase) await window.syncAgentsFromSupabase(); if(window.currentSupabaseAdmin&&window.currentSupabaseAdmin()) { try{ensureAdmin();}catch(e){} }
- }
- async function syncAgents(){const q=await client.from("agent_details").select("*").order("email");if(q.error)return;
-   window.directoryData=(q.data||[]).map(r=>({sapCode:r.sap_code||"",loginId:r.login_id||"",agentId:r.agent_id||"",agent:r.agent_id||r.login_id||r.email||"",email:r.email||"",tl:r.tl||"",am:r.am||"",bucket:r.bucket||"",ojt:r.ojt_nonojt||"",shiftStatus:r.shift_status||"",subProcess:r.sub_process||""}));
-   try{storageSet("saht-directory",JSON.stringify(window.directoryData));renderDirectory();refreshAllAnalytics();}catch(e){}
- }
- if(!configured){gate.style.display="none";return}
- client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY);window.sahtSupabase=client;
- document.getElementById("sahtSignInTab").onclick=()=>setMode("login");document.getElementById("sahtRequestTab").onclick=()=>setMode("request");
- document.getElementById("sahtSubmit").onclick=async()=>{try{
-   const email=sahtEmail.value.trim(),pw=sahtPassword.value;if(!email||!pw)return setMsg("Email and password are required.");
-   if(mode==="request"){const r=await client.auth.signUp({email,password:pw,options:{data:{full_name:sahtName.value.trim(),reason:sahtReason.value.trim()}}});if(r.error)throw r.error;setMsg("Request submitted. Wait for admin approval.");}
-   else{const r=await client.auth.signInWithPassword({email,password:pw});if(r.error)throw r.error;await enter(r.data.user)}
- }catch(e){setMsg(e.message||"Authentication failed.")}};
- client.auth.onAuthStateChange(async(_,s)=>{if(s?.user){try{await enter(s.user)}catch(e){locked();setMsg(e.message)}}else locked()});
- client.channel("saht-live").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},()=>window.syncAgentsFromSupabase?window.syncAgentsFromSupabase():syncAgents()).on("postgres_changes",{event:"*",schema:"public",table:"access_requests"},()=>window.refreshAccessRequests?window.refreshAccessRequests():null).on("postgres_changes",{event:"*",schema:"public",table:"profiles"},async(payload)=>{if(payload?.new?.id===profile?.id){try{await enter((await client.auth.getUser()).data.user)}catch(e){console.warn(e)}};if(window.refreshAccessRequests)window.refreshAccessRequests();}).subscribe();
- window.sahtSupabaseReady=true;
- setMode("login");
-})();
-</script></body></html>`],{type:"application/vnd.ms-excel"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="Real_Time_Session_AHT.xls";a.click()}
 async function copyTableAsImage(){
   const table=document.getElementById('reportTable');
   if(!table || !table.querySelector('tr')){
@@ -1337,7 +1123,7 @@ async function copyTableAsImage(){
   const rootStyle=getComputedStyle(document.documentElement);
   const fontFamily=liveBody.fontFamily || 'Arial, sans-serif';
 
-  const cssVar=(name,fallback)=&gt;{
+  const cssVar=(name,fallback)=>{
     const v=liveBody.getPropertyValue(name).trim();
     return v || fallback;
   };
@@ -1375,10 +1161,10 @@ async function copyTableAsImage(){
 
   function effectiveBackground(el){
     let n=el;
-    while(n &amp;&amp; n!==document.documentElement){
+    while(n && n!==document.documentElement){
       const cs=getComputedStyle(n);
       const bg=cs.backgroundColor;
-      if(bg &amp;&amp; bg!=='rgba(0, 0, 0, 0)' &amp;&amp; bg!=='transparent') return bg;
+      if(bg && bg!=='rgba(0, 0, 0, 0)' && bg!=='transparent') return bg;
       n=n.parentElement;
     }
     return panelBg;
@@ -1393,7 +1179,7 @@ async function copyTableAsImage(){
 
   function mixWithWhiteOrBlack(color, amount){
     const c=parseRGB(color,{r:255,g:255,b:255,a:1});
-    const dark=(c.r+c.g+c.b)/3&lt;128;
+    const dark=(c.r+c.g+c.b)/3<128;
     const target=dark?255:0;
     const p=amount;
     return {
@@ -1425,31 +1211,36 @@ async function copyTableAsImage(){
   const titleH=58;
 
   // Width is based on the data actually present, not the current viewport.
-  const headers=header ? [...header.children].map(c=&gt;c.innerText.replace(/\s+/g,' ').trim()) : [];
-  const colCount=Math.max(headers.length,...rows.map(r=&gt;r.children.length));
+  const headers=header ? [...header.children].map(c=>c.innerText.replace(/\s+/g,' ').trim()) : [];
+  const colCount=Math.max(headers.length,...rows.map(r=>r.children.length));
   const colWidths=new Array(colCount).fill(0);
 
   // Reasonable width limits; Agent Name gets more space because names are longer.
   const minWidths=[250,145,145,170,170,155];
   const maxWidths=[390,230,230,220,220,210];
 
-  rows.forEach((row,ri)=&gt;{
-    [...row.children].forEach((cell,ci)=&gt;{
+  rows.forEach((row,ri)=>{
+    [...row.children].forEach((cell,ci)=>{
       const text=cell.innerText.replace(/\s+/g,' ').trim();
       const cs=getComputedStyle(cell);
       const liveSize=parseFloat(cs.fontSize)||13;
       const weight=cs.fontWeight||'400';
       // Approximate text width without letting long text make the image absurdly wide.
-      const weightFactor=(parseInt(weight,10)||400)&gt;=600?0.60:0.56;
+      const weightFactor=(parseInt(weight,10)||400)>=600?0.60:0.56;
       const estimate=Math.ceil(text.length*fontPx*weightFactor);
       const padding=Math.max(28,(parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.paddingRight)||0)+20);
       colWidths[ci]=Math.max(colWidths[ci],estimate+padding);
     });
   });
 
-  for(let i=0;i<colcount;i++){ colwidths[i]="Math.max(minWidths[i]||130,Math.min(maxWidths[i]||240,colWidths[i]||130));" compact="" const="" contentw="colWidths.reduce((a,b)=" enough="" ensure="" export="" is="" paste="" readability.="" retaining="" the="" to="" total="" use,="" while="" }="">a+b,0);
+  for(let i=0;i<colCount;i++){
+    colWidths[i]=Math.max(minWidths[i]||130,Math.min(maxWidths[i]||240,colWidths[i]||130));
+  }
+
+  // Ensure the total export is compact enough to paste/use, while retaining readability.
+  const contentW=colWidths.reduce((a,b)=>a+b,0);
   const W=contentW+horizontalPad*2;
-  const H=verticalPad+titleH+headerH+(Math.max(0,rows.length-2)*rowH)+(rows.length&gt;1?totalH:0)+verticalPad;
+  const H=verticalPad+titleH+headerH+(Math.max(0,rows.length-2)*rowH)+(rows.length>1?totalH:0)+verticalPad;
 
   // 3x output = crisp when pasted into PowerPoint/Docs/Teams/WhatsApp.
   const scale=3;
@@ -1479,7 +1270,7 @@ async function copyTableAsImage(){
   }
 
   function drawCellBackground(x,y,w,h,cs){
-    const bg=cs.backgroundColor &amp;&amp; cs.backgroundColor!=='rgba(0, 0, 0, 0)'
+    const bg=cs.backgroundColor && cs.backgroundColor!=='rgba(0, 0, 0, 0)'
       ? cs.backgroundColor : effectiveBackground(cs._el);
     ctx.fillStyle=bg;
     ctx.fillRect(x,y,w,h);
@@ -1492,7 +1283,7 @@ async function copyTableAsImage(){
       ['bottom','borderBottomWidth','borderBottomStyle','borderBottomColor'],
       ['left','borderLeftWidth','borderLeftStyle','borderLeftColor']
     ];
-    sides.forEach(([,wp,sp,cp])=&gt;{
+    sides.forEach(([,wp,sp,cp])=>{
       const bw=parseFloat(cs[wp])||0;
       const bs=cs[sp]||'none';
       if(!bw || bs==='none' || bs==='hidden') return;
@@ -1536,13 +1327,13 @@ async function copyTableAsImage(){
   // Render header and rows.
   let y=verticalPad+titleH;
 
-  rows.forEach((row,rowIndex)=&gt;{
+  rows.forEach((row,rowIndex)=>{
     const isHeader=rowIndex===0;
-    const isTotal=rowIndex===rows.length-1 &amp;&amp; rows.length&gt;1;
+    const isTotal=rowIndex===rows.length-1 && rows.length>1;
     const h=isHeader?headerH:(isTotal?totalH:rowH);
     let x=horizontalPad;
 
-    [...row.children].forEach((cell,ci)=&gt;{
+    [...row.children].forEach((cell,ci)=>{
       const w=colWidths[ci]||140;
       const cs=getComputedStyle(cell);
       cs._el=cell;
@@ -1552,7 +1343,7 @@ async function copyTableAsImage(){
       let bg=cs.backgroundColor;
       if(!bg || bg==='rgba(0, 0, 0, 0)') bg=effectiveBackground(cell);
       if(isHeader || isTotal){
-        bg=cs.backgroundColor &amp;&amp; cs.backgroundColor!=='rgba(0, 0, 0, 0)'
+        bg=cs.backgroundColor && cs.backgroundColor!=='rgba(0, 0, 0, 0)'
           ? cs.backgroundColor : panel2Bg;
       }
 
@@ -1565,7 +1356,7 @@ async function copyTableAsImage(){
       // Draw the AHT conditional-formatting treatment exactly as it appears:
       // outline/border + color + symbol, without forcing a background fill.
       const ahtEl=cell.querySelector('.aht-good,.aht-warn,.aht-bad');
-      if(ahtEl &amp;&amp; !isHeader &amp;&amp; !isTotal){
+      if(ahtEl && !isHeader && !isTotal){
         const ahtCs=getComputedStyle(ahtEl);
         const rect=ahtEl.getBoundingClientRect();
         const cellRect=cell.getBoundingClientRect();
@@ -1580,7 +1371,7 @@ async function copyTableAsImage(){
         const radius=parseFloat(ahtCs.borderRadius)||10;
         ctx.strokeStyle=bc;
         ctx.lineWidth=Math.max(1,bw);
-        ctx.fillStyle=ahtCs.backgroundColor &amp;&amp; ahtCs.backgroundColor!=='rgba(0, 0, 0, 0)'
+        ctx.fillStyle=ahtCs.backgroundColor && ahtCs.backgroundColor!=='rgba(0, 0, 0, 0)'
           ? ahtCs.backgroundColor : 'transparent';
 
         roundRectPath(x+badgeLeft,y+badgeTop,badgeW,badgeH,radius);
@@ -1620,7 +1411,7 @@ async function copyTableAsImage(){
     [W*0.22,wmY-30,-18],
     [W*0.50,wmY+5,-18],
     [W*0.78,wmY-25,-18]
-  ].forEach(([wx,wy,angle])=&gt;{
+  ].forEach(([wx,wy,angle])=>{
     ctx.save();
     ctx.translate(wx,wy);
     ctx.rotate(angle*Math.PI/180);
@@ -1638,14 +1429,14 @@ async function copyTableAsImage(){
   ctx.fillText('Abhijith',W-horizontalPad,H-7);
   ctx.restore();
 
-  const blob=await new Promise((resolve,reject)=&gt;{
-    canvas.toBlob(b=&gt;b?resolve(b):reject(new Error('PNG conversion failed')),'image/png');
+  const blob=await new Promise((resolve,reject)=>{
+    canvas.toBlob(b=>b?resolve(b):reject(new Error('PNG conversion failed')),'image/png');
   });
 
   // Direct image clipboard when the browser permits it.
   let copied=false;
   try{
-    if(navigator.clipboard &amp;&amp; window.ClipboardItem){
+    if(navigator.clipboard && window.ClipboardItem){
       await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
       copied=true;
     }
@@ -1667,7 +1458,7 @@ async function copyTableAsImage(){
   document.body.appendChild(a);
   a.click();
   a.remove();
-  setTimeout(()=&gt;URL.revokeObjectURL(url),2500);
+  setTimeout(()=>URL.revokeObjectURL(url),2500);
   alert('Direct image copy is blocked by this browser/page. The exact high-resolution image has been saved as PNG.');
 }
 
@@ -1707,7 +1498,7 @@ function bootApp(){
     const raw=document.getElementById("rawInput");
     const threshold=document.getElementById("threshold");
     const total=document.getElementById("grandTotalToggle");
-    if(raw) raw.addEventListener("input",()=&gt;{clearTimeout(window._saht);window._saht=setTimeout(processData,120)});
+    if(raw) raw.addEventListener("input",()=>{clearTimeout(window._saht);window._saht=setTimeout(processData,120)});
     if(threshold) threshold.addEventListener("input",processData);
     if(total) total.addEventListener("change",processData);
 
@@ -1715,10 +1506,10 @@ function bootApp(){
     if(ft) ft.addEventListener("change",applyFormatTheme);
 
     ["agentFilter","agentTlFilter","agentAmFilter","agentProcessFilter","agentBucketFilter","agentOjtFilter","agentShiftFilter","agentSubProcessFilter"]
-      .forEach(id=&gt;document.getElementById(id)?.addEventListener("change",renderAgentAnalysis));
+      .forEach(id=>document.getElementById(id)?.addEventListener("change",renderAgentAnalysis));
 
     ["teamTlFilter","teamAmFilter","teamProcessFilter","teamBucketFilter","teamOjtFilter","teamShiftFilter","teamSubProcessFilter","groupByFilter"]
-      .forEach(id=&gt;document.getElementById(id)?.addEventListener("change",renderTeamAnalysis));
+      .forEach(id=>document.getElementById(id)?.addEventListener("change",renderTeamAnalysis));
 
     applyFormatTheme();
     processData();
@@ -1728,17 +1519,14 @@ function bootApp(){
     const msg=document.getElementById("startupError");
     if(msg){
       msg.style.display="block";
-      msg.textContent="The tracker could not start: "+(err&amp;&amp;err.message?err.message:"Unknown error")+". Please reload the page.";
+      msg.textContent="The tracker could not start: "+(err&&err.message?err.message:"Unknown error")+". Please reload the page.";
     }
   }
 }
 if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",bootApp);
 else bootApp();
-<script>document.addEventListener("DOMContentLoaded",function(){
-  window.setTimeout(function(){
-    try{restoreCustomization();}catch(e){}
-    try{if(window.sahtProfile&&window.sahtProfile.role==="admin"&&window.sahtProfile.status==="approved")ensureAdmin();}catch(e){}
-  },300);
+</script><script>
+document.addEventListener("DOMContentLoaded",function(){
   ["dashboardTlFilter","dashboardAmFilter","dashboardProcessFilter","dashboardAgentFilter"].forEach(function(id){
     const s=document.getElementById(id);
     if(s)s.addEventListener("change",function(){try{refreshAllAnalytics();}catch(e){console.error(e);}});
@@ -1748,5 +1536,6 @@ else bootApp();
     ["dashboardTlFilter","dashboardAmFilter","dashboardProcessFilter","dashboardAgentFilter"].forEach(function(id){const s=document.getElementById(id);if(s)s.value="";});
     try{refreshAllAnalytics();}catch(e){console.error(e);}
   });
-});</script>
-</colcount;i++){>
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script>(function(){const C=window.SAHT_CONFIG||{},gate=document.getElementById("sahtGate"),msg=document.getElementById("sahtMsg");let mode="login",client=null;const setMsg=x=>{msg.textContent=x||"";msg.classList.toggle("show",!!x)},locked=()=>gate.style.display="flex",open=()=>gate.style.display="none";const setMode=m=>{mode=m;const r=m==="request";document.getElementById("sahtName").style.display=r?"block":"none";document.getElementById("sahtReason").style.display=r?"block":"none";document.getElementById("sahtGateTitle").textContent=r?"Request Dashboard Access":"Secure Sign In";document.getElementById("sahtGateSub").textContent=r?"Create an account. Access stays pending until approved.":"Sign in to use the shared dashboard.";document.getElementById("sahtSubmit").textContent=r?"Request Access":"Sign In";document.getElementById("sahtSignInTab").classList.toggle("active",!r);document.getElementById("sahtRequestTab").classList.toggle("active",r);setMsg("")};if(!C.SUPABASE_URL||!C.SUPABASE_ANON_KEY){setMsg("Supabase configuration is missing.");return}client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY);window.sahtSupabase=client;async function syncAgents(){const q=await client.from("agent_details").select("*").order("email");if(q.error){console.warn("Agent sync:",q.error.message);return}window.directoryData=(q.data||[]).map(r=>({sapCode:r.sap_code||"",loginId:r.login_id||"",agentId:r.agent_id||"",email:r.email||"",agent:r.agent_id||r.login_id||r.email||"",tl:r.tl||"",am:r.am||"",bucket:r.bucket||"",ojt:r.ojt_nonojt||"",shiftStatus:r.shift_status||"",subProcess:r.sub_process||""}));try{if(typeof renderDirectory==="function")renderDirectory();if(typeof refreshAllAnalytics==="function")refreshAllAnalytics()}catch(e){console.warn(e)}}async function enter(user){const q=await client.from("profiles").select("*").eq("id",user.id).maybeSingle();if(q.error)throw q.error;const p=q.data;if(!p){locked();setMsg("Your profile is not ready yet. Please contact the admin.");return}if(p.status!=="approved"){locked();setMsg(p.status==="pending"?"Your access request is pending admin approval.":"Access is "+p.status+".");return}open();await syncAgents()}document.getElementById("sahtSignInTab").onclick=()=>setMode("login");document.getElementById("sahtRequestTab").onclick=()=>setMode("request");document.getElementById("sahtSubmit").onclick=async()=>{try{const email=document.getElementById("sahtEmail").value.trim(),password=document.getElementById("sahtPassword").value;if(!email||!password){setMsg("Email and password are required.");return}if(mode==="request"){const r=await client.auth.signUp({email,password,options:{data:{full_name:document.getElementById("sahtName").value.trim(),reason:document.getElementById("sahtReason").value.trim()}}});if(r.error)throw r.error;setMsg("Request submitted. Your access will remain pending until an admin approves it.")}else{const r=await client.auth.signInWithPassword({email,password});if(r.error)throw r.error;await enter(r.data.user)}}catch(e){setMsg(e.message||"Authentication failed.")}};client.auth.onAuthStateChange(async(_,session)=>{if(session?.user){try{await enter(session.user)}catch(e){locked();setMsg(e.message||"Unable to load your profile.")}}else locked()});client.auth.getSession().then(({data,error})=>{if(error){locked();setMsg(error.message);return}if(data.session)enter(data.session.user).catch(e=>{locked();setMsg(e.message||"Unable to load your profile.")});else locked()});setMode("login")})();</script></body></html>
