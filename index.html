@@ -264,7 +264,10 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
 #sahtGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:var(--bg,#eef2f7);padding:24px}
 #sahtGate .card{width:min(460px,100%);padding:30px;border-radius:22px;background:var(--panel,#fff);border:1px solid var(--border,#ddd);box-shadow:0 20px 60px rgba(0,0,0,.16)}
 #sahtGate h1{margin:6px 0 8px;font-size:28px}.saht-auth-form{display:grid;gap:11px}.saht-auth-msg{display:none;padding:10px;border-radius:10px;background:rgba(100,110,130,.12);font-size:13px}.saht-auth-msg.show{display:block}
-</style></head><body data-theme="normal"><div id="sahtGate"><div class="card">
+
+<style id="saht-access-css">
+.saht-auth-actions{display:flex;justify-content:flex-end;margin:10px 14px 0}.saht-logout-btn{width:100%;font-weight:800}.access-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}.access-stat{padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);text-align:center}.access-stat small{display:block;font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.05em}.access-stat b{display:block;font-size:22px;margin-top:4px}.access-table{width:100%;border-collapse:collapse;font-size:12px}.access-table th,.access-table td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:middle}.access-table th{background:var(--panel2);font-weight:800}.access-actions{display:flex;flex-wrap:wrap;gap:6px}.access-actions .btn{padding:6px 9px;font-size:11px}.status-chip{display:inline-flex;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-weight:800;font-size:10px;text-transform:uppercase}.access-empty{padding:18px;text-align:center;color:var(--muted)}@media(max-width:800px){.access-summary{grid-template-columns:repeat(2,1fr)}.access-table{font-size:11px}.access-table th,.access-table td{padding:6px}}
+</style></style></head><body data-theme="normal"><div id="sahtGate"><div class="card">
 <div style="font-size:11px;letter-spacing:.15em;font-weight:800;opacity:.6">SESSION AHT MONITOR</div>
 <h1 id="sahtGateTitle">Secure Sign In</h1>
 <div id="sahtGateSub" style="opacity:.7;margin-bottom:20px">Sign in to use the shared dashboard.</div>
@@ -283,6 +286,7 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
     </div>
     <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
   </div>
+  <div class="saht-auth-actions"><button class="btn saht-logout-btn" id="sahtLogoutBtn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div>
   <div class="sidebar-scroll">
     <div class="side-status">
       <div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
@@ -425,6 +429,17 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
       <div class="monitor-card"><small>EXCLUDED ZERO-VALUE</small><b id="adminExcluded">0</b></div>
       <div class="monitor-card"><small>DUPLICATE RECORDS REMOVED</small><b id="adminDuplicates">0</b></div>
       <div class="monitor-card"><small>LAST REFRESH</small><b id="adminRefresh">—</b></div>
+    </div>
+    <div class="analytics-card" style="margin-top:14px">
+      <h3>User Access Management</h3>
+      <div class="help-note">Approve or reject dashboard access requests. Approved users can sign in and read the shared Agent Details master.</div>
+      <div class="access-summary">
+        <div class="access-stat"><small>PENDING</small><b id="accessPendingCount">0</b></div>
+        <div class="access-stat"><small>APPROVED</small><b id="accessApprovedCount">0</b></div>
+        <div class="access-stat"><small>REJECTED</small><b id="accessRejectedCount">0</b></div>
+        <div class="access-stat"><small>DISABLED</small><b id="accessDisabledCount">0</b></div>
+      </div>
+      <div id="accessRequestsTable"><div class="access-empty">Loading access requests…</div></div>
     </div>
     <div class="analytics-card" style="margin-top:14px">
       <h3>Smart Identity Mapping Rules</h3>
@@ -835,6 +850,7 @@ function adminLogin(){
    document.getElementById("adminLocked").style.display="none";
    document.getElementById("adminPanel").style.display="block";
    refreshAdmin();
+   if(typeof loadAccessRequests==="function")loadAccessRequests();
  }else if(alertBox)alertBox.textContent="Invalid username or password.";
 }
 function adminLogout(){
@@ -846,10 +862,10 @@ function adminLogout(){
 }
 function ensureAdmin(){
  lockDirectory();
- const ok=storageGet("saht-admin-session","0")==="1";
+ const ok=isAdminAuthenticated();
  document.getElementById("adminLocked").style.display=ok?"none":"block";
  document.getElementById("adminPanel").style.display=ok?"block":"none";
- if(ok)refreshAdmin();
+ if(ok){refreshAdmin(); if(typeof loadAccessRequests==="function")loadAccessRequests();}
 }
 function refreshAdmin(){
  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
@@ -862,6 +878,49 @@ function refreshAdmin(){
  if(box)box.innerHTML=unmapped.length?`<div class="wrap"><table class="group-table"><thead><tr><th>Agent</th><th>Email</th><th>Login Hours</th><th>AHT</th><th>TL</th><th>AM</th><th>Process</th></tr></thead><tbody>${unmapped.map(r=>{const m=getMapping(r.email||r.loginId||r.name);return `<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.email||"")}</td><td>${escapeHtml(r.loginHours||"")}</td><td>${r.ahtSec}s</td><td>${escapeHtml(m.tl)}</td><td>${escapeHtml(m.am)}</td><td>${escapeHtml(m.process)}</td></tr>`}).join("")}</tbody></table></div>`:'<div class="empty-panel">All currently valid agents are mapped.</div>';
 }
 
+async function loadAccessRequests(){
+ const c=window.sahtSupabase;
+ if(!c || !isAdminAuthenticated()) return;
+ const box=document.getElementById("accessRequestsTable");
+ if(box) box.innerHTML='<div class="access-empty">Loading access requests…</div>';
+ try{
+   const [rq,pq]=await Promise.all([
+     c.from("access_requests").select("*").order("created_at",{ascending:false}),
+     c.from("profiles").select("id,full_name,email,role,status,approved_at")
+   ]);
+   if(rq.error) throw rq.error; if(pq.error) throw pq.error;
+   const profiles=new Map((pq.data||[]).map(x=>[x.id,x]));
+   const rows=(rq.data||[]).map(r=>Object.assign({},r,{profile:profiles.get(r.user_id)||{}}));
+   const counts={pending:0,approved:0,rejected:0,disabled:0};
+   rows.forEach(r=>{const st=(r.profile.status||r.status||"pending").toLowerCase(); if(counts[st]!==undefined)counts[st]++;});
+   ["pending","approved","rejected","disabled"].forEach(st=>{const e=document.getElementById("access"+st.charAt(0).toUpperCase()+st.slice(1)+"Count");if(e)e.textContent=counts[st]||0;});
+   if(!box)return;
+   if(!rows.length){box.innerHTML='<div class="access-empty">No access requests found.</div>';return;}
+   const esc=window.escapeHtml||((v)=>String(v??""));
+   box.innerHTML='<div class="wrap"><table class="access-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Reason / Team</th><th>Requested</th><th>Status</th><th>Reviewed</th><th>Action</th></tr></thead><tbody>'+rows.map(r=>{
+     const pr=r.profile||{}; const st=(pr.status||r.status||"pending").toLowerCase();
+     const name=pr.full_name||r.full_name||""; const email=pr.email||r.email||"";
+     const reason=r.reason||""; const requested=r.created_at?new Date(r.created_at).toLocaleString():""; const reviewed=r.reviewed_at?new Date(r.reviewed_at).toLocaleString():"—";
+     const action=(st==="pending"||st==="rejected"||st==="disabled")?'<button class="btn primary" onclick="updateAccessStatus(\''+r.user_id+'\',\'approved\',\''+r.id+'\')">Approve</button> ':'';
+     const reject=(st==="pending")?'<button class="btn" onclick="updateAccessStatus(\''+r.user_id+'\',\'rejected\',\''+r.id+'\')">Reject</button> ':'';
+     const disable=(st==="approved")?'<button class="btn" onclick="updateAccessStatus(\''+r.user_id+'\',\'disabled\',\''+r.id+'\')">Disable</button> ':'';
+     box.dataset.loaded="1";
+     return '<tr><td>'+esc(name)+'</td><td>'+esc(email)+'</td><td>'+esc(pr.role||"user")+'</td><td>'+esc(reason||"—")+'</td><td>'+esc(requested)+'</td><td><span class="status-chip">'+esc(st)+'</span></td><td>'+esc(reviewed)+'</td><td><div class="access-actions">'+action+reject+disable+'</div></td></tr>';
+   }).join('')+'</tbody></table></div>';
+ }catch(e){console.error("Access request load failed:",e);if(box)box.innerHTML='<div class="access-empty">Unable to load access requests: '+escapeHtml(e.message||e)+'</div>';}
+}
+async function updateAccessStatus(userId,status,requestId){
+ const c=window.sahtSupabase; if(!c||!isAdminAuthenticated())return;
+ try{
+   const pr=await c.from("profiles").update({status:status,approved_at:status==="approved"?new Date().toISOString():null}).eq("id",userId);
+   if(pr.error)throw pr.error;
+   const au=await c.auth.getUser();
+   const reviewerId=au.data?.user?.id||null;
+   const rq=await c.from("access_requests").update({status:status,reviewed_at:new Date().toISOString(),reviewed_by:reviewerId}).eq("id",requestId);
+   if(rq.error)throw rq.error;
+   await loadAccessRequests();
+ }catch(e){alert(e.message||"Unable to update access status.");console.error(e);}
+}
 function fillHierarchyFilters(){
   const mapped=processedData.map(r=>getMapping(r.email||r.loginId||r.name));
   fillSelect("agentFilter",processedData.map(r=>r.name));
@@ -1046,7 +1105,7 @@ function refreshAllAnalytics(){
   renderManagementDashboard();
 }
 
-function isAdminAuthenticated(){return storageGet("saht-admin-session","0")==="1";}
+function isAdminAuthenticated(){return storageGet("saht-admin-session","0")==="1" || window.sahtAdminApproved===true;}
 function lockDirectory(){
   const content=document.getElementById("directoryAdminContent");
   const locked=document.getElementById("directoryLocked");
@@ -1561,6 +1620,13 @@ document.addEventListener("DOMContentLoaded",function(){
 <script src="config.js"></script>
 <script>
 (function(){
+ window.sahtAdminApproved=false;
+ window.sahtSignOut=async function(){
+   try{ if(window.sahtSupabase) await window.sahtSupabase.auth.signOut(); }catch(e){console.error(e);}
+   window.sahtAdminApproved=false; storageSet("saht-admin-session","0");
+   const gate=document.getElementById("sahtGate"); if(gate)gate.style.display="flex";
+   try{setTimeout(()=>location.reload(),50)}catch(e){}
+ };
  const C=window.SAHT_CONFIG||{},configured=C.SUPABASE_URL&&!/YOUR-/i.test(C.SUPABASE_URL)&&C.SUPABASE_ANON_KEY&&!/YOUR_/i.test(C.SUPABASE_ANON_KEY);
  const gate=document.getElementById("sahtGate"),msg=document.getElementById("sahtMsg");let mode="login",client,profile;
  const setMsg=x=>{msg.textContent=x||"";msg.classList.toggle("show",!!x)};
@@ -1568,7 +1634,11 @@ document.addEventListener("DOMContentLoaded",function(){
  const locked=()=>gate.style.display="flex",open=()=>gate.style.display="none";
  async function enter(u){const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();if(q.error)throw q.error;profile=q.data;
    if(!profile){setMsg("Your profile is not ready yet.");return} if(profile.status!=="approved"){locked();setMsg(profile.status==="pending"?"Your access request is pending admin approval.":"Access is "+profile.status+".");return}
-   open(); await syncAgents();
+   open();
+   window.sahtAdminApproved=(profile.role==="admin" && profile.status==="approved");
+   if(window.sahtAdminApproved){storageSet("saht-admin-session","1");}
+   try{ensureAdmin();}catch(e){}
+   await syncAgents();
  }
  async function syncAgents(){const q=await client.from("agent_details").select("*").order("email");if(q.error)return;
    window.directoryData=(q.data||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
