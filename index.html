@@ -733,43 +733,47 @@ function readDirectoryText(text){
 }
 async function saveDirectory(){
  if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
-  const parsed=readDirectoryText(document.getElementById("directoryInput").value);
-  if(!parsed.length){alert("No valid agent details found.");return;}
-  if(!window.sahtSupabase){alert("Supabase is not connected. Please refresh and sign in again.");return;}
-  try{
-    const session=await window.sahtSupabase.auth.getSession();
-    const user=session?.data?.session?.user;
-    if(!user)throw new Error("Your Supabase session has expired. Please sign in again.");
-    const prof=await window.sahtSupabase.from("profiles").select("role,status").eq("id",user.id).maybeSingle();
-    if(prof.error)throw prof.error;
-    if(!prof.data || prof.data.role!=="admin" || prof.data.status!=="approved")throw new Error("Admin access required.");
-    const rows=parsed.map(r=>({
-      sap_code:r.sapCode||null,
-      login_id:r.loginId||null,
-      agent_id:r.agentId||null,
-      email:(r.loginId&&String(r.loginId).includes("@"))?String(r.loginId).trim().toLowerCase():null,
-      tl:r.tl||null,
-      am:r.am||null,
-      bucket:r.bucket||null,
-      ojt_nonojt:r.ojt||null,
-      shift_status:r.shiftStatus||null,
-      sub_process:r.subProcess||null,
-      updated_at:new Date().toISOString(),
-      updated_by:user.id
-    }));
-    const del=await window.sahtSupabase.from("agent_details").delete().not("id","is",null);
-    if(del.error)throw del.error;
-    const ins=await window.sahtSupabase.from("agent_details").insert(rows);
-    if(ins.error)throw ins.error;
-    directoryData=parsed;
-    storageSet("saht-directory",JSON.stringify(directoryData));
-    renderDirectory();
-    refreshAllAnalytics();
-    alert(rows.length+" agent details saved to the shared Supabase database.");
-  }catch(e){
-    console.error("Save Agent Details:",e);
-    alert("Could not save Agent Details to Supabase: "+(e.message||e));
-  }
+ const parsed=readDirectoryText(document.getElementById("directoryInput").value);
+ if(!parsed.length){alert("No valid agent details found.");return;}
+ if(!window.sahtSupabase){alert("Supabase is not connected. Please refresh and sign in again.");return;}
+ try{
+   const session=await window.sahtSupabase.auth.getSession();
+   const user=session?.data?.session?.user;
+   if(!user)throw new Error("Your Supabase session has expired. Please sign in again.");
+   const prof=await window.sahtSupabase.from("profiles").select("role,status").eq("id",user.id).maybeSingle();
+   if(prof.error)throw prof.error;
+   if(!prof.data || prof.data.role!=="admin" || prof.data.status!=="approved")throw new Error("Admin access required.");
+   // Deduplicate by Login ID / email before sending to Supabase. This prevents
+   // the unique indexes on agent_details from rejecting an otherwise valid upload.
+   const seen=new Set();
+   const rows=parsed.map(r=>({
+     sap_code:r.sapCode||null,
+     login_id:r.loginId||null,
+     agent_id:r.agentId||null,
+     email:(r.loginId&&String(r.loginId).includes("@"))?String(r.loginId).trim().toLowerCase():null,
+     tl:r.tl||null,
+     am:r.am||null,
+     bucket:r.bucket||null,
+     ojt_nonojt:r.ojt||null,
+     shift_status:r.shiftStatus||null,
+     sub_process:r.subProcess||null
+   })).filter(r=>{
+     const key=(r.email||r.login_id||r.agent_id||r.sap_code||"").trim().toLowerCase();
+     if(!key || seen.has(key)) return false;
+     seen.add(key); return true;
+   });
+   if(!rows.length)throw new Error("No unique agent records found.");
+   const rpc=await window.sahtSupabase.rpc("replace_agent_details",{p_rows:rows});
+   if(rpc.error)throw rpc.error;
+   directoryData=parsed;
+   storageSet("saht-directory",JSON.stringify(directoryData));
+   renderDirectory();
+   refreshAllAnalytics();
+   alert(rows.length+" agent details saved to the shared Supabase database.");
+ }catch(e){
+   console.error("Save Agent Details:",e);
+   alert("Could not save Agent Details to Supabase: "+(e.message||e));
+ }
 }
 function loadDirectory(){
   try{directoryData=JSON.parse(storageGet("saht-directory","[]"))||[];if(!Array.isArray(directoryData))directoryData=[];}catch(e){directoryData=[]}
