@@ -1650,17 +1650,22 @@ document.addEventListener("DOMContentLoaded",function(){
  document.getElementById("sahtSubmit").onclick=async()=>{try{
    const email=sahtEmail.value.trim(),pw=sahtPassword.value;if(!email||!pw)return setMsg("Email and password are required.");
    if(mode==="request"){
-     const r=await client.auth.signUp({email,password:pw,options:{data:{full_name:sahtName.value.trim(),reason:sahtReason.value.trim()}}});
+     const fullName=sahtName.value.trim(), reason=sahtReason.value.trim();
+     if(!fullName)return setMsg("Name is required.");
+     const r=await client.auth.signUp({email,password:pw,options:{data:{full_name:fullName,reason:reason}}});
      if(r.error)throw r.error;
-     if(r.data?.user){
-       if(r.data.session){
-         await enter(r.data.user);
-       }else{
-         setMsg("Account created, but the Supabase project still requires email confirmation. Disable Confirm Email in Supabase Auth settings, then submit the request again.");
-       }
-     }else{
-       setMsg("Request submitted. Your account is pending admin approval. You can sign in once approved.");
+     const u=r.data?.user;
+     if(!u)throw new Error("Unable to create the account.");
+     if(!r.data?.session){
+       setMsg("Account created. Please sign in; no email confirmation is required. Your access will remain pending until an admin approves it.");
+       return;
      }
+     const rq=await client.rpc("submit_access_request",{p_full_name:fullName,p_email:email,p_reason:reason});
+     if(rq.error)throw rq.error;
+     setMode("login");
+     setMsg("Request submitted. Your access request is pending admin approval.");
+     document.getElementById("sahtEmail").value=email;
+     document.getElementById("sahtPassword").value=pw;
    }
    else{
      const r=await client.auth.signInWithPassword({email,password:pw});
