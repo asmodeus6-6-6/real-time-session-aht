@@ -1654,6 +1654,22 @@ document.addEventListener("DOMContentLoaded",function(){
  }catch(e){setMsg(e.message||"Authentication failed.")}};
  client.auth.onAuthStateChange(async(_,s)=>{if(s?.user){try{await enter(s.user)}catch(e){locked();setMsg(e.message)}}else locked()});
  client.channel("agent-details-live").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},syncAgents).subscribe();
+ // Keep access status in sync for users who were already signed in when an admin approved them.
+ let currentAuthUser=null;
+ client.auth.onAuthStateChange((event,session)=>{ currentAuthUser=session?.user||null; });
+ client.channel("profile-access-live").on("postgres_changes",{event:"UPDATE",schema:"public",table:"profiles"},payload=>{
+   if(currentAuthUser && payload?.new?.id===currentAuthUser.id){ enter(currentAuthUser).catch(e=>console.error("Profile access refresh failed:",e)); }
+ }).subscribe();
+ setInterval(async()=>{
+   try{
+     const u=(await client.auth.getUser()).data?.user;
+     if(!u) return;
+     currentAuthUser=u;
+     const q=await client.from("profiles").select("id,full_name,email,role,status,approved_at").eq("id",u.id).maybeSingle();
+     if(q.error) throw q.error;
+     if(q.data && (!profile || q.data.status!==profile.status || q.data.role!==profile.role)){ await enter(u); }
+   }catch(e){ console.error("Access status check failed:",e); }
+ },10000);
  setMode("login");
 })();
 </script>
