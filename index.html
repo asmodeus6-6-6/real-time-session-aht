@@ -191,6 +191,17 @@ body[data-theme=white] .hero,body[data-theme=normal] .hero{box-shadow:0 6px 20px
 .admin-lock-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:14px}
 .admin-lock-banner b{font-size:13px}.admin-lock-banner span{font-size:11px;color:var(--muted)}
 
+
+/* V14: single top-right profile control */
+#sidebarProfileCard,#navMyProfile{display:none!important}
+.global-profile{position:fixed;right:18px;top:14px;z-index:5000;display:flex;align-items:center;gap:9px;padding:7px 10px 7px 7px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.10);cursor:pointer;min-width:150px}
+.global-profile:hover{border-color:var(--accent);transform:translateY(-1px)}
+.global-avatar{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06111b;font-weight:1000;overflow:hidden;flex:0 0 32px}
+.global-avatar img{width:100%;height:100%;object-fit:cover}
+.global-profile-copy{min-width:0;line-height:1.1}.global-profile-copy b{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:145px}.global-profile-copy small{display:block;font-size:8px;color:var(--muted);font-weight:900;text-transform:uppercase;margin-top:3px}.global-profile-chevron{margin-left:auto;color:var(--muted);font-size:14px}
+.main{position:relative;padding-top:6px}
+@media(max-width:700px){.global-profile{right:8px;top:8px;min-width:42px;padding:5px}.global-profile-copy,.global-profile-chevron{display:none}}
+
 /* ===== SIDEBAR V2: structured / animated / responsive ===== */
 :root{--sidebar-w:292px;--sidebar-collapsed-w:78px}
 .sidebar{
@@ -374,7 +385,7 @@ body.saht-admin #navAdminPortal{display:grid!important}
     <div class="foot-line"><span class="foot-dot"></span><span class="foot-copy">System ready</span><span class="foot-version">SAHT</span></div>
     <div class="sidebar-watermark">Abhijith</div>
   </div>
-</aside><main class="main"><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
+</aside><main class="main"><div class="global-profile" id="globalProfileButton" style="display:none" onclick="openProfileModal()" title="Open profile"><div class="global-avatar" id="globalProfileAvatar">U</div><div class="global-profile-copy"><b id="globalProfileName">User</b><small><span id="globalProfileRole">VISITOR</span></small></div><span class="global-profile-chevron">⌄</span></div><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
 <section class="page active" id="page-live">
 <div class="top"><div><h1>Real Time Session AHT Tracker</h1><p>Agent-level live performance • AHT sorted High → Low</p></div><div class="live"><span class="dot"></span>LIVE • <span id="recordCount">0 agents</span></div><div class="header-watermark">Abhijith</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" title="Copy table as PNG image; browser security may require a secure page" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section id="summary" class="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div style="display:flex;justify-content:space-between"><h3>Live Status</h3><small>Target: <span id="targetView">180</span>s</small></div><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span></div><div class="wrap"><div class="watermark" aria-hidden="true">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
 </section>
@@ -803,6 +814,7 @@ async function saveDirectory(){
  const q=await c.rpc("replace_agent_details",{p_rows:payload});
  if(q.error){alert("Unable to save shared Agent Details: "+q.error.message);console.error(q.error);return;}
  await refreshDirectory();
+ refreshAllAnalytics();
  const n=q.data??parsed.length;
  alert(n+" agent details saved to the shared master.");
 }
@@ -878,13 +890,41 @@ function smartMap(r){
  return m;
 }
 function getMapping(name){
+ const q=directoryKey(name);
+ const rowVal=(x,camel,key)=>directoryKey(x?.[camel]??x?.[key]??"");
  let found=directoryData.find(x=>{
-  const q=directoryKey(name);
-  return directoryKey(x.loginId)===q || directoryKey(x.agentId)===q;
-});
-if(!found) found=directoryData.find(x=>directoryKey(x.agent)===directoryKey(name));
+   const ids=[
+     rowVal(x,"loginId","Login Id"),
+     rowVal(x,"email","Email"),
+     rowVal(x,"agentId","Agent ID"),
+     rowVal(x,"agent","Agent Name"),
+     rowVal(x,"sapCode","Sap code")
+   ].filter(Boolean);
+   return ids.includes(q);
+ });
+ if(!found) found=directoryData.find(x=>{
+   const agent=rowVal(x,"agent","Agent ID");
+   return agent===q;
+ });
  if(!found){
-   found={agent:name,sapCode:"",loginId:"",agentId:name,tl:"Unmapped",am:"Unmapped",bucket:"Unmapped",ojt:"Unmapped",shiftStatus:"Unmapped",subProcess:"Unmapped",process:"Unmapped"};
+   found={agent:name,sapCode:"",loginId:"",agentId:name,tl:"Unmapped",am:"Unmapped",bucket:"Unmapped",ojt:"Unmapped",shiftStatus:"Unmapped",subProcess:"",process:"Unmapped"};
+ } else {
+   const get=(camel,key)=>clean(found?.[camel]??found?.[key]??"");
+   found={
+     ...found,
+     agent:get("agent","Agent ID")||get("loginId","Login Id")||name,
+     sapCode:get("sapCode","Sap code"),
+     loginId:get("loginId","Login Id"),
+     email:get("email","Email"),
+     agentId:get("agentId","Agent ID"),
+     tl:get("tl","TL")||"Unmapped",
+     am:get("am","AM")||"Unmapped",
+     bucket:get("bucket","Bucket")||"Unmapped",
+     ojt:get("ojt","OJT/NonOJT")||"Unmapped",
+     shiftStatus:get("shiftStatus","Shift Status")||"Unmapped",
+     subProcess:get("subProcess","Sub Process"),
+     process:get("process","Process")||get("subProcess","Sub Process")||"Unmapped"
+   };
  }
  return smartMap(found);
 }
@@ -1171,9 +1211,9 @@ function updateProfileUI(){
  const text=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v??"";};
  set("profileFullName",p.full_name||""); set("profileAgentId",p.agent_id||""); set("profileEmail",email); set("profileUserId",p.id||""); set("profileRole",role);
  const roleEl=document.getElementById("profileRole"); if(roleEl)roleEl.disabled=!(window.sahtAdminApproved===true);
- text("sidebarProfileName",name); text("sidebarProfileEmail",email); text("sidebarProfileRole",role==="admin"?"ADMIN":"VISITOR"); text("sidebarProfileAvatar",(name.trim()[0]||"U").toUpperCase()); text("profileModalTitle",name); text("profileModalRole",role==="admin"?"ADMIN":"VISITOR"); text("profileModalStatus",(p.status||"pending").toUpperCase()); text("profileModalAvatar",(name.trim()[0]||"U").toUpperCase()); const mav=document.getElementById("profileModalAvatar"); if(mav){mav.innerHTML=p.avatar_url?`<img src="${escapeHtml(p.avatar_url)}" alt="Profile">`:(name.trim()[0]||"U").toUpperCase();} const sav=document.getElementById("sidebarProfileAvatar"); if(sav){sav.innerHTML=p.avatar_url?`<img src="${escapeHtml(p.avatar_url)}" alt="Profile">`:(name.trim()[0]||"U").toUpperCase();} const lock=document.getElementById("profileEditLock"); if(lock){const d=p.last_profile_edit_at?new Date(p.last_profile_edit_at):null; const next=d?new Date(d.getTime()+7*86400000):null; lock.textContent=next && next>new Date()?`Profile details are locked until ${next.toLocaleString()}. Admin role changes remain available to an approved admin.`:"Profile details can be updated now. Next profile edit will be available after 7 days.";}
+ text("globalProfileName",name); text("globalProfileRole",role==="admin"?"ADMIN":"VISITOR"); text("globalProfileAvatar",(name.trim()[0]||"U").toUpperCase()); text("profileModalTitle",name); text("profileModalRole",role==="admin"?"ADMIN":"VISITOR"); text("profileModalStatus",(p.status||"pending").toUpperCase()); text("profileModalAvatar",(name.trim()[0]||"U").toUpperCase()); const mav=document.getElementById("profileModalAvatar"); if(mav){mav.innerHTML=p.avatar_url?`<img src="${escapeHtml(p.avatar_url)}" alt="Profile">`:(name.trim()[0]||"U").toUpperCase();} const gav=document.getElementById("globalProfileAvatar"); if(gav){gav.innerHTML=p.avatar_url?`<img src="${escapeHtml(p.avatar_url)}" alt="Profile">`:(name.trim()[0]||"U").toUpperCase();} const lock=document.getElementById("profileEditLock"); if(lock){const d=p.last_profile_edit_at?new Date(p.last_profile_edit_at):null; const next=d?new Date(d.getTime()+7*86400000):null; lock.textContent=next && next>new Date()?`Profile details are locked until ${next.toLocaleString()}. Admin role changes remain available to an approved admin.`:"Profile details can be updated now. Next profile edit will be available after 7 days.";}
  text("profileStatusPill",(p.status||"pending").toUpperCase());
- const card=document.getElementById("sidebarProfileCard"); if(card)card.style.display="block";
+ const card=document.getElementById("globalProfileButton"); if(card)card.style.display="flex";
 }
 async function loadMyProfile(){
  const c=window.sahtSupabase; if(!c)return; const u=(await c.auth.getUser()).data?.user; if(!u)return;
@@ -1795,6 +1835,8 @@ document.addEventListener("DOMContentLoaded",function(){
  }catch(e){setMsg(e.message||"Authentication failed.")}};
  client.auth.onAuthStateChange(async(_,s)=>{if(s?.user){try{await enter(s.user)}catch(e){locked();setMsg(e.message)}}else locked()});
  client.channel("agent-details-live").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},syncAgents).subscribe();
+ // Realtime is primary; periodic refresh is a safety net so visitors never stay on stale mapping data.
+ setInterval(()=>{ if(window.sahtUserApproved||window.sahtAdminApproved) syncAgents().catch(()=>{}); },10000);
  // Keep access status in sync for users who were already signed in when an admin approved them.
  let currentAuthUser=null;
  client.auth.onAuthStateChange((event,session)=>{ currentAuthUser=session?.user||null; });
