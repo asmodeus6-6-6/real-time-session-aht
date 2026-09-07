@@ -166,6 +166,8 @@ body[data-theme=white] .hero,body[data-theme=normal] .hero{box-shadow:0 6px 20px
 @media(max-width:1050px){.analytics-grid{grid-template-columns:repeat(2,1fr)}.analysis-grid,.directory-layout{grid-template-columns:1fr}.filterbar{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.analytics-grid{grid-template-columns:1fr 1fr}.filterbar,.import-grid{grid-template-columns:1fr}.page-title{display:block}}
 
+/* ===== Profile / shared directory controls ===== */
+.profile-card{border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:11px;margin:8px 14px 12px}.profile-card .pc-top{display:flex;align-items:center;gap:9px}.profile-avatar{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06111b;font-weight:1000}.profile-card b{font-size:12px;display:block}.profile-card small{font-size:9px;color:var(--muted);display:block;margin-top:2px}.profile-card .pc-role{margin-left:auto;font-size:8px;font-weight:900;text-transform:uppercase;border:1px solid var(--line);padding:4px 7px;border-radius:999px}.profile-edit{display:grid;gap:9px;max-width:760px}.profile-edit label{font-size:10px;color:var(--muted);font-weight:800}.profile-edit input,.profile-edit select{width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text)}.profile-readonly{opacity:.8}.directory-toolbar{display:flex;flex-wrap:wrap;gap:7px;align-items:center}.directory-toolbar .btn{font-size:11px}.directory-status{font-size:10px;color:var(--muted);margin-left:auto}.visitor-note{background:var(--panel2);border:1px dashed var(--line);padding:10px;border-radius:9px;color:var(--muted);font-size:11px;margin-bottom:12px}
 /* ===== Admin + monitoring ===== */
 .admin-lock{max-width:520px;margin:60px auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
 .admin-lock h2{margin:0 0 5px}.admin-lock p{color:var(--muted);font-size:12px}
@@ -290,6 +292,7 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
     <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
   </div>
   <div class="saht-auth-actions"><button class="btn saht-logout-btn" id="sahtLogoutBtn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div>
+  <div class="profile-card" id="sidebarProfileCard" style="display:none"><div class="pc-top"><div class="profile-avatar" id="sidebarProfileAvatar">U</div><div style="min-width:0"><b id="sidebarProfileName">User</b><small id="sidebarProfileEmail">—</small></div><span class="pc-role" id="sidebarProfileRole">VISITOR</span></div></div>
   <div class="sidebar-scroll">
     <div class="side-status">
       <div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
@@ -306,6 +309,7 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
         <button data-page="teams" onclick="showPage('teams')" title="TL / AM / Process Analysis"><span class="nav-icon">▤</span><span class="nav-text">TL / AM / Process</span><em>GROUP</em></button>
         <button data-page="directory" onclick="showPage('directory')" title="Agent Details"><span class="nav-icon">＋</span><span class="nav-text">Agent Details</span><em>VIEW</em></button>
         <button data-page="admin" onclick="showPage('admin')" title="Admin Portal"><span class="nav-icon">⚙</span><span class="nav-text">Admin Portal</span><em>SECURE</em></button>
+        <button data-page="profile" onclick="showPage('profile')" title="My Profile"><span class="nav-icon">◉</span><span class="nav-text">My Profile</span><em>ACCOUNT</em></button>
       </nav>
     </div>
 
@@ -456,6 +460,22 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
     </div>
   </div>
 </section>
+<section class="page" id="page-profile">
+  <div class="page-title"><div><h2>My Profile</h2><p>Manage your dashboard identity and access role.</p></div><span class="pill" id="profileStatusPill">APPROVED</span></div>
+  <div class="analytics-card">
+    <h3>Profile Session</h3>
+    <div class="profile-edit" style="margin-top:12px">
+      <div><label>Full Name</label><input id="profileFullName" type="text" placeholder="Your name"></div>
+      <div><label>Agent ID</label><input id="profileAgentId" type="text" placeholder="Agent ID / Employee ID"></div>
+      <div><label>Email</label><input id="profileEmail" class="profile-readonly" type="email" readonly></div>
+      <div><label>Role</label><select id="profileRole"><option value="user">Visitor</option><option value="admin">Admin</option></select></div>
+      <div><label>Supabase User ID</label><input id="profileUserId" class="profile-readonly" type="text" readonly></div>
+      <div class="controls" style="grid-template-columns:160px 1fr;margin-top:2px"><button class="btn primary" onclick="saveMyProfile()">Save Profile</button><button class="btn" onclick="loadMyProfile()">Refresh Profile</button></div>
+      <div id="profileMsg" class="help-note" style="display:none;margin:0"></div>
+    </div>
+  </div>
+  <div class="analytics-card" style="margin-top:14px"><h3>Access</h3><div class="visitor-note">Your dashboard access is controlled by the administrator. Visitors can view shared Agent Details but cannot edit the master data. Only an approved admin can change user roles.</div><button class="btn" onclick="sahtSignOut()">↪ Sign Out</button></div>
+</section>
 <section class="page" id="page-directory">
   <div class="page-title">
     <div><h2>Agent Details</h2><p>Admin-controlled agent master data.</p></div>
@@ -473,16 +493,18 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
     </div>
     <div class="analytics-card directory-editor-controls" style="margin-bottom:14px">
       <h3>Agent Master Data — Admin Edit</h3>
-      <div class="help-note"><b>Excel columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process<br>Paste directly from Excel. The first row may contain headers.</div>
+      <div class="help-note"><b>Excel columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process<br>Paste directly from Excel. The first row may contain headers. Saving replaces the shared master with the current table.</div>
       <textarea id="directoryInput" class="directory-input" style="min-height:180px" placeholder="Sap code&#9;Login Id&#9;Agent ID&#9;TL&#9;AM&#9;Bucket&#9;OJT/NonOJT&#9;Shift Status&#9;Sub Process"></textarea>
-      <div class="controls" style="margin-top:10px">
-        <button class="btn primary" onclick="saveDirectory()">Save Agent Details</button>
-        <button class="btn" onclick="clearDirectory()">Clear</button>
+      <div class="directory-toolbar" style="margin-top:10px">
+        <button class="btn primary" onclick="saveDirectory()">Save / Update Agent Details</button>
+        <button class="btn" onclick="refreshDirectory()">↻ Refresh Shared Data</button>
+        <button class="btn" onclick="clearDirectory()">Clear Master</button>
         <button class="btn" onclick="downloadDirectoryTemplate()">Download Template</button>
         <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Import CSV/TSV<input id="directoryFile" type="file" accept=".csv,.tsv,.txt" style="display:none" onchange="importDirectoryFile(this)"></label>
+        <span class="directory-status" id="directoryStatus">Shared master</span>
       </div>
     </div>
-    <div class="analytics-card"><h3>Shared Agent Details <span style="font-size:12px;font-weight:500;opacity:.7">(Read-only for approved users)</span></h3><div id="directoryTable"></div></div>
+    <div class="analytics-card"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><h3>Shared Agent Details <span style="font-size:12px;font-weight:500;opacity:.7">(Read-only for approved users)</span></h3><button class="btn" onclick="refreshDirectory()">↻ Refresh</button></div><div id="directoryTable"></div></div>
   </div>
 </section>
 </main></div><script>
@@ -763,26 +785,38 @@ function readDirectoryText(text){
   out.forEach(r=>map.set(directoryIdentity(r),r));
   return [...map.values()];
 }
-function saveDirectory(){
+async function saveDirectory(){
  if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
-  const parsed=readDirectoryText(document.getElementById("directoryInput").value);
-  directoryData=parsed;
-  storageSet("saht-directory",JSON.stringify(directoryData));
-  renderDirectory();
-  refreshAllAnalytics();
-  alert(parsed.length+" agent details saved.");
+ const parsed=readDirectoryText(document.getElementById("directoryInput").value);
+ if(!parsed.length){alert("No valid agent rows found.");return;}
+ const c=window.sahtSupabase; if(!c){alert("Supabase is not connected.");return;}
+ const payload=parsed.map(r=>({sap_code:r.sapCode||"",login_id:r.loginId||"",agent_id:r.agentId||"",email:(r.email||r.loginId||"").toLowerCase(),tl:r.tl||"",am:r.am||"",bucket:r.bucket||"",ojt_nonojt:r.ojt||"",shift_status:r.shiftStatus||"",sub_process:r.subProcess||""}));
+ const q=await c.rpc("replace_agent_details",{p_rows:payload});
+ if(q.error){alert("Unable to save shared Agent Details: "+q.error.message);console.error(q.error);return;}
+ await refreshDirectory();
+ const n=q.data??parsed.length;
+ alert(n+" agent details saved to the shared master.");
 }
-function loadDirectory(){
-  try{directoryData=JSON.parse(storageGet("saht-directory","[]"))||[];if(!Array.isArray(directoryData))directoryData=[];}catch(e){directoryData=[]}
-  renderDirectory();
+async function refreshDirectory(){
+ const c=window.sahtSupabase; if(!c || (!window.sahtUserApproved && !window.sahtAdminApproved)){return;}
+ const status=document.getElementById("directoryStatus"); if(status)status.textContent="Refreshing…";
+ try{
+   const q=await c.rpc("get_agent_details_for_user");
+   if(q.error)throw q.error;
+   directoryData=(q.data||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
+   renderDirectory(); refreshAllAnalytics();
+   if(status)status.textContent="Updated "+new Date().toLocaleTimeString();
+ }catch(e){console.error("Shared Agent Details refresh failed:",e);if(status)status.textContent="Refresh failed";alert("Unable to refresh shared Agent Details: "+(e.message||e));}
 }
-function clearDirectory(){
+function loadDirectory(){ renderDirectory(); }
+async function clearDirectory(){
  if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
-  directoryData=[];
-  storageSet("saht-directory","[]");
-  document.getElementById("directoryInput").value="";
-  renderDirectory();
-  refreshAllAnalytics(); if(activePage==="admin")ensureAdmin();
+ if(!confirm("Clear the shared Agent Details master for everyone?"))return;
+ const c=window.sahtSupabase; if(!c){alert("Supabase is not connected.");return;}
+ const q=await c.rpc("replace_agent_details",{p_rows:[]});
+ if(q.error){alert("Unable to clear shared Agent Details: "+q.error.message);return;}
+ document.getElementById("directoryInput").value=""; await refreshDirectory();
+ alert("Shared Agent Details master cleared.");
 }
 function downloadDirectoryTemplate(){
   const csv="Sap code,Login Id,Agent ID,TL,AM,Bucket,OJT/NonOJT,Shift Status,Sub Process\n";
@@ -1105,6 +1139,34 @@ function refreshAllAnalytics(){
   renderAgentAnalysis();
   renderTeamAnalysis();
   renderManagementDashboard();
+}
+
+function updateProfileUI(){
+ const p=profile||{}; const name=p.full_name||p.email||"User"; const email=p.email||""; const role=(p.role||"user").toLowerCase();
+ const set=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v??"";};
+ const text=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v??"";};
+ set("profileFullName",p.full_name||""); set("profileAgentId",p.agent_id||""); set("profileEmail",email); set("profileUserId",p.id||""); set("profileRole",role);
+ const roleEl=document.getElementById("profileRole"); if(roleEl)roleEl.disabled=!(window.sahtAdminApproved===true);
+ text("sidebarProfileName",name); text("sidebarProfileEmail",email); text("sidebarProfileRole",role==="admin"?"ADMIN":"VISITOR"); text("sidebarProfileAvatar",(name.trim()[0]||"U").toUpperCase());
+ text("profileStatusPill",(p.status||"pending").toUpperCase());
+ const card=document.getElementById("sidebarProfileCard"); if(card)card.style.display="block";
+}
+async function loadMyProfile(){
+ const c=window.sahtSupabase; if(!c)return; const u=(await c.auth.getUser()).data?.user; if(!u)return;
+ const q=await c.from("profiles").select("id,full_name,email,role,status,approved_at,agent_id").eq("id",u.id).maybeSingle();
+ if(q.error){showProfileMsg(q.error.message,true);return;}
+ profile=q.data||profile; updateProfileUI(); showProfileMsg("Profile refreshed.",false);
+}
+function showProfileMsg(message,error){const e=document.getElementById("profileMsg");if(e){e.style.display="block";e.textContent=message;e.style.borderColor=error?"#cf3047":"var(--line)";}}
+async function saveMyProfile(){
+ const c=window.sahtSupabase; if(!c){showProfileMsg("Supabase is not connected.",true);return;}
+ const u=(await c.auth.getUser()).data?.user; if(!u){showProfileMsg("Please sign in again.",true);return;}
+ const fullName=(document.getElementById("profileFullName")?.value||"").trim(); const agentId=(document.getElementById("profileAgentId")?.value||"").trim(); const role=(document.getElementById("profileRole")?.value||"user");
+ if(!fullName){showProfileMsg("Full Name is required.",true);return;}
+ const q=await c.rpc("update_my_profile",{p_full_name:fullName,p_agent_id:agentId,p_role:role});
+ if(q.error){showProfileMsg(q.error.message||"Unable to save profile.",true);return;}
+ const p=await c.from("profiles").select("id,full_name,email,role,status,approved_at,agent_id").eq("id",u.id).maybeSingle();
+ if(!p.error)profile=p.data||profile; updateProfileUI(); showProfileMsg("Profile saved successfully.",false);
 }
 
 function isAdminAuthenticated(){return storageGet("saht-admin-session","0")==="1" || window.sahtAdminApproved===true;}
@@ -1647,6 +1709,7 @@ document.addEventListener("DOMContentLoaded",function(){
    open();
    window.sahtUserApproved=(profile.status==="approved");
    window.sahtAdminApproved=(profile.role==="admin" && profile.status==="approved");
+   updateProfileUI();
    if(window.sahtAdminApproved){storageSet("saht-admin-session","1");}
    try{ensureAdmin();}catch(e){}
    await syncAgents();
@@ -1706,6 +1769,7 @@ document.addEventListener("DOMContentLoaded",function(){
  client.channel("profile-access-live").on("postgres_changes",{event:"UPDATE",schema:"public",table:"profiles"},payload=>{
    if(currentAuthUser && payload?.new?.id===currentAuthUser.id){ enter(currentAuthUser).catch(e=>console.error("Profile access refresh failed:",e)); }
  }).subscribe();
+ client.channel("access-requests-live").on("postgres_changes",{event:"*",schema:"public",table:"access_requests"},()=>{ if(isAdminAuthenticated()) loadAccessRequests(); }).subscribe();
  setInterval(async()=>{
    try{
      const u=(await client.auth.getUser()).data?.user;
