@@ -185,7 +185,7 @@ body[data-theme=white] .hero,body[data-theme=normal] .hero{box-shadow:0 6px 20px
 /* ===== Admin-only Agent Details lock ===== */
 #page-directory .admin-only-content{display:block}
 #page-directory .directory-editor-controls{display:none}
-#page-directory.admin-unlocked .directory-editor-controls{display:block}
+#page-directory.admin-unlocked .directory-editor-controls{display:block!important}
 #page-directory .directory-admin-banner{display:none}
 #page-directory.admin-unlocked .directory-admin-banner{display:flex}
 .admin-lock-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:14px}
@@ -272,7 +272,7 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
 .profile-modal-foot .btn{font-size:11px}.profile-edit-lock{font-size:10px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);padding:9px;border-radius:9px;margin-top:9px}
 #page-directory .admin-only-content{display:block!important}
 #page-directory .directory-editor-controls{display:none}
-#page-directory.admin-unlocked .directory-editor-controls{display:block}
+#page-directory.admin-unlocked .directory-editor-controls{display:block!important}
 #page-directory .directory-admin-banner{display:none}
 #page-directory.admin-unlocked .directory-admin-banner{display:flex}
 #directoryLocked{display:none!important}
@@ -312,8 +312,8 @@ body.saht-admin #navAdminPortal{display:grid!important}
 #sahtGate h1{margin:6px 0 8px;font-size:28px}.saht-auth-form{display:grid;gap:11px}.saht-auth-msg{display:none;padding:10px;border-radius:10px;background:rgba(100,110,130,.12);font-size:13px}.saht-auth-msg.show{display:block}
 
 <style id="saht-access-css">
-.saht-auth-actions{display:flex;justify-content:flex-end;margin:10px 14px 0}.saht-logout-btn{width:100%;font-weight:800}.access-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}.access-stat{padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);text-align:center}.access-stat small{display:block;font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.05em}.access-stat b{display:block;font-size:22px;margin-top:4px}.access-table{width:100%;border-collapse:collapse;font-size:12px}.access-table th,.access-table td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:middle}.access-table th{background:var(--panel2);font-weight:800}.access-actions{display:flex;flex-wrap:wrap;gap:6px}.access-actions .btn{padding:6px 9px;font-size:11px}.status-chip{display:inline-flex;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-weight:800;font-size:10px;text-transform:uppercase}.access-empty{padding:18px;text-align:center;color:var(--muted)}@media(max-width:800px){.access-summary{grid-template-columns:repeat(2,1fr)}.access-table{font-size:11px}.access-table th,.access-table td{padding:6px}}
-</style>
+.saht-auth-actions{display:none!important;justify-content:flex-end;margin:10px 14px 0}.saht-logout-btn{width:100%;font-weight:800}.access-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}.access-stat{padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);text-align:center}.access-stat small{display:block;font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.05em}.access-stat b{display:block;font-size:22px;margin-top:4px}.access-table{width:100%;border-collapse:collapse;font-size:12px}.access-table th,.access-table td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:middle}.access-table th{background:var(--panel2);font-weight:800}.access-actions{display:flex;flex-wrap:wrap;gap:6px}.access-actions .btn{padding:6px 9px;font-size:11px}.status-chip{display:inline-flex;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-weight:800;font-size:10px;text-transform:uppercase}.access-empty{padding:18px;text-align:center;color:var(--muted)}@media(max-width:800px){.access-summary{grid-template-columns:repeat(2,1fr)}.access-table{font-size:11px}.access-table th,.access-table td{padding:6px}}
+</style></style>
 <style id="v15-profile-fix">
 .global-profile{position:fixed!important;top:12px!important;right:18px!important;z-index:99998!important;display:flex!important;}
 #sidebarProfileCard,#navMyProfile{display:none!important;}
@@ -324,49 +324,61 @@ body.saht-admin #navAdminPortal{display:grid!important}
 #sahtRestoreStatus{font-size:12px;color:var(--muted,#68737d);margin-top:4px;display:none}
 .global-profile{position:fixed!important;top:14px!important;right:18px!important;z-index:100000!important;display:none;align-items:center;gap:9px;cursor:pointer!important;min-width:170px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.12)}
 @media(max-width:700px){.global-profile{right:8px!important;top:8px!important;min-width:44px!important;padding:6px!important}.global-profile-copy,.global-profile-chevron{display:none!important}}
-</style>
-<style id="v17-auth-ui">
-#sahtGate{position:fixed;inset:0;z-index:999999;display:flex;align-items:stretch;justify-content:center;background:#0b1220;padding:0;overflow:auto;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
-#sahtGate.saht-restoring .saht-auth-shell{opacity:.88}
-#sahtGate:not([style*="display: none"]) ~ .app .global-profile{display:none!important}
-.saht-auth-shell{width:100%;min-height:100vh;display:grid;grid-template-columns:minmax(420px,1.08fr) minmax(420px,.92fr);background:linear-gradient(135deg,#0b1220,#111827 55%,#172033);color:#eef5ff}
-.saht-auth-visual{position:relative;overflow:hidden;padding:58px 7vw 48px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 18% 18%,rgba(91,180,255,.22),transparent 30%),radial-gradient(circle at 85% 80%,rgba(135,92,255,.20),transparent 34%),linear-gradient(145deg,#0d1728,#101b30 58%,#18233a)}
-.saht-auth-visual:before,.saht-auth-visual:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.08);border-radius:50%;pointer-events:none}.saht-auth-visual:before{width:520px;height:520px;right:-170px;top:-150px}.saht-auth-visual:after{width:330px;height:330px;left:-150px;bottom:-140px}
-.saht-brandline{display:flex;align-items:center;gap:12px;position:relative;z-index:2}.saht-brandmark{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-weight:1000;color:#06111b;background:linear-gradient(135deg,#74d6ff,#a98cff);box-shadow:0 10px 35px rgba(76,177,255,.22)}
-.saht-brandline b{font-size:13px;letter-spacing:.12em;text-transform:uppercase}.saht-brandline small{display:block;color:#91a5bf;font-size:10px;margin-top:3px;letter-spacing:.06em}
-.saht-auth-visual h2{font-size:clamp(34px,4vw,62px);line-height:1.02;margin:45px 0 16px;max-width:680px;letter-spacing:-.045em}.saht-auth-visual h2 span{background:linear-gradient(90deg,#79d7ff,#b99aff);-webkit-background-clip:text;background-clip:text;color:transparent}.saht-auth-visual p{max-width:590px;color:#9eafc6;font-size:15px;line-height:1.7;margin:0}
-.saht-visual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:34px;max-width:650px;position:relative;z-index:2}.saht-mini{padding:14px 15px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);backdrop-filter:blur(10px);border-radius:14px}.saht-mini b{display:block;font-size:18px}.saht-mini span{display:block;color:#8296af;font-size:9px;text-transform:uppercase;letter-spacing:.1em;margin-top:5px}
-.saht-call-graphic{position:absolute;right:7%;bottom:5%;width:min(330px,35vw);height:280px;z-index:1;opacity:.95}.saht-headset{position:absolute;left:74px;top:28px;width:180px;height:180px;border:14px solid rgba(121,215,255,.9);border-bottom-color:transparent;border-radius:50%}.saht-headset:before{content:"";position:absolute;left:-34px;top:92px;width:38px;height:72px;border-radius:18px;background:#7dd8ff;box-shadow:190px 0 0 #a58fff}.saht-headset:after{content:"";position:absolute;left:138px;top:150px;width:75px;height:55px;border-left:7px solid #a58fff;border-bottom:7px solid #a58fff;border-radius:0 0 0 55px;transform:rotate(-12deg)}
-.saht-bars{position:absolute;left:10px;bottom:10px;display:flex;align-items:end;gap:8px;height:115px}.saht-bars i{display:block;width:18px;border-radius:7px 7px 2px 2px;background:linear-gradient(#79d7ff,#7d89ff);animation:sahtPulse 2.2s ease-in-out infinite}.saht-bars i:nth-child(1){height:42px}.saht-bars i:nth-child(2){height:72px;animation-delay:.2s}.saht-bars i:nth-child(3){height:58px;animation-delay:.4s}.saht-bars i:nth-child(4){height:94px;animation-delay:.6s}.saht-bars i:nth-child(5){height:66px;animation-delay:.8s}@keyframes sahtPulse{50%{transform:translateY(-6px);opacity:.75}}
-.saht-auth-panel{display:flex;align-items:center;justify-content:center;padding:34px;background:#f5f8fc;color:#142238}.saht-auth-card{width:min(500px,100%);padding:38px;border-radius:26px;background:rgba(255,255,255,.96);border:1px solid #dce5ef;box-shadow:0 30px 90px rgba(0,0,0,.28)}
-.saht-auth-kicker{font-size:10px;font-weight:1000;letter-spacing:.16em;text-transform:uppercase;color:#65748a}.saht-auth-card h1{font-size:34px;letter-spacing:-.04em;margin:9px 0 7px}.saht-auth-sub{font-size:13px;color:#718097;margin-bottom:25px}.saht-auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:4px;background:#edf2f7;border-radius:11px;margin-bottom:19px}.saht-auth-tabs button{border:0;background:transparent;border-radius:8px;padding:10px;font-weight:800;color:#66768d;cursor:pointer}.saht-auth-tabs button.active{background:#fff;color:#18283e;box-shadow:0 2px 9px rgba(20,35,56,.09)}.saht-auth-form{display:grid;gap:13px}.saht-auth-field{position:relative}.saht-auth-field label{display:block;font-size:10px;font-weight:900;color:#63738a;margin:0 0 6px 2px;text-transform:uppercase;letter-spacing:.07em}.saht-auth-form .input{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid #d6e0ea;border-radius:11px;background:#fff;color:#142238;font-size:13px;outline:none}.saht-auth-form .input:focus{border-color:#7e9eff;box-shadow:0 0 0 3px rgba(126,158,255,.14)}.saht-password-wrap input{padding-right:46px!important}.saht-eye{position:absolute;right:9px;bottom:8px;border:0;background:transparent;color:#718097;cursor:pointer;padding:7px}.saht-auth-submit{width:100%;padding:13px!important;border:0!important;border-radius:11px!important;background:linear-gradient(100deg,#4169e1,#7657e8)!important;color:white!important;font-weight:900!important;box-shadow:0 10px 24px rgba(73,91,218,.24)}.saht-auth-foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px;color:#7b899b;font-size:10px}.saht-session-note{padding:10px 12px;border:1px solid #dce5ef;border-radius:10px;background:#f7f9fc;color:#6e7e94;font-size:10px;line-height:1.5}.saht-auth-msg{display:none;padding:11px 12px;border-radius:10px;background:#eef3f8;color:#33455d;font-size:12px}.saht-auth-msg.show{display:block}.saht-auth-msg.error{background:#fff0f1;color:#a12636}.saht-restore-status{font-size:10px;color:#7b899b;text-align:center;min-height:13px}
-@media(max-width:900px){.saht-auth-shell{grid-template-columns:1fr}.saht-auth-visual{min-height:340px;padding:35px}.saht-auth-visual h2{margin-top:28px;font-size:38px}.saht-call-graphic{display:none}.saht-auth-panel{padding:22px}.saht-auth-card{padding:28px}.saht-visual-grid{max-width:none}.saht-mini{padding:10px}}
-
-#page-directory .directory-editor-controls{display:none} body.saht-admin #page-directory .directory-editor-controls{display:block!important} body.saht-admin #page-directory .directory-admin-banner{display:flex!important}
-#navAdminPortal{display:none!important} body.saht-admin #navAdminPortal{display:grid!important}
-</style>
-</head><body data-theme="normal" data-version="V17"><div id="sahtGate"><div class="saht-auth-shell">
-<div class="saht-auth-visual">
-  <div class="saht-brandline"><div class="saht-brandmark">SA</div><div><b>Session AHT Monitor</b><small>Operations Performance Control</small></div></div>
-  <h2>Turn every call into a <span>better performance signal.</span></h2>
-  <p>Securely monitor session AHT, agent productivity, team performance and live operational mapping from one central workspace.</p>
-  <div class="saht-visual-grid"><div class="saht-mini"><b>LIVE</b><span>Session monitoring</span></div><div class="saht-mini"><b>AHT</b><span>Performance control</span></div><div class="saht-mini"><b>REALTIME</b><span>Shared agent master</span></div></div>
-  <div class="saht-call-graphic"><div class="saht-headset"></div><div class="saht-bars"><i></i><i></i><i></i><i></i><i></i></div></div>
-</div>
-<div class="saht-auth-panel"><div class="saht-auth-card">
-  <div class="saht-auth-kicker">Secure workspace</div><h1 id="sahtGateTitle">Welcome back</h1><div class="saht-auth-sub" id="sahtGateSub">Sign in to access the shared dashboard.</div>
-  <div class="saht-auth-tabs"><button id="sahtSignInTab" class="active" type="button">Sign In</button><button id="sahtRequestTab" type="button">Request Access</button></div>
-  <div class="saht-auth-form">
-    <div class="saht-auth-field" id="sahtNameWrap" style="display:none"><label>Full name</label><input class="input" id="sahtName" placeholder="Your full name"></div>
-    <div class="saht-auth-field"><label>Email</label><input class="input" id="sahtEmail" type="email" autocomplete="username" placeholder="name@company.com"></div>
-    <div class="saht-auth-field saht-password-wrap"><label>Password</label><input class="input" id="sahtPassword" type="password" autocomplete="current-password" placeholder="Enter your password"><button class="saht-eye" id="sahtEye" type="button" aria-label="Show password">◉</button></div>
-    <div class="saht-auth-field" id="sahtReasonWrap" style="display:none"><label>Reason / Team <span style="font-weight:500;text-transform:none">(optional)</span></label><input class="input" id="sahtReason" placeholder="Team / process"></div>
-    <button class="btn saht-auth-submit" id="sahtSubmit" type="button">Sign In</button>
-    <div class="saht-session-note">Your secure session remains active when you refresh this page. Use <b>Sign Out</b> from your profile to end the session.</div>
-    <div class="saht-restore-status" id="sahtRestoreStatus"></div><div class="saht-auth-msg" id="sahtMsg"></div>
+</style><style id="v16-auth-profile-css">
+#sahtGate.saht-restoring .card{opacity:.96}
+.global-profile{position:fixed!important;top:14px!important;right:18px!important;z-index:100000!important;display:none;align-items:center;gap:9px;cursor:pointer!important;min-width:170px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+@media(max-width:700px){.global-profile{right:8px!important;top:8px!important;min-width:44px!important;padding:6px!important}.global-profile-copy,.global-profile-chevron{display:none!important}}
+</style><style id="v18-auth-ui">
+/* V18 authentication / session UI */
+html,body{min-height:100%;}
+body.saht-locked .app{visibility:hidden!important;pointer-events:none!important}
+body.saht-locked .global-profile{display:none!important}
+#sahtGate{position:fixed;inset:0;z-index:999999;display:flex;align-items:stretch;justify-content:center;background:#edf1f5;padding:0;overflow:auto}
+#sahtGate .v18-auth-wrap{width:100%;min-height:100vh;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(420px,.8fr);background:#eef2f6}
+.v18-visual{position:relative;overflow:hidden;padding:58px clamp(38px,6vw,100px);display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#16283a 0%,#29485c 55%,#5d7180 100%);color:#fff}
+.v18-visual:before,.v18-visual:after{content:"";position:absolute;border-radius:50%;filter:blur(1px);opacity:.22;border:1px solid rgba(255,255,255,.6)}
+.v18-visual:before{width:420px;height:420px;right:-150px;top:-130px;box-shadow:0 0 0 70px rgba(255,255,255,.035),0 0 0 140px rgba(255,255,255,.025)}
+.v18-visual:after{width:260px;height:260px;left:-130px;bottom:-120px;box-shadow:0 0 0 50px rgba(255,255,255,.035)}
+.v18-orbit{position:absolute;right:12%;top:18%;width:260px;height:260px;border:1px solid rgba(255,255,255,.28);border-radius:50%;transform:rotate(-18deg)}
+.v18-orbit:before,.v18-orbit:after{content:"";position:absolute;inset:22px;border:1px solid rgba(255,255,255,.16);border-radius:50%}.v18-orbit:after{inset:62px}
+.v18-brand{position:relative;z-index:2;display:flex;align-items:center;gap:13px;margin-bottom:40px}.v18-brand-mark{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);font-weight:900;letter-spacing:.05em;box-shadow:0 12px 28px rgba(0,0,0,.15)}
+.v18-brand small{display:block;opacity:.68;letter-spacing:.15em;text-transform:uppercase;font-weight:800;font-size:10px}.v18-brand b{font-size:17px}
+.v18-copy{position:relative;z-index:2;max-width:620px}.v18-copy .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:900;opacity:.72}.v18-copy h2{font-size:clamp(34px,4vw,60px);line-height:1.02;margin:12px 0 16px;letter-spacing:-.035em}.v18-copy p{font-size:15px;line-height:1.7;max-width:560px;color:rgba(255,255,255,.76)}
+.v18-metrics{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}.v18-metric{padding:11px 14px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);border-radius:12px;backdrop-filter:blur(8px)}.v18-metric b{display:block;font-size:14px}.v18-metric span{font-size:10px;opacity:.65}
+.v18-form-side{display:flex;align-items:center;justify-content:center;padding:36px;background:#f7f9fb}.v18-card{width:min(470px,100%);background:#fff;border:1px solid #dfe5ea;border-radius:26px;box-shadow:0 24px 70px rgba(20,34,48,.16);padding:34px}.v18-form-head{margin-bottom:24px}.v18-form-head .mini{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#73808c}.v18-form-head h1{font-size:30px;line-height:1.1;margin:8px 0}.v18-form-head p{font-size:13px;color:#6b7680;margin:0;line-height:1.55}.v18-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#eef2f5;padding:5px;border-radius:12px;margin-bottom:18px}.v18-tabs button{border:0;background:transparent;padding:10px;border-radius:9px;font-weight:800;color:#68737e;cursor:pointer}.v18-tabs button.active{background:#fff;color:#21384b;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+#sahtGate .v18-input{width:100%;box-sizing:border-box;height:48px;border:1px solid #d6dee5;border-radius:12px;padding:0 14px;font:inherit;color:#1c2e3e;background:#fbfcfd;outline:none}.v18-input:focus{border-color:#58768a;box-shadow:0 0 0 3px rgba(88,118,138,.12)}.v18-field{display:grid;gap:7px;margin-bottom:12px}.v18-field label{font-size:11px;font-weight:800;color:#66727d}.v18-submit{width:100%;height:48px;border:0;border-radius:12px;background:#21384b;color:#fff;font-weight:900;cursor:pointer;margin-top:4px;box-shadow:0 10px 24px rgba(33,56,75,.18)}.v18-submit:hover{filter:brightness(1.05)}.v18-helper{font-size:11px;color:#7a858e;margin-top:13px;line-height:1.5}.v18-msg{display:none;padding:10px 12px;border-radius:11px;background:#eef2f5;color:#34434f;font-size:12px;margin-top:12px}.v18-msg.show{display:block}.v18-status{font-size:11px;color:#71808c;margin-top:9px;display:none}.v18-status.show{display:block}
+@media(max-width:900px){#sahtGate .v18-auth-wrap{grid-template-columns:1fr}.v18-visual{display:none}.v18-form-side{min-height:100vh;padding:20px}.v18-card{padding:26px}}
+/* profile must never appear above the authentication gate */
+body.saht-locked #globalProfileButton{display:none!important}
+.global-profile{position:fixed!important;top:16px!important;right:20px!important;z-index:100000!important;display:none;align-items:center;gap:9px;cursor:pointer!important;min-width:178px;padding:8px 12px;border:1px solid var(--line,#d8dde3);border-radius:999px;background:var(--panel,#fff);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+</style><style id="v18-role-visibility">#navAdminPortal{display:none!important}body.saht-admin #navAdminPortal{display:grid!important}#page-directory .directory-editor-controls{display:none!important}body.saht-admin #page-directory .directory-editor-controls{display:block!important}body.saht-admin #page-directory .directory-admin-banner{display:flex!important}</style></head><body data-theme="normal" class="saht-locked"><div id="sahtGate">
+  <div class="v18-auth-wrap">
+    <section class="v18-visual">
+      <div class="v18-orbit"></div>
+      <div class="v18-brand"><div class="v18-brand-mark">SA</div><div><small>Operations Control</small><b>Session AHT Monitor</b></div></div>
+      <div class="v18-copy">
+        <div class="eyebrow">Real-time workforce intelligence</div>
+        <h2>See the session.<br>Improve the performance.</h2>
+        <p>Monitor live Session AHT, agent performance and operational mapping from one secure workspace built for BPO calling operations.</p>
+        <div class="v18-metrics"><div class="v18-metric"><b>LIVE</b><span>Session monitoring</span></div><div class="v18-metric"><b>AHT</b><span>Performance control</span></div><div class="v18-metric"><b>24×7</b><span>Shared operations</span></div></div>
+      </div>
+    </section>
+    <section class="v18-form-side">
+      <div class="v18-card">
+        <div class="v18-form-head"><div class="mini">Secure workspace</div><h1 id="sahtGateTitle">Welcome back</h1><p id="sahtGateSub">Sign in to access your Session AHT Monitor.</p></div>
+        <div class="v18-tabs"><button id="sahtSignInTab" type="button" class="active">Sign In</button><button id="sahtRequestTab" type="button">Request Access</button></div>
+        <div id="sahtNameField" class="v18-field" style="display:none"><label>Full name</label><input class="v18-input" id="sahtName" placeholder="Enter your name" autocomplete="name"></div>
+        <div class="v18-field"><label>Work email</label><input class="v18-input" id="sahtEmail" type="email" placeholder="name@company.com" autocomplete="username"></div>
+        <div class="v18-field"><label>Password</label><input class="v18-input" id="sahtPassword" type="password" placeholder="Enter your password" autocomplete="current-password"></div>
+        <div id="sahtReasonField" class="v18-field" style="display:none"><label>Reason / team <span style="font-weight:500;opacity:.65">(optional)</span></label><input class="v18-input" id="sahtReason" placeholder="Team / process"></div>
+        <button class="v18-submit" id="sahtSubmit" type="button">Sign In</button>
+        <div id="sahtRestoreStatus" class="v18-status">Checking your active session…</div>
+        <div class="v18-msg" id="sahtMsg"></div>
+        <div class="v18-helper">Access is controlled by administrator approval. Email confirmation is not required.</div>
+      </div>
+    </section>
   </div>
-  <div class="saht-auth-foot"><span>Internal operations workspace</span><span>Protected access</span></div>
-</div></div></div></div><div class="app"><aside class="sidebar" id="appSidebar">
+</div><div class="app"><aside class="sidebar" id="appSidebar">
   <div class="sidebar-head">
     <div class="brand">
       <div class="logo">SA</div>
@@ -853,28 +865,23 @@ async function saveDirectory(){
  if(!parsed.length){alert("No valid agent rows found.");return;}
  const c=window.sahtSupabase; if(!c){alert("Supabase is not connected.");return;}
  const payload=parsed.map(r=>({sap_code:r.sapCode||"",login_id:r.loginId||"",agent_id:r.agentId||"",email:(r.email||r.loginId||"").toLowerCase(),tl:r.tl||"",am:r.am||"",bucket:r.bucket||"",ojt_nonojt:r.ojt||"",shift_status:r.shiftStatus||"",sub_process:r.subProcess||""}));
- const status=document.getElementById("directoryStatus"); if(status)status.textContent="Saving shared master…";
- let saved=false, lastErr=null;
- try{const q=await c.rpc("replace_agent_details",{p_rows:payload});if(!q.error){saved=true;}else lastErr=q.error;}catch(e){lastErr=e;}
- if(!saved){
-   try{
-     const d=await c.from("agent_details").delete().not("id","is",null); if(d.error)throw d.error;
-     const ins=await c.from("agent_details").insert(payload); if(ins.error)throw ins.error;
-     saved=true;
-   }catch(e){lastErr=e;}
- }
- if(!saved){if(status)status.textContent="Save failed";alert("Unable to save shared Agent Details: "+(lastErr?.message||lastErr||"Unknown error"));console.error(lastErr);return;}
- await syncAgents(); refreshAllAnalytics(); if(status)status.textContent="Saved "+new Date().toLocaleTimeString(); alert(parsed.length+" agent details saved to the shared master.");
+ const q=await c.rpc("replace_agent_details",{p_rows:payload});
+ if(q.error){alert("Unable to save shared Agent Details: "+q.error.message);console.error(q.error);return;}
+ await syncAgents();
+ refreshAllAnalytics();
+ const n=q.data??parsed.length;
+ alert(n+" agent details saved to the shared master.");
 }
 async function refreshDirectory(){
- const c=window.sahtSupabase; if(!c || (!window.sahtUserApproved && !window.sahtAdminApproved))return;
+ const c=window.sahtSupabase; if(!c || (!window.sahtUserApproved && !window.sahtAdminApproved)){return;}
  const status=document.getElementById("directoryStatus"); if(status)status.textContent="Refreshing…";
  try{
-   let q=await c.from("agent_details").select("id,sap_code,login_id,agent_id,email,tl,am,bucket,ojt_nonojt,shift_status,sub_process,updated_at").order("updated_at",{ascending:false});
-   if(q.error){const rpc=await c.rpc("get_agent_details_for_user");if(rpc.error)throw rpc.error;q=rpc;}
+   const q=await c.rpc("get_agent_details_for_user");
+   if(q.error)throw q.error;
    directoryData=(q.data||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""})); window.directoryData=directoryData;
    const di=document.getElementById("directoryInput"); if(di && window.sahtAdminApproved){ di.value=["Sap code\tLogin Id\tAgent ID\tTL\tAM\tBucket\tOJT/NonOJT\tShift Status\tSub Process",...directoryData.map(r=>[r["Sap code"],r["Login Id"],r["Agent ID"],r["TL"],r["AM"],r["Bucket"],r["OJT/NonOJT"],r["Shift Status"],r["Sub Process"]].join("\t"))].join("\n"); }
-   renderDirectory(); refreshAllAnalytics(); if(status)status.textContent="Updated "+new Date().toLocaleTimeString();
+   renderDirectory(); refreshAllAnalytics();
+   if(status)status.textContent="Updated "+new Date().toLocaleTimeString();
  }catch(e){console.error("Shared Agent Details refresh failed:",e);if(status)status.textContent="Refresh failed";alert("Unable to refresh shared Agent Details: "+(e.message||e));}
 }
 function loadDirectory(){ renderDirectory(); }
@@ -882,10 +889,10 @@ async function clearDirectory(){
  if(!isAdminAuthenticated()){alert("Admin access required.");showPage("admin");return;}
  if(!confirm("Clear the shared Agent Details master for everyone?"))return;
  const c=window.sahtSupabase; if(!c){alert("Supabase is not connected.");return;}
- let q=await c.rpc("replace_agent_details",{p_rows:[]});
- if(q.error){q=await c.from("agent_details").delete().not("id","is",null);}
+ const q=await c.rpc("replace_agent_details",{p_rows:[]});
  if(q.error){alert("Unable to clear shared Agent Details: "+q.error.message);return;}
- document.getElementById("directoryInput").value=""; await refreshDirectory(); alert("Shared Agent Details master cleared.");
+ document.getElementById("directoryInput").value=""; await refreshDirectory();
+ alert("Shared Agent Details master cleared.");
 }
 function downloadDirectoryTemplate(){
   const csv="Sap code,Login Id,Agent ID,TL,AM,Bucket,OJT/NonOJT,Shift Status,Sub Process\n";
@@ -1797,49 +1804,51 @@ document.addEventListener("DOMContentLoaded",function(){
  window.sahtAdminApproved=false;
  window.sahtSignOut=async function(){
    try{ if(window.sahtSupabase) await window.sahtSupabase.auth.signOut(); }catch(e){console.error(e);}
-   window.sahtAdminApproved=false; window.sahtUserApproved=false; storageSet("saht-admin-session","0"); try{sessionStorage.clear();}catch(e){}
+   window.sahtAdminApproved=false; window.sahtUserApproved=false; storageSet("saht-admin-session","0");
+   document.body.classList.add("saht-locked");
    const gate=document.getElementById("sahtGate"); if(gate)gate.style.display="flex";
    try{setTimeout(()=>location.reload(),50)}catch(e){}
  };
  const C=window.SAHT_CONFIG||{},configured=C.SUPABASE_URL&&!/YOUR-/i.test(C.SUPABASE_URL)&&C.SUPABASE_ANON_KEY&&!/YOUR_/i.test(C.SUPABASE_ANON_KEY);
  const gate=document.getElementById("sahtGate"),msg=document.getElementById("sahtMsg");let mode="login",client,profile;
  const setMsg=x=>{msg.textContent=x||"";msg.classList.toggle("show",!!x)};
- const setMode=m=>{mode=m;const r=m==="request";document.getElementById("sahtNameWrap").style.display=r?"block":"none";document.getElementById("sahtReasonWrap").style.display=r?"block":"none";document.getElementById("sahtGateTitle").textContent=r?"Request Dashboard Access":"Welcome back";document.getElementById("sahtGateSub").textContent=r?"Create your account. No email confirmation is required. Access stays pending until an admin approves it.":"Sign in to access the shared dashboard.";document.getElementById("sahtSubmit").textContent=r?"Request Access":"Sign In";document.querySelectorAll(".saht-auth-tabs button").forEach(b=>b.classList.toggle("active",(r&&b.id==="sahtRequestTab")||(!r&&b.id==="sahtSignInTab")));setMsg("")};
- const locked=()=>gate.style.display="flex",open=()=>gate.style.display="none";
- async function enter(u){const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();if(q.error)throw q.error;profile=q.data;
-   if(!profile){setMsg("Your profile is not ready yet.");return} if(profile.status!=="approved"){locked();setMsg(profile.status==="pending"?"Your access request is pending admin approval.":"Access is "+profile.status+".");return}
+ const setMode=m=>{mode=m;const r=m==="request";document.getElementById("sahtNameField").style.display=r?"grid":"none";document.getElementById("sahtReasonField").style.display=r?"grid":"none";document.getElementById("sahtPassword").autocomplete=r?"new-password":"current-password";document.getElementById("sahtGateTitle").textContent=r?"Request dashboard access":"Welcome back";document.getElementById("sahtGateSub").textContent=r?"Create your account. An administrator will approve dashboard access.":"Sign in to access your Session AHT Monitor.";document.getElementById("sahtSubmit").textContent=r?"Request Access":"Sign In";document.getElementById("sahtSignInTab").classList.toggle("active",!r);document.getElementById("sahtRequestTab").classList.toggle("active",r);setMsg("")};
+ const locked=(message)=>{gate.style.display="flex";document.body.classList.add("saht-locked");if(message)setMsg(message);};
+ const open=()=>{gate.style.display="none";document.body.classList.remove("saht-locked");};
+ async function enter(u){
+   const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();
+   if(q.error){console.error("Profile lookup failed:",q.error);locked("We could not verify your profile right now. Your session is still active — please try Refresh.");return false;}
+   profile=q.data;
+   if(!profile){locked("Your profile is not ready yet. Please contact the administrator.");return false;}
+   if(profile.status!=="approved"){window.sahtUserApproved=false;window.sahtAdminApproved=false;locked(profile.status==="pending"?"Your access request is pending admin approval.":"Access is "+profile.status+".");return false;}
+   window.sahtUserApproved=true;
+   window.sahtAdminApproved=(profile.role==="admin");
    open();
-   window.sahtUserApproved=(profile.status==="approved");
-   window.sahtAdminApproved=(profile.role==="admin" && profile.status==="approved");
    updateProfileUI();
-   if(window.sahtAdminApproved){storageSet("saht-admin-session","1");}
    try{ensureAdmin();}catch(e){console.error("Admin UI refresh failed:",e)}
    try{await syncAgents();}catch(e){console.error("Shared Agent Details sync failed:",e)}
    try{if(activePage==="directory") unlockDirectory();}catch(e){console.error("Directory UI refresh failed:",e)}
+   return true;
  }
  async function syncAgents(){
- if(!window.sahtUserApproved && !window.sahtAdminApproved)return;
- const c=window.sahtSupabase; if(!c)return;
- let rows=[], err=null;
- try{
-   const q=await c.from("agent_details").select("id,sap_code,login_id,agent_id,email,tl,am,bucket,ojt_nonojt,shift_status,sub_process,updated_at");
-   if(q.error){err=q.error;} else rows=q.data||[];
- }catch(e){err=e;}
- if(err){
-   try{ const q=await c.rpc("get_agent_details_for_user"); if(q.error)throw q.error; rows=q.data||[]; err=null; }catch(e){err=e;}
- }
- if(err){
-   console.error("Shared Agent Details load failed:",err);
-   const box=document.getElementById("directoryTable"); if(box)box.innerHTML='<div class="empty-panel">Unable to load shared Agent Details. Please contact the administrator.</div>';
+ if(!window.sahtUserApproved)return;
+ const c=window.sahtSupabase;if(!c)return;
+ let q;
+ try{q=await c.from("agent_details").select("id,sap_code,login_id,agent_id,email,tl,am,bucket,ojt_nonojt,shift_status,sub_process,updated_at").order("id");}catch(e){console.error(e);return;}
+ if(q.error){
+   console.error("Shared Agent Details read failed:",q.error);
+   const box=document.getElementById("directoryTable");if(box)box.innerHTML='<div class="empty-panel">Unable to read the shared Agent Details master. Please contact the administrator.</div>';
    return;
  }
- directoryData=(rows||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""})); window.directoryData=directoryData;
- try{renderDirectory();refreshAllAnalytics();refreshAdmin();}catch(e){console.error(e)}
+ const rows=q.data||[];
+ directoryData=rows.map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
+ window.directoryData=directoryData;
+ try{renderDirectory();refreshAllAnalytics();refreshAdmin();}catch(e){console.error("Agent master render:",e)}
 }
  if(!configured){gate.style.display="none";return}
  const sahtSessionStorage={getItem:(k)=>{try{return sessionStorage.getItem(k)}catch(e){return null}},setItem:(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){}},removeItem:(k)=>{try{sessionStorage.removeItem(k)}catch(e){}}};
- client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:sahtSessionStorage,storageKey:"saht-auth-session-v17"}});window.sahtSupabase=client;
- document.getElementById("sahtSignInTab").onclick=()=>setMode("login");document.getElementById("sahtRequestTab").onclick=()=>setMode("request");document.getElementById("sahtEye").onclick=()=>{const p=document.getElementById("sahtPassword");if(p){p.type=p.type==="password"?"text":"password";document.getElementById("sahtEye").textContent=p.type==="password"?"◉":"◉";}};
+ client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:sahtSessionStorage,storageKey:"saht-tab-session-v18"}});window.sahtSupabase=client;
+ document.getElementById("sahtSignInTab").onclick=()=>setMode("login");document.getElementById("sahtRequestTab").onclick=()=>setMode("request");
  document.getElementById("sahtSubmit").onclick=async()=>{try{
    const email=sahtEmail.value.trim(),pw=sahtPassword.value;if(!email||!pw)return setMsg("Email and password are required.");
    if(mode==="request"){
@@ -1871,7 +1880,7 @@ document.addEventListener("DOMContentLoaded",function(){
      await enter(r.data.user);
    }
  }catch(e){setMsg(e.message||"Authentication failed.")}};
- client.auth.onAuthStateChange(async(event,s)=>{if(s?.user){try{await enter(s.user)}catch(e){console.error("Auth state access check failed:",e); if(event!=="INITIAL_SESSION") setMsg(e.message||"Unable to verify access.");}}else if(event==="SIGNED_OUT"){locked();}});
+ client.auth.onAuthStateChange(async(event,s)=>{if(s?.user){if(event!=="INITIAL_SESSION"){try{await enter(s.user)}catch(e){console.error("Auth state access check failed:",e);}}}else if(event==="SIGNED_OUT"){locked();}});
  client.channel("agent-details-live").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},syncAgents).subscribe();
  // Realtime is primary; periodic refresh is a safety net so visitors never stay on stale mapping data.
  setInterval(()=>{ if(window.sahtUserApproved||window.sahtAdminApproved) syncAgents().catch(()=>{}); },10000);
@@ -1893,18 +1902,17 @@ document.addEventListener("DOMContentLoaded",function(){
    }catch(e){ console.error("Access status check failed:",e); }
  },10000);
  setMode("login");
- // V16 session bootstrap: restore the saved Supabase session before treating the auth gate as a login screen.
+ // V18 session bootstrap: session is stored only for this browser tab, so refresh keeps the session but an old/new tab requires a fresh sign-in.
  (async()=>{
-   const gateEl=document.getElementById("sahtGate");
+   const gateEl=document.getElementById("sahtGate"),statusEl=document.getElementById("sahtRestoreStatus");
    try{
-     if(gateEl) gateEl.classList.add("saht-restoring");
+     if(gateEl)gateEl.classList.add("saht-restoring"); if(statusEl)statusEl.classList.add("show");
      const {data,error}=await client.auth.getSession();
-     if(error) throw error;
-     if(data?.session?.user){
-       try{ await enter(data.session.user); }catch(e){ console.error("Session restore access check failed:",e); }
-     } else locked();
-   }catch(e){ console.error("Session restore failed:",e); locked(); setMsg("Please sign in again."); }
-   finally{ if(gateEl) gateEl.classList.remove("saht-restoring"); }
+     if(error)throw error;
+     if(data?.session?.user){await enter(data.session.user);}
+     else locked();
+   }catch(e){console.error("Session bootstrap failed:",e);locked("Please sign in again.");}
+   finally{if(gateEl)gateEl.classList.remove("saht-restoring");if(statusEl)statusEl.classList.remove("show");}
  })();
 })();
 </script>
@@ -1921,5 +1929,7 @@ document.addEventListener("DOMContentLoaded",function(){
   });
 });
 </script>
-<script id="v17-profile-relocate">document.addEventListener("DOMContentLoaded",function(){const p=document.getElementById("globalProfileButton");if(p){document.body.appendChild(p);p.style.display="none";}});</script>
+<script id="v16-profile-relocate">
+document.addEventListener("DOMContentLoaded",function(){const p=document.getElementById("globalProfileButton");if(p&&p.parentElement!==document.body)document.body.appendChild(p);});
+</script>
 </body></html>
