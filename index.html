@@ -194,7 +194,7 @@ body[data-theme=white] .hero,body[data-theme=normal] .hero{box-shadow:0 6px 20px
 
 /* V14: single top-right profile control */
 #sidebarProfileCard,#navMyProfile{display:none!important}
-.global-profile{position:fixed;right:18px;top:14px;z-index:5000;display:flex;align-items:center;gap:9px;padding:7px 10px 7px 7px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.10);cursor:pointer;min-width:150px}
+.global-profile{position:fixed;right:18px;top:12px;z-index:5000;display:flex;align-items:center;gap:9px;padding:7px 10px 7px 7px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.10);cursor:pointer;min-width:150px}
 .global-profile:hover{border-color:var(--accent);transform:translateY(-1px)}
 .global-avatar{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06111b;font-weight:1000;overflow:hidden;flex:0 0 32px}
 .global-avatar img{width:100%;height:100%;object-fit:cover}
@@ -278,6 +278,7 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
 #directoryLocked{display:none!important}
 body.saht-visitor #navAdminPortal{display:none!important}
 body.saht-visitor #navMyProfile{display:none!important}
+#sidebarProfileCard{display:none!important}
 body.saht-admin #navAdminPortal{display:grid!important}
 @media(max-width:900px){.profile-modal{padding:82px 16px 16px;justify-content:center}.profile-modal-card{width:min(460px,100%)}}
 </style><style id="heavy-input-style">
@@ -312,7 +313,12 @@ body.saht-admin #navAdminPortal{display:grid!important}
 
 <style id="saht-access-css">
 .saht-auth-actions{display:flex;justify-content:flex-end;margin:10px 14px 0}.saht-logout-btn{width:100%;font-weight:800}.access-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}.access-stat{padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);text-align:center}.access-stat small{display:block;font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.05em}.access-stat b{display:block;font-size:22px;margin-top:4px}.access-table{width:100%;border-collapse:collapse;font-size:12px}.access-table th,.access-table td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:middle}.access-table th{background:var(--panel2);font-weight:800}.access-actions{display:flex;flex-wrap:wrap;gap:6px}.access-actions .btn{padding:6px 9px;font-size:11px}.status-chip{display:inline-flex;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-weight:800;font-size:10px;text-transform:uppercase}.access-empty{padding:18px;text-align:center;color:var(--muted)}@media(max-width:800px){.access-summary{grid-template-columns:repeat(2,1fr)}.access-table{font-size:11px}.access-table th,.access-table td{padding:6px}}
-</style></style></head><body data-theme="normal"><div id="sahtGate"><div class="card">
+</style></style>
+<style id="v15-profile-fix">
+.global-profile{position:fixed!important;top:12px!important;right:18px!important;z-index:99998!important;display:flex!important;}
+#sidebarProfileCard,#navMyProfile{display:none!important;}
+</style>
+</head><body data-theme="normal"><div id="sahtGate"><div class="card">
 <div style="font-size:11px;letter-spacing:.15em;font-weight:800;opacity:.6">SESSION AHT MONITOR</div>
 <h1 id="sahtGateTitle">Secure Sign In</h1>
 <div id="sahtGateSub" style="opacity:.7;margin-bottom:20px">Sign in to use the shared dashboard.</div>
@@ -331,8 +337,7 @@ body.saht-admin #navAdminPortal{display:grid!important}
     </div>
     <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
   </div>
-  <div class="profile-card" id="sidebarProfileCard" style="display:none" onclick="openProfileModal()" title="Open profile"><div class="pc-top"><div class="profile-avatar" id="sidebarProfileAvatar">U</div><div style="min-width:0"><b id="sidebarProfileName">User</b><small id="sidebarProfileEmail">—</small></div><span class="pc-role" id="sidebarProfileRole">VISITOR</span></div><span class="pc-hint">Profile • click to open</span></div>
-  <div class="profile-modal" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><div class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle"><div class="profile-modal-head"><div class="profile-modal-avatar" id="profileModalAvatar">U</div><div class="profile-modal-title"><b id="profileModalTitle">My Profile</b><small><span id="profileModalRole">VISITOR</span> • <span id="profileModalStatus">APPROVED</span></small></div><button class="profile-modal-close" type="button" onclick="closeProfileModal()">×</button></div><div class="profile-modal-body"><div class="profile-modal-grid"><div><label>Full Name</label><input id="profileFullName" type="text" placeholder="Your name"></div><div><label>Agent ID</label><input id="profileAgentId" type="text" placeholder="Agent ID / Employee ID"></div><div><label>Email</label><input id="profileEmail" class="profile-readonly" type="email" readonly></div><div><label>Role</label><select id="profileRole"><option value="user">Visitor</option><option value="admin">Admin</option></select></div><div><label>Supabase User ID</label><input id="profileUserId" class="profile-readonly" type="text" readonly></div><div><label>Profile Picture</label><input id="profileAvatarFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewProfileAvatar(this)"><div class="profile-avatar-actions"><button class="btn" type="button" onclick="document.getElementById('profileAvatarFile').click()">Upload / Change</button><button class="btn" type="button" onclick="removeProfileAvatar()">Remove</button></div></div></div><div id="profileEditLock" class="profile-edit-lock">Profile details can be updated once every 7 days.</div><div id="profileMsg" class="help-note" style="display:none;margin:10px 0 0"></div><div class="profile-modal-foot"><button class="btn primary" type="button" onclick="saveMyProfile()">Save Profile</button><button class="btn" type="button" onclick="loadMyProfile()">↻ Refresh</button><button class="btn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div></div></div></div>
+<div class="profile-modal" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><div class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle"><div class="profile-modal-head"><div class="profile-modal-avatar" id="profileModalAvatar">U</div><div class="profile-modal-title"><b id="profileModalTitle">My Profile</b><small><span id="profileModalRole">VISITOR</span> • <span id="profileModalStatus">APPROVED</span></small></div><button class="profile-modal-close" type="button" onclick="closeProfileModal()">×</button></div><div class="profile-modal-body"><div class="profile-modal-grid"><div><label>Full Name</label><input id="profileFullName" type="text" placeholder="Your name"></div><div><label>Agent ID</label><input id="profileAgentId" type="text" placeholder="Agent ID / Employee ID"></div><div><label>Email</label><input id="profileEmail" class="profile-readonly" type="email" readonly></div><div><label>Role</label><select id="profileRole"><option value="user">Visitor</option><option value="admin">Admin</option></select></div><div><label>Supabase User ID</label><input id="profileUserId" class="profile-readonly" type="text" readonly></div><div><label>Profile Picture</label><input id="profileAvatarFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewProfileAvatar(this)"><div class="profile-avatar-actions"><button class="btn" type="button" onclick="document.getElementById('profileAvatarFile').click()">Upload / Change</button><button class="btn" type="button" onclick="removeProfileAvatar()">Remove</button></div></div></div><div id="profileEditLock" class="profile-edit-lock">Profile details can be updated once every 7 days.</div><div id="profileMsg" class="help-note" style="display:none;margin:10px 0 0"></div><div class="profile-modal-foot"><button class="btn primary" type="button" onclick="saveMyProfile()">Save Profile</button><button class="btn" type="button" onclick="loadMyProfile()">↻ Refresh</button><button class="btn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div></div></div></div>
   <div class="saht-auth-actions"><button class="btn saht-logout-btn" id="sahtLogoutBtn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div>
 <div class="sidebar-scroll">
     <div class="side-status">
@@ -813,7 +818,7 @@ async function saveDirectory(){
  const payload=parsed.map(r=>({sap_code:r.sapCode||"",login_id:r.loginId||"",agent_id:r.agentId||"",email:(r.email||r.loginId||"").toLowerCase(),tl:r.tl||"",am:r.am||"",bucket:r.bucket||"",ojt_nonojt:r.ojt||"",shift_status:r.shiftStatus||"",sub_process:r.subProcess||""}));
  const q=await c.rpc("replace_agent_details",{p_rows:payload});
  if(q.error){alert("Unable to save shared Agent Details: "+q.error.message);console.error(q.error);return;}
- await refreshDirectory();
+ await syncAgents();
  refreshAllAnalytics();
  const n=q.data??parsed.length;
  alert(n+" agent details saved to the shared master.");
@@ -889,44 +894,34 @@ function smartMap(r){
  });
  return m;
 }
-function getMapping(name){
- const q=directoryKey(name);
- const rowVal=(x,camel,key)=>directoryKey(x?.[camel]??x?.[key]??"");
- let found=directoryData.find(x=>{
-   const ids=[
-     rowVal(x,"loginId","Login Id"),
-     rowVal(x,"email","Email"),
-     rowVal(x,"agentId","Agent ID"),
-     rowVal(x,"agent","Agent Name"),
-     rowVal(x,"sapCode","Sap code")
-   ].filter(Boolean);
-   return ids.includes(q);
- });
- if(!found) found=directoryData.find(x=>{
-   const agent=rowVal(x,"agent","Agent ID");
-   return agent===q;
- });
+function getMapping(input){
+ const source=(input&&typeof input==="object")?input:{name:input||""};
+ const candidates=[source.email,source.loginId,source.login_id,source.name,source.agent,source.agentId,source.agent_id,source.sapCode,source.sap_code]
+   .map(directoryKey).filter(Boolean);
+ const norm=(x)=>directoryKey(x);
+ const rowVals=(x)=>[
+   x?.loginId,x?.["Login Id"],x?.login_id,
+   x?.email,x?.Email,
+   x?.agent,x?.["Agent Name"],
+   x?.agentId,x?.["Agent ID"],x?.agent_id,
+   x?.sapCode,x?.["Sap code"],x?.sap_code
+ ].map(norm).filter(Boolean);
+ let found=directoryData.find(x=>rowVals(x).some(v=>candidates.includes(v)));
  if(!found){
-   found={agent:name,sapCode:"",loginId:"",agentId:name,tl:"Unmapped",am:"Unmapped",bucket:"Unmapped",ojt:"Unmapped",shiftStatus:"Unmapped",subProcess:"",process:"Unmapped"};
- } else {
-   const get=(camel,key)=>clean(found?.[camel]??found?.[key]??"");
-   found={
-     ...found,
-     agent:get("agent","Agent ID")||get("loginId","Login Id")||name,
-     sapCode:get("sapCode","Sap code"),
-     loginId:get("loginId","Login Id"),
-     email:get("email","Email"),
-     agentId:get("agentId","Agent ID"),
-     tl:get("tl","TL")||"Unmapped",
-     am:get("am","AM")||"Unmapped",
-     bucket:get("bucket","Bucket")||"Unmapped",
-     ojt:get("ojt","OJT/NonOJT")||"Unmapped",
-     shiftStatus:get("shiftStatus","Shift Status")||"Unmapped",
-     subProcess:get("subProcess","Sub Process"),
-     process:get("process","Process")||get("subProcess","Sub Process")||"Unmapped"
-   };
+   const q=norm(source.name||source.agent||source.agentId||source.loginId||source.email);
+   found=directoryData.find(x=>rowVals(x).includes(q));
  }
- return smartMap(found);
+ if(!found){
+   return smartMap({agent:source.name||source.agent||"",sapCode:"",loginId:source.loginId||source.login_id||"",email:source.email||"",agentId:source.agentId||source.agent_id||"",tl:"Unmapped",am:"Unmapped",bucket:"Unmapped",ojt:"Unmapped",shiftStatus:"Unmapped",subProcess:"",process:"Unmapped"});
+ }
+ const get=(camel,key)=>clean(found?.[camel]??found?.[key]??"");
+ return smartMap({...found,
+   agent:get("agent","Agent ID")||get("loginId","Login Id")||source.name||"",
+   sapCode:get("sapCode","Sap code"),loginId:get("loginId","Login Id"),email:get("email","Email"),agentId:get("agentId","Agent ID"),
+   tl:get("tl","TL")||"Unmapped",am:get("am","AM")||"Unmapped",bucket:get("bucket","Bucket")||"Unmapped",
+   ojt:get("ojt","OJT/NonOJT")||"Unmapped",shiftStatus:get("shiftStatus","Shift Status")||"Unmapped",
+   subProcess:get("subProcess","Sub Process"),process:get("process","Process")||get("subProcess","Sub Process")||"Unmapped"
+ });
 }
 function adminLogin(){
  const u=document.getElementById("adminUser")?.value||"",pw=document.getElementById("adminPass")?.value||"";
@@ -970,9 +965,9 @@ function refreshAdmin(){
  set("adminExcluded",window._sahtExcludedCount||0);
  set("adminDuplicates",window._sahtDuplicateCount||0);
  set("adminRefresh",new Date().toLocaleTimeString());
- const unmapped=processedData.filter(r=>{const m=getMapping(r.email||r.loginId||r.name);return m.tl==="Unmapped"||m.am==="Unmapped"||m.process==="Unmapped"});
+ const unmapped=processedData.filter(r=>{const m=getMapping(r);return m.tl==="Unmapped"||m.am==="Unmapped"||m.process==="Unmapped"});
  const box=document.getElementById("unmappedAdmin");
- if(box)box.innerHTML=unmapped.length?`<div class="wrap"><table class="group-table"><thead><tr><th>Agent</th><th>Email</th><th>Login Hours</th><th>AHT</th><th>TL</th><th>AM</th><th>Process</th></tr></thead><tbody>${unmapped.map(r=>{const m=getMapping(r.email||r.loginId||r.name);return `<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.email||"")}</td><td>${escapeHtml(r.loginHours||"")}</td><td>${r.ahtSec}s</td><td>${escapeHtml(m.tl)}</td><td>${escapeHtml(m.am)}</td><td>${escapeHtml(m.process)}</td></tr>`}).join("")}</tbody></table></div>`:'<div class="empty-panel">All currently valid agents are mapped.</div>';
+ if(box)box.innerHTML=unmapped.length?`<div class="wrap"><table class="group-table"><thead><tr><th>Agent</th><th>Email</th><th>Login Hours</th><th>AHT</th><th>TL</th><th>AM</th><th>Process</th></tr></thead><tbody>${unmapped.map(r=>{const m=getMapping(r);return `<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.email||"")}</td><td>${escapeHtml(r.loginHours||"")}</td><td>${r.ahtSec}s</td><td>${escapeHtml(m.tl)}</td><td>${escapeHtml(m.am)}</td><td>${escapeHtml(m.process)}</td></tr>`}).join("")}</tbody></table></div>`:'<div class="empty-panel">All currently valid agents are mapped.</div>';
 }
 
 async function loadAccessRequests(){
@@ -1019,7 +1014,7 @@ async function updateAccessStatus(userId,status,requestId){
  }catch(e){alert(e.message||"Unable to update access status.");console.error(e);}
 }
 function fillHierarchyFilters(){
-  const mapped=processedData.map(r=>getMapping(r.email||r.loginId||r.name));
+  const mapped=processedData.map(r=>getMapping(r));
   fillSelect("agentFilter",processedData.map(r=>r.name));
   fillSelect("agentTlFilter",mapped.map(x=>x.tl));
   fillSelect("agentAmFilter",mapped.map(x=>x.am));
@@ -1040,7 +1035,7 @@ function selectedAgentRecords(){
   const ids=["agentFilter","agentTlFilter","agentAmFilter","agentProcessFilter","agentBucketFilter","agentOjtFilter","agentShiftFilter","agentSubProcessFilter"];
   const vals=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)?.value||""]));
   return processedData.filter(r=>{
-    const m=getMapping(r.email||r.loginId||r.name);
+    const m=getMapping(r);
     return (!vals.agentFilter||r.name===vals.agentFilter)&&(!vals.agentTlFilter||m.tl===vals.agentTlFilter)&&(!vals.agentAmFilter||m.am===vals.agentAmFilter)&&(!vals.agentProcessFilter||m.process===vals.agentProcessFilter)&&(!vals.agentBucketFilter||m.bucket===vals.agentBucketFilter)&&(!vals.agentOjtFilter||m.ojt===vals.agentOjtFilter)&&(!vals.agentShiftFilter||m.shiftStatus===vals.agentShiftFilter)&&(!vals.agentSubProcessFilter||m.subProcess===vals.agentSubProcessFilter);
   });
 }
@@ -1048,7 +1043,7 @@ function selectedTeamRecords(){
   const ids=["teamTlFilter","teamAmFilter","teamProcessFilter","teamBucketFilter","teamOjtFilter","teamShiftFilter","teamSubProcessFilter"];
   const vals=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)?.value||""]));
   return processedData.filter(r=>{
-    const m=getMapping(r.email||r.loginId||r.name);
+    const m=getMapping(r);
     return (!vals.teamTlFilter||m.tl===vals.teamTlFilter)&&(!vals.teamAmFilter||m.am===vals.teamAmFilter)&&(!vals.teamProcessFilter||m.process===vals.teamProcessFilter)&&(!vals.teamBucketFilter||m.bucket===vals.teamBucketFilter)&&(!vals.teamOjtFilter||m.ojt===vals.teamOjtFilter)&&(!vals.teamShiftFilter||m.shiftStatus===vals.teamShiftFilter)&&(!vals.teamSubProcessFilter||m.subProcess===vals.teamSubProcessFilter);
   });
 }
@@ -1081,7 +1076,7 @@ function avgNum(rows,field){
 function groupRecords(rows,field){
   const groups=new Map();
   (rows||[]).forEach(r=>{
-    const m=getMapping(r.email||r.loginId||r.name);
+    const m=getMapping(r);
     const key=field==="TL"?m.tl:
       field==="AM"?m.am:
       field==="Process"?m.process:
@@ -1115,7 +1110,7 @@ function renderAgentAnalysis(){
   const rec=rows.reduce((a,r)=>a+parseNumber(r.received),0),res=rows.reduce((a,r)=>a+parseNumber(r.resolved),0);
   box.innerHTML=`<div class="help-note"><b>${rows.length}</b> agents • Received <b>${rec}</b> • Resolved <b>${res}</b> • Resolution <b>${fmtPct(rec?res/rec:0)}</b></div>
   <div class="wrap"><table class="detail-table"><thead><tr><th>Rank</th><th>Agent</th><th>TL</th><th>AM</th><th>Process</th><th>Login Hrs</th><th>Received</th><th>Resolved</th><th>Resolution</th><th>Avg. HT</th><th>AHT</th><th>Avg. FRT</th></tr></thead><tbody>
-  ${rows.map((r,i)=>{const m=getMapping(r.email||r.loginId||r.name),st=exactAHTStatus(r.ahtSec,target);return `<tr><td>${i+1}</td><td>${escapeHtml(r.name)}</td><td>${escapeHtml(m.tl)}</td><td>${escapeHtml(m.am)}</td><td>${escapeHtml(m.process)}</td><td>${escapeHtml(r.loginHours||"")}</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${fmtPct(parseNumber(r.received)?parseNumber(r.resolved)/parseNumber(r.received):0)}</td><td>${escapeHtml(r.avgHt)}</td><td class="${st.cls}">${r.ahtSec} ${st.symbol}</td><td>${escapeHtml(r.avgFrt)}</td></tr>`}).join("")}</tbody></table></div>`;
+  ${rows.map((r,i)=>{const m=getMapping(r),st=exactAHTStatus(r.ahtSec,target);return `<tr><td>${i+1}</td><td>${escapeHtml(r.name)}</td><td>${escapeHtml(m.tl)}</td><td>${escapeHtml(m.am)}</td><td>${escapeHtml(m.process)}</td><td>${escapeHtml(r.loginHours||"")}</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${fmtPct(parseNumber(r.received)?parseNumber(r.resolved)/parseNumber(r.received):0)}</td><td>${escapeHtml(r.avgHt)}</td><td class="${st.cls}">${r.ahtSec} ${st.symbol}</td><td>${escapeHtml(r.avgFrt)}</td></tr>`}).join("")}</tbody></table></div>`;
 }
 function renderTeamAnalysis(){
   const field=document.getElementById("groupByFilter")?.value||"TL";
@@ -1151,7 +1146,7 @@ function renderManagementDashboardOriginal(){
   if(best)best.innerHTML=makeTable([...rows].sort((a,b)=>a.ahtSec-b.ahtSec).slice(0,8));
 }
 function dashboardFilterField(r,key){
-  const m=getMapping(r.email||r.loginId||r.name);
+  const m=getMapping(r);
   if(key==="TL")return clean(m.tl);
   if(key==="AM")return clean(m.am);
   if(key==="Process")return clean(m.process||m.subProcess);
@@ -1788,19 +1783,26 @@ document.addEventListener("DOMContentLoaded",function(){
    if(activePage==="directory") unlockDirectory();
  }
  async function syncAgents(){
-   if(!window.sahtUserApproved && !window.sahtAdminApproved)return;
-   let q=await client.rpc("get_agent_details_for_user");
-   if(q.error){
-     console.error("Shared Agent Details load failed:",q.error);
-     const box=document.getElementById("directoryTable");
-     if(box) box.innerHTML='<div class="empty-panel">Unable to load shared Agent Details. Please contact the administrator.</div>';
-     return;
-   }
-   window.directoryData=(q.data||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
-   try{renderDirectory();refreshAllAnalytics()}catch(e){}
+ if(!window.sahtUserApproved && !window.sahtAdminApproved)return;
+ const c=window.sahtSupabase; if(!c)return;
+ let rows=[], err=null;
+ try{
+   const q=await c.from("agent_details").select("id,sap_code,login_id,agent_id,email,tl,am,bucket,ojt_nonojt,shift_status,sub_process,updated_at");
+   if(q.error){err=q.error;} else rows=q.data||[];
+ }catch(e){err=e;}
+ if(err){
+   try{ const q=await c.rpc("get_agent_details_for_user"); if(q.error)throw q.error; rows=q.data||[]; err=null; }catch(e){err=e;}
  }
+ if(err){
+   console.error("Shared Agent Details load failed:",err);
+   const box=document.getElementById("directoryTable"); if(box)box.innerHTML='<div class="empty-panel">Unable to load shared Agent Details. Please contact the administrator.</div>';
+   return;
+ }
+ window.directoryData=(rows||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
+ try{renderDirectory();refreshAllAnalytics();refreshAdmin();}catch(e){console.error(e)}
+}
  if(!configured){gate.style.display="none";return}
- client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY);window.sahtSupabase=client;
+ client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storageKey:"saht-auth-session"}});window.sahtSupabase=client;
  document.getElementById("sahtSignInTab").onclick=()=>setMode("login");document.getElementById("sahtRequestTab").onclick=()=>setMode("request");
  document.getElementById("sahtSubmit").onclick=async()=>{try{
    const email=sahtEmail.value.trim(),pw=sahtPassword.value;if(!email||!pw)return setMsg("Email and password are required.");
@@ -1855,6 +1857,15 @@ document.addEventListener("DOMContentLoaded",function(){
    }catch(e){ console.error("Access status check failed:",e); }
  },10000);
  setMode("login");
+ // Explicitly restore the persisted Supabase session on every page load.
+ // This prevents a refresh from being treated as a logout.
+ (async()=>{
+   try{
+     const {data,error}=await client.auth.getSession();
+     if(error) throw error;
+     if(data?.session?.user){ await enter(data.session.user); }
+   }catch(e){ console.error("Session restore failed:",e); }
+ })();
 })();
 </script>
 <script>
