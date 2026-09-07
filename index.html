@@ -243,7 +243,7 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
 
 /* ===== V11 profile modal / role-aware navigation / shared master editor ===== */
 #page-profile{display:none!important}
-.profile-card{cursor:pointer;position:relative}
+.profile-card{cursor:pointer;position:relative;margin:8px 14px 8px!important}
 .profile-card:hover{border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .profile-card .pc-hint{display:block;font-size:8px;color:var(--muted);margin-top:7px;text-transform:uppercase;letter-spacing:.08em}
 .profile-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:flex-start;justify-content:flex-start;padding:92px 0 0 305px;background:rgba(10,16,24,.36);backdrop-filter:blur(5px)}
@@ -320,9 +320,9 @@ body.saht-admin #navAdminPortal{display:grid!important}
     </div>
     <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
   </div>
-  <div class="saht-auth-actions"><button class="btn saht-logout-btn" id="sahtLogoutBtn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div>
   <div class="profile-card" id="sidebarProfileCard" style="display:none" onclick="openProfileModal()" title="Open profile"><div class="pc-top"><div class="profile-avatar" id="sidebarProfileAvatar">U</div><div style="min-width:0"><b id="sidebarProfileName">User</b><small id="sidebarProfileEmail">—</small></div><span class="pc-role" id="sidebarProfileRole">VISITOR</span></div><span class="pc-hint">Profile • click to open</span></div>
   <div class="profile-modal" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><div class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle"><div class="profile-modal-head"><div class="profile-modal-avatar" id="profileModalAvatar">U</div><div class="profile-modal-title"><b id="profileModalTitle">My Profile</b><small><span id="profileModalRole">VISITOR</span> • <span id="profileModalStatus">APPROVED</span></small></div><button class="profile-modal-close" type="button" onclick="closeProfileModal()">×</button></div><div class="profile-modal-body"><div class="profile-modal-grid"><div><label>Full Name</label><input id="profileFullName" type="text" placeholder="Your name"></div><div><label>Agent ID</label><input id="profileAgentId" type="text" placeholder="Agent ID / Employee ID"></div><div><label>Email</label><input id="profileEmail" class="profile-readonly" type="email" readonly></div><div><label>Role</label><select id="profileRole"><option value="user">Visitor</option><option value="admin">Admin</option></select></div><div><label>Supabase User ID</label><input id="profileUserId" class="profile-readonly" type="text" readonly></div><div><label>Profile Picture</label><input id="profileAvatarFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewProfileAvatar(this)"><div class="profile-avatar-actions"><button class="btn" type="button" onclick="document.getElementById('profileAvatarFile').click()">Upload / Change</button><button class="btn" type="button" onclick="removeProfileAvatar()">Remove</button></div></div></div><div id="profileEditLock" class="profile-edit-lock">Profile details can be updated once every 7 days.</div><div id="profileMsg" class="help-note" style="display:none;margin:10px 0 0"></div><div class="profile-modal-foot"><button class="btn primary" type="button" onclick="saveMyProfile()">Save Profile</button><button class="btn" type="button" onclick="loadMyProfile()">↻ Refresh</button><button class="btn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div></div></div></div>
+  <div class="saht-auth-actions"><button class="btn saht-logout-btn" id="sahtLogoutBtn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div>
 <div class="sidebar-scroll">
     <div class="side-status">
       <div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
@@ -907,11 +907,22 @@ function adminLogout(){
  showPage("admin");
 }
 function ensureAdmin(){
- lockDirectory();
  const ok=isAdminAuthenticated();
  document.getElementById("adminLocked").style.display=ok?"none":"block";
  document.getElementById("adminPanel").style.display=ok?"block":"none";
- if(ok){refreshAdmin(); if(typeof loadAccessRequests==="function")loadAccessRequests();}
+ // Keep Agent Details editable for an approved Supabase admin.
+ if(ok){
+   const page=document.getElementById("page-directory");
+   const banner=document.querySelector("#page-directory .directory-admin-banner");
+   const controls=document.querySelector("#page-directory .directory-editor-controls");
+   if(page)page.classList.add("admin-unlocked");
+   if(banner)banner.style.display="flex";
+   if(controls)controls.style.display="block";
+   refreshAdmin();
+   if(typeof loadAccessRequests==="function")loadAccessRequests();
+ } else {
+   lockDirectory();
+ }
 }
 function refreshAdmin(){
  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
