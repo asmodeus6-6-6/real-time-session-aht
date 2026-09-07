@@ -318,7 +318,17 @@ body.saht-admin #navAdminPortal{display:grid!important}
 .global-profile{position:fixed!important;top:12px!important;right:18px!important;z-index:99998!important;display:flex!important;}
 #sidebarProfileCard,#navMyProfile{display:none!important;}
 </style>
-</head><body data-theme="normal"><div id="sahtGate"><div class="card">
+<style id="v16-auth-profile-css">
+#sahtGate.saht-restoring .card{opacity:.96}
+#sahtGate.saht-restoring #sahtSubmit,#sahtGate.saht-restoring #sahtSignInTab,#sahtGate.saht-restoring #sahtRequestTab{pointer-events:none;opacity:.55}
+#sahtRestoreStatus{font-size:12px;color:var(--muted,#68737d);margin-top:4px;display:none}
+.global-profile{position:fixed!important;top:14px!important;right:18px!important;z-index:100000!important;display:none;align-items:center;gap:9px;cursor:pointer!important;min-width:170px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+@media(max-width:700px){.global-profile{right:8px!important;top:8px!important;min-width:44px!important;padding:6px!important}.global-profile-copy,.global-profile-chevron{display:none!important}}
+</style><style id="v16-auth-profile-css">
+#sahtGate.saht-restoring .card{opacity:.96}
+.global-profile{position:fixed!important;top:14px!important;right:18px!important;z-index:100000!important;display:none;align-items:center;gap:9px;cursor:pointer!important;min-width:170px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+@media(max-width:700px){.global-profile{right:8px!important;top:8px!important;min-width:44px!important;padding:6px!important}.global-profile-copy,.global-profile-chevron{display:none!important}}
+</style></head><body data-theme="normal"><div id="sahtGate"><div class="card">
 <div style="font-size:11px;letter-spacing:.15em;font-weight:800;opacity:.6">SESSION AHT MONITOR</div>
 <h1 id="sahtGateTitle">Secure Sign In</h1>
 <div id="sahtGateSub" style="opacity:.7;margin-bottom:20px">Sign in to use the shared dashboard.</div>
@@ -328,7 +338,7 @@ body.saht-admin #navAdminPortal{display:grid!important}
 <input class="input" id="sahtPassword" type="password" placeholder="Password">
 <input class="input" id="sahtReason" placeholder="Reason / team (optional)" style="display:none">
 <div style="display:flex;gap:8px"><button class="btn" id="sahtSignInTab">Sign In</button><button class="btn" id="sahtRequestTab">Request Access</button></div>
-<button class="btn" id="sahtSubmit">Sign In</button><div class="saht-auth-msg" id="sahtMsg"></div>
+<button class="btn" id="sahtSubmit">Sign In</button><div id="sahtRestoreStatus">Restoring your secure session…</div><div class="saht-auth-msg" id="sahtMsg"></div>
 </div></div></div><div class="app"><aside class="sidebar" id="appSidebar">
   <div class="sidebar-head">
     <div class="brand">
@@ -829,7 +839,7 @@ async function refreshDirectory(){
  try{
    const q=await c.rpc("get_agent_details_for_user");
    if(q.error)throw q.error;
-   directoryData=(q.data||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
+   directoryData=(q.data||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""})); window.directoryData=directoryData;
    const di=document.getElementById("directoryInput"); if(di && window.sahtAdminApproved){ di.value=["Sap code\tLogin Id\tAgent ID\tTL\tAM\tBucket\tOJT/NonOJT\tShift Status\tSub Process",...directoryData.map(r=>[r["Sap code"],r["Login Id"],r["Agent ID"],r["TL"],r["AM"],r["Bucket"],r["OJT/NonOJT"],r["Shift Status"],r["Sub Process"]].join("\t"))].join("\n"); }
    renderDirectory(); refreshAllAnalytics();
    if(status)status.textContent="Updated "+new Date().toLocaleTimeString();
@@ -896,20 +906,13 @@ function smartMap(r){
 }
 function getMapping(input){
  const source=(input&&typeof input==="object")?input:{name:input||""};
- const candidates=[source.email,source.loginId,source.login_id,source.name,source.agent,source.agentId,source.agent_id,source.sapCode,source.sap_code]
-   .map(directoryKey).filter(Boolean);
- const norm=(x)=>directoryKey(x);
- const rowVals=(x)=>[
-   x?.loginId,x?.["Login Id"],x?.login_id,
-   x?.email,x?.Email,
-   x?.agent,x?.["Agent Name"],
-   x?.agentId,x?.["Agent ID"],x?.agent_id,
-   x?.sapCode,x?.["Sap code"],x?.sap_code
- ].map(norm).filter(Boolean);
+ const variants=(x)=>{const v=directoryKey(x); if(!v)return []; const out=new Set([v]); if(v.includes("@"))out.add(v.split("@")[0]); out.add(v.replace(/[._\-\s]+/g,"")); return [...out];};
+ const candidates=[source.email,source.loginId,source.login_id,source.name,source.agent,source.agentId,source.agent_id,source.sapCode,source.sap_code].flatMap(variants).filter(Boolean);
+ const rowVals=(x)=>[x?.loginId,x?.["Login Id"],x?.login_id,x?.email,x?.Email,x?.agent,x?.["Agent Name"],x?.agentId,x?.["Agent ID"],x?.agent_id,x?.sapCode,x?.["Sap code"],x?.sap_code].flatMap(variants).filter(Boolean);
  let found=directoryData.find(x=>rowVals(x).some(v=>candidates.includes(v)));
  if(!found){
-   const q=norm(source.name||source.agent||source.agentId||source.loginId||source.email);
-   found=directoryData.find(x=>rowVals(x).includes(q));
+   const q=variants(source.name||source.agent||source.agentId||source.loginId||source.email);
+   found=directoryData.find(x=>rowVals(x).some(v=>q.includes(v)));
  }
  if(!found){
    return smartMap({agent:source.name||source.agent||"",sapCode:"",loginId:source.loginId||source.login_id||"",email:source.email||"",agentId:source.agentId||source.agent_id||"",tl:"Unmapped",am:"Unmapped",bucket:"Unmapped",ojt:"Unmapped",shiftStatus:"Unmapped",subProcess:"",process:"Unmapped"});
@@ -1778,9 +1781,9 @@ document.addEventListener("DOMContentLoaded",function(){
    window.sahtAdminApproved=(profile.role==="admin" && profile.status==="approved");
    updateProfileUI();
    if(window.sahtAdminApproved){storageSet("saht-admin-session","1");}
-   try{ensureAdmin();}catch(e){}
-   await syncAgents();
-   if(activePage==="directory") unlockDirectory();
+   try{ensureAdmin();}catch(e){console.error("Admin UI refresh failed:",e)}
+   try{await syncAgents();}catch(e){console.error("Shared Agent Details sync failed:",e)}
+   try{if(activePage==="directory") unlockDirectory();}catch(e){console.error("Directory UI refresh failed:",e)}
  }
  async function syncAgents(){
  if(!window.sahtUserApproved && !window.sahtAdminApproved)return;
@@ -1798,7 +1801,7 @@ document.addEventListener("DOMContentLoaded",function(){
    const box=document.getElementById("directoryTable"); if(box)box.innerHTML='<div class="empty-panel">Unable to load shared Agent Details. Please contact the administrator.</div>';
    return;
  }
- window.directoryData=(rows||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
+ directoryData=(rows||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""})); window.directoryData=directoryData;
  try{renderDirectory();refreshAllAnalytics();refreshAdmin();}catch(e){console.error(e)}
 }
  if(!configured){gate.style.display="none";return}
@@ -1835,7 +1838,7 @@ document.addEventListener("DOMContentLoaded",function(){
      await enter(r.data.user);
    }
  }catch(e){setMsg(e.message||"Authentication failed.")}};
- client.auth.onAuthStateChange(async(_,s)=>{if(s?.user){try{await enter(s.user)}catch(e){locked();setMsg(e.message)}}else locked()});
+ client.auth.onAuthStateChange(async(event,s)=>{if(s?.user){try{await enter(s.user)}catch(e){console.error("Auth state access check failed:",e); if(event!=="INITIAL_SESSION") setMsg(e.message||"Unable to verify access.");}}else if(event==="SIGNED_OUT"){locked();}});
  client.channel("agent-details-live").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},syncAgents).subscribe();
  // Realtime is primary; periodic refresh is a safety net so visitors never stay on stale mapping data.
  setInterval(()=>{ if(window.sahtUserApproved||window.sahtAdminApproved) syncAgents().catch(()=>{}); },10000);
@@ -1857,14 +1860,18 @@ document.addEventListener("DOMContentLoaded",function(){
    }catch(e){ console.error("Access status check failed:",e); }
  },10000);
  setMode("login");
- // Explicitly restore the persisted Supabase session on every page load.
- // This prevents a refresh from being treated as a logout.
+ // V16 session bootstrap: restore the saved Supabase session before treating the auth gate as a login screen.
  (async()=>{
+   const gateEl=document.getElementById("sahtGate");
    try{
+     if(gateEl) gateEl.classList.add("saht-restoring");
      const {data,error}=await client.auth.getSession();
      if(error) throw error;
-     if(data?.session?.user){ await enter(data.session.user); }
-   }catch(e){ console.error("Session restore failed:",e); }
+     if(data?.session?.user){
+       try{ await enter(data.session.user); }catch(e){ console.error("Session restore access check failed:",e); }
+     } else locked();
+   }catch(e){ console.error("Session restore failed:",e); locked(); setMsg("Please sign in again."); }
+   finally{ if(gateEl) gateEl.classList.remove("saht-restoring"); }
  })();
 })();
 </script>
@@ -1880,5 +1887,8 @@ document.addEventListener("DOMContentLoaded",function(){
     try{refreshAllAnalytics();}catch(e){console.error(e);}
   });
 });
+</script>
+<script id="v16-profile-relocate">
+document.addEventListener("DOMContentLoaded",function(){const p=document.getElementById("globalProfileButton");if(p&&p.parentElement!==document.body)document.body.appendChild(p);});
 </script>
 </body></html>
