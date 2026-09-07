@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Real Time Session AHT Tracker</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Real Time Session AHT Monitor • V22</title><style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--text);background:var(--bg);font-size:var(--base-size)}
 body[data-theme=normal]{--bg:#f2f4f6;--panel:#ffffff;--panel2:#e8ecef;--line:#c9d0d6;--text:#26313a;--muted:#68737d;--accent:#4f6878;--accent2:#718694}
@@ -406,17 +406,58 @@ body:not(.saht-locked) .saht-brand-pop{display:flex}
 @keyframes sahtBrandPop{0%,12%{opacity:0;transform:translateX(34px) scale(.96)}20%,78%{opacity:1;transform:translateX(0) scale(1)}88%,100%{opacity:0;transform:translateX(34px) scale(.96)}}
 @media(max-width:700px){.saht-brand-pop{right:12px;bottom:12px}.saht-brand-pop b{font-size:11px}}
 </style>
+
+<style id="v22-ui-fix">
+/* ===== V22: fixed sidebar, visitor-safe navigation, premium login visual ===== */
+:root{--sidebar-w:292px;--sidebar-collapsed-w:78px}
+.sidebar{position:fixed!important;left:0!important;top:0!important;bottom:0!important;height:100dvh!important;z-index:9000!important;overflow:hidden!important}
+.main{margin-left:var(--sidebar-w)!important;min-height:100dvh!important}
+body.sidebar-collapsed .main{margin-left:var(--sidebar-collapsed-w)!important}
+body.saht-visitor #navDirectory{display:none!important}
+body.saht-visitor #navAdminPortal{display:none!important}
+body.saht-admin #navDirectory,body.saht-admin #navAdminPortal{display:grid!important}
+/* Branding is only the authenticated floating pop-up. */
+.v19-watermark,.v19-powered{display:none!important}
+.saht-brand-pop{right:22px!important;bottom:24px!important;left:auto!important}
+/* Login visual: animated BPO control room, no personal branding */
+#sahtGate .v18-visual{padding:48px 6vw!important;background:radial-gradient(circle at 18% 20%,rgba(95,203,244,.20),transparent 26%),radial-gradient(circle at 78% 65%,rgba(123,92,255,.22),transparent 30%),linear-gradient(145deg,#071824,#0b2d40 48%,#10243a)!important;overflow:hidden!important}
+#sahtGate .v18-visual:before,#sahtGate .v18-visual:after{display:none!important}
+.v22-login-visual{isolation:isolate}
+.v22-grid{position:absolute;inset:0;opacity:.16;background-image:linear-gradient(rgba(152,214,237,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(152,214,237,.22) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(90deg,black,transparent 88%);animation:v22grid 18s linear infinite}
+.v22-ambient{position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}.v22-ambient.a1{width:340px;height:340px;left:-120px;top:-90px;background:radial-gradient(circle,rgba(76,194,239,.22),transparent 68%);animation:v22float1 8s ease-in-out infinite}.v22-ambient.a2{width:280px;height:280px;right:-60px;bottom:-80px;background:radial-gradient(circle,rgba(142,90,255,.18),transparent 68%);animation:v22float2 9s ease-in-out infinite}
+.v22-live-chip{position:relative;z-index:5;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(142,216,241,.25);background:rgba(255,255,255,.07);border-radius:999px;color:#dff8ff;font-size:9px;font-weight:900;letter-spacing:.13em;backdrop-filter:blur(10px);animation:v22pulse 2.6s ease-in-out infinite}.v22-live-chip span{width:7px;height:7px;border-radius:50%;background:#42e8a3;box-shadow:0 0 14px #42e8a3}
+.v22-visual-copy{position:relative;z-index:4;margin-top:28px;max-width:560px;color:#fff}.v22-eyebrow{font-size:10px;letter-spacing:.22em;font-weight:900;color:#8bdaf1}.v22-visual-copy h2{margin:10px 0 12px;font-size:clamp(42px,5vw,72px);line-height:.98;letter-spacing:-.04em;text-shadow:0 18px 45px rgba(0,0,0,.28)}.v22-visual-copy h2 strong{background:linear-gradient(90deg,#8de4ff,#c6a6ff);-webkit-background-clip:text;background-clip:text;color:transparent}.v22-visual-copy p{margin:0;color:rgba(233,247,252,.72);font-size:13px;line-height:1.65;max-width:530px}
+.v22-call-scene{position:absolute;right:5%;bottom:7%;width:min(520px,52%);height:58%;min-height:310px;z-index:3}.v22-ring{position:absolute;border:1px solid rgba(126,218,241,.25);border-radius:50%;left:50%;top:48%;transform:translate(-50%,-50%);animation:v22ring 4s ease-out infinite}.v22-ring.r1{width:170px;height:170px}.v22-ring.r2{width:300px;height:300px;animation-delay:1.2s}.v22-ring.r3{width:440px;height:440px;animation-delay:2.4s}
+.v22-headset{position:absolute;left:50%;top:45%;width:150px;height:145px;transform:translate(-50%,-50%);filter:drop-shadow(0 20px 35px rgba(0,0,0,.28));animation:v22head 4s ease-in-out infinite}.v22-headset .band{position:absolute;left:18px;top:3px;width:114px;height:106px;border:12px solid #d9f5ff;border-bottom-color:transparent;border-radius:60px 60px 30px 30px;box-shadow:0 0 30px rgba(129,219,245,.24)}.v22-headset .ear{position:absolute;top:56px;width:28px;height:52px;border-radius:12px;background:linear-gradient(180deg,#d9f5ff,#86cce4);box-shadow:0 8px 18px rgba(0,0,0,.2)}.v22-headset .ear.left{left:8px}.v22-headset .ear.right{right:8px}.v22-headset .face{position:absolute;left:38px;top:50px;width:74px;height:64px;border-radius:30px 30px 35px 35px;background:linear-gradient(145deg,#f7fbfd,#b8d8e5);border:2px solid rgba(255,255,255,.65)}.v22-headset .face span{position:absolute;top:25px;width:10px;height:7px;border-radius:50%;background:#173649}.v22-headset .face span:first-child{left:18px}.v22-headset .face span:last-child{right:18px}.v22-headset .mic{position:absolute;right:0;bottom:6px;width:56px;height:6px;border-radius:8px;background:#d9f5ff;transform:rotate(22deg);transform-origin:left center}.v22-headset .mic:after{content:"";position:absolute;right:-5px;top:-3px;width:12px;height:12px;border-radius:50%;background:#42e8a3;box-shadow:0 0 14px #42e8a3}
+.v22-wave{position:absolute;display:flex;align-items:center;gap:5px;left:50%;transform:translateX(-50%);height:44px}.v22-wave i{display:block;width:4px;border-radius:5px;background:linear-gradient(#8de4ff,#9b86ff);animation:v22bar .8s ease-in-out infinite alternate}.v22-wave i:nth-child(2n){animation-delay:.12s}.v22-wave i:nth-child(3n){animation-delay:.24s}.v22-wave i:nth-child(4n){animation-delay:.36s}.wave1{top:7%;width:250px}.wave2{bottom:7%;width:190px;opacity:.65}.wave1 i:nth-child(1){height:9px}.wave1 i:nth-child(2){height:24px}.wave1 i:nth-child(3){height:38px}.wave1 i:nth-child(4){height:18px}.wave1 i:nth-child(5){height:31px}.wave1 i:nth-child(6){height:44px}.wave1 i:nth-child(7){height:23px}.wave1 i:nth-child(8){height:36px}.wave1 i:nth-child(9){height:15px}.wave1 i:nth-child(10){height:28px}.wave1 i:nth-child(11){height:42px}.wave1 i:nth-child(12){height:19px}.wave2 i{height:18px}.wave2 i:nth-child(2n){height:32px}
+.v22-floating-card{position:absolute;padding:9px 11px;border:1px solid rgba(155,225,243,.22);background:rgba(9,31,45,.68);backdrop-filter:blur(12px);border-radius:13px;color:#fff;box-shadow:0 14px 35px rgba(0,0,0,.18);animation:v22card 5s ease-in-out infinite}.v22-floating-card b{display:block;font-size:8px;letter-spacing:.15em;color:#8de4ff}.v22-floating-card small{display:block;font-size:8px;color:rgba(255,255,255,.58);margin-top:2px}.v22-floating-card strong{display:block;font-size:18px;margin-top:2px}.c1{left:4%;top:28%}.c2{right:4%;top:12%;animation-delay:1s}.c3{right:0;bottom:22%;animation-delay:2s}
+.v22-visual-footer{position:absolute;left:6%;bottom:5%;z-index:5;font-size:8px;font-weight:900;letter-spacing:.18em;color:rgba(222,248,255,.55)}.v22-visual-footer span{color:#42e8a3;animation:v22blink 1.2s infinite}.v22-visual-footer em{font-style:normal;margin-left:12px;color:#8de4ff}
+@keyframes v22grid{to{background-position:48px 48px}}@keyframes v22float1{50%{transform:translate(50px,25px) scale(1.08)}}@keyframes v22float2{50%{transform:translate(-35px,-20px) scale(1.1)}}@keyframes v22pulse{50%{box-shadow:0 0 0 7px rgba(66,232,163,.04)}}@keyframes v22ring{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}20%{opacity:.9}100%{opacity:0;transform:translate(-50%,-50%) scale(1.12)}}@keyframes v22head{50%{transform:translate(-50%,-54%) rotate(-1deg)}}@keyframes v22bar{to{transform:scaleY(.38);opacity:.55}}@keyframes v22card{50%{transform:translateY(-7px)}}@keyframes v22blink{50%{opacity:.25}}
+@media(max-width:1000px){.v22-call-scene{opacity:.72;right:-7%;width:58%}.v22-visual-copy{max-width:62%}}@media(max-width:900px){.sidebar{position:fixed!important}.main{margin-left:0!important}.v22-call-scene{display:none}.v22-visual-copy{max-width:100%}.v22-visual-copy h2{font-size:42px}.v22-visual-footer{bottom:6%}}
+</style>
 </head><body data-theme="normal" class="saht-locked"><div id="sahtGate">
   <div class="v18-auth-wrap">
-    <section class="v18-visual">
-      <div class="v18-orbit"></div>
-      <div class="v20-brand-badge">DESIGNED & POWERED BY ABHIJITH</div><div class="v18-brand"><div class="v18-brand-mark">SA</div><div><small>Operations Control</small><b>Session AHT Monitor</b></div></div>
-      <div class="v18-copy">
-        <div class="eyebrow">Real-time workforce intelligence</div>
-        <h2>See the session.<br>Improve the performance.</h2>
-        <p>Monitor live Session AHT, agent performance and operational mapping from one secure workspace built for BPO calling operations.</p>
-        <div class="v18-metrics"><div class="v18-metric"><b>LIVE</b><span>Session monitoring</span></div><div class="v18-metric"><b>AHT</b><span>Performance control</span></div><div class="v18-metric"><b>24×7</b><span>Shared operations</span></div></div>
-      </div><div class="v20-power-toast">Designed & powered by Abhijith</div>
+    <section class="v18-visual v22-login-visual">
+      <div class="v22-ambient a1"></div><div class="v22-ambient a2"></div><div class="v22-grid"></div>
+      <div class="v22-live-chip"><span></span> LIVE OPERATIONS FEED</div>
+      <div class="v22-visual-copy">
+        <div class="v22-eyebrow">BPO • WORKFORCE • SESSION INTELLIGENCE</div>
+        <h2>Every call.<br><strong>Every second.</strong><br>Under control.</h2>
+        <p>One workspace for live Session AHT, agent performance, hierarchy intelligence and shared workforce mapping.</p>
+      </div>
+      <div class="v22-call-scene" aria-hidden="true">
+        <div class="v22-ring r1"></div><div class="v22-ring r2"></div><div class="v22-ring r3"></div>
+        <div class="v22-headset">
+          <div class="ear left"></div><div class="ear right"></div><div class="band"></div><div class="mic"></div>
+          <div class="face"><span></span><span></span></div>
+        </div>
+        <div class="v22-wave wave1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="v22-wave wave2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="v22-floating-card c1"><b>LIVE</b><small>Agents online</small><strong>∞</strong></div>
+        <div class="v22-floating-card c2"><b>AHT</b><small>Target</small><strong>195s</strong></div>
+        <div class="v22-floating-card c3"><b>SYNC</b><small>Master data</small><strong>100%</strong></div>
+      </div>
+      <div class="v22-visual-footer"><span>●</span> SECURE WORKFORCE CONTROL <em>REAL-TIME</em></div>
     </section>
     <section class="v18-form-side">
       <div class="v18-card">
@@ -458,7 +499,7 @@ body:not(.saht-locked) .saht-brand-pop{display:flex}
         <button data-page="dashboard" onclick="showPage('dashboard')" title="Performance Dashboard"><span class="nav-icon">▦</span><span class="nav-text">Dashboard</span><em>VIEW</em></button>
         <button data-page="agents" onclick="showPage('agents')" title="Agent-wise AHT Analysis"><span class="nav-icon">♙</span><span class="nav-text">Agent Analysis</span><em>ANALYSIS</em></button>
         <button data-page="teams" onclick="showPage('teams')" title="TL / AM / Process Analysis"><span class="nav-icon">▤</span><span class="nav-text">TL / AM / Process</span><em>GROUP</em></button>
-        <button data-page="directory" onclick="showPage('directory')" title="Agent Details"><span class="nav-icon">＋</span><span class="nav-text">Agent Details</span><em>VIEW</em></button>
+        <button id="navDirectory" data-page="directory" onclick="showPage('directory')" title="Agent Details"><span class="nav-icon">＋</span><span class="nav-text">Agent Details</span><em>VIEW</em></button>
         <button id="navAdminPortal" data-page="admin" onclick="showPage('admin')" title="Admin Portal"><span class="nav-icon">⚙</span><span class="nav-text">Admin Portal</span><em>SECURE</em></button>
       </nav>
     </div>
@@ -1298,7 +1339,7 @@ function updateProfileUI(){
  const p=profile||{}; const name=p.full_name||p.email||"User"; const email=p.email||""; const role=(p.role||"user").toLowerCase();
  document.body.classList.toggle("saht-admin",role==="admin" && p.status==="approved");
  document.body.classList.toggle("saht-visitor",!(role==="admin" && p.status==="approved"));
- const adminNav=document.getElementById("navAdminPortal"); if(adminNav) adminNav.style.display=(role==="admin"&&p.status==="approved")?"grid":"none";
+ const adminNav=document.getElementById("navAdminPortal"); if(adminNav) adminNav.style.display=(role==="admin"&&p.status==="approved")?"grid":"none"; const dirNav=document.getElementById("navDirectory"); if(dirNav) dirNav.style.display=(role==="admin"&&p.status==="approved")?"grid":"none";
  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v??"";};
  const text=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v??"";};
  set("profileFullName",p.full_name||""); set("profileAgentId",p.agent_id||""); set("profileEmail",email); set("profileUserId",p.id||""); set("profileRole",role);
@@ -1358,7 +1399,7 @@ function unlockDirectory(){
 function showPage(page){
   if(page==="admin" && !window.sahtAdminApproved){ page="live"; }
   if(page==="profile"){ openProfileModal(); return; }
-  if(page==="directory" && !window.sahtUserApproved){ page="live"; }
+  if(page==="directory" && (!window.sahtUserApproved || !window.sahtAdminApproved)){ page="live"; }
   activePage=page;
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
   document.querySelectorAll(".app-nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
@@ -1858,7 +1899,7 @@ document.addEventListener("DOMContentLoaded",function(){
  window.sahtSignOut=async function(){
    try{if(window.sahtSupabase)await window.sahtSupabase.auth.signOut({scope:"local"});}catch(e){console.error(e)}
    window.sahtAdminApproved=false;window.sahtUserApproved=false;
-   try{sessionStorage.removeItem("saht-auth-v20");}catch(e){}
+   try{localStorage.removeItem("saht-auth-v22");}catch(e){}
    document.body.classList.add("saht-locked");
    const gate=document.getElementById("sahtGate");if(gate)gate.style.display="flex";
    setMode("login");
@@ -1873,9 +1914,10 @@ document.addEventListener("DOMContentLoaded",function(){
  const open=()=>{gate.style.display="none";document.body.classList.remove("saht-locked");};
  const locked=message=>{gate.style.display="flex";document.body.classList.add("saht-locked");if(message)setMsg(message);};
  if(!configured){locked("Supabase is not configured. Please check config.js.");return;}
- const storage={getItem(k){try{return sessionStorage.getItem(k)}catch(e){return null}},setItem(k,v){try{sessionStorage.setItem(k,v)}catch(e){}},removeItem(k){try{sessionStorage.removeItem(k)}catch(e){}}};
- // V20 authentication: session survives refresh/navigation in the same tab, but old persistent sessions are ignored.
- client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage,storageKey:"saht-auth-v20"}});window.sahtSupabase=client;
+ const storage={getItem(k){try{return localStorage.getItem(k)}catch(e){return null}},setItem(k,v){try{localStorage.setItem(k,v)}catch(e){}},removeItem(k){try{localStorage.removeItem(k)}catch(e){}}};
+ // V22 authentication: use durable browser storage so a normal refresh never signs the user out.
+ // A new storage key intentionally ignores sessions created by older dashboard versions; the user signs in once, then refreshes stay authenticated.
+ client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage,storageKey:"saht-auth-v22"}});window.sahtSupabase=client;
  const enter=async u=>{
    if(!u){locked();return false;}
    const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();
@@ -1906,31 +1948,41 @@ document.addEventListener("DOMContentLoaded",function(){
  // Override the page's save path with a verified central-master save. RPC first, direct admin write fallback.
  window.saveDirectory=async function(){
    if(!window.sahtAdminApproved){alert("Admin access required.");return;}
-   const input=document.getElementById("directoryInput");const parsed=readDirectoryText(input?.value||"");
+   const input=document.getElementById("directoryInput"); const parsed=readDirectoryText(input?.value||"");
    if(!parsed.length){alert("No valid agent rows found.");return;}
-   const payload=parsed.map(r=>({sap_code:r.sapCode||"",login_id:r.loginId||"",agent_id:r.agentId||"",email:(r.email||r.loginId||"").toLowerCase(),tl:r.tl||"",am:r.am||"",bucket:r.bucket||"",ojt_nonojt:r.ojt||"",shift_status:r.shiftStatus||"",sub_process:r.subProcess||""}));
-   const st=document.getElementById("directoryStatus");if(st)st.textContent="Saving shared master…";
-   // V21: use the dedicated weekly publisher RPC created by the V20 migration.
-   // This is the single source-of-truth write path and avoids the legacy replace_agent_details function.
-   let q=await client.rpc("save_agent_details_bulk",{p_rows:payload});
-   if(q.error){
-     console.error("save_agent_details_bulk failed",q.error);
-     if(st)st.textContent="Save failed";
-     alert("Unable to save shared Agent Details: "+q.error.message+"\n\nPlease confirm that agent_details_v20.sql has been run once in Supabase SQL Editor.");
-     return;
+   const c=window.sahtSupabase; if(!c){alert("Supabase is not connected.");return;}
+   const seen=new Set(), payload=[];
+   parsed.forEach(r=>{
+     const email=clean(r.email||r.loginId||"").toLowerCase();
+     const login=clean(r.loginId||"").toLowerCase();
+     const agent=clean(r.agentId||r.agent||"").toLowerCase();
+     const key=email||login||agent||clean(r.sapCode||"").toLowerCase();
+     if(!key||seen.has(key))return; seen.add(key);
+     payload.push({sap_code:r.sapCode||"",login_id:r.loginId||"",agent_id:r.agentId||"",email:email,tl:r.tl||"",am:r.am||"",bucket:r.bucket||"",ojt_nonojt:r.ojt||"",shift_status:r.shiftStatus||"",sub_process:r.subProcess||""});
+   });
+   const st=document.getElementById("directoryStatus"); if(st)st.textContent="Publishing weekly master…";
+   try{
+     // V22: direct admin write. This bypasses every legacy RPC and writes the same table visitors read.
+     const wipe=await c.from("agent_details").delete().neq("id","00000000-0000-0000-0000-000000000000");
+     if(wipe.error)throw new Error("Could not clear the previous master: "+wipe.error.message);
+     for(let i=0;i<payload.length;i+=400){
+       const chunk=payload.slice(i,i+400);
+       const ins=await c.from("agent_details").insert(chunk);
+       if(ins.error)throw new Error("Could not publish rows "+(i+1)+"–"+Math.min(i+400,payload.length)+": "+ins.error.message);
+     }
+     await window.sahtSyncAgents();
+     const verify=await c.from("agent_details").select("id",{count:"exact",head:true});
+     if(verify.error)throw verify.error;
+     const count=verify.count??payload.length;
+     if(st)st.textContent="Published • "+count+" shared agents • "+new Date().toLocaleTimeString();
+     alert(count+" agent details published to the shared master. Visitors will receive the same master automatically.");
+   }catch(e){
+     console.error("V22 Agent Details publish failed",e);
+     if(st)st.textContent="Publish failed";
+     alert("Unable to publish Agent Details: "+(e.message||e));
+     // Re-read whatever is still present so the editor is not left misleadingly blank.
+     try{await window.sahtSyncAgents();}catch(_){ }
    }
-   // Immediately re-read the central table and rebuild the same mapping source used by Visitors.
-   await window.sahtSyncAgents();
-   const verify=await client.from("agent_details").select("id",{count:"exact",head:true});
-   if(verify.error){
-     console.error("Agent Details verification failed",verify.error);
-     if(st)st.textContent="Saved • verification read failed";
-     alert("Agent Details were submitted, but verification failed: "+verify.error.message);
-     return;
-   }
-   const count=verify.count??q.data??payload.length;
-   if(st)st.textContent="Published • "+count+" shared agents • "+new Date().toLocaleTimeString();
-   alert(count+" agent details published to the shared master.");
  };
  document.getElementById("sahtSignInTab")?.addEventListener("click",()=>setMode("login"));
  document.getElementById("sahtRequestTab")?.addEventListener("click",()=>setMode("request"));
@@ -1945,7 +1997,7 @@ document.addEventListener("DOMContentLoaded",function(){
        if(r.data?.session)await client.auth.signOut({scope:"local"});
        setMode("login");document.getElementById("sahtEmail").value=email;document.getElementById("sahtPassword").value=pw;setMsg("Request submitted. Your access is pending admin approval.");
      }else{
-       const r=await client.auth.signInWithPassword({email,password:pw});if(r.error)throw r.error;const ok=await enter(r.data.user);if(!ok)await client.auth.signOut({scope:"local"});
+       const r=await client.auth.signInWithPassword({email,password:pw});if(r.error)throw r.error;const ok=await enter(r.data.user);if(!ok){setMsg("Your account is signed in, but access is still being verified. Please wait a moment and refresh.");}
      }
    }catch(e){console.error(e);setMsg(e.message||"Authentication failed.");}
  });
@@ -1963,7 +2015,10 @@ document.addEventListener("DOMContentLoaded",function(){
      if(error)throw error;
      if(data?.session?.user){
        const ok=await enter(data.session.user);
-       if(!ok){try{await client.auth.signOut({scope:"local"})}catch(e){}}
+       if(!ok){
+         // Keep the valid auth session alive; a profile/network failure must not log the user out.
+         setTimeout(()=>enter(data.session.user).catch(console.error),1500);
+       }
      }else{locked();}
    }catch(e){
      console.error("Session restore",e);
@@ -1988,4 +2043,4 @@ document.addEventListener("DOMContentLoaded",function(){
 <script id="v16-profile-relocate">
 document.addEventListener("DOMContentLoaded",function(){const p=document.getElementById("globalProfileButton");if(p&&p.parentElement!==document.body)document.body.appendChild(p);});
 </script>
-<script>(function(){function sync(){var p=document.getElementById("globalProfileButton");if(!p)return;p.style.display=document.body.classList.contains("saht-locked")?"none":"flex";}new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:["class"]});sync();})();</script><div class="v19-watermark">ABHIJITH</div><div class="v19-powered">Designed &amp; powered by Abhijith</div></body></html>
+<script>(function(){function sync(){var p=document.getElementById("globalProfileButton");if(!p)return;p.style.display=document.body.classList.contains("saht-locked")?"none":"flex";}new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:["class"]});sync();})();</script></body></html>
