@@ -434,6 +434,28 @@ body.saht-admin #navDirectory,body.saht-admin #navAdminPortal{display:grid!impor
 .v22-visual-footer{position:absolute;left:6%;bottom:5%;z-index:5;font-size:8px;font-weight:900;letter-spacing:.18em;color:rgba(222,248,255,.55)}.v22-visual-footer span{color:#42e8a3;animation:v22blink 1.2s infinite}.v22-visual-footer em{font-style:normal;margin-left:12px;color:#8de4ff}
 @keyframes v22grid{to{background-position:48px 48px}}@keyframes v22float1{50%{transform:translate(50px,25px) scale(1.08)}}@keyframes v22float2{50%{transform:translate(-35px,-20px) scale(1.1)}}@keyframes v22pulse{50%{box-shadow:0 0 0 7px rgba(66,232,163,.04)}}@keyframes v22ring{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}20%{opacity:.9}100%{opacity:0;transform:translate(-50%,-50%) scale(1.12)}}@keyframes v22head{50%{transform:translate(-50%,-54%) rotate(-1deg)}}@keyframes v22bar{to{transform:scaleY(.38);opacity:.55}}@keyframes v22card{50%{transform:translateY(-7px)}}@keyframes v22blink{50%{opacity:.25}}
 @media(max-width:1000px){.v22-call-scene{opacity:.72;right:-7%;width:58%}.v22-visual-copy{max-width:62%}}@media(max-width:900px){.sidebar{position:fixed!important}.main{margin-left:0!important}.v22-call-scene{display:none}.v22-visual-copy{max-width:100%}.v22-visual-copy h2{font-size:42px}.v22-visual-footer{bottom:6%}}
+
+/* ===== FINAL V23 FIXES ===== */
+.sidebar{position:fixed!important;left:0!important;top:0!important;bottom:0!important;width:292px!important;flex:0 0 292px!important;height:100dvh!important;z-index:9000!important;overflow:hidden!important}
+.main{margin-left:292px!important;min-height:100dvh!important;width:calc(100% - 292px)!important}
+.sidebar-toggle{display:none!important}
+body.sidebar-collapsed .sidebar{width:292px!important;flex-basis:292px!important}
+body.sidebar-collapsed .main{margin-left:292px!important;width:calc(100% - 292px)!important}
+body.sidebar-collapsed .brand-copy{display:block!important}
+body.sidebar-collapsed .sidebar-scroll{padding:14px 12px 18px!important}
+body.sidebar-collapsed .side-nav button{width:100%!important;height:auto!important;min-height:46px!important;margin:0!important;padding:10px 12px!important;display:grid!important;grid-template-columns:34px 1fr auto!important;place-items:center stretch!important}
+body.sidebar-collapsed .side-nav button .nav-icon{width:34px!important;height:34px!important}
+body.sidebar-collapsed .side-nav button .nav-text,body.sidebar-collapsed .side-nav button em{display:block!important}
+body.sidebar-collapsed .side-themes{display:grid!important;grid-template-columns:1fr 1fr!important}
+body.sidebar-collapsed .side-themes .theme-btn{width:auto!important;height:auto!important;min-height:34px!important;padding:7px 9px!important;display:flex!important;font-size:10px!important}
+body.sidebar-collapsed .side-themes .theme-btn span{display:inline!important}
+body.sidebar-collapsed .side-themes .theme-btn:after{content:none!important}
+body.sidebar-collapsed .side-display-section{display:block!important}
+body.sidebar-collapsed .sidebar-foot{padding:10px 14px!important;flex-basis:48px!important}
+body.sidebar-collapsed .foot-copy,body.sidebar-collapsed .foot-version,body.sidebar-collapsed .sidebar-watermark{display:block!important}
+#navDirectory,#page-directory{display:none!important}
+#adminAgentDetailsCard{display:block!important}
+@media(max-width:900px){.sidebar{width:292px!important;flex-basis:292px!important}.main{margin-left:292px!important;width:calc(100% - 292px)!important}}
 </style>
 </head><body data-theme="normal" class="saht-locked"><div id="sahtGate">
   <div class="v18-auth-wrap">
@@ -499,7 +521,6 @@ body.saht-admin #navDirectory,body.saht-admin #navAdminPortal{display:grid!impor
         <button data-page="dashboard" onclick="showPage('dashboard')" title="Performance Dashboard"><span class="nav-icon">▦</span><span class="nav-text">Dashboard</span><em>VIEW</em></button>
         <button data-page="agents" onclick="showPage('agents')" title="Agent-wise AHT Analysis"><span class="nav-icon">♙</span><span class="nav-text">Agent Analysis</span><em>ANALYSIS</em></button>
         <button data-page="teams" onclick="showPage('teams')" title="TL / AM / Process Analysis"><span class="nav-icon">▤</span><span class="nav-text">TL / AM / Process</span><em>GROUP</em></button>
-        <button id="navDirectory" data-page="directory" onclick="showPage('directory')" title="Agent Details"><span class="nav-icon">＋</span><span class="nav-text">Agent Details</span><em>VIEW</em></button>
         <button id="navAdminPortal" data-page="admin" onclick="showPage('admin')" title="Admin Portal"><span class="nav-icon">⚙</span><span class="nav-text">Admin Portal</span><em>SECURE</em></button>
       </nav>
     </div>
@@ -649,34 +670,31 @@ body.saht-admin #navDirectory,body.saht-admin #navAdminPortal{display:grid!impor
       <h3>Unmapped / Needs Review</h3>
       <div id="unmappedAdmin"></div>
     </div>
-  </div>
-</section>
-<section class="page" id="page-directory">
-  <div class="page-title">
-    <div><h2>Agent Details</h2><p>Admin-controlled agent master data.</p></div>
-    <span class="pill"><span id="directoryCount">0</span> mapped agents</span>
-  </div>
-  <div id="directoryLocked" class="admin-lock" style="display:none"></div>
-  <div id="directoryAdminContent" class="admin-only-content">
-    <div class="admin-lock-banner directory-admin-banner">
-      <div><b>🔐 Admin edit mode</b><br><span>Update the shared Agent Details master. Changes are pushed to all approved visitors in real time.</span></div>
-    </div>
-    <div class="analytics-card directory-editor-controls" style="margin-bottom:14px">
-      <h3>Agent Master Data — Admin Edit</h3>
-      <div class="help-note"><b>Excel columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process<br>Paste directly from Excel. The first row may contain headers. Saving publishes the current table to the shared Supabase master. Weekly CSV/Excel updates can be imported here; Visitors see the published master automatically.</div>
-      <textarea id="directoryInput" class="directory-input" style="min-height:180px" placeholder="Sap code&#9;Login Id&#9;Agent ID&#9;TL&#9;AM&#9;Bucket&#9;OJT/NonOJT&#9;Shift Status&#9;Sub Process"></textarea>
-      <div class="directory-toolbar" style="margin-top:10px">
-        <button class="btn primary" onclick="saveDirectory()">Save / Update Agent Details</button>
-        <button class="btn" onclick="refreshDirectory()">↻ Refresh Shared Data</button>
-        <button class="btn" onclick="clearDirectory()">Clear Master</button>
-        <button class="btn" onclick="downloadDirectoryTemplate()">Download Template</button>
-        <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Import CSV/TSV<input id="directoryFile" type="file" accept=".csv,.tsv,.txt" style="display:none" onchange="importDirectoryFile(this)"></label>
-        <span class="directory-status" id="directoryStatus">Shared master</span>
+    <div class="analytics-card" id="adminAgentDetailsCard" style="margin-top:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div><h3 style="margin:0">Agent Details — Admin Master</h3><div class="help-note" style="margin-top:6px">Admin-only. Import the weekly master here and publish it to the shared Supabase table.</div></div>
+        <span class="pill"><span id="adminDirectoryCount">0</span> mapped agents</span>
       </div>
+      <div class="admin-lock-banner directory-admin-banner" style="margin-top:12px"><div><b>🔐 Central Agent Details</b><br><span>Weekly CSV/TSV updates replace the current master and sync to approved sessions.</span></div></div>
+      <div class="analytics-card directory-editor-controls" style="margin:12px 0 0;padding:12px">
+        <h3>Weekly Import / Publish</h3>
+        <div class="help-note"><b>Columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process</div>
+        <textarea id="directoryInput" class="directory-input" style="min-height:180px" placeholder="Sap code	Login Id	Agent ID	TL	AM	Bucket	OJT/NonOJT	Shift Status	Sub Process"></textarea>
+        <div class="directory-toolbar" style="margin-top:10px">
+          <button class="btn primary" onclick="saveDirectory()">Save / Update Agent Details</button>
+          <button class="btn" onclick="refreshDirectory()">↻ Refresh Shared Data</button>
+          <button class="btn" onclick="clearDirectory()">Clear Master</button>
+          <button class="btn" onclick="downloadDirectoryTemplate()">Download Template</button>
+          <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Import CSV/TSV<input id="directoryFile" type="file" accept=".csv,.tsv,.txt" style="display:none" onchange="importDirectoryFile(this)"></label>
+          <span class="directory-status" id="directoryStatus">Shared master</span>
+        </div>
+      </div>
+      <div class="analytics-card" style="margin-top:12px"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><h3>Published Agent Details <span style="font-size:12px;font-weight:500;opacity:.7">(admin view)</span></h3><button class="btn" onclick="refreshDirectory()">↻ Refresh</button></div><div id="directoryTable"></div></div>
     </div>
-    <div class="analytics-card"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><h3>Shared Agent Details <span style="font-size:12px;font-weight:500;opacity:.7">(Read-only for approved users)</span></h3><button class="btn" onclick="refreshDirectory()">↻ Refresh</button></div><div id="directoryTable"></div></div>
   </div>
 </section>
+<section class="page" id="page-directory" style="display:none!important"></section>
+
 </main></div><script>
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function clean(v){return String(v??"").trim()}
@@ -1188,6 +1206,7 @@ function selectedTeamRecords(){
 function renderDirectory(){
   const box=document.getElementById("directoryTable"),count=document.getElementById("directoryCount");
   if(count)count.textContent=directoryData.length;
+  const adminCount=document.getElementById("adminDirectoryCount"); if(adminCount)adminCount.textContent=directoryData.length;
   if(!box)return;
   if(!directoryData.length){box.innerHTML='<div class="empty-panel">No agent details mapped yet.</div>';return;}
   const cols=[
@@ -1339,7 +1358,7 @@ function updateProfileUI(){
  const p=profile||{}; const name=p.full_name||p.email||"User"; const email=p.email||""; const role=(p.role||"user").toLowerCase();
  document.body.classList.toggle("saht-admin",role==="admin" && p.status==="approved");
  document.body.classList.toggle("saht-visitor",!(role==="admin" && p.status==="approved"));
- const adminNav=document.getElementById("navAdminPortal"); if(adminNav) adminNav.style.display=(role==="admin"&&p.status==="approved")?"grid":"none"; const dirNav=document.getElementById("navDirectory"); if(dirNav) dirNav.style.display=(role==="admin"&&p.status==="approved")?"grid":"none";
+ const adminNav=document.getElementById("navAdminPortal"); if(adminNav) adminNav.style.display=(role==="admin"&&p.status==="approved")?"grid":"none";
  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v??"";};
  const text=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v??"";};
  set("profileFullName",p.full_name||""); set("profileAgentId",p.agent_id||""); set("profileEmail",email); set("profileUserId",p.id||""); set("profileRole",role);
@@ -1399,7 +1418,7 @@ function unlockDirectory(){
 function showPage(page){
   if(page==="admin" && !window.sahtAdminApproved){ page="live"; }
   if(page==="profile"){ openProfileModal(); return; }
-  if(page==="directory" && (!window.sahtUserApproved || !window.sahtAdminApproved)){ page="live"; }
+  if(page==="directory"){ page="admin"; }
   activePage=page;
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
   document.querySelectorAll(".app-nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
@@ -1429,16 +1448,7 @@ function restoreCustomization(){
     if(ft && savedFormat) ft.value=savedFormat;
   }catch(e){console.warn("Customization restore failed:",e)}
 }
-function toggleSidebar(){
-  const collapsed=document.body.classList.toggle("sidebar-collapsed");
-  storageSet("saht-sidebar-collapsed",collapsed?"1":"0");
-  const btn=document.getElementById("sidebarToggle");
-  if(btn){
-    btn.setAttribute("aria-label",collapsed?"Expand sidebar":"Collapse sidebar");
-    btn.setAttribute("title",collapsed?"Expand sidebar":"Collapse sidebar");
-    const sp=btn.querySelector("span"); if(sp)sp.textContent=collapsed?"›":"‹";
-  }
-}
+function toggleSidebar(){document.body.classList.remove("sidebar-collapsed");storageSet("saht-sidebar-collapsed","0");}
 function clearAll(){document.getElementById("rawInput").value="";processData()}
 function exportToExcel(){
  const table=document.getElementById("reportTable");
@@ -1842,11 +1852,7 @@ function bootApp(){
     loadMappingRules();
     restoreCustomization();
     setTheme(storageGet("saht-theme")||"normal");
-    if(storageGet("saht-sidebar-collapsed")==="1"){
-      document.body.classList.add("sidebar-collapsed");
-      const sb=document.getElementById("sidebarToggle");
-      if(sb){sb.setAttribute("aria-label","Expand sidebar");sb.setAttribute("title","Expand sidebar");const sp=sb.querySelector("span");if(sp)sp.textContent="›";}
-    }
+    document.body.classList.remove("sidebar-collapsed");
 
     const raw=document.getElementById("rawInput");
     const threshold=document.getElementById("threshold");
@@ -1899,7 +1905,7 @@ document.addEventListener("DOMContentLoaded",function(){
  window.sahtSignOut=async function(){
    try{if(window.sahtSupabase)await window.sahtSupabase.auth.signOut({scope:"local"});}catch(e){console.error(e)}
    window.sahtAdminApproved=false;window.sahtUserApproved=false;
-   try{localStorage.removeItem("saht-auth-v22");}catch(e){}
+   try{localStorage.removeItem("saht-auth");localStorage.removeItem("saht-auth-v22");}catch(e){}
    document.body.classList.add("saht-locked");
    const gate=document.getElementById("sahtGate");if(gate)gate.style.display="flex";
    setMode("login");
@@ -1915,9 +1921,9 @@ document.addEventListener("DOMContentLoaded",function(){
  const locked=message=>{gate.style.display="flex";document.body.classList.add("saht-locked");if(message)setMsg(message);};
  if(!configured){locked("Supabase is not configured. Please check config.js.");return;}
  const storage={getItem(k){try{return localStorage.getItem(k)}catch(e){return null}},setItem(k,v){try{localStorage.setItem(k,v)}catch(e){}},removeItem(k){try{localStorage.removeItem(k)}catch(e){}}};
- // V22 authentication: use durable browser storage so a normal refresh never signs the user out.
- // A new storage key intentionally ignores sessions created by older dashboard versions; the user signs in once, then refreshes stay authenticated.
- client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage,storageKey:"saht-auth-v22"}});window.sahtSupabase=client;
+ // FINAL AUTH FIX: stable localStorage key so normal refresh keeps the same Supabase session.
+ try{const legacy=localStorage.getItem("saht-auth-v22");if(legacy&&!localStorage.getItem("saht-auth"))localStorage.setItem("saht-auth",legacy);}catch(e){}
+ client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage,storageKey:"saht-auth"}});window.sahtSupabase=client;
  const enter=async u=>{
    if(!u){locked();return false;}
    const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();
@@ -2001,7 +2007,7 @@ document.addEventListener("DOMContentLoaded",function(){
      }
    }catch(e){console.error(e);setMsg(e.message||"Authentication failed.");}
  });
- client.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT"){window.sahtUserApproved=false;window.sahtAdminApproved=false;profile=null;locked();return;}if((event==="SIGNED_IN"||event==="USER_UPDATED")&&session?.user){enter(session.user).catch(console.error);}});
+ client.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT"){window.sahtUserApproved=false;window.sahtAdminApproved=false;profile=null;locked();return;}if((event==="SIGNED_IN"||event==="USER_UPDATED"||event==="INITIAL_SESSION")&&session?.user){enter(session.user).catch(console.error);}});
  client.channel("agent-details-v20").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},()=>window.sahtSyncAgents()).subscribe();
  client.channel("profile-access-v20").on("postgres_changes",{event:"UPDATE",schema:"public",table:"profiles"},p=>{if(profile?.id&&p?.new?.id===profile.id){enter(profile).catch(console.error);}}).subscribe();
  setInterval(()=>{if(window.sahtUserApproved)window.sahtSyncAgents().catch(()=>{})},10000);
