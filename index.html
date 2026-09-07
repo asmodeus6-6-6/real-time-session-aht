@@ -181,8 +181,11 @@ body[data-theme=white] .hero,body[data-theme=normal] .hero{box-shadow:0 6px 20px
 @media(max-width:900px){.monitor-grid{grid-template-columns:repeat(2,1fr)}.mapping-rule{grid-template-columns:1fr 1fr}}
 
 /* ===== Admin-only Agent Details lock ===== */
-#page-directory .admin-only-content{display:none}
-#page-directory.admin-unlocked .admin-only-content{display:block}
+#page-directory .admin-only-content{display:block}
+#page-directory .directory-editor-controls{display:none}
+#page-directory.admin-unlocked .directory-editor-controls{display:block}
+#page-directory .directory-admin-banner{display:none}
+#page-directory.admin-unlocked .directory-admin-banner{display:flex}
 .admin-lock-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:14px}
 .admin-lock-banner b{font-size:13px}.admin-lock-banner span{font-size:11px;color:var(--muted)}
 
@@ -301,7 +304,7 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
         <button data-page="dashboard" onclick="showPage('dashboard')" title="Performance Dashboard"><span class="nav-icon">▦</span><span class="nav-text">Dashboard</span><em>VIEW</em></button>
         <button data-page="agents" onclick="showPage('agents')" title="Agent-wise AHT Analysis"><span class="nav-icon">♙</span><span class="nav-text">Agent Analysis</span><em>ANALYSIS</em></button>
         <button data-page="teams" onclick="showPage('teams')" title="TL / AM / Process Analysis"><span class="nav-icon">▤</span><span class="nav-text">TL / AM / Process</span><em>GROUP</em></button>
-        <button data-page="directory" onclick="showPage('directory')" title="Agent Details"><span class="nav-icon">＋</span><span class="nav-text">Agent Details</span><em>ADMIN</em></button>
+        <button data-page="directory" onclick="showPage('directory')" title="Agent Details"><span class="nav-icon">＋</span><span class="nav-text">Agent Details</span><em>VIEW</em></button>
         <button data-page="admin" onclick="showPage('admin')" title="Admin Portal"><span class="nav-icon">⚙</span><span class="nav-text">Admin Portal</span><em>SECURE</em></button>
       </nav>
     </div>
@@ -458,18 +461,18 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
     <div><h2>Agent Details</h2><p>Admin-controlled agent master data.</p></div>
     <span class="pill"><span id="directoryCount">0</span> mapped agents</span>
   </div>
-  <div id="directoryLocked" class="admin-lock">
-    <h2>🔒 Admin Access Required</h2>
-    <p>Agent Details can only be viewed or changed after Admin Portal authentication.</p>
+  <div id="directoryLocked" class="admin-lock" style="display:none">
+    <h2>🔒 Approved Access Required</h2>
+    <p>Your account must be approved by an administrator to view the shared Agent Details master.</p>
     <button class="btn primary" onclick="showPage('admin')">Go to Admin Portal</button>
   </div>
   <div id="directoryAdminContent" class="admin-only-content">
-    <div class="admin-lock-banner">
-      <div><b>🔐 Admin mode active</b><br><span>Only the authenticated administrator can edit Agent Details.</span></div>
-      <button class="btn" onclick="lockDirectory()">Lock Agent Details</button>
+    <div class="admin-lock-banner directory-admin-banner">
+      <div><b>🔐 Admin edit mode active</b><br><span>You can update the shared Agent Details master. Approved users have read-only access.</span></div>
+      <button class="btn" onclick="lockDirectory()">Lock Editing</button>
     </div>
-    <div class="analytics-card" style="margin-bottom:14px">
-      <h3>Agent Master Data</h3>
+    <div class="analytics-card directory-editor-controls" style="margin-bottom:14px">
+      <h3>Agent Master Data — Admin Edit</h3>
       <div class="help-note"><b>Excel columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process<br>Paste directly from Excel. The first row may contain headers.</div>
       <textarea id="directoryInput" class="directory-input" style="min-height:180px" placeholder="Sap code&#9;Login Id&#9;Agent ID&#9;TL&#9;AM&#9;Bucket&#9;OJT/NonOJT&#9;Shift Status&#9;Sub Process"></textarea>
       <div class="controls" style="margin-top:10px">
@@ -477,10 +480,9 @@ body.sidebar-collapsed .side-display-section{display:none}.sidebar-collapsed .si
         <button class="btn" onclick="clearDirectory()">Clear</button>
         <button class="btn" onclick="downloadDirectoryTemplate()">Download Template</button>
         <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Import CSV/TSV<input id="directoryFile" type="file" accept=".csv,.tsv,.txt" style="display:none" onchange="importDirectoryFile(this)"></label>
-        <button class="btn" onclick="copyPanelAsImage('directoryTable','Agent Master Data')">Copy as Image</button>
       </div>
     </div>
-    <div class="analytics-card"><h3>Mapped Agent Details</h3><div id="directoryTable"></div></div>
+    <div class="analytics-card"><h3>Shared Agent Details <span style="font-size:12px;font-weight:500;opacity:.7">(Read-only for approved users)</span></h3><div id="directoryTable"></div></div>
   </div>
 </section>
 </main></div><script>
@@ -846,7 +848,7 @@ function adminLogin(){
  const u=document.getElementById("adminUser")?.value||"",pw=document.getElementById("adminPass")?.value||"";
  const alertBox=document.getElementById("adminAlert");
  if(u==="Abhijith"&&pw==="Daddyshere"){
-   storageSet("saht-admin-session","1");
+   storageSet("saht-admin-session","1"); window.sahtAdminApproved=true; window.sahtUserApproved=true;
    document.getElementById("adminLocked").style.display="none";
    document.getElementById("adminPanel").style.display="block";
    refreshAdmin();
@@ -1107,22 +1109,30 @@ function refreshAllAnalytics(){
 
 function isAdminAuthenticated(){return storageGet("saht-admin-session","0")==="1" || window.sahtAdminApproved===true;}
 function lockDirectory(){
-  const content=document.getElementById("directoryAdminContent");
-  const locked=document.getElementById("directoryLocked");
-  if(content) content.style.display="none";
-  if(locked) locked.style.display="block";
+  const page=document.getElementById("page-directory");
+  const banner=document.querySelector("#page-directory .directory-admin-banner");
+  const controls=document.querySelector("#page-directory .directory-editor-controls");
+  if(page) page.classList.remove("admin-unlocked");
+  if(banner) banner.style.display="none";
+  if(controls) controls.style.display="none";
 }
 function unlockDirectory(){
-  if(!isAdminAuthenticated()){showPage("admin");return false;}
-  const content=document.getElementById("directoryAdminContent");
+  const approved=!!window.sahtAdminApproved || !!window.sahtUserApproved;
+  if(!approved){
+    showPage("admin");
+    return false;
+  }
+  const page=document.getElementById("page-directory");
   const locked=document.getElementById("directoryLocked");
+  const content=document.getElementById("directoryAdminContent");
   if(locked) locked.style.display="none";
   if(content) content.style.display="block";
+  if(page) page.classList.toggle("admin-unlocked", !!window.sahtAdminApproved);
   return true;
 }
 
 function showPage(page){
-  if(page==="directory" && !isAdminAuthenticated()){ page="admin"; }
+  if(page==="directory" && !window.sahtUserApproved && !window.sahtAdminApproved){ page="admin"; }
   activePage=page;
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
   document.querySelectorAll(".app-nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
@@ -1623,7 +1633,7 @@ document.addEventListener("DOMContentLoaded",function(){
  window.sahtAdminApproved=false;
  window.sahtSignOut=async function(){
    try{ if(window.sahtSupabase) await window.sahtSupabase.auth.signOut(); }catch(e){console.error(e);}
-   window.sahtAdminApproved=false; storageSet("saht-admin-session","0");
+   window.sahtAdminApproved=false; window.sahtUserApproved=false; storageSet("saht-admin-session","0");
    const gate=document.getElementById("sahtGate"); if(gate)gate.style.display="flex";
    try{setTimeout(()=>location.reload(),50)}catch(e){}
  };
@@ -1635,12 +1645,22 @@ document.addEventListener("DOMContentLoaded",function(){
  async function enter(u){const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();if(q.error)throw q.error;profile=q.data;
    if(!profile){setMsg("Your profile is not ready yet.");return} if(profile.status!=="approved"){locked();setMsg(profile.status==="pending"?"Your access request is pending admin approval.":"Access is "+profile.status+".");return}
    open();
+   window.sahtUserApproved=(profile.status==="approved");
    window.sahtAdminApproved=(profile.role==="admin" && profile.status==="approved");
    if(window.sahtAdminApproved){storageSet("saht-admin-session","1");}
    try{ensureAdmin();}catch(e){}
    await syncAgents();
+   if(activePage==="directory") unlockDirectory();
  }
- async function syncAgents(){const q=await client.from("agent_details").select("*").order("email");if(q.error)return;
+ async function syncAgents(){
+   if(!window.sahtUserApproved && !window.sahtAdminApproved)return;
+   let q=await client.rpc("get_agent_details_for_user");
+   if(q.error){
+     console.error("Shared Agent Details load failed:",q.error);
+     const box=document.getElementById("directoryTable");
+     if(box) box.innerHTML='<div class="empty-panel">Unable to load shared Agent Details. Please contact the administrator.</div>';
+     return;
+   }
    window.directoryData=(q.data||[]).map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
    try{renderDirectory();refreshAllAnalytics()}catch(e){}
  }
