@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Real Time Session AHT Monitor • V27</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Real Time Session AHT Tracker • V28</title><style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--text);background:var(--bg);font-size:var(--base-size)}
 body[data-theme=normal]{--bg:#f2f4f6;--panel:#ffffff;--panel2:#e8ecef;--line:#c9d0d6;--text:#26313a;--muted:#68737d;--accent:#4f6878;--accent2:#718694}
@@ -584,6 +584,7 @@ body[data-theme="glass"] .sidebar,body[data-theme="glass"] .dash,body[data-theme
 @media(prefers-reduced-motion:reduce){.brand-logo-butterfly img,.brand-butterfly-orbit img{animation:none!important}}
 </style>
 
+<style id="v27-sidebar-freeze-fix">
 /* V27: sidebar is always fixed/frozen */
 .sidebar{position:fixed!important;left:0!important;top:0!important;bottom:0!important;height:100vh!important;width:255px!important;flex:0 0 255px!important;z-index:10000!important;overflow:hidden!important}
 .sidebar-scroll{height:calc(100vh - 95px)!important;overflow-y:auto!important}
@@ -592,6 +593,42 @@ body[data-theme="glass"] .sidebar,body[data-theme="glass"] .dash,body[data-theme
 .sidebar-collapsed .main,body.sidebar-collapsed .main{margin-left:255px!important;width:calc(100% - 255px)!important}
 #sidebarToggle{display:none!important}
 
+</style>
+
+
+<style id="v28-ui-polish">
+/* V28 visual system: dark glass, reference-inspired, functionality-first */
+:root{--sidebar-w:270px}
+html,body{min-height:100%;background:var(--bg)!important}
+body[data-theme="midnight"],body[data-theme="glass"]{--bg:#070b14;--panel:rgba(12,20,36,.78);--panel2:rgba(18,29,49,.66);--line:rgba(129,164,220,.22);--text:#edf4ff;--muted:#91a5c5;--accent:#65d9ff;--accent2:#8b7cff}
+body[data-theme="ocean"]{--bg:#06121d;--panel:rgba(8,28,44,.78);--panel2:rgba(12,39,60,.66);--line:rgba(74,189,230,.23);--text:#ecfbff;--muted:#91b8c7;--accent:#55e0ff;--accent2:#3b82f6}
+body[data-theme="aurora"]{--bg:#080b17;--panel:rgba(17,20,43,.78);--panel2:rgba(28,27,57,.66);--line:rgba(165,132,255,.24);--text:#f4f0ff;--muted:#aaa5c9;--accent:#a98cff;--accent2:#45e6c3}
+body[data-theme="ember"]{--bg:#120a09;--panel:rgba(35,18,17,.78);--panel2:rgba(51,25,22,.66);--line:rgba(255,133,91,.22);--text:#fff4ee;--muted:#c4a69d;--accent:#ff9a6a;--accent2:#ff5f7e}
+body[data-theme="violet"]{--bg:#0d0818;--panel:rgba(29,17,49,.78);--panel2:rgba(42,25,69,.66);--line:rgba(185,135,255,.23);--text:#faf4ff;--muted:#bca8d1;--accent:#c08cff;--accent2:#6f7cff}
+body[data-theme="pearl"]{--bg:#e9eef5;--panel:rgba(255,255,255,.78);--panel2:rgba(245,248,252,.72);--line:rgba(73,92,119,.18);--text:#182338;--muted:#64748b;--accent:#526dff;--accent2:#22b8cf}
+body[data-theme="midnight"],body[data-theme="glass"],body[data-theme="ocean"],body[data-theme="aurora"],body[data-theme="ember"],body[data-theme="violet"]{background-image:radial-gradient(circle at 15% 12%,color-mix(in srgb,var(--accent) 13%,transparent),transparent 30%),radial-gradient(circle at 85% 80%,color-mix(in srgb,var(--accent2) 10%,transparent),transparent 30%);background-attachment:fixed}
+.app{min-height:100vh}
+.sidebar{width:var(--sidebar-w)!important;flex-basis:var(--sidebar-w)!important;position:fixed!important;left:0!important;top:0!important;bottom:0!important;height:100vh!important;z-index:10000!important;background:linear-gradient(180deg,rgba(8,14,27,.93),rgba(7,12,22,.82))!important;backdrop-filter:blur(28px) saturate(145%);-webkit-backdrop-filter:blur(28px) saturate(145%);border-right:1px solid var(--line)!important;box-shadow:18px 0 60px rgba(0,0,0,.18)}
+.main{margin-left:var(--sidebar-w)!important;width:calc(100% - var(--sidebar-w))!important;min-width:0!important}
+.sidebar-collapsed .sidebar,body.sidebar-collapsed .sidebar{width:var(--sidebar-w)!important;flex-basis:var(--sidebar-w)!important}.sidebar-collapsed .main,body.sidebar-collapsed .main{margin-left:var(--sidebar-w)!important;width:calc(100% - var(--sidebar-w))!important}#sidebarToggle{display:none!important}
+.sidebar-scroll{height:calc(100vh - 90px)!important;overflow-y:auto!important;overflow-x:hidden!important}
+body[data-theme="midnight"] .sidebar,body[data-theme="glass"] .sidebar,body[data-theme="ocean"] .sidebar,body[data-theme="aurora"] .sidebar,body[data-theme="ember"] .sidebar,body[data-theme="violet"] .sidebar{background:linear-gradient(180deg,rgba(5,10,21,.94),rgba(9,17,30,.82))!important}
+.brand{padding:10px 8px 18px;border-bottom:1px solid var(--line);margin-bottom:16px}.brand .logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 85%,white),color-mix(in srgb,var(--accent2) 85%,white));box-shadow:0 8px 30px color-mix(in srgb,var(--accent) 22%,transparent)}
+.brand-logo-butterfly img{width:34px!important;height:34px!important;object-fit:contain;filter:drop-shadow(0 0 9px color-mix(in srgb,var(--accent) 55%,transparent))}
+.nav-item{border-radius:13px!important;margin:4px 0!important;min-height:44px!important;transition:transform .18s ease,background .18s ease,border-color .18s ease}.nav-item:hover{transform:translateX(3px);background:color-mix(in srgb,var(--accent) 8%,transparent)!important}.nav-item.active{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 22%,transparent),color-mix(in srgb,var(--accent2) 12%,transparent))!important;border:1px solid color-mix(in srgb,var(--accent) 26%,transparent)!important;box-shadow:inset 0 0 24px color-mix(in srgb,var(--accent) 5%,transparent),0 8px 25px rgba(0,0,0,.12)}
+.dash,.metric,.tablecard,.hero,.input,.card,.panel{border:1px solid var(--line)!important;background:linear-gradient(145deg,color-mix(in srgb,var(--panel) 92%,transparent),color-mix(in srgb,var(--panel2) 82%,transparent))!important;backdrop-filter:blur(22px) saturate(135%);-webkit-backdrop-filter:blur(22px) saturate(135%);box-shadow:0 14px 45px rgba(0,0,0,.13)!important}
+.top{padding-bottom:14px}.top h1{letter-spacing:-.025em}.metric{border-radius:18px!important}.metric:hover,.dash:hover,.tablecard:hover{border-color:color-mix(in srgb,var(--accent) 30%,var(--line))!important;transform:translateY(-1px)}
+button,.btn{border-radius:11px!important}.copy-image-btn{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 20%,transparent),color-mix(in srgb,var(--accent2) 16%,transparent))!important;border:1px solid color-mix(in srgb,var(--accent) 30%,transparent)!important;color:var(--text)!important}
+#globalProfileButton{border:1px solid var(--line)!important;background:rgba(10,17,30,.72)!important;backdrop-filter:blur(20px);box-shadow:0 12px 35px rgba(0,0,0,.2)}
+#sahtBrandPop{border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line))!important;background:linear-gradient(135deg,rgba(10,18,34,.9),rgba(25,19,48,.82))!important;backdrop-filter:blur(26px) saturate(145%);box-shadow:0 18px 55px rgba(0,0,0,.35),0 0 35px color-mix(in srgb,var(--accent) 10%,transparent)!important}
+#profileModal{backdrop-filter:blur(8px)}#profileModal .profile-card{background:linear-gradient(145deg,rgba(13,22,39,.96),rgba(25,20,48,.94))!important;border:1px solid var(--line)!important;box-shadow:0 28px 90px rgba(0,0,0,.5)!important}
+#sahtGate{background:radial-gradient(circle at 22% 18%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 27%),radial-gradient(circle at 78% 75%,color-mix(in srgb,var(--accent2) 13%,transparent),transparent 32%),#050812!important}
+.v18-auth-wrap{background:linear-gradient(135deg,rgba(7,12,24,.96),rgba(12,17,34,.9))!important;border:1px solid var(--line)!important;box-shadow:0 30px 100px rgba(0,0,0,.5)!important;backdrop-filter:blur(30px) saturate(140%)}
+.v18-auth-wrap input,.v18-auth-wrap textarea{background:rgba(255,255,255,.045)!important;border-color:var(--line)!important;color:var(--text)!important}.v18-auth-wrap input:focus{border-color:color-mix(in srgb,var(--accent) 60%,var(--line))!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent)!important}
+/* keep raw-input/data area readable and functional */
+#rawInput{min-height:260px!important;position:relative;z-index:2;color:var(--text)!important;background:rgba(5,10,18,.58)!important;border:1px solid var(--line)!important}
+@media(max-width:900px){:root{--sidebar-w:225px}.main{margin-left:225px!important;width:calc(100% - 225px)!important}.sidebar-collapsed .main,body.sidebar-collapsed .main{margin-left:225px!important;width:calc(100% - 225px)!important}.sidebar-collapsed .sidebar,body.sidebar-collapsed .sidebar{width:225px!important}}
+</style>
 </head><body data-theme="midnight" class="saht-locked"><div id="butterflyEntrance" class="butterfly-entrance" aria-hidden="true">
   <div class="be-stars"></div><div class="be-glow g1"></div><div class="be-glow g2"></div>
   <div class="be-caption"><span>SESSION AHT</span><b>Welcome to your workspace</b><small>Live performance intelligence • Workforce control</small></div>
