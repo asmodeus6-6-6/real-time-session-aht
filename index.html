@@ -1120,7 +1120,6 @@ body.saht-locked #sahtBrandPop{display:none!important}
 <div class="profile-modal" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><div class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle"><div class="profile-modal-head"><div class="profile-modal-avatar" id="profileModalAvatar">U</div><div class="profile-modal-title"><b id="profileModalTitle">My Profile</b><small><span id="profileModalRole">VISITOR</span> • <span id="profileModalStatus">APPROVED</span></small></div><button class="profile-modal-close" type="button" onclick="closeProfileModal()">×</button></div><div class="profile-modal-body"><div class="profile-modal-grid"><div><label>Full Name</label><input id="profileFullName" type="text" placeholder="Your name"></div><div><label>Agent ID</label><input id="profileAgentId" type="text" placeholder="Agent ID / Employee ID"></div><div><label>Email</label><input id="profileEmail" class="profile-readonly" type="email" readonly></div><div><label>Role</label><select id="profileRole"><option value="user">Visitor</option><option value="admin">Admin</option></select></div><div><label>Supabase User ID</label><input id="profileUserId" class="profile-readonly" type="text" readonly></div><div><label>Profile Picture</label><input id="profileAvatarFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewProfileAvatar(this)"><div class="profile-avatar-actions"><button class="btn" type="button" onclick="document.getElementById('profileAvatarFile').click()">Upload / Change</button><button class="btn" type="button" onclick="removeProfileAvatar()">Remove</button></div></div></div><div id="profileEditLock" class="profile-edit-lock">Profile details can be updated once every 7 days.</div><div id="profileMsg" class="help-note" style="display:none;margin:10px 0 0"></div><div class="profile-modal-foot"><button class="btn primary" type="button" onclick="saveMyProfile()">Save Profile</button><button class="btn" type="button" onclick="loadMyProfile()">↻ Refresh</button><button class="btn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div></div></div></div>
   
 <div class="sidebar-scroll">
-<div class="global-profile-copy"><b id="globalProfileName">User</b><small><span id="globalProfileRole">VISITOR</span></small></div><span class="global-profile-chevron">⌄</span></div>
     <div class="side-status">
       <div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
       <div class="status-copy">Live agent performance, AHT sorting and duplicate-value handling are active.</div>
@@ -1175,11 +1174,15 @@ body.saht-locked #sahtBrandPop{display:none!important}
   </div>
 </aside><main class="main"><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
 <section class="page active" id="page-live">
-<div class="top"><div class="v37-top-tools" aria-label="Session controls">
+<div class="top"><div class="v37-welcome">
+  <div class="v37-welcome-kicker">BPO PERFORMANCE CONTROL ROOM</div>
+  <h1><span id="greetingTime">Good Evening</span>, <strong id="greetingName">User</strong></h1>
+  <p>Here’s your real-time session performance overview.</p>
+</div><div class="v37-top-tools" aria-label="Session controls">
   <div class="v37-tool-chip live"><i></i><b>LIVE</b><span id="v37HeaderAgentCount">0 agents</span></div>
   <button class="v37-tool-icon" type="button" aria-label="Notifications" title="Notifications">♧<i></i></button>
   <div class="v37-date-card"><span class="cal">▣</span><div><small id="v37DayDate">Loading date…</small><b id="v37Clock">--:--:--</b><em><i></i> Live Session</em></div></div>
-</div><div class="v37-welcome"><div class="v37-welcome-kicker">REAL-TIME SESSION</div><h1><span id="greetingTime">Good Evening</span>, <strong class="v37-greeting-name" id="greetingName">Abhijith</strong></h1><p>Here’s your real-time session performance overview.</p></div><div class="v37-top-quote">“Small insights create<br><b>bigger performance.</b>”</div><div class="live"><span class="dot"></span>LIVE • <span id="recordCount">0 agents</span></div><div class="header-watermark">Abhijith</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" title="Copy table as PNG image; browser security may require a secure page" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section id="summary" class="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div class="v26-card-head"><h3>Live Status</h3><div><small>Target: <span id="targetView">180</span>s</small><button class="btn tiny-copy" onclick="copyPanelAsImage('page-live-status','Live Status')">Copy Image</button></div></div><div id="page-live-status"><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><div class="tablehead-tools"><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span><button class="btn tiny-copy" onclick="copyTableAsImage()">Copy Image</button></div></div><div class="wrap"><div class="watermark" aria-hidden="true">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
+</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" title="Copy table as PNG image; browser security may require a secure page" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section id="summary" class="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div class="v26-card-head"><h3>Live Status</h3><div><small>Target: <span id="targetView">180</span>s</small><button class="btn tiny-copy" onclick="copyPanelAsImage('page-live-status','Live Status')">Copy Image</button></div></div><div id="page-live-status"><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><div class="tablehead-tools"><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span><button class="btn tiny-copy" onclick="copyTableAsImage()">Copy Image</button></div></div><div class="wrap"><div class="watermark" aria-hidden="true">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
 </section>
 
 <section class="page" id="page-dashboard">
@@ -1983,7 +1986,7 @@ function refreshAllAnalytics(){
 }
 
 function updateProfileUI(){
- const p=profile||{}; const name=p.full_name||p.email||"User"; const email=p.email||""; const role=(p.role||"user").toLowerCase();
+ const p=window.profile||{}; const name=p.full_name||p.email||"User"; const email=p.email||""; const role=(p.role||"user").toLowerCase();
  document.body.classList.toggle("saht-admin",role==="admin" && p.status==="approved");
  document.body.classList.toggle("saht-visitor",!(role==="admin" && p.status==="approved"));
  const adminNav=document.getElementById("navAdminPortal"); if(adminNav) adminNav.style.display=(role==="admin"&&p.status==="approved")?"grid":"none";
@@ -1991,7 +1994,7 @@ function updateProfileUI(){
  const text=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v??"";};
  set("profileFullName",p.full_name||""); set("profileAgentId",p.agent_id||""); set("profileEmail",email); set("profileUserId",p.id||""); set("profileRole",role);
  const roleEl=document.getElementById("profileRole"); if(roleEl)roleEl.disabled=!(window.sahtAdminApproved===true);
- text("globalProfileName",name); text("globalProfileRole",role==="admin"?"ADMIN":"VISITOR"); text("globalProfileAvatar",(name.trim()[0]||"U").toUpperCase()); text("greetingName",name); text("brandGreeting", "Hi "+name+" Here. "+(role==="admin"?"ADMIN":"VISITOR")); text("profileModalTitle",name); text("profileModalRole",role==="admin"?"ADMIN":"VISITOR"); text("profileModalStatus",(p.status||"pending").toUpperCase()); text("profileModalAvatar",(name.trim()[0]||"U").toUpperCase()); const mav=document.getElementById("profileModalAvatar"); if(mav){mav.innerHTML=p.avatar_url?`<img src="${escapeHtml(p.avatar_url)}" alt="Profile">`:(name.trim()[0]||"U").toUpperCase();} const gav=document.getElementById("globalProfileAvatar"); if(gav){gav.innerHTML=p.avatar_url?`<img src="${escapeHtml(p.avatar_url)}" alt="Profile">`:(name.trim()[0]||"U").toUpperCase();} const lock=document.getElementById("profileEditLock"); if(lock){const d=p.last_profile_edit_at?new Date(p.last_profile_edit_at):null; const next=d?new Date(d.getTime()+7*86400000):null; lock.textContent=next && next>new Date()?`Profile details are locked until ${next.toLocaleString()}. Admin role changes remain available to an approved admin.`:"Profile details can be updated now. Next profile edit will be available after 7 days.";}
+ text("globalProfileName",name); text("globalProfileRole",role==="admin"?"ADMIN":"VISITOR"); text("globalProfileAvatar",(name.trim()[0]||"U").toUpperCase()); text("profileModalTitle",name); text("profileModalRole",role==="admin"?"ADMIN":"VISITOR"); text("profileModalStatus",(p.status||"pending").toUpperCase()); text("profileModalAvatar",(name.trim()[0]||"U").toUpperCase()); const mav=document.getElementById("profileModalAvatar"); if(mav){mav.innerHTML=p.avatar_url?`<img src="${escapeHtml(p.avatar_url)}" alt="Profile">`:(name.trim()[0]||"U").toUpperCase();} const gav=document.getElementById("globalProfileAvatar"); if(gav){gav.innerHTML=p.avatar_url?`<img src="${escapeHtml(p.avatar_url)}" alt="Profile">`:(name.trim()[0]||"U").toUpperCase();} const lock=document.getElementById("profileEditLock"); if(lock){const d=p.last_profile_edit_at?new Date(p.last_profile_edit_at):null; const next=d?new Date(d.getTime()+7*86400000):null; lock.textContent=next && next>new Date()?`Profile details are locked until ${next.toLocaleString()}. Admin role changes remain available to an approved admin.`:"Profile details can be updated now. Next profile edit will be available after 7 days.";}
  text("profileStatusPill",(p.status||"pending").toUpperCase());
  const card=document.getElementById("globalProfileButton"); if(card)card.style.display="flex";
 }
@@ -1999,7 +2002,7 @@ async function loadMyProfile(){
  const c=window.sahtSupabase; if(!c)return; const u=(await c.auth.getUser()).data?.user; if(!u)return;
  const q=await c.from("profiles").select("id,full_name,email,role,status,approved_at,agent_id,avatar_url,last_profile_edit_at").eq("id",u.id).maybeSingle();
  if(q.error){showProfileMsg(q.error.message,true);return;}
- profile=q.data||profile; updateProfileUI(); showProfileMsg("Profile refreshed.",false);
+ window.profile=q.data||window.profile; updateProfileUI(); showProfileMsg("Profile refreshed.",false);
 }
 function showProfileMsg(message,error){const e=document.getElementById("profileMsg");if(e){e.style.display="block";e.textContent=message;e.style.borderColor=error?"#cf3047":"var(--line)";}}
 async function saveMyProfile(){
@@ -2010,7 +2013,7 @@ async function saveMyProfile(){
  if(!fullName){showProfileMsg("Full Name is required.",true);return;}
  const q=await c.rpc("update_my_profile_v2",{p_full_name:fullName,p_agent_id:agentId,p_role:role,p_avatar_url:avatar});
  if(q.error){showProfileMsg(q.error.message||"Unable to save profile.",true);return;}
- profile=q.data||profile; window._pendingProfileAvatar=undefined; updateProfileUI(); showProfileMsg("Profile saved successfully.",false);
+ window.profile=q.data||window.profile; window._pendingProfileAvatar=undefined; updateProfileUI(); showProfileMsg("Profile saved successfully.",false);
 }
 function openProfileModal(){
  const m=document.getElementById("profileModal"); if(!m)return; if(m.parentElement!==document.body)document.body.appendChild(m); m.classList.add("show"); m.style.display="flex"; loadMyProfile();
@@ -2090,97 +2093,816 @@ function clearAll(){document.getElementById("rawInput").value="";processData()}
 function exportToExcel(){
  const table=document.getElementById("reportTable");
  if(!table || !table.querySelector("tr")){alert("There is no report data to export yet.");return;}
- const html='<html><head><meta charset="utf-8"></head><body>'+table.outerHTML+'<p>Abhijith</p>
-<style id="v40-clean-layout">
-/* V40 — clean account-free header and text-only branding */
-#globalProfileButton{display:none!important}
-.v37-search{display:none!important}
-.top{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:1fr!important;min-height:116px!important;height:116px!important;padding:0!important;align-items:center!important;gap:24px!important}
-.v37-welcome{grid-column:1!important;grid-row:1!important;align-self:center!important;min-width:0!important}
-.v37-welcome-kicker{font-size:9px!important;font-weight:950!important;letter-spacing:.18em!important;color:var(--accent)!important;margin-bottom:7px!important}
-.v37-welcome h1{font-size:clamp(25px,2.8vw,38px)!important;line-height:1.04!important;margin:0!important;letter-spacing:-.045em!important}
-.v37-welcome p{font-size:11px!important;color:var(--muted)!important;margin:7px 0 0!important}
-.v37-top-tools{grid-column:2!important;grid-row:1!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;width:auto!important;height:auto!important;margin:0!important;align-self:center!important}
-.v37-tool-chip{height:40px!important;padding:0 13px!important;border-radius:13px!important}
-.v37-tool-icon{width:40px!important;height:40px!important;border-radius:13px!important}
-.v37-date-card{height:40px!important;min-width:184px!important;border-radius:13px!important}
-.top>.live{display:none!important}
-.v37-top-quote{display:none!important}
-.header-watermark{display:none!important}
-/* Branding: no card, no butterfly, no background — text only */
-#sahtBrandPop{position:fixed!important;right:28px!important;bottom:24px!important;left:auto!important;top:auto!important;width:auto!important;min-width:0!important;height:auto!important;padding:0!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:block!important;z-index:2147483640!important;pointer-events:none!important;animation:v40BrandPulse 3.6s ease-in-out infinite!important}
-#sahtBrandPop:before,#sahtBrandPop:after,.brand-butterfly-orbit,.bp-avatar{display:none!important}
-#sahtBrandPop .bp-copy{display:block!important}
-#sahtBrandPop .brand-copyline{display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:4px!important}
-#sahtBrandPop .brand-copyline b{font-size:11px!important;font-weight:950!important;letter-spacing:.01em!important;color:var(--accent2)!important;text-shadow:0 0 14px var(--glow)!important;white-space:nowrap!important}
-#sahtBrandPop .brand-copyline b span{font-size:8px!important;letter-spacing:.12em!important;color:var(--text)!important;vertical-align:middle!important;margin-left:3px!important}
-#sahtBrandPop .brand-copyline small{font-size:8px!important;font-weight:800!important;letter-spacing:.08em!important;color:var(--muted)!important;margin:0!important;white-space:nowrap!important}
-@keyframes v40BrandPulse{0%,100%{opacity:0;transform:translateY(5px)}12%,82%{opacity:1;transform:translateY(0)}92%{opacity:0;transform:translateY(-4px)}}
-@media(max-width:900px){.top{grid-template-columns:1fr!important;grid-template-rows:auto auto!important;height:auto!important;min-height:0!important;padding:14px 0 16px!important;gap:14px!important}.v37-welcome{grid-column:1!important;grid-row:1!important}.v37-top-tools{grid-column:1!important;grid-row:2!important;justify-content:flex-start!important;flex-wrap:wrap!important}.v37-date-card{display:flex!important}.v37-top-quote{display:none!important}}
-@media(max-width:640px){.v37-date-card{display:none!important}.v37-tool-chip{display:none!important}#sahtBrandPop{right:14px!important;bottom:14px!important}}
-</style>
-<script id="v40-clean-layout-js">
+ const html='<html><head><meta charset="utf-8"></head><body>'+table.outerHTML+'<p>Abhijith</p></body></html>';
+ const blob=new Blob([html],{type:"application/vnd.ms-excel"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");a.href=url;a.download="Real_Time_AHT_Report.xls";
+ document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+async function copyTableAsImage(){
+  const table=document.getElementById('reportTable');
+  if(!table || !table.querySelector('tr')){
+    alert('There is no table data to copy.');
+    return;
+  }
+
+  /*
+   * EXPORT DESIGN
+   * ---------------
+   * The on-screen table can be very wide/tall depending on the browser.
+   * The copied image therefore does NOT use the screen size.
+   *
+   * Instead, its dimensions are calculated from the actual data:
+   * - readable font size
+   * - comfortable row height
+   * - content-driven column widths
+   * - 3x raster resolution for sharp educational/presentation use
+   *
+   * Styling is read from the LIVE table so the selected theme and the
+   * selected AHT conditional-formatting treatment travel into the image.
+   */
+  const rows=[...table.querySelectorAll('tr')];
+  const liveBody=getComputedStyle(document.body);
+  const rootStyle=getComputedStyle(document.documentElement);
+  const fontFamily=liveBody.fontFamily || 'Arial, sans-serif';
+
+  const cssVar=(name,fallback)=>{
+    const v=liveBody.getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
+  const pageBg=cssVar('--bg','#f2f4f6');
+  const panelBg=cssVar('--panel','#ffffff');
+  const panel2Bg=cssVar('--panel2','#e8ecef');
+  const lineColor=cssVar('--line','#c9d0d6');
+  const textColor=cssVar('--text','#26313a');
+  const mutedColor=cssVar('--muted','#68737d');
+  const accentColor=cssVar('--accent','#526b7a');
+
+  // Read the actual visible AHT conditional-formatting colors from the
+  // currently rendered table. This is deliberately not hard-coded.
+  function readAHTStyle(cls){
+    const el=table.querySelector('.'+cls);
+    if(!el) return null;
+    const cs=getComputedStyle(el);
+    return {
+      color:cs.color || textColor,
+      background:cs.backgroundColor || 'transparent',
+      borderColor:cs.borderColor || 'transparent',
+      borderWidth:parseFloat(cs.borderWidth)||0,
+      borderStyle:cs.borderStyle || 'none',
+      borderRadius:parseFloat(cs.borderRadius)||0,
+      boxShadow:cs.boxShadow || 'none'
+    };
+  }
+
+  const ahtStyles={
+    good:readAHTStyle('aht-good'),
+    warn:readAHTStyle('aht-warn'),
+    bad:readAHTStyle('aht-bad')
+  };
+
+  function effectiveBackground(el){
+    let n=el;
+    while(n && n!==document.documentElement){
+      const cs=getComputedStyle(n);
+      const bg=cs.backgroundColor;
+      if(bg && bg!=='rgba(0, 0, 0, 0)' && bg!=='transparent') return bg;
+      n=n.parentElement;
+    }
+    return panelBg;
+  }
+
+  function parseRGB(value, fallback){
+    if(!value) return fallback;
+    const m=value.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?\s*\)/i);
+    if(!m) return fallback;
+    return {r:+m[1],g:+m[2],b:+m[3],a:m[4]===undefined?1:+m[4]};
+  }
+
+  function mixWithWhiteOrBlack(color, amount){
+    const c=parseRGB(color,{r:255,g:255,b:255,a:1});
+    const dark=(c.r+c.g+c.b)/3<128;
+    const target=dark?255:0;
+    const p=amount;
+    return {
+      r:Math.round(c.r+(target-c.r)*p),
+      g:Math.round(c.g+(target-c.g)*p),
+      b:Math.round(c.b+(target-c.b)*p),
+      a:1
+    };
+  }
+
+  function rgb(c){
+    return `rgba(${c.r},${c.g},${c.b},${c.a??1})`;
+  }
+
+  // ---- Data-driven sizing ----
+  const dataRows=rows.slice(1); // header + body/total
+  const header=rows[0];
+
+  // Comfortable, deliberately readable export font.
+  // It is independent of browser zoom/screen width.
+  const fontPx=22;
+  const headerFontPx=22;
+  const titleFontPx=32;
+  const rowH=52;
+  const headerH=58;
+  const totalH=58;
+  const horizontalPad=34;
+  const verticalPad=22;
+  const titleH=58;
+
+  // Width is based on the data actually present, not the current viewport.
+  const headers=header ? [...header.children].map(c=>c.innerText.replace(/\s+/g,' ').trim()) : [];
+  const colCount=Math.max(headers.length,...rows.map(r=>r.children.length));
+  const colWidths=new Array(colCount).fill(0);
+
+  // Reasonable width limits; Agent Name gets more space because names are longer.
+  const minWidths=[250,145,145,170,170,155];
+  const maxWidths=[390,230,230,220,220,210];
+
+  rows.forEach((row,ri)=>{
+    [...row.children].forEach((cell,ci)=>{
+      const text=cell.innerText.replace(/\s+/g,' ').trim();
+      const cs=getComputedStyle(cell);
+      const liveSize=parseFloat(cs.fontSize)||13;
+      const weight=cs.fontWeight||'400';
+      // Approximate text width without letting long text make the image absurdly wide.
+      const weightFactor=(parseInt(weight,10)||400)>=600?0.60:0.56;
+      const estimate=Math.ceil(text.length*fontPx*weightFactor);
+      const padding=Math.max(28,(parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.paddingRight)||0)+20);
+      colWidths[ci]=Math.max(colWidths[ci],estimate+padding);
+    });
+  });
+
+  for(let i=0;i<colCount;i++){
+    colWidths[i]=Math.max(minWidths[i]||130,Math.min(maxWidths[i]||240,colWidths[i]||130));
+  }
+
+  // Ensure the total export is compact enough to paste/use, while retaining readability.
+  const contentW=colWidths.reduce((a,b)=>a+b,0);
+  const W=contentW+horizontalPad*2;
+  const H=verticalPad+titleH+headerH+(Math.max(0,rows.length-2)*rowH)+(rows.length>1?totalH:0)+verticalPad;
+
+  // 3x output = crisp when pasted into PowerPoint/Docs/Teams/WhatsApp.
+  const scale=3;
+  const canvas=document.createElement('canvas');
+  canvas.width=Math.ceil(W*scale);
+  canvas.height=Math.ceil(H*scale);
+  const ctx=canvas.getContext('2d');
+  ctx.scale(scale,scale);
+  ctx.textBaseline='middle';
+  ctx.imageSmoothingEnabled=true;
+  ctx.imageSmoothingQuality='high';
+
+  // Entire image uses the exact current theme background.
+  ctx.fillStyle=pageBg;
+  ctx.fillRect(0,0,W,H);
+
+  // Helper for rounded rectangles.
+  function roundRectPath(x,y,w,h,r){
+    const rr=Math.max(0,Math.min(r,Math.min(w,h)/2));
+    ctx.beginPath();
+    ctx.moveTo(x+rr,y);
+    ctx.arcTo(x+w,y,x+w,y+h,rr);
+    ctx.arcTo(x+w,y+h,x,y+h,rr);
+    ctx.arcTo(x,y+h,x,y,rr);
+    ctx.arcTo(x,y,x+w,y,rr);
+    ctx.closePath();
+  }
+
+  function drawCellBackground(x,y,w,h,cs){
+    const bg=cs.backgroundColor && cs.backgroundColor!=='rgba(0, 0, 0, 0)'
+      ? cs.backgroundColor : effectiveBackground(cs._el);
+    ctx.fillStyle=bg;
+    ctx.fillRect(x,y,w,h);
+  }
+
+  function drawCellBorder(x,y,w,h,cs){
+    const sides=[
+      ['top','borderTopWidth','borderTopStyle','borderTopColor'],
+      ['right','borderRightWidth','borderRightStyle','borderRightColor'],
+      ['bottom','borderBottomWidth','borderBottomStyle','borderBottomColor'],
+      ['left','borderLeftWidth','borderLeftStyle','borderLeftColor']
+    ];
+    sides.forEach(([,wp,sp,cp])=>{
+      const bw=parseFloat(cs[wp])||0;
+      const bs=cs[sp]||'none';
+      if(!bw || bs==='none' || bs==='hidden') return;
+      ctx.strokeStyle=cs[cp]||lineColor;
+      ctx.lineWidth=Math.max(1,bw);
+      ctx.setLineDash(bs==='dashed'?[6,4]:bs==='dotted'?[2,3]:[]);
+      if(wp==='borderTopWidth') {ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+w,y);ctx.stroke();}
+      if(wp==='borderRightWidth') {ctx.beginPath();ctx.moveTo(x+w,y);ctx.lineTo(x+w,y+h);ctx.stroke();}
+      if(wp==='borderBottomWidth') {ctx.beginPath();ctx.moveTo(x,y+h);ctx.lineTo(x+w,y+h);ctx.stroke();}
+      if(wp==='borderLeftWidth') {ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+h);ctx.stroke();}
+      ctx.setLineDash([]);
+    });
+  }
+
+  function drawText(cell,x,y,w,h,isHeader){
+    const cs=getComputedStyle(cell);
+    const text=cell.innerText.replace(/\s+/g,' ').trim();
+    if(!text) return;
+
+    const color=cs.color||textColor;
+    const weight=isHeader?'700':(cs.fontWeight||'400');
+    const size=(isHeader?headerFontPx:fontPx);
+    const align=cs.textAlign==='left'?'left':cs.textAlign==='right'?'right':'center';
+    const family=cs.fontFamily||fontFamily;
+    ctx.font=`${weight} ${size}px ${family}`;
+    ctx.fillStyle=color;
+    ctx.textAlign=align;
+
+    let tx=x+w/2;
+    if(align==='left') tx=x+20;
+    if(align==='right') tx=x+w-20;
+
+    // Center text exactly in the exported row.
+    let display=text;
+    if(cs.textTransform==='uppercase') display=text.toUpperCase();
+    if(cs.textTransform==='lowercase') display=text.toLowerCase();
+
+    ctx.fillText(display,tx,y+h/2);
+  }
+
+  // Render header and rows.
+  let y=verticalPad+titleH;
+
+  rows.forEach((row,rowIndex)=>{
+    const isHeader=rowIndex===0;
+    const isTotal=rowIndex===rows.length-1 && rows.length>1;
+    const h=isHeader?headerH:(isTotal?totalH:rowH);
+    let x=horizontalPad;
+
+    [...row.children].forEach((cell,ci)=>{
+      const w=colWidths[ci]||140;
+      const cs=getComputedStyle(cell);
+      cs._el=cell;
+
+      // Header/total inherit the exact live theme surface; body cells use their
+      // effective live background so dark/black themes remain dark.
+      let bg=cs.backgroundColor;
+      if(!bg || bg==='rgba(0, 0, 0, 0)') bg=effectiveBackground(cell);
+      if(isHeader || isTotal){
+        bg=cs.backgroundColor && cs.backgroundColor!=='rgba(0, 0, 0, 0)'
+          ? cs.backgroundColor : panel2Bg;
+      }
+
+      ctx.fillStyle=bg;
+      ctx.fillRect(x,y,w,h);
+
+      // Live table border.
+      drawCellBorder(x,y,w,h,cs);
+
+      // Draw the AHT conditional-formatting treatment exactly as it appears:
+      // outline/border + color + symbol, without forcing a background fill.
+      const ahtEl=cell.querySelector('.aht-good,.aht-warn,.aht-bad');
+      if(ahtEl && !isHeader && !isTotal){
+        const ahtCs=getComputedStyle(ahtEl);
+        const rect=ahtEl.getBoundingClientRect();
+        const cellRect=cell.getBoundingClientRect();
+        // Scale the live badge geometry to the export cell.
+        const badgeLeft=Math.max(4,(rect.left-cellRect.left));
+        const badgeTop=Math.max(2,(rect.top-cellRect.top));
+        const badgeW=Math.min(w-8,Math.max(40,rect.width));
+        const badgeH=Math.min(h-4,Math.max(28,rect.height));
+
+        const bc=ahtCs.borderColor || lineColor;
+        const bw=parseFloat(ahtCs.borderWidth)||2;
+        const radius=parseFloat(ahtCs.borderRadius)||10;
+        ctx.strokeStyle=bc;
+        ctx.lineWidth=Math.max(1,bw);
+        ctx.fillStyle=ahtCs.backgroundColor && ahtCs.backgroundColor!=='rgba(0, 0, 0, 0)'
+          ? ahtCs.backgroundColor : 'transparent';
+
+        roundRectPath(x+badgeLeft,y+badgeTop,badgeW,badgeH,radius);
+        if(ctx.fillStyle!=='transparent') ctx.fill();
+        ctx.stroke();
+
+        // Render the badge text using the actual badge color/weight.
+        const text=ahtEl.innerText.replace(/\s+/g,' ').trim();
+        ctx.fillStyle=ahtCs.color||textColor;
+        ctx.font=`${ahtCs.fontWeight||'700'} ${fontPx}px ${ahtCs.fontFamily||fontFamily}`;
+        ctx.textAlign='center';
+        ctx.fillText(text,x+badgeLeft+badgeW/2,y+badgeTop+badgeH/2);
+      }else{
+        drawText(cell,x,y,w,h,isHeader||isTotal);
+      }
+
+      x+=w;
+    });
+    y+=h;
+  });
+
+  // Title.
+  ctx.fillStyle=textColor;
+  ctx.font=`800 ${titleFontPx}px ${fontFamily}`;
+  ctx.textAlign='left';
+  ctx.fillText('Real Time AHT',horizontalPad,verticalPad+titleFontPx*0.75);
+
+  // Multiple subtle watermarks. They are deliberately low opacity so they
+  // cannot reduce educational readability.
+  ctx.save();
+  ctx.fillStyle=accentColor;
+  ctx.globalAlpha=0.065;
+  ctx.font=`800 54px ${fontFamily}`;
+  ctx.textAlign='center';
+  const wmY=verticalPad+titleH+headerH+((H-(verticalPad+titleH+headerH))/2);
+  [
+    [W*0.22,wmY-30,-18],
+    [W*0.50,wmY+5,-18],
+    [W*0.78,wmY-25,-18]
+  ].forEach(([wx,wy,angle])=>{
+    ctx.save();
+    ctx.translate(wx,wy);
+    ctx.rotate(angle*Math.PI/180);
+    ctx.fillText('Abhijith',0,0);
+    ctx.restore();
+  });
+  ctx.restore();
+
+  // Small visible watermark at bottom-right.
+  ctx.save();
+  ctx.globalAlpha=0.28;
+  ctx.fillStyle=accentColor;
+  ctx.font=`800 13px ${fontFamily}`;
+  ctx.textAlign='right';
+  ctx.fillText('Abhijith',W-horizontalPad,H-7);
+  ctx.restore();
+
+  const blob=await new Promise((resolve,reject)=>{
+    canvas.toBlob(b=>b?resolve(b):reject(new Error('PNG conversion failed')),'image/png');
+  });
+
+  // Direct image clipboard when the browser permits it.
+  let copied=false;
+  try{
+    if(navigator.clipboard && window.ClipboardItem){
+      await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+      copied=true;
+    }
+  }catch(err){
+    console.warn('Direct image clipboard blocked:',err);
+  }
+
+  if(copied){
+    alert('Real Time AHT image copied successfully.');
+    return;
+  }
+
+  // Local file:// pages frequently cannot write image clipboard data.
+  // Always give the user the exact high-resolution PNG rather than failing.
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='Real_Time_AHT_High_Resolution.png';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2500);
+  alert('Direct image copy is blocked by this browser/page. The exact high-resolution image has been saved as PNG.');
+}
+
+function applyFormatTheme(){
+ const el=document.getElementById("formatTheme"); if(!el)return;
+ const v=el.value||"classic", old=document.getElementById("formatThemeCss");
+ if(old)old.remove();
+ const s=document.createElement("style");s.id="formatThemeCss";
+ const rules={
+ classic:".aht-good{color:#138a57;background:#e9f8f0}.aht-warn{color:#a86d00;background:#fff6d8}.aht-bad{color:#c9364b;background:#ffe8ec}",
+ soft:".aht-good{color:#32856b;background:#eefaf5}.aht-warn{color:#9b7a2f;background:#fffaf0}.aht-bad{color:#ad5968;background:#fff2f4}",
+ strong:".aht-good{color:#fff;background:#16824f}.aht-warn{color:#2b2400;background:#ffd84d}.aht-bad{color:#fff;background:#d92f4b}",
+ minimal:".aht-good{color:#15835a;background:transparent;border-left:4px solid #38b77d}.aht-warn{color:#a36d00;background:transparent;border-left:4px solid #e0b83f}.aht-bad{color:#c5354b;background:transparent;border-left:4px solid #e15b70}",
+ mono:".aht-good{color:var(--text);background:#ededed}.aht-warn{color:var(--text);background:#d8d8d8}.aht-bad{color:#fff;background:#666}",
+ badge:".aht{border-radius:999px}.aht-good{color:#087f52;background:#e3f7ed}.aht-warn{color:#9a6800;background:#fff1c7}.aht-bad{color:#b4233c;background:#ffe0e7}",
+ neon:".aht-good{color:#27966d;background:rgba(57,185,128,.10)}.aht-warn{color:#a47d1e;background:rgba(181,138,32,.10)}.aht-bad{color:#c95163;background:rgba(207,86,103,.10)}",
+ outline:".aht-good{color:#148454;background:transparent;box-shadow:inset 0 0 0 2px #4bc98f;border-radius:8px}.aht-warn{color:#a16f00;background:transparent;box-shadow:inset 0 0 0 2px #e2b83e;border-radius:8px}.aht-bad{color:#c33b51;background:transparent;box-shadow:inset 0 0 0 2px #e15b70;border-radius:8px}",
+ gradient:".aht-good{color:#117c51;background:linear-gradient(90deg,#e9f9f1,#f7fcf9)}.aht-warn{color:#996b00;background:linear-gradient(90deg,#fff6d8,#fffdf5)}.aht-bad{color:#bd334a;background:linear-gradient(90deg,#ffe8ed,#fff8f9)}",
+ heat:".aht-good{color:#087443;background:#dff5e8}.aht-warn{color:#946300;background:#ffe9a8}.aht-bad{color:#b71f38;background:#ffcbd4}",
+ clean:".aht-good{color:#13784f;background:#f1faf5}.aht-warn{color:#967000;background:#fffaf0}.aht-bad{color:#bb3d52;background:#fff4f6}"
+ };
+ s.textContent=rules[v]||rules.classic;document.head.appendChild(s);
+ try{localStorage.setItem("saht-format-theme",v)}catch(e){}
+}
+function bootApp(){
+  try{
+    loadDirectory();
+    loadMappingRules();
+    restoreCustomization();
+    setTheme(storageGet("saht-theme")||"normal");
+    document.body.classList.remove("sidebar-collapsed");
+
+    const raw=document.getElementById("rawInput");
+    const threshold=document.getElementById("threshold");
+    const total=document.getElementById("grandTotalToggle");
+    if(raw) raw.addEventListener("input",()=>{clearTimeout(window._saht);window._saht=setTimeout(processData,120)});
+    if(threshold) threshold.addEventListener("input",processData);
+    if(total) total.addEventListener("change",processData);
+
+    const ft=document.getElementById("formatTheme");
+    if(ft) ft.addEventListener("change",applyFormatTheme);
+
+    ["agentFilter","agentTlFilter","agentAmFilter","agentProcessFilter","agentBucketFilter","agentOjtFilter","agentShiftFilter","agentSubProcessFilter"]
+      .forEach(id=>document.getElementById(id)?.addEventListener("change",renderAgentAnalysis));
+
+    ["teamTlFilter","teamAmFilter","teamProcessFilter","teamBucketFilter","teamOjtFilter","teamShiftFilter","teamSubProcessFilter","groupByFilter"]
+      .forEach(id=>document.getElementById(id)?.addEventListener("change",renderTeamAnalysis));
+
+    applyFormatTheme();
+    processData();
+    ensureAdmin();
+  }catch(err){
+    console.error("Tracker startup error:",err);
+    const msg=document.getElementById("startupError");
+    if(msg){
+      msg.style.display="block";
+      msg.textContent="The tracker could not start: "+(err&&err.message?err.message:"Unknown error")+". Please reload the page.";
+    }
+  }
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",bootApp);
+else bootApp();
+</script><script>
+document.addEventListener("DOMContentLoaded",function(){
+  ["dashboardTlFilter","dashboardAmFilter","dashboardProcessFilter","dashboardAgentFilter"].forEach(function(id){
+    const s=document.getElementById(id);
+    if(s)s.addEventListener("change",function(){try{refreshAllAnalytics();}catch(e){console.error(e);}});
+  });
+  const r=document.getElementById("dashboardResetFilters");
+  if(r)r.addEventListener("click",function(){
+    ["dashboardTlFilter","dashboardAmFilter","dashboardProcessFilter","dashboardAgentFilter"].forEach(function(id){const s=document.getElementById(id);if(s)s.value="";});
+    try{refreshAllAnalytics();}catch(e){console.error(e);}
+  });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
 (function(){
-  function currentName(){
-    try{return (window.profile&&window.profile.full_name)||document.getElementById('globalProfileName')?.textContent||'User';}catch(e){return 'User';}
-  }
-  function setGreeting(){
-    var d=new Date(), h=d.getHours(), part=h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening';
-    var name=currentName().trim()||'User';
-    var gt=document.getElementById('greetingTime'), gn=document.getElementById('greetingName'), bg=document.getElementById('brandGreeting'), bd=document.getElementById('brandDesigner');
-    if(gt)gt.textContent=part; if(gn)gn.textContent=name;
-    if(bg)bg.innerHTML='Hi '+name+' Here. <span>'+(document.body.classList.contains('saht-admin')?'ADMIN':'VISITOR')+'</span>';
-    if(bd)bd.textContent='Designed by Khijar';
-  }
-  window.v40SetGreeting=setGreeting;
-  function hideProfile(){var p=document.getElementById('globalProfileButton');if(p)p.remove();}
-  function init(){hideProfile();setGreeting();setInterval(setGreeting,1000);}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+ window.sahtAdminApproved=false; window.sahtUserApproved=false; window.sahtFreshLoginRequested=false;
+ window.sahtSignOut=async function(){
+   try{if(window.sahtSupabase)await window.sahtSupabase.auth.signOut({scope:"local"});}catch(e){console.error(e)}
+   window.sahtAdminApproved=false;window.sahtUserApproved=false;
+   try{localStorage.removeItem("saht-auth");localStorage.removeItem("saht-auth-v22");}catch(e){}
+   document.body.classList.add("saht-locked");
+   const gate=document.getElementById("sahtGate");if(gate)gate.style.display="flex";
+   setMode("login");
+   const msg=document.getElementById("sahtMsg");if(msg)msg.textContent="";
+ };
+ const C=window.SAHT_CONFIG||{};
+ const configured=!!(C.SUPABASE_URL&&C.SUPABASE_ANON_KEY&&!/YOUR-/i.test(C.SUPABASE_URL)&&!/YOUR_/i.test(C.SUPABASE_ANON_KEY));
+ const gate=document.getElementById("sahtGate"),msg=document.getElementById("sahtMsg");
+ let mode="login",client; window.window.profile=null;
+ const setMsg=x=>{if(msg){msg.textContent=x||"";msg.classList.toggle("show",!!x)}};
+ const setMode=m=>{mode=m;const r=m==="request";const nf=document.getElementById("sahtNameField"),rf=document.getElementById("sahtReasonField"),pw=document.getElementById("sahtPassword");if(nf)nf.style.display=r?"grid":"none";if(rf)rf.style.display=r?"grid":"none";if(pw)pw.autocomplete=r?"new-password":"current-password";const t=document.getElementById("sahtGateTitle"),sub=document.getElementById("sahtGateSub"),submit=document.getElementById("sahtSubmit");if(t)t.textContent=r?"Request dashboard access":"Welcome back";if(sub)sub.textContent=r?"Create your account. An administrator will approve dashboard access.":"Sign in to access your Session AHT Monitor.";if(submit)submit.textContent=r?"Request Access":"Sign In";document.getElementById("sahtSignInTab")?.classList.toggle("active",!r);document.getElementById("sahtRequestTab")?.classList.toggle("active",r);setMsg("");};
+ const open=()=>{gate.style.display="none";document.body.classList.remove("saht-locked");};
+ const locked=message=>{gate.style.display="flex";document.body.classList.add("saht-locked");if(message)setMsg(message);};
+ if(!configured){locked("Supabase is not configured. Please check config.js.");return;}
+ const storage={getItem(k){try{return localStorage.getItem(k)}catch(e){return null}},setItem(k,v){try{localStorage.setItem(k,v)}catch(e){}},removeItem(k){try{localStorage.removeItem(k)}catch(e){}}};
+ // FINAL AUTH FIX: stable localStorage key so normal refresh keeps the same Supabase session.
+ try{const legacy=localStorage.getItem("saht-auth-v22");if(legacy&&!localStorage.getItem("saht-auth"))localStorage.setItem("saht-auth",legacy);}catch(e){}
+ client=window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage,storageKey:"saht-auth"}});window.sahtSupabase=client;
+ const enter=async u=>{
+   if(!u){locked();return false;}
+   const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();
+   if(q.error){console.error("Profile lookup failed",q.error);locked("Unable to verify your access right now. Please try again.");return false;}
+   window.profile=q.data;
+   if(!profile){locked("Your profile is not ready yet. Please contact the administrator.");return false;}
+   if(profile.status!=="approved"){window.sahtUserApproved=false;window.sahtAdminApproved=false;locked(profile.status==="pending"?"Your access request is pending admin approval.":"Access is "+profile.status+".");return false;}
+   window.sahtUserApproved=true;window.sahtAdminApproved=profile.role==="admin";
+   open();updateProfileUI();
+   if(window.sahtFreshLoginRequested){ window.sahtFreshLoginRequested=false; try{window.playButterflyEntrance&&window.playButterflyEntrance();}catch(e){console.error("Butterfly entrance",e)} }
+   try{ensureAdmin();}catch(e){console.error(e)}
+   try{await syncAgents();}catch(e){console.error(e)}
+   return true;
+ };
+ window.sahtSyncAgents=async function(){
+   if(!window.sahtUserApproved)return;
+   const c=window.sahtSupabase;if(!c)return;
+   let q=await c.from("agent_details").select("id,sap_code,login_id,agent_id,email,tl,am,bucket,ojt_nonojt,shift_status,sub_process,updated_at").order("id");
+   if(q.error){console.warn("Direct Agent Details read failed",q.error);q=await c.rpc("get_agent_details_for_user");}
+   if(q.error){console.error("Shared Agent Details read failed",q.error);const st=document.getElementById("directoryStatus");if(st)st.textContent="Shared read failed";return;}
+   const rows=q.data||[];
+   directoryData=rows.map(r=>({"Sap code":r.sap_code||"","Login Id":r.login_id||"","Agent ID":r.agent_id||"","Email":r.email||"","TL":r.tl||"","AM":r.am||"","Bucket":r.bucket||"","OJT/NonOJT":r.ojt_nonojt||"","Shift Status":r.shift_status||"","Sub Process":r.sub_process||""}));
+   window.directoryData=directoryData;
+   const di=document.getElementById("directoryInput");
+   if(di&&window.sahtAdminApproved)di.value=["Sap code\tLogin Id\tAgent ID\tTL\tAM\tBucket\tOJT/NonOJT\tShift Status\tSub Process",...directoryData.map(r=>[r["Sap code"],r["Login Id"],r["Agent ID"],r["TL"],r["AM"],r["Bucket"],r["OJT/NonOJT"],r["Shift Status"],r["Sub Process"]].join("\t"))].join("\n");
+   try{renderDirectory();refreshAllAnalytics();refreshAdmin();}catch(e){console.error("Directory render",e)}
+   const st=document.getElementById("directoryStatus");if(st)st.textContent="Live shared master • "+rows.length+" agents";
+ };
+ // Override the page's save path with a verified central-master save. RPC first, direct admin write fallback.
+ window.saveDirectory=async function(){
+   if(!window.sahtAdminApproved){alert("Admin access required.");return;}
+   const input=document.getElementById("directoryInput"); const parsed=readDirectoryText(input?.value||"");
+   if(!parsed.length){alert("No valid agent rows found.");return;}
+   const c=window.sahtSupabase; if(!c){alert("Supabase is not connected.");return;}
+   const seen=new Set(), payload=[];
+   parsed.forEach(r=>{
+     const email=clean(r.email||r.loginId||"").toLowerCase();
+     const login=clean(r.loginId||"").toLowerCase();
+     const agent=clean(r.agentId||r.agent||"").toLowerCase();
+     const key=email||login||agent||clean(r.sapCode||"").toLowerCase();
+     if(!key||seen.has(key))return; seen.add(key);
+     payload.push({sap_code:r.sapCode||"",login_id:r.loginId||"",agent_id:r.agentId||"",email:email,tl:r.tl||"",am:r.am||"",bucket:r.bucket||"",ojt_nonojt:r.ojt||"",shift_status:r.shiftStatus||"",sub_process:r.subProcess||""});
+   });
+   const st=document.getElementById("directoryStatus"); if(st)st.textContent="Publishing weekly master…";
+   try{
+     // V22: direct admin write. This bypasses every legacy RPC and writes the same table visitors read.
+     const wipe=await c.from("agent_details").delete().neq("id","00000000-0000-0000-0000-000000000000");
+     if(wipe.error)throw new Error("Could not clear the previous master: "+wipe.error.message);
+     for(let i=0;i<payload.length;i+=400){
+       const chunk=payload.slice(i,i+400);
+       const ins=await c.from("agent_details").insert(chunk);
+       if(ins.error)throw new Error("Could not publish rows "+(i+1)+"–"+Math.min(i+400,payload.length)+": "+ins.error.message);
+     }
+     await window.sahtSyncAgents();
+     const verify=await c.from("agent_details").select("id",{count:"exact",head:true});
+     if(verify.error)throw verify.error;
+     const count=verify.count??payload.length;
+     if(st)st.textContent="Published • "+count+" shared agents • "+new Date().toLocaleTimeString();
+     alert(count+" agent details published to the shared master. Visitors will receive the same master automatically.");
+   }catch(e){
+     console.error("V22 Agent Details publish failed",e);
+     if(st)st.textContent="Publish failed";
+     alert("Unable to publish Agent Details: "+(e.message||e));
+     // Re-read whatever is still present so the editor is not left misleadingly blank.
+     try{await window.sahtSyncAgents();}catch(_){ }
+   }
+ };
+ document.getElementById("sahtSignInTab")?.addEventListener("click",()=>setMode("login"));
+ document.getElementById("sahtRequestTab")?.addEventListener("click",()=>setMode("request"));
+ document.getElementById("sahtSubmit")?.addEventListener("click",async()=>{
+   try{
+     const email=(document.getElementById("sahtEmail")?.value||"").trim().toLowerCase(),pw=document.getElementById("sahtPassword")?.value||"";
+     if(!email||!pw)return setMsg("Email and password are required.");
+     if(mode==="request"){
+       const fullName=(document.getElementById("sahtName")?.value||"").trim(),reason=(document.getElementById("sahtReason")?.value||"").trim();if(!fullName)return setMsg("Name is required.");
+       const r=await client.auth.signUp({email,password:pw,options:{data:{full_name:fullName,reason}}});if(r.error)throw r.error;const u=r.data?.user;if(!u)throw new Error("Unable to create the account.");
+       const rq=await client.rpc("submit_access_request",{p_full_name:fullName,p_email:email,p_reason:reason});if(rq.error)console.warn("Request RPC",rq.error);
+       if(r.data?.session)await client.auth.signOut({scope:"local"});
+       setMode("login");document.getElementById("sahtEmail").value=email;document.getElementById("sahtPassword").value=pw;setMsg("Request submitted. Your access is pending admin approval.");
+     }else{
+       window.sahtFreshLoginRequested=true; const r=await client.auth.signInWithPassword({email,password:pw});if(r.error){window.sahtFreshLoginRequested=false;throw r.error;} const ok=await enter(r.data.user);if(!ok){setMsg("Your account is signed in, but access is still being verified. Please wait a moment and refresh.");}
+     }
+   }catch(e){console.error(e);setMsg(e.message||"Authentication failed.");}
+ });
+ client.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT"){window.sahtUserApproved=false;window.sahtAdminApproved=false;window.profile=null;locked();return;}if((event==="SIGNED_IN"||event==="USER_UPDATED"||event==="INITIAL_SESSION")&&session?.user){enter(session.user).catch(console.error);}});
+ client.channel("agent-details-v20").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},()=>window.sahtSyncAgents()).subscribe();
+ client.channel("profile-access-v20").on("postgres_changes",{event:"UPDATE",schema:"public",table:"profiles"},p=>{if(profile?.id&&p?.new?.id===profile.id){enter(profile).catch(console.error);}}).subscribe();
+ setInterval(()=>{if(window.sahtUserApproved)window.sahtSyncAgents().catch(()=>{})},10000);
+ setMode("login");
+ // V20: restore the Supabase session before showing the login gate. Downstream data errors never sign the user out.
+ (async()=>{
+   const st=document.getElementById("sahtRestoreStatus");
+   try{
+     st?.classList.add("show");
+     const {data,error}=await client.auth.getSession();
+     if(error)throw error;
+     if(data?.session?.user){
+       const ok=await enter(data.session.user);
+       if(!ok){
+         // Keep the valid auth session alive; a profile/network failure must not log the user out.
+         setTimeout(()=>enter(data.session.user).catch(console.error),1500);
+       }
+     }else{locked();}
+   }catch(e){
+     console.error("Session restore",e);
+     locked("Your session could not be restored. Please sign in again.");
+   }finally{st?.classList.remove("show");}
+ })();
 })();
 </script>
-
-<style id="v40-clean-layout-final">
-/* V40 FINAL — no profile card, no global search, clean welcome + text-only branding */
-#globalProfileButton{display:none!important}
-.v37-search{display:none!important}
-.top{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:1fr!important;min-height:116px!important;height:116px!important;padding:0!important;align-items:center!important;gap:24px!important}
-.v37-welcome{grid-column:1!important;grid-row:1!important;align-self:center!important;min-width:0!important}
-.v37-welcome-kicker{font-size:9px!important;font-weight:950!important;letter-spacing:.18em!important;color:var(--accent)!important;margin-bottom:7px!important}
-.v37-welcome h1{font-size:clamp(25px,2.8vw,38px)!important;line-height:1.04!important;margin:0!important;letter-spacing:-.045em!important}
-.v37-welcome p{font-size:11px!important;color:var(--muted)!important;margin:7px 0 0!important}
-.v37-top-tools{grid-column:2!important;grid-row:1!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;width:auto!important;height:auto!important;margin:0!important;align-self:center!important}
-.v37-tool-chip{height:40px!important;padding:0 13px!important;border-radius:13px!important}
-.v37-tool-icon{width:40px!important;height:40px!important;border-radius:13px!important}
-.v37-date-card{height:40px!important;min-width:184px!important;border-radius:13px!important}
-.top>.live,.v37-top-quote,.header-watermark{display:none!important}
-/* Branding is deliberately transparent: only animated text remains. */
-#sahtBrandPop{position:fixed!important;right:28px!important;bottom:24px!important;left:auto!important;top:auto!important;width:auto!important;min-width:0!important;height:auto!important;padding:0!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:block!important;z-index:2147483640!important;pointer-events:none!important;animation:v40BrandPulse 3.8s ease-in-out infinite!important}
-#sahtBrandPop:before,#sahtBrandPop:after,#sahtBrandPop .brand-butterfly-orbit,#sahtBrandPop .bp-avatar{display:none!important}
-#sahtBrandPop .brand-copyline{display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:3px!important}
-#sahtBrandPop .brand-copyline b{font-size:11px!important;font-weight:950!important;letter-spacing:.01em!important;color:var(--accent2)!important;text-shadow:0 0 14px var(--glow)!important;white-space:nowrap!important}
-#sahtBrandPop .brand-copyline b span{display:block!important;font-size:8px!important;letter-spacing:.12em!important;color:var(--text)!important;margin:2px 0 0!important}
-#sahtBrandPop .brand-copyline small{font-size:8px!important;font-weight:800!important;letter-spacing:.08em!important;color:var(--muted)!important;margin:2px 0 0!important;white-space:nowrap!important}
-@keyframes v40BrandPulse{0%,100%{opacity:0;transform:translateY(6px)}12%,78%{opacity:1;transform:translateY(0)}90%{opacity:0;transform:translateY(-4px)}}
-@media(max-width:900px){.top{grid-template-columns:1fr!important;grid-template-rows:auto auto!important;height:auto!important;min-height:0!important;padding:14px 0 16px!important;gap:14px!important}.v37-welcome{grid-column:1!important;grid-row:1!important}.v37-top-tools{grid-column:1!important;grid-row:2!important;justify-content:flex-start!important;flex-wrap:wrap!important}.v37-date-card{display:flex!important}}
-@media(max-width:640px){.v37-date-card{display:none!important}.v37-tool-chip{display:none!important}#sahtBrandPop{right:14px!important;bottom:14px!important}}
-</style>
-<script id="v40-clean-layout-final-js">
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  ["dashboardTlFilter","dashboardAmFilter","dashboardProcessFilter","dashboardAgentFilter"].forEach(function(id){
+    const s=document.getElementById(id);
+    if(s)s.addEventListener("change",function(){try{refreshAllAnalytics();}catch(e){console.error(e);}});
+  });
+  const r=document.getElementById("dashboardResetFilters");
+  if(r)r.addEventListener("click",function(){
+    ["dashboardTlFilter","dashboardAmFilter","dashboardProcessFilter","dashboardAgentFilter"].forEach(function(id){const s=document.getElementById(id);if(s)s.value="";});
+    try{refreshAllAnalytics();}catch(e){console.error(e);}
+  });
+});
+</script>
+<script id="v16-profile-relocate">
+document.addEventListener("DOMContentLoaded",function(){const p=document.getElementById("globalProfileButton");if(p&&p.parentElement!==document.body)document.body.appendChild(p);});
+</script>
+<script>(function(){function sync(){var p=document.getElementById("globalProfileButton");if(!p)return;p.style.display=document.body.classList.contains("saht-locked")?"none":"flex";}new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:["class"]});sync();})();</script><script id="v26-butterfly-controller">
 (function(){
-  function getName(){
-    var el=document.getElementById('greetingName');
-    return (el&&el.textContent||'User').trim()||'User';
+ var played=false;
+ window.playButterflyEntrance=function(){
+  var el=document.getElementById("butterflyEntrance");if(!el||played)return;played=true;
+  if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  el.classList.remove("hide");void el.offsetWidth;el.classList.add("show");
+  setTimeout(function(){el.classList.remove("show");el.classList.add("hide");},3300);
+  setTimeout(function(){el.classList.remove("hide");el.style.display="none";},4100);
+ };
+ window.resetButterflyEntrance=function(){played=false;var el=document.getElementById("butterflyEntrance");if(el){el.classList.remove("show","hide");el.style.display="none";}};
+})();
+</script><script id="v27-profile-fix">
+(function(){
+ function bind(){
+  var p=document.getElementById("globalProfileButton");
+  if(p&&!p.dataset.v27Profile){
+   p.dataset.v27Profile="1";p.style.pointerEvents="auto";
+   p.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();if(typeof window.openProfileModal==="function")window.openProfileModal();});
   }
-  function refresh(){
-    var d=new Date(),h=d.getHours();
-    var part=h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening';
-    var name=getName();
-    var gt=document.getElementById('greetingTime'); if(gt)gt.textContent=part;
-    var bg=document.getElementById('brandGreeting');
-    if(bg){bg.innerHTML='Hi '+name+' Here. <span>'+(document.body.classList.contains('saht-admin')?'ADMIN':'VISITOR')+'</span>';}
-    var bd=document.getElementById('brandDesigner'); if(bd)bd.textContent='Designed by Khijar';
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",bind);else bind();
+ new MutationObserver(bind).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+<script id="v30-ui-fixes">
+(function(){
+  function ready(){
+    var p=document.getElementById("globalProfileButton");
+    if(p){
+      p.style.setProperty("display","flex","important");
+      p.style.setProperty("pointer-events","auto","important");
+      if(!p.dataset.v30bound){
+        p.dataset.v30bound="1";
+        p.addEventListener("click",function(e){
+          e.preventDefault();e.stopPropagation();
+          if(typeof window.openProfileModal==="function") window.openProfileModal();
+          else {
+            var m=document.getElementById("profileModal");
+            if(m){m.classList.add("show");m.style.display="flex";}
+          }
+        },true);
+      }
+    }
+    var b=document.getElementById("sahtBrandPop");
+    if(b){b.style.setProperty("right","24px","important");b.style.setProperty("bottom","24px","important");b.style.setProperty("top","auto","important");}
   }
-  function init(){refresh();setInterval(refresh,1000);}
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",ready); else ready();
+  setTimeout(ready,800); setTimeout(ready,2200);
+})();
+</script><script id="v31-branding-mount">(function(){function mount(){var b=document.getElementById('sahtBrandPop');if(!b)return;if(b.parentElement!==document.body)document.body.appendChild(b);b.style.setProperty('position','fixed','important');b.style.setProperty('right','28px','important');b.style.setProperty('bottom','28px','important');b.style.setProperty('left','auto','important');b.style.setProperty('top','auto','important');b.style.setProperty('z-index','2147483640','important');if(!b.dataset.v31click){b.dataset.v31click='1';b.addEventListener('click',function(){if(typeof window.releaseBrandButterflies==='function')window.releaseBrandButterflies();else if(typeof window.fireBrandButterflies==='function')window.fireBrandButterflies();b.classList.remove('brand-pop-burst');void b.offsetWidth;b.classList.add('brand-pop-burst')})}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();setTimeout(mount,250);setTimeout(mount,1000);setTimeout(mount,2500)})();</script><script id="v32-appearance-js">
+(function(){
+  function safeGet(k,d){try{return storageGet(k,d)}catch(e){return d}}
+  function safeSet(k,v){try{storageSet(k,v)}catch(e){}}
+  window.setVisualMode=function(mode){
+    mode=mode==='light'?'light':'dark';
+    document.body.dataset.mode=mode;
+    safeSet('saht-mode',mode);
+    document.querySelectorAll('[data-mode]').forEach(function(b){b.classList.toggle('active',b.dataset.mode===mode)});
+  };
+  window.setSurface=function(surface){
+    surface=['glass','matte','metal'].includes(surface)?surface:'glass';
+    document.body.dataset.surface=surface;
+    safeSet('saht-surface',surface);
+    document.querySelectorAll('[data-material]').forEach(function(b){b.classList.toggle('active',b.dataset.material===surface)});
+  };
+  var originalSetTheme=window.setTheme;
+  window.setTheme=function(t){
+    if(typeof originalSetTheme==='function') originalSetTheme(t);
+    document.querySelectorAll('.accent-dot').forEach(function(b){b.classList.toggle('active',b.dataset.accent===document.body.dataset.theme)});
+  };
+  function init(){
+    document.body.dataset.mode=safeGet('saht-mode','dark');
+    document.body.dataset.surface=safeGet('saht-surface','glass');
+    if(typeof window.setTheme==='function') window.setTheme(safeGet('saht-theme','blackblue'));
+    window.setVisualMode(document.body.dataset.mode);
+    window.setSurface(document.body.dataset.surface);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
+})();
+</script><script id="v35-navigation-fix">(function(){const oldShowPage=window.showPage;window.showPage=function(page){const utility=['theme','about','information','inspiration','contact','feedback','tips','resources'];if(utility.includes(page)){if(document.body.classList.contains('saht-locked')){page='live';}else{document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));document.querySelectorAll('.app-nav button').forEach(b=>b.classList.remove('active'));const ribbon=document.getElementById('v35UtilityRibbon');if(ribbon)ribbon.classList.add('v35-open');window.scrollTo({top:0,behavior:'smooth'});return;}}if(typeof oldShowPage==='function')oldShowPage(page)};const form=document.getElementById('v35FeedbackForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const msg=document.getElementById('v35FbMsg');if(msg){msg.style.display='block';msg.textContent='Thank you. Your feedback has been recorded on this device.'}try{localStorage.setItem('saht-last-feedback',JSON.stringify({name:document.getElementById('v35FbName')?.value||'',type:document.getElementById('v35FbType')?.value||'',message:document.getElementById('v35FbText')?.value||'',at:new Date().toISOString()}))}catch(_){}form.reset()});const ribbon=document.getElementById('v35UtilityRibbon');if(ribbon){ribbon.addEventListener('mouseenter',()=>ribbon.classList.add('v35-open'));ribbon.addEventListener('mouseleave',()=>ribbon.classList.remove('v35-open'))}})();</script>
+
+<style id="v37-reference-ui">
+:root{--sidebar-w:274px;--v37-accent:#4b7cff;--v37-purple:#7c4dff;--v37-green:#14c98a}
+body{background:#f4f7fb;color:#17243a}
+body[data-mode="dark"]{background:#07101e;color:#edf5ff}
+body.saht-locked .app{display:none!important}
+body:not(.saht-locked) .app{display:flex!important}
+.sidebar{width:var(--sidebar-w)!important;flex:0 0 var(--sidebar-w)!important;position:fixed!important;left:0!important;top:0!important;bottom:0!important;height:100dvh!important;z-index:10000!important;overflow:hidden!important;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(245,249,255,.96))!important;border-right:1px solid rgba(90,120,175,.15)!important;box-shadow:8px 0 35px rgba(35,65,110,.08)!important}
+body[data-mode="dark"] .sidebar{background:linear-gradient(180deg,#09172d,#06101f)!important;border-right-color:rgba(105,150,255,.18)!important;box-shadow:8px 0 40px rgba(0,0,0,.25)!important}
+.main{margin-left:var(--sidebar-w)!important;width:calc(100% - var(--sidebar-w))!important;min-width:0!important;padding:0 28px 42px!important}
+.sidebar-toggle{display:none!important}
+.sidebar-head{height:72px!important;flex:0 0 72px!important;padding:10px 14px!important;border-bottom:1px solid rgba(90,120,175,.13)!important}
+.brand-logo-butterfly{width:44px!important;height:44px!important;border-radius:14px!important;background:linear-gradient(135deg,#edf4ff,#f4ecff)!important;border:1px solid rgba(90,126,255,.22)!important}
+.brand-logo-butterfly img{width:35px!important;height:35px!important;object-fit:contain!important;filter:drop-shadow(0 3px 8px rgba(91,86,255,.26))!important;animation:v37Wing 2.5s ease-in-out infinite!important}
+@keyframes v37Wing{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.88) translateY(-2px)}}
+body[data-mode="dark"] .brand-logo-butterfly{background:linear-gradient(135deg,#111f3d,#201946)!important}
+#globalProfileButton{position:static!important;width:100%!important;min-width:0!important;box-sizing:border-box!important;margin:6px 0 10px!important;padding:9px 11px!important;border-radius:16px!important;display:flex!important;align-items:center!important;gap:10px!important;background:linear-gradient(135deg,rgba(255,255,255,.94),rgba(244,248,255,.9))!important;border:1px solid rgba(93,122,196,.25)!important;color:#17243a!important;box-shadow:0 8px 22px rgba(55,83,140,.09)!important;backdrop-filter:blur(16px)!important}
+body[data-mode="dark"] #globalProfileButton{background:linear-gradient(135deg,rgba(21,37,66,.94),rgba(25,26,57,.92))!important;color:#eef5ff!important;border-color:rgba(100,150,255,.28)!important}
+#globalProfileButton .global-avatar{width:42px!important;height:42px!important;flex:0 0 42px!important;border-radius:13px!important;overflow:hidden!important;display:grid!important;place-items:center!important;background:linear-gradient(135deg,var(--v37-accent),var(--v37-purple))!important;color:#fff!important;font-weight:1000!important;border:2px solid rgba(255,255,255,.8)!important}
+#globalProfileButton .global-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
+#globalProfileButton .global-profile-copy{display:block!important;min-width:0!important;line-height:1.15!important}
+#globalProfileButton .global-profile-copy b{font-size:12px!important;font-weight:950!important;color:inherit!important}
+#globalProfileButton .global-profile-copy small{font-size:8px!important;letter-spacing:.12em!important;color:var(--accent)!important;font-weight:950!important;margin-top:4px!important}
+#globalProfileButton .global-profile-chevron{margin-left:auto!important}
+.top{min-height:122px!important;padding:10px 0 14px!important;margin:0!important;border-bottom:1px solid rgba(92,120,175,.14)!important;position:relative!important}
+.v37-top-tools{display:flex;align-items:center;gap:12px;height:58px;width:100%;margin-bottom:10px}
+.v37-search{flex:1;min-width:240px;height:42px;border:1px solid rgba(91,123,190,.22);border-radius:14px;display:flex;align-items:center;gap:10px;padding:0 10px 0 13px;background:rgba(255,255,255,.84);box-shadow:0 7px 20px rgba(60,90,140,.05);backdrop-filter:blur(14px)}
+body[data-mode="dark"] .v37-search{background:rgba(15,28,51,.82);border-color:rgba(102,151,255,.22)}
+.v37-search>span{font-size:22px;color:var(--accent);transform:rotate(-20deg)}
+.v37-search input{border:0!important;outline:0!important;background:transparent!important;color:var(--text)!important;width:100%!important;font-size:11px!important;padding:0!important}
+.v37-search kbd{font-size:9px;color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:5px 7px;white-space:nowrap}
+.v37-tool-chip{height:42px;padding:0 14px;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:7px;background:var(--panel);white-space:nowrap}
+.v37-tool-chip i{width:7px;height:7px;border-radius:50%;background:var(--v37-green);box-shadow:0 0 10px rgba(20,201,138,.6)}
+.v37-tool-chip b{font-size:10px;color:var(--text)}.v37-tool-chip span{font-size:9px;color:var(--muted)}
+.v37-tool-icon{position:relative;width:42px;height:42px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);font-size:20px;cursor:pointer}.v37-tool-icon i{position:absolute;right:9px;top:8px;width:6px;height:6px;background:#ef476f;border-radius:50%}
+.v37-date-card{height:42px;min-width:190px;padding:0 12px;border:1px solid var(--line);border-radius:14px;background:var(--panel);display:flex;align-items:center;gap:10px}
+.v37-date-card .cal{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent)}
+.v37-date-card small{display:block;color:var(--muted);font-size:9px}.v37-date-card b{display:block;font-size:14px}.v37-date-card em{display:flex;gap:5px;align-items:center;color:var(--muted);font-size:8px;font-style:normal}.v37-date-card em i{width:6px;height:6px;border-radius:50%;background:#14c98a}
+.top>div:nth-of-type(2) h1{font-size:clamp(25px,3vw,38px)!important;margin:0!important;letter-spacing:-.04em!important}
+.top>div:nth-of-type(2) p{font-size:11px!important;color:var(--muted)!important;margin-top:4px!important}
+.v37-greeting-name{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.v37-top-quote{position:absolute;right:0;bottom:15px;color:var(--muted);font-size:10px;line-height:1.45;text-align:right;font-style:italic}.v37-top-quote b{color:var(--accent)}
+.top>.live{display:none!important}
+#sahtBrandPop{position:fixed!important;right:28px!important;top:16px!important;left:auto!important;bottom:auto!important;width:auto!important;min-width:0!important;height:38px!important;padding:3px 8px!important;border-radius:999px!important;display:flex!important;align-items:center!important;gap:7px!important;background:rgba(255,255,255,.38)!important;border:1px solid color-mix(in srgb,var(--accent) 28%,transparent)!important;box-shadow:0 7px 22px rgba(50,80,130,.08)!important;backdrop-filter:blur(18px)!important;z-index:2147483640!important}
+body[data-mode="dark"] #sahtBrandPop{background:rgba(8,18,36,.42)!important}
+#sahtBrandPop .brand-butterfly-orbit{inset:-20px -50px!important}
+#sahtBrandPop .brand-butterfly-orbit img{width:16px!important;height:16px!important;opacity:.5!important}
+#sahtBrandPop .bp-avatar{width:29px!important;height:29px!important;flex:0 0 29px!important;border-radius:50%!important;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,transparent),color-mix(in srgb,var(--accent2) 18%,transparent))!important;border:1px solid color-mix(in srgb,var(--accent) 40%,transparent)!important}
+#sahtBrandPop .bp-avatar img{width:25px!important;height:25px!important;filter:drop-shadow(0 0 5px var(--accent))!important}
+#sahtBrandPop .bp-copy{display:flex!important;align-items:center!important;gap:6px!important}
+#sahtBrandPop .bp-copy b{font-size:9px!important;white-space:nowrap!important;color:var(--accent)!important}
+#sahtBrandPop .bp-copy small{font-size:6px!important;font-weight:950!important;letter-spacing:.1em!important;color:var(--text)!important;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)!important;background:color-mix(in srgb,var(--accent) 9%,transparent)!important;padding:2px 5px!important;border-radius:999px!important;margin:0!important}
+#sahtBrandPop:after{display:none!important}
+#profileModal{padding:72px 24px 24px!important;justify-content:center!important;align-items:flex-start!important;background:rgba(8,16,29,.38)!important;backdrop-filter:blur(13px)!important}
+#profileModal .profile-modal-card{width:min(520px,calc(100vw - 40px))!important;border-radius:24px!important;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(242,247,255,.95))!important;border:1px solid rgba(100,130,195,.25)!important;box-shadow:0 30px 100px rgba(16,39,78,.25)!important}
+body[data-mode="dark"] #profileModal .profile-modal-card{background:linear-gradient(145deg,rgba(16,28,50,.98),rgba(26,27,57,.97))!important}
+#profileModal .profile-modal-head{padding:18px 20px!important;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 11%,transparent),color-mix(in srgb,var(--accent2) 10%,transparent))!important}
+#profileModal .profile-modal-avatar{width:66px!important;height:66px!important;flex-basis:66px!important;border-radius:20px!important;background:linear-gradient(135deg,var(--accent),var(--accent2))!important}
+#profileModal .profile-modal-title b{font-size:18px!important}
+#profileModal .profile-modal-body{padding:20px!important}
+#profileModal .profile-modal-foot .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2))!important;color:#fff!important;border:0!important}
+#rawInput{background:#fff!important;color:#152238!important;border:1px solid #d7dfeb!important}#rawInput::placeholder{color:#8390a3!important}
+body.saht-locked .sidebar,body.saht-locked #sahtBrandPop,body.saht-locked #globalProfileButton{display:none!important}
+@media(max-width:900px){:root{--sidebar-w:235px}.main{margin-left:235px!important;width:calc(100% - 235px)!important;padding:0 14px 30px!important}.v37-date-card{display:none}.v37-top-quote{display:none}}
+@media(max-width:640px){:root{--sidebar-w:0px}.sidebar{display:none!important}.main{margin-left:0!important;width:100%!important}.v37-tool-chip{display:none}.v37-search{min-width:0}#sahtBrandPop{right:10px!important;top:60px!important}}
+</style>
+<script id="v37-reference-js">
+(function(){
+  var timerStarted=false;
+  function moveProfile(){
+    var p=document.getElementById('globalProfileButton'),s=document.getElementById('appSidebar'),scroll=s&&s.querySelector('.sidebar-scroll');
+    if(p&&scroll&&p.parentElement!==scroll)scroll.insertBefore(p,scroll.firstElementChild);
+    if(p)p.style.setProperty('display',document.body.classList.contains('saht-locked')?'none':'flex','important');
+  }
+  function clock(){
+    var d=new Date(),date=d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'}),time=d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    var a=document.getElementById('v37DayDate'),b=document.getElementById('v37Clock');if(a)a.textContent=date;if(b)b.textContent=time;
+    var rc=document.getElementById('recordCount'),hc=document.getElementById('v37HeaderAgentCount');if(rc&&hc)hc.textContent=rc.textContent;
+  }
+  function sync(){
+    var locked=document.body.classList.contains('saht-locked'),app=document.querySelector('.app'),gate=document.getElementById('sahtGate'),brand=document.getElementById('sahtBrandPop');
+    if(app)app.style.display=locked?'none':'flex';if(gate)gate.style.display=locked?'flex':'none';if(brand)brand.style.display=locked?'none':'flex';moveProfile();clock();
+  }
+  function init(){
+    moveProfile();clock();if(!timerStarted){timerStarted=true;setInterval(clock,1000);}
+    new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['class']});
+  }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
 </body></html>
+<style id="v40-clean-final">
+/* V40 CLEAN: no profile card, no global search, no floating account control. */
+#globalProfileButton,#sidebarProfileCard,#navMyProfile{display:none!important}
+.v37-search{display:none!important}
+.top{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:24px!important;min-height:116px!important;height:116px!important;padding:0!important}
+.v37-welcome{min-width:0!important;align-self:center!important}
+.v37-welcome-kicker{font-size:9px!important;font-weight:950!important;letter-spacing:.18em!important;color:var(--accent)!important;margin-bottom:8px!important}
+.v37-welcome h1{margin:0!important;font-size:clamp(26px,2.8vw,39px)!important;line-height:1.04!important;letter-spacing:-.045em!important}
+.v37-welcome h1 strong{color:var(--accent2)!important}
+.v37-welcome p{margin:8px 0 0!important;font-size:11px!important;color:var(--muted)!important}
+.v37-top-tools{grid-column:2!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;margin:0!important;height:auto!important}
+.v37-tool-chip{height:40px!important;padding:0 13px!important;border-radius:13px!important}
+.v37-tool-icon{width:40px!important;height:40px!important;border-radius:13px!important}
+.v37-date-card{height:40px!important;min-width:184px!important;border-radius:13px!important}
+.top>.live,.v37-top-quote,.header-watermark{display:none!important}
+/* Branding: transparent text only, no butterfly/background/card. */
+#sahtBrandPop{position:fixed!important;right:28px!important;bottom:24px!important;left:auto!important;top:auto!important;width:auto!important;min-width:0!important;height:auto!important;padding:0!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:block!important;z-index:2147483640!important;pointer-events:none!important;animation:v40BrandPulse 3.8s ease-in-out infinite!important}
+#sahtBrandPop:before,#sahtBrandPop:after,#sahtBrandPop .brand-butterfly-orbit,#sahtBrandPop .bp-avatar{display:none!important}
+#sahtBrandPop .brand-copyline{display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:3px!important}
+#sahtBrandPop .brand-copyline b{font-size:11px!important;font-weight:950!important;color:var(--accent2)!important;white-space:nowrap!important;text-shadow:0 0 14px var(--glow)!important}
+#sahtBrandPop .brand-copyline b span{display:block!important;font-size:8px!important;letter-spacing:.12em!important;color:var(--text)!important;margin-top:2px!important}
+#sahtBrandPop .brand-copyline small{font-size:8px!important;font-weight:800!important;letter-spacing:.08em!important;color:var(--muted)!important;margin:2px 0 0!important;white-space:nowrap!important}
+@keyframes v40BrandPulse{0%,100%{opacity:0;transform:translateY(6px)}12%,78%{opacity:1;transform:translateY(0)}90%{opacity:0;transform:translateY(-4px)}}
+@media(max-width:900px){.top{grid-template-columns:1fr!important;grid-template-rows:auto auto!important;height:auto!important;min-height:0!important;padding:14px 0 16px!important;gap:14px!important}.v37-top-tools{grid-column:1!important;justify-content:flex-start!important;flex-wrap:wrap!important}}
+@media(max-width:640px){.v37-date-card{display:none!important}.v37-tool-chip{display:none!important}#sahtBrandPop{right:14px!important;bottom:14px!important}}
+</style>
+<script id="v40-clean-final-js">
+(function(){
+  function refreshWelcome(){
+    var p=window.profile||{};
+    var name=(p.full_name||p.email||'User').trim()||'User';
+    var h=new Date().getHours();
+    var part=h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening';
+    var gt=document.getElementById('greetingTime'),gn=document.getElementById('greetingName');
+    if(gt)gt.textContent=part; if(gn)gn.textContent=name;
+    var bg=document.getElementById('brandGreeting'),bd=document.getElementById('brandDesigner');
+    if(bg)bg.innerHTML='Hi '+name+' Here. <span>'+(String(p.role||'user').toLowerCase()==='admin'?'ADMIN':'VISITOR')+'</span>';
+    if(bd)bd.textContent='Designed by Khijar';
+  }
+  window.v40RefreshWelcome=refreshWelcome;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refreshWelcome,{once:true});else refreshWelcome();
+  setInterval(refreshWelcome,1000);
+})();
+</script>
