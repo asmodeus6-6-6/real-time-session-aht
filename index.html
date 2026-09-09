@@ -1092,6 +1092,7 @@ body.saht-locked #sahtBrandPop{display:none!important}
     </div>
     <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
   </div>
+<div class="global-profile" id="globalProfileButton" role="button" tabindex="0" aria-label="Open profile" style="display:none" title="Open profile"><div class="global-avatar" id="globalProfileAvatar">U</div><div class="global-profile-copy"><b id="globalProfileName">User</b><small><span id="globalProfileRole">VISITOR</span></small></div><span class="global-profile-chevron">⌄</span></div>
 <div class="saht-brand-pop" id="sahtBrandPop" role="button" tabindex="0" aria-label="Abhijith branding — click for butterfly effect" title="Click for a butterfly effect">
   <div class="brand-butterfly-orbit" aria-hidden="true">
     <img src="neon_butterfly.png" alt="" class="brand-bfly bf1"><img src="neon_butterfly.png" alt="" class="brand-bfly bf2"><img src="neon_butterfly.png" alt="" class="brand-bfly bf3">
@@ -1154,14 +1155,14 @@ body.saht-locked #sahtBrandPop{display:none!important}
     <div class="foot-line"><span class="foot-dot"></span><span class="foot-copy">System ready</span><span class="foot-version">SAHT</span></div>
     <div class="sidebar-watermark">Abhijith</div>
   </div>
-</aside><main class="main"><div class="global-profile" id="globalProfileButton" role="button" tabindex="0" aria-label="Open profile" style="display:none" title="Open profile"><div class="global-avatar" id="globalProfileAvatar">U</div><div class="global-profile-copy"><b id="globalProfileName">User</b><small><span id="globalProfileRole">VISITOR</span></small></div><span class="global-profile-chevron">⌄</span></div><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
+</aside><main class="main"><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
 <section class="page active" id="page-live">
 <div class="top"><div class="v37-top-tools" aria-label="Session controls">
   <div class="v37-search"><span>⌕</span><input aria-label="Search" placeholder="Search agents, teams, tags or order IDs..." /><kbd>Ctrl K</kbd></div>
   <div class="v37-tool-chip live"><i></i><b>LIVE</b><span id="v37HeaderAgentCount">0 agents</span></div>
   <button class="v37-tool-icon" type="button" aria-label="Notifications" title="Notifications">♧<i></i></button>
-  <div class="v37-date-card"><span class="cal">▣</span><div><small id="v37DayDate">Loading date…</small><b id="v37Clock">--:--:--</b><em><i></i> Live Session</em></div></div>
-</div><div><h1>Good Evening, <strong class="v37-greeting-name">Abhijith!</strong></h1><p>Here’s your real-time session performance overview.</p></div><div class="v37-top-quote">“Small insights create<br><b>bigger performance.</b>”</div><div class="live"><span class="dot"></span>LIVE • <span id="recordCount">0 agents</span></div><div class="header-watermark">Abhijith</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" title="Copy table as PNG image; browser security may require a secure page" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section id="summary" class="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div class="v26-card-head"><h3>Live Status</h3><div><small>Target: <span id="targetView">180</span>s</small><button class="btn tiny-copy" onclick="copyPanelAsImage('page-live-status','Live Status')">Copy Image</button></div></div><div id="page-live-status"><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><div class="tablehead-tools"><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span><button class="btn tiny-copy" onclick="copyTableAsImage()">Copy Image</button></div></div><div class="wrap"><div class="watermark" aria-hidden="true">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
+  
+</div><div class="v37-date-card"><span class="cal">▣</span><div><small id="v37DayDate">Loading date…</small><b id="v37Clock">--:--:--</b><em><i></i> Live Session</em></div></div><div><h1>Good Evening, <strong class="v37-greeting-name">Abhijith!</strong></h1><p>Here’s your real-time session performance overview.</p></div><div class="v37-top-quote">“Small insights create<br><b>bigger performance.</b>”</div><div class="live"><span class="dot"></span>LIVE • <span id="recordCount">0 agents</span></div><div class="header-watermark">Abhijith</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" title="Copy table as PNG image; browser security may require a secure page" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section id="summary" class="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div class="v26-card-head"><h3>Live Status</h3><div><small>Target: <span id="targetView">180</span>s</small><button class="btn tiny-copy" onclick="copyPanelAsImage('page-live-status','Live Status')">Copy Image</button></div></div><div id="page-live-status"><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><div class="tablehead-tools"><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span><button class="btn tiny-copy" onclick="copyTableAsImage()">Copy Image</button></div></div><div class="wrap"><div class="watermark" aria-hidden="true">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
 </section>
 
 <section class="page" id="page-dashboard">
@@ -2840,4 +2841,108 @@ body.saht-locked .sidebar,body.saht-locked #sahtBrandPop,body.saht-locked #globa
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
+
+<style id="v39-layout-overlap-fix">
+/* V39.1: reference-layout correction — top controls and profile are isolated into their own rows. */
+.top{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 208px minmax(220px,1fr)!important;
+  grid-template-rows:58px 88px!important;
+  column-gap:10px!important;
+  row-gap:10px!important;
+  align-items:center!important;
+  min-height:156px!important;
+  padding:10px 0 12px!important;
+  margin:0!important;
+  position:relative!important;
+  border-bottom:1px solid rgba(92,120,175,.14)!important;
+  box-sizing:border-box!important;
+}
+.v37-top-tools{
+  grid-column:1 / -1!important;
+  grid-row:1!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+  width:100%!important;
+  height:58px!important;
+  margin:0!important;
+  min-width:0!important;
+}
+.v37-search{flex:1 1 auto!important;min-width:0!important;height:42px!important}
+.v37-tool-chip{flex:0 0 auto!important;height:42px!important}
+.v37-tool-icon{flex:0 0 42px!important;height:42px!important}
+.top>.v37-date-card{
+  grid-column:2!important;
+  grid-row:2!important;
+  width:100%!important;
+  min-width:0!important;
+  height:76px!important;
+  box-sizing:border-box!important;
+  justify-self:stretch!important;
+  margin:0!important;
+  border-radius:15px!important;
+}
+.top>div:nth-of-type(3){
+  grid-column:1!important;
+  grid-row:2!important;
+  align-self:center!important;
+  min-width:0!important;
+}
+.top>div:nth-of-type(3) h1{margin:0!important}
+.top>div:nth-of-type(3) p{margin:5px 0 0!important}
+.v37-top-quote{
+  grid-column:3!important;
+  grid-row:2!important;
+  position:relative!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:100%!important;
+  min-height:76px!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  padding:0 18px!important;
+  border:1px solid var(--line)!important;
+  border-radius:15px!important;
+  background:var(--panel)!important;
+  box-shadow:0 8px 24px rgba(35,65,110,.06)!important;
+  text-align:left!important;
+  font-size:10px!important;
+}
+.top>.header-watermark{display:none!important}
+.top>.live{display:none!important}
+/* Keep the visitor/admin profile inside the sidebar; never allow it to float over the header. */
+#globalProfileButton{
+  position:relative!important;
+  top:auto!important;right:auto!important;left:auto!important;
+  width:calc(100% - 24px)!important;
+  min-width:0!important;
+  margin:8px 12px 10px!important;
+  padding:9px 11px!important;
+  box-sizing:border-box!important;
+  z-index:20!important;
+  border-radius:16px!important;
+}
+.sidebar-head{position:relative!important;z-index:2!important}
+.sidebar .global-profile{flex:0 0 auto!important}
+@media(max-width:1100px){
+  .top{grid-template-columns:minmax(0,1fr) 190px minmax(190px,1fr)!important}
+}
+@media(max-width:900px){
+  .top{grid-template-columns:minmax(0,1fr) 180px!important;grid-template-rows:58px 88px!important;min-height:156px!important}
+  .v37-top-quote{display:none!important}
+  .top>.v37-date-card{grid-column:2!important;grid-row:2!important}
+  .top>div:nth-of-type(3){grid-column:1!important;grid-row:2!important}
+}
+@media(max-width:640px){
+  .top{display:block!important;min-height:0!important;padding:8px 0 12px!important}
+  .v37-top-tools{height:50px!important;margin-bottom:8px!important}
+  .v37-tool-icon{display:none!important}
+  .top>.v37-date-card{display:none!important}
+  .top>div:nth-of-type(3){padding:6px 0!important}
+  #globalProfileButton{width:calc(100% - 16px)!important;margin:8px!important}
+}
+</style>
 </body></html>
