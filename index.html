@@ -1442,8 +1442,8 @@ function fmtPct(v){return ((Number(v)||0)*100).toFixed(2)+"%"}
 function dur(s){s=Math.round(Number(s)||0);return s>=60?`${Math.floor(s/60)} m ${s%60} s`:`${s} s`}
 function avg(rows,f){return rows.length?rows.reduce((a,r)=>a+parseDurationToSeconds(r[f]),0)/rows.length:0}
 function processData(){
- const target=parseNumber(document.getElementById("threshold").value)||180;
- const parsedRecords=parseBlockText(document.getElementById("rawInput").value||"");
+ const target=parseNumber(document.getElementById("threshold")?.value)||180;
+ const parsedRecords=parseBlockText(document.getElementById("rawInput")?.value||"");
  window._sahtRawCount=parsedRecords.length;
  const validRecords=parsedRecords.filter(r=>Number(r.ahtSec)>0);
  window._sahtExcludedCount=parsedRecords.length-validRecords.length;
@@ -1454,21 +1454,22 @@ function processData(){
   const sideTarget=document.getElementById("sideTarget");
   if(sideCount)sideCount.textContent=processedData.length+" agent"+(processedData.length===1?"":"s");
   if(sideTarget)sideTarget.textContent=(parseNumber(document.getElementById("threshold")?.value)||180)+"s";
- const body=document.getElementById("tableBody");body.innerHTML="";
- processedData.forEach((r,i)=>{const st=exactAHTStatus(r.ahtSec,target);body.insertAdjacentHTML("beforeend",`<tr><td class="agent">${escapeHtml(r.name)}</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${escapeHtml(r.avgHt)}</td><td class="aht ${st.cls}">${r.ahtSec} <em>${st.symbol}</em></td><td>${escapeHtml(r.avgFrt)}</td></tr>`)});
+ const body=document.getElementById("tableBody");if(body)body.innerHTML="";
+ if(body)processedData.forEach((r,i)=>{const st=exactAHTStatus(r.ahtSec,target);body.insertAdjacentHTML("beforeend",`<tr><td class="agent">${escapeHtml(r.name)}</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${escapeHtml(r.avgHt)}</td><td class="aht ${st.cls}">${r.ahtSec} <em>${st.symbol}</em></td><td>${escapeHtml(r.avgFrt)}</td></tr>`)});
  const gt=document.getElementById("grandTotalRow");
  if(document.getElementById("grandTotalToggle").checked&&processedData.length){
   const rec=processedData.reduce((a,r)=>a+parseNumber(r.received),0),res=processedData.reduce((a,r)=>a+parseNumber(r.resolved),0);
   const ah=processedData.reduce((a,r)=>a+r.ahtSec,0)/processedData.length;
-  gt.innerHTML=`<td class="agent">GRAND TOTAL / AVG</td><td>${rec}</td><td>${res}</td><td>${dur(avg(processedData,"avgHt"))}</td><td class="aht">${Math.round(ah)} —</td><td>${dur(avg(processedData,"avgFrt"))}</td>`;gt.style.display="table-row"
- }else gt.style.display="none";
+  if(gt)gt.innerHTML=`<td class="agent">GRAND TOTAL / AVG</td><td>${rec}</td><td>${res}</td><td>${dur(avg(processedData,"avgHt"))}</td><td class="aht">${Math.round(ah)} —</td><td>${dur(avg(processedData,"avgFrt"))}</td>`;gt.style.display="table-row"
+ }else if(gt)gt.style.display="none";
  const n=processedData.length,below=processedData.filter(r=>r.ahtSec<target).length,equal=processedData.filter(r=>r.ahtSec===target).length;
- document.getElementById("summary").innerHTML=`<div class="metric"><small>TOTAL AGENTS</small><b>${n}</b></div><div class="metric good"><small>BELOW TARGET</small><b>${below}</b></div><div class="metric warn"><small>AT TARGET</small><b>${equal}</b></div><div class="metric bad"><small>ABOVE TARGET</small><b>${n-below-equal}</b></div>`;
- document.getElementById("recordCount").textContent=n+" agents";document.getElementById("targetView").textContent=target;
- const av=n?Math.round(processedData.reduce((a,r)=>a+r.ahtSec,0)/n):0;document.getElementById("dashAvg").textContent=av+" sec";
- document.getElementById("dashAbove").textContent=n-below-equal;document.getElementById("dashEqual").textContent=equal;document.getElementById("dashBelow").textContent=below;
+ const summary=document.getElementById("summary");if(summary)summary.innerHTML=`<div class="metric"><small>TOTAL AGENTS</small><b>${n}</b></div><div class="metric good"><small>BELOW TARGET</small><b>${below}</b></div><div class="metric warn"><small>AT TARGET</small><b>${equal}</b></div><div class="metric bad"><small>ABOVE TARGET</small><b>${n-below-equal}</b></div>`;
+ const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+ setText("recordCount",n+" agents");setText("targetView",target);
+ const av=n?Math.round(processedData.reduce((a,r)=>a+r.ahtSec,0)/n):0;setText("dashAvg",av+" sec");
+ setText("dashAbove",n-below-equal);setText("dashEqual",equal);setText("dashBelow",below);
  const max=Math.max(target*1.5,...processedData.map(r=>r.ahtSec),1);
- document.getElementById("chart").innerHTML=processedData.slice(0,10).map(r=>{const st=exactAHTStatus(r.ahtSec,target);return `<div class="bar-row"><span>${escapeHtml(r.name)}</span><div class="track"><i class="${st.cls}" style="width:${Math.max(4,Math.min(100,r.ahtSec/max*100))}%"></i></div><b>${r.ahtSec}</b></div>`}).join("")||`<div class="empty">Paste data to display live AHT.</div>`;
+ const chart=document.getElementById("chart");if(chart)chart.innerHTML=processedData.slice(0,10).map(r=>{const st=exactAHTStatus(r.ahtSec,target);return `<div class="bar-row"><span>${escapeHtml(r.name)}</span><div class="track"><i class="${st.cls}" style="width:${Math.max(4,Math.min(100,r.ahtSec/max*100))}%"></i></div><b>${r.ahtSec}</b></div>`}).join("")||`<div class="empty">Paste data to display live AHT.</div>`;
  refreshAllAnalytics(); if(typeof refreshAdmin==="function")refreshAdmin();
 }
 
@@ -2518,7 +2519,7 @@ function bootApp(){
     const msg=document.getElementById("startupError");
     if(msg){
       msg.style.display="block";
-      msg.textContent="The tracker could not start: "+(err&&err.message?err.message:"Unknown error")+". Please reload the page.";
+      msg.textContent="The tracker could not start: "+(err&&err.message?err.message:"Unknown error")+". Please check the page console.";
     }
   }
 }
