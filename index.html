@@ -1,4 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Real Time Session AHT Tracker • V30</title><style>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Real Time Session AHT Tracker • V30</title><style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--text);background:var(--bg);font-size:var(--base-size)}
 body[data-theme=normal]{--bg:#f2f4f6;--panel:#ffffff;--panel2:#e8ecef;--line:#c9d0d6;--text:#26313a;--muted:#68737d;--accent:#4f6878;--accent2:#718694}
@@ -322,7 +323,7 @@ body.saht-admin #navAdminPortal{display:grid!important}
 
 <style id="saht-access-css">
 .saht-auth-actions{display:none!important;justify-content:flex-end;margin:10px 14px 0}.saht-logout-btn{width:100%;font-weight:800}.access-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}.access-stat{padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);text-align:center}.access-stat small{display:block;font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.05em}.access-stat b{display:block;font-size:22px;margin-top:4px}.access-table{width:100%;border-collapse:collapse;font-size:12px}.access-table th,.access-table td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:middle}.access-table th{background:var(--panel2);font-weight:800}.access-actions{display:flex;flex-wrap:wrap;gap:6px}.access-actions .btn{padding:6px 9px;font-size:11px}.status-chip{display:inline-flex;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-weight:800;font-size:10px;text-transform:uppercase}.access-empty{padding:18px;text-align:center;color:var(--muted)}@media(max-width:800px){.access-summary{grid-template-columns:repeat(2,1fr)}.access-table{font-size:11px}.access-table th,.access-table td{padding:6px}}
-</style></style>
+</style>
 <style id="v15-profile-fix">
 .global-profile{position:fixed!important;top:12px!important;right:18px!important;z-index:99998!important;display:flex!important;}
 #sidebarProfileCard,#navMyProfile{display:none!important;}
@@ -370,7 +371,6 @@ body.saht-locked #globalProfileButton{display:none!important}
 body.saht-locked .global-profile{display:none!important}
 .v19-watermark{position:fixed;right:22px;bottom:16px;z-index:100000;font-size:10px;letter-spacing:.2em;font-weight:900;color:rgba(60,70,80,.3);pointer-events:none}.v19-powered{position:fixed;left:18px;bottom:16px;z-index:100000;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid rgba(70,80,90,.15);backdrop-filter:blur(10px);font-size:10px;font-weight:800;color:#58656e;pointer-events:none;box-shadow:0 8px 22px rgba(0,0,0,.08)}
 </style>
-
 <style id="v20-final-ui">
 /* V20: one authenticated profile control, fixed top-right */
 .global-profile{display:none!important;position:fixed!important;right:22px!important;top:18px!important;z-index:2147483000!important;min-width:190px!important;padding:9px 13px 9px 9px!important;border-radius:16px!important;background:rgba(255,255,255,.96)!important;border:1px solid #c9d5df!important;box-shadow:0 12px 34px rgba(24,45,62,.16)!important;color:#193047!important;backdrop-filter:blur(14px)!important}
@@ -415,7 +415,6 @@ body:not(.saht-locked) .saht-brand-pop{display:flex}
 @keyframes sahtBrandPop{0%,12%{opacity:0;transform:translateX(34px) scale(.96)}20%,78%{opacity:1;transform:translateX(0) scale(1)}88%,100%{opacity:0;transform:translateX(34px) scale(.96)}}
 @media(max-width:700px){.saht-brand-pop{right:12px;bottom:12px}.saht-brand-pop b{font-size:11px}}
 </style>
-
 <style id="v22-ui-fix">
 /* ===== V22: fixed sidebar, visitor-safe navigation, premium login visual ===== */
 :root{--sidebar-w:292px;--sidebar-collapsed-w:78px}
@@ -466,7 +465,6 @@ body.sidebar-collapsed .foot-copy,body.sidebar-collapsed .foot-version,body.side
 #adminAgentDetailsCard{display:block!important}
 @media(max-width:900px){.sidebar{width:292px!important;flex-basis:292px!important}.main{margin-left:292px!important;width:calc(100% - 292px)!important}}
 </style>
-
 <style id="v24-butterfly-experience">
 /* V24 Butterfly experience */
 /* The sidebar is intentionally non-collapsible and remains frozen while content scrolls. */
@@ -583,7 +581,6 @@ body[data-theme="glass"] .sidebar,body[data-theme="glass"] .dash,body[data-theme
 @media(max-width:700px){.sidebar{width:215px!important}.main{margin-left:215px!important;width:calc(100% - 215px)!important}.sidebar-collapsed .sidebar,body.sidebar-collapsed .sidebar{width:215px!important}.sidebar-collapsed .main,body.sidebar-collapsed .main{margin-left:215px!important;width:calc(100% - 215px)!important}}
 @media(prefers-reduced-motion:reduce){.brand-logo-butterfly img,.brand-butterfly-orbit img{animation:none!important}}
 </style>
-
 <style id="v27-sidebar-freeze-fix">
 /* V27: sidebar is always fixed/frozen */
 .sidebar{position:fixed!important;left:0!important;top:0!important;bottom:0!important;height:100vh!important;width:255px!important;flex:0 0 255px!important;z-index:10000!important;overflow:hidden!important}
@@ -594,8 +591,6 @@ body[data-theme="glass"] .sidebar,body[data-theme="glass"] .dash,body[data-theme
 #sidebarToggle{display:none!important}
 
 </style>
-
-
 <style id="v28-ui-polish">
 /* V28 visual system: dark glass, reference-inspired, functionality-first */
 :root{--sidebar-w:270px}
@@ -895,7 +890,6 @@ body[data-theme=neon] .dot{box-shadow:0 0 12px #32e6a6 !important}
 }
 
 </style>
-
 <style id="v30-professional-theme">
 /* V30 — professional black + accent theme system */
 :root{--saht-radius:16px;--saht-accent:#2f8cff}
@@ -1022,7 +1016,6 @@ body.saht-locked .saht-brand-pop,#sahtGate .saht-brand-pop{display:none!importan
 @media(max-width:700px){.v35-utility-ribbon{left:10px;right:10px;justify-content:flex-start;overflow:auto}.saht-brand-pop{right:10px!important;bottom:10px!important;width:min(260px,calc(100vw - 20px))!important}.v35-creator-head{align-items:flex-start}.v35-creator-avatar{width:58px;height:58px}.v35-creator-avatar img{width:50px;height:50px}}
 @media(prefers-reduced-motion:reduce){.saht-brand-pop,.saht-brand-pop .bp-avatar img,.saht-brand-pop .brand-butterfly-orbit img{animation:none!important}.v35-utility-ribbon{transition:none!important}}
 </style>
-
 <style id="v39-stability">
 /* V39 stability layer — CSS only; no runtime layout mutation. */
 html,body{overflow-x:hidden!important}
@@ -1032,8 +1025,6 @@ body.saht-locked #globalProfileButton,
 body.saht-locked #sahtBrandPop{display:none!important}
 #rawInput{background:#fff!important;color:#111827!important;border-color:#cbd5e1!important}
 </style>
-
-
 <style id="v40-clean-profile-header">
 /* V40: clean identity card + no fake global search */
 .v37-top-tools{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;height:54px!important;width:100%!important;margin-bottom:10px!important}
@@ -1065,336 +1056,301 @@ body.saht-locked #sahtBrandPop{display:none!important}
 body.sidebar-collapsed .sidebar-welcome-slide{height:58px;margin:10px 7px;border-radius:14px}.sidebar-collapsed .sidebar-welcome-slide>*{display:none!important}.sidebar-collapsed .sidebar-welcome-slide:after{content:"✦";height:58px;display:grid;place-items:center;color:var(--accent);font-size:18px}
 @media(max-width:760px){.sws-art{height:155px}}@media(prefers-reduced-motion:reduce){.sidebar-welcome-slide,.sws-art img,.sws-title span,.sws-brandline b,.sidebar-welcome-slide:before{animation:none!important}}
 </style>
-</head><body data-theme="white" class="saht-locked"><div id="butterflyEntrance" class="butterfly-entrance" aria-hidden="true">
-  <div class="be-stars"></div><div class="be-glow g1"></div><div class="be-glow g2"></div>
-  <div class="be-caption"><span>SESSION AHT</span><b>Welcome to your workspace</b><small>Live performance intelligence • Workforce control</small></div>
-  <div class="be-path"><div class="be-butterfly"><img src="neon_butterfly.png" alt=""></div></div>
-  <div class="be-particles"></div>
+</head><body class="saht-locked" data-theme="white"><div aria-hidden="true" class="butterfly-entrance" id="butterflyEntrance">
+<div class="be-stars"></div><div class="be-glow g1"></div><div class="be-glow g2"></div>
+<div class="be-caption"><span>SESSION AHT</span><b>Welcome to your workspace</b><small>Live performance intelligence • Workforce control</small></div>
+<div class="be-path"><div class="be-butterfly"><img alt="" src="neon_butterfly.png"/></div></div>
+<div class="be-particles"></div>
 </div>
 <div id="sahtGate">
-  <div class="v18-auth-wrap">
-    <section class="v18-visual v22-login-visual"><div class="neon-login-butterflies" aria-hidden="true">
-<img class="neon-login-butterfly" style="--left:12%;--top:72%;--dur:8s;--delay:-2s" src="neon_butterfly.png" alt="">
-<img class="neon-login-butterfly" style="--left:28%;--top:84%;--dur:10s;--delay:-5s" src="neon_butterfly.png" alt="">
-<img class="neon-login-butterfly" style="--left:52%;--top:76%;--dur:12s;--delay:-7s" src="neon_butterfly.png" alt="">
-<img class="neon-login-butterfly" style="--left:70%;--top:88%;--dur:9s;--delay:-1s" src="neon_butterfly.png" alt="">
-<img class="neon-login-butterfly" style="--left:86%;--top:66%;--dur:11s;--delay:-6s" src="neon_butterfly.png" alt="">
+<div class="v18-auth-wrap">
+<section class="v18-visual v22-login-visual"><div aria-hidden="true" class="neon-login-butterflies">
+<img alt="" class="neon-login-butterfly" src="neon_butterfly.png" style="--left:12%;--top:72%;--dur:8s;--delay:-2s"/>
+<img alt="" class="neon-login-butterfly" src="neon_butterfly.png" style="--left:28%;--top:84%;--dur:10s;--delay:-5s"/>
+<img alt="" class="neon-login-butterfly" src="neon_butterfly.png" style="--left:52%;--top:76%;--dur:12s;--delay:-7s"/>
+<img alt="" class="neon-login-butterfly" src="neon_butterfly.png" style="--left:70%;--top:88%;--dur:9s;--delay:-1s"/>
+<img alt="" class="neon-login-butterfly" src="neon_butterfly.png" style="--left:86%;--top:66%;--dur:11s;--delay:-6s"/>
 </div>
-      <div class="v22-ambient a1"></div><div class="v22-ambient a2"></div><div class="v22-grid"></div>
-      <div class="v22-live-chip"><span></span> LIVE OPERATIONS FEED</div>
-      <div class="v22-visual-copy">
-        <div class="v22-eyebrow">BPO • WORKFORCE • SESSION INTELLIGENCE</div>
-        <h2>Real Time Session<br><strong>AHT Tracker.</strong><br>Built for performance.</h2>
-        <p>Monitor • Analyze • Improve — live workforce intelligence for every session.</p>
-      </div>
-      <div class="v22-call-scene" aria-hidden="true">
-        <div class="v22-ring r1"></div><div class="v22-ring r2"></div><div class="v22-ring r3"></div>
-        <div class="v22-headset">
-          <div class="ear left"></div><div class="ear right"></div><div class="band"></div><div class="mic"></div>
-          <div class="face"><span></span><span></span></div>
-        </div>
-        <div class="v22-wave wave1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="v22-wave wave2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="v22-floating-card c1"><b>LIVE</b><small>Agents online</small><strong>∞</strong></div>
-        <div class="v22-floating-card c2"><b>AHT</b><small>Target</small><strong>195s</strong></div>
-        <div class="v22-floating-card c3"><b>SYNC</b><small>Master data</small><strong>100%</strong></div>
-      </div>
-      <div class="v22-visual-footer"><span>●</span> SECURE WORKFORCE CONTROL <em>REAL-TIME</em></div>
-    </section>
-    <section class="v18-form-side">
-      <div class="v18-card">
-        <div class="v18-form-head"><div class="mini">Secure workspace</div><h1 id="sahtGateTitle">Welcome back</h1><p id="sahtGateSub">Sign in to access your Session AHT Monitor.</p></div>
-        <div class="v18-tabs"><button id="sahtSignInTab" type="button" class="active">Sign In</button><button id="sahtRequestTab" type="button">Request Access</button></div>
-        <div id="sahtNameField" class="v18-field" style="display:none"><label>Full name</label><input class="v18-input" id="sahtName" placeholder="Enter your name" autocomplete="name"></div>
-        <div class="v18-field"><label>Work email</label><input class="v18-input" id="sahtEmail" type="email" placeholder="name@company.com" autocomplete="username"></div>
-        <div class="v18-field"><label>Password</label><input class="v18-input" id="sahtPassword" type="password" placeholder="Enter your password" autocomplete="current-password"></div>
-        <div id="sahtReasonField" class="v18-field" style="display:none"><label>Reason / team <span style="font-weight:500;opacity:.65">(optional)</span></label><input class="v18-input" id="sahtReason" placeholder="Team / process"></div>
-        <button class="v18-submit" id="sahtSubmit" type="button">Sign In</button>
-        <div id="sahtRestoreStatus" class="v18-status">Checking your active session…</div>
-        <div class="v18-msg" id="sahtMsg"></div>
-        <div class="v18-helper">Access is controlled by administrator approval. Email confirmation is not required.</div>
-      </div>
-    </section>
-  </div>
+<div class="v22-ambient a1"></div><div class="v22-ambient a2"></div><div class="v22-grid"></div>
+<div class="v22-live-chip"><span></span> LIVE OPERATIONS FEED</div>
+<div class="v22-visual-copy">
+<div class="v22-eyebrow">BPO • WORKFORCE • SESSION INTELLIGENCE</div>
+<h2>Real Time Session<br/><strong>AHT Tracker.</strong><br/>Built for performance.</h2>
+<p>Monitor • Analyze • Improve — live workforce intelligence for every session.</p>
+</div>
+<div aria-hidden="true" class="v22-call-scene">
+<div class="v22-ring r1"></div><div class="v22-ring r2"></div><div class="v22-ring r3"></div>
+<div class="v22-headset">
+<div class="ear left"></div><div class="ear right"></div><div class="band"></div><div class="mic"></div>
+<div class="face"><span></span><span></span></div>
+</div>
+<div class="v22-wave wave1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="v22-wave wave2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="v22-floating-card c1"><b>LIVE</b><small>Agents online</small><strong>∞</strong></div>
+<div class="v22-floating-card c2"><b>AHT</b><small>Target</small><strong>195s</strong></div>
+<div class="v22-floating-card c3"><b>SYNC</b><small>Master data</small><strong>100%</strong></div>
+</div>
+<div class="v22-visual-footer"><span>●</span> SECURE WORKFORCE CONTROL <em>REAL-TIME</em></div>
+</section>
+<section class="v18-form-side">
+<div class="v18-card">
+<div class="v18-form-head"><div class="mini">Secure workspace</div><h1 id="sahtGateTitle">Welcome back</h1><p id="sahtGateSub">Sign in to access your Session AHT Monitor.</p></div>
+<div class="v18-tabs"><button class="active" id="sahtSignInTab" type="button">Sign In</button><button id="sahtRequestTab" type="button">Request Access</button></div>
+<div class="v18-field" id="sahtNameField" style="display:none"><label>Full name</label><input autocomplete="name" class="v18-input" id="sahtName" placeholder="Enter your name"/></div>
+<div class="v18-field"><label>Work email</label><input autocomplete="username" class="v18-input" id="sahtEmail" placeholder="name@company.com" type="email"/></div>
+<div class="v18-field"><label>Password</label><input autocomplete="current-password" class="v18-input" id="sahtPassword" placeholder="Enter your password" type="password"/></div>
+<div class="v18-field" id="sahtReasonField" style="display:none"><label>Reason / team <span style="font-weight:500;opacity:.65">(optional)</span></label><input class="v18-input" id="sahtReason" placeholder="Team / process"/></div>
+<button class="v18-submit" id="sahtSubmit" type="button">Sign In</button>
+<div class="v18-status" id="sahtRestoreStatus">Checking your active session…</div>
+<div class="v18-msg" id="sahtMsg"></div>
+<div class="v18-helper">Access is controlled by administrator approval. Email confirmation is not required.</div>
+</div>
+</section>
+</div>
 </div><div class="app"><aside class="sidebar" id="appSidebar">
-  <div class="sidebar-head">
-    <div class="brand">
-      <div class="logo brand-logo-butterfly" id="brandLogoButterfly" title="Abhijith butterfly"><img src="neon_butterfly.png" alt="Butterfly"></div>
-      <div class="brand-copy"><b>Session AHT Monitor</b><small>Operations Control</small></div>
-    </div>
-    <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
-  </div>
-<div class="sidebar-welcome-slide" id="sidebarWelcomeSlide" aria-label="Team welcome branding">
-  <div class="sws-orb orb1"></div><div class="sws-orb orb2"></div>
-  <img class="sws-bfly bf-a" src="neon_butterfly.png" alt=""><img class="sws-bfly bf-b" src="neon_butterfly.png" alt=""><img class="sws-bfly bf-c" src="neon_butterfly.png" alt="">
-  <div class="sws-userline"><span class="sws-crown">♛</span><b id="sidebarBrandGreeting">Hi Abhijith Prasad Here.</b><span class="sws-admin" id="sidebarBrandRole">ADMIN</span></div>
-  <div class="sws-title"><span>Welcome</span><b>Everyone!</b></div>
-  <div class="sws-underline"></div>
-  <div class="sws-thanks"><b>Thank you all!</b><small>Hope this will be helpful to<br>track your team's AHT.</small></div>
-  <div class="sws-actions">
-    <div class="sws-action"><span class="sws-icon bars">▮▮▮</span><b>Track</b><small>Monitor<br>performance</small></div>
-    <div class="sws-action"><span class="sws-icon search">⌕</span><b>Analyse</b><small>Find<br>insights</small></div>
-    <div class="sws-action"><span class="sws-icon bulb">♧</span><b>Improve</b><small>Take<br>action</small></div>
-    <div class="sws-action"><span class="sws-icon grow">↗</span><b>Grow</b><small>Stronger<br>teams</small></div>
-  </div>
-  <div class="sws-motto">Same Team <i>•</i> Higher Goals <i>•</i> Better Tomorrow</div>
-  <div class="sws-bottom">
-    <div class="sws-name"><small>Inspired by</small><strong>Khijar</strong><em>IDEAS • SUPPORT • MOTIVATION</em></div>
-    <div class="sws-together">Let's<br><b>Do Better</b><br>Together <span>♡</span></div>
-    <div class="sws-name right"><small>Inspired by</small><strong>Shazia Bano</strong><em>GUIDANCE • ENCOURAGEMENT • SUPPORT</em></div>
-  </div>
+<div class="sidebar-head">
+<div class="brand">
+<div class="logo brand-logo-butterfly" id="brandLogoButterfly" title="Abhijith butterfly"><img alt="Butterfly" src="neon_butterfly.png"/></div>
+<div class="brand-copy"><b>Session AHT Monitor</b><small>Operations Control</small></div>
 </div>
-<div class="profile-modal" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><div class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle"><div class="profile-modal-head"><div class="profile-modal-avatar" id="profileModalAvatar">U</div><div class="profile-modal-title"><b id="profileModalTitle">My Profile</b><small><span id="profileModalRole">VISITOR</span> • <span id="profileModalStatus">APPROVED</span></small></div><button class="profile-modal-close" type="button" onclick="closeProfileModal()">×</button></div><div class="profile-modal-body"><div class="profile-modal-grid"><div><label>Full Name</label><input id="profileFullName" type="text" placeholder="Your name"></div><div><label>Agent ID</label><input id="profileAgentId" type="text" placeholder="Agent ID / Employee ID"></div><div><label>Email</label><input id="profileEmail" class="profile-readonly" type="email" readonly></div><div><label>Role</label><select id="profileRole"><option value="user">Visitor</option><option value="admin">Admin</option></select></div><div><label>Supabase User ID</label><input id="profileUserId" class="profile-readonly" type="text" readonly></div><div><label>Profile Picture</label><input id="profileAvatarFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewProfileAvatar(this)"><div class="profile-avatar-actions"><button class="btn" type="button" onclick="document.getElementById('profileAvatarFile').click()">Upload / Change</button><button class="btn" type="button" onclick="removeProfileAvatar()">Remove</button></div></div></div><div id="profileEditLock" class="profile-edit-lock">Profile details can be updated once every 7 days.</div><div id="profileMsg" class="help-note" style="display:none;margin:10px 0 0"></div><div class="profile-modal-foot"><button class="btn primary" type="button" onclick="saveMyProfile()">Save Profile</button><button class="btn" type="button" onclick="loadMyProfile()">↻ Refresh</button><button class="btn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div></div></div></div>
-  
+<button aria-label="Collapse sidebar" class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="Collapse sidebar" type="button"><span>‹</span></button>
+</div>
+<div aria-label="Team welcome branding" class="sidebar-welcome-slide" id="sidebarWelcomeSlide">
+<div class="sws-orb orb1"></div><div class="sws-orb orb2"></div>
+<img alt="" class="sws-bfly bf-a" src="neon_butterfly.png"/><img alt="" class="sws-bfly bf-b" src="neon_butterfly.png"/><img alt="" class="sws-bfly bf-c" src="neon_butterfly.png"/>
+<div class="sws-userline"><span class="sws-crown">♛</span><b id="sidebarBrandGreeting">Hi Abhijith Prasad Here.</b><span class="sws-admin" id="sidebarBrandRole">ADMIN</span></div>
+<div class="sws-title"><span>Welcome</span><b>Everyone!</b></div>
+<div class="sws-underline"></div>
+<div class="sws-thanks"><b>Thank you all!</b><small>Hope this will be helpful to<br/>track your team's AHT.</small></div>
+<div class="sws-actions">
+<div class="sws-action"><span class="sws-icon bars">▮▮▮</span><b>Track</b><small>Monitor<br/>performance</small></div>
+<div class="sws-action"><span class="sws-icon search">⌕</span><b>Analyse</b><small>Find<br/>insights</small></div>
+<div class="sws-action"><span class="sws-icon bulb">♧</span><b>Improve</b><small>Take<br/>action</small></div>
+<div class="sws-action"><span class="sws-icon grow">↗</span><b>Grow</b><small>Stronger<br/>teams</small></div>
+</div>
+<div class="sws-motto">Same Team <i>•</i> Higher Goals <i>•</i> Better Tomorrow</div>
+<div class="sws-bottom">
+<div class="sws-name"><small>Inspired by</small><strong>Khijar</strong><em>IDEAS • SUPPORT • MOTIVATION</em></div>
+<div class="sws-together">Let's<br/><b>Do Better</b><br/>Together <span>♡</span></div>
+<div class="sws-name right"><small>Inspired by</small><strong>Shazia Bano</strong><em>GUIDANCE • ENCOURAGEMENT • SUPPORT</em></div>
+</div>
+</div>
+<div class="profile-modal" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><div aria-labelledby="profileModalTitle" aria-modal="true" class="profile-modal-card" role="dialog"><div class="profile-modal-head"><div class="profile-modal-avatar" id="profileModalAvatar">U</div><div class="profile-modal-title"><b id="profileModalTitle">My Profile</b><small><span id="profileModalRole">VISITOR</span> • <span id="profileModalStatus">APPROVED</span></small></div><button class="profile-modal-close" onclick="closeProfileModal()" type="button">×</button></div><div class="profile-modal-body"><div class="profile-modal-grid"><div><label>Full Name</label><input id="profileFullName" placeholder="Your name" type="text"/></div><div><label>Agent ID</label><input id="profileAgentId" placeholder="Agent ID / Employee ID" type="text"/></div><div><label>Email</label><input class="profile-readonly" id="profileEmail" readonly="" type="email"/></div><div><label>Role</label><select id="profileRole"><option value="user">Visitor</option><option value="admin">Admin</option></select></div><div><label>Supabase User ID</label><input class="profile-readonly" id="profileUserId" readonly="" type="text"/></div><div><label>Profile Picture</label><input accept="image/png,image/jpeg,image/webp" id="profileAvatarFile" onchange="previewProfileAvatar(this)" type="file"/><div class="profile-avatar-actions"><button class="btn" onclick="document.getElementById('profileAvatarFile').click()" type="button">Upload / Change</button><button class="btn" onclick="removeProfileAvatar()" type="button">Remove</button></div></div></div><div class="profile-edit-lock" id="profileEditLock">Profile details can be updated once every 7 days.</div><div class="help-note" id="profileMsg" style="display:none;margin:10px 0 0"></div><div class="profile-modal-foot"><button class="btn primary" onclick="saveMyProfile()" type="button">Save Profile</button><button class="btn" onclick="loadMyProfile()" type="button">↻ Refresh</button><button class="btn" onclick="sahtSignOut()" type="button">↪ Sign Out</button></div></div></div></div>
 <div class="sidebar-scroll">
-    <div class="side-status">
-      <div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
-      <div class="status-copy">Live agent performance, AHT sorting and duplicate-value handling are active.</div>
-      <div class="status-meta"><span id="sideAgentCount">0 agents</span><span>•</span><span>Target <strong id="sideTarget">180s</strong></span></div>
-    </div>
+<div class="side-status">
+<div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
+<div class="status-copy">Live agent performance, AHT sorting and duplicate-value handling are active.</div>
+<div class="status-meta"><span id="sideAgentCount">0 agents</span><span>•</span><span>Target <strong id="sideTarget">180s</strong></span></div>
+</div>
+<div class="side-section">
+<div class="side-section-title"><span>WORKSPACE</span><i></i></div>
+<nav aria-label="Workspace pages" class="app-nav side-nav">
+<button class="active" data-page="live" onclick="showPage('live')" title="Live Monitor"><span class="nav-icon">◉</span><span class="nav-text">Live Monitor</span><em>LIVE</em></button>
+<button data-page="dashboard" onclick="showPage('dashboard')" title="Performance Dashboard"><span class="nav-icon">▦</span><span class="nav-text">Dashboard</span><em>VIEW</em></button>
+<button data-page="agents" onclick="showPage('agents')" title="Agent-wise AHT Analysis"><span class="nav-icon">♙</span><span class="nav-text">Agent Analysis</span><em>ANALYSIS</em></button>
+<button data-page="teams" onclick="showPage('teams')" title="TL / AM / Process Analysis"><span class="nav-icon">▤</span><span class="nav-text">TL / AM / Process</span><em>GROUP</em></button>
+<button data-page="admin" id="navAdminPortal" onclick="showPage('admin')" title="Admin Portal"><span class="nav-icon">⚙</span><span class="nav-text">Admin Portal</span><em>SECURE</em></button>
+</nav>
+</div>
+<div class="side-section">
+<div class="side-section-title"><span>APPEARANCE</span><i></i></div>
 
-    <div class="side-section">
-      <div class="side-section-title"><span>WORKSPACE</span><i></i></div>
-      <nav class="app-nav side-nav" aria-label="Workspace pages">
-        <button class="active" data-page="live" onclick="showPage('live')" title="Live Monitor"><span class="nav-icon">◉</span><span class="nav-text">Live Monitor</span><em>LIVE</em></button>
-        <button data-page="dashboard" onclick="showPage('dashboard')" title="Performance Dashboard"><span class="nav-icon">▦</span><span class="nav-text">Dashboard</span><em>VIEW</em></button>
-        <button data-page="agents" onclick="showPage('agents')" title="Agent-wise AHT Analysis"><span class="nav-icon">♙</span><span class="nav-text">Agent Analysis</span><em>ANALYSIS</em></button>
-        <button data-page="teams" onclick="showPage('teams')" title="TL / AM / Process Analysis"><span class="nav-icon">▤</span><span class="nav-text">TL / AM / Process</span><em>GROUP</em></button>
-        <button id="navAdminPortal" data-page="admin" onclick="showPage('admin')" title="Admin Portal"><span class="nav-icon">⚙</span><span class="nav-text">Admin Portal</span><em>SECURE</em></button>
-      </nav>
-    </div>
+<div aria-label="Appearance controls" class="appearance-control">
+<div class="appearance-row"><div><b>Base</b><small>Overall light level</small></div><div class="segmented"><button class="appearance-choice active" data-mode="dark" onclick="setVisualMode('dark')" type="button">Dark</button><button class="appearance-choice" data-mode="light" onclick="setVisualMode('light')" type="button">Light</button></div></div>
+<div class="appearance-row"><div><b>Surface</b><small>Material finish</small></div><div class="segmented"><button class="appearance-choice active" data-material="glass" onclick="setSurface('glass')" type="button">Glass</button><button class="appearance-choice" data-material="matte" onclick="setSurface('matte')" type="button">Matte</button><button class="appearance-choice" data-material="metal" onclick="setSurface('metal')" type="button">Metal</button></div></div>
+<div class="appearance-row appearance-accent-row"><div><b>Accent</b><small>Brand colour</small></div><div class="accent-palette"><button class="accent-dot active" data-accent="blackblue" onclick="setTheme('blackblue')" title="Blue" type="button"></button><button class="accent-dot" data-accent="blackred" onclick="setTheme('blackred')" title="Red" type="button"></button><button class="accent-dot" data-accent="blackgreen" onclick="setTheme('blackgreen')" title="Green" type="button"></button><button class="accent-dot" data-accent="blackyellow" onclick="setTheme('blackyellow')" title="Yellow" type="button"></button><button class="accent-dot" data-accent="blackcyan" onclick="setTheme('blackcyan')" title="Cyan" type="button"></button><button class="accent-dot" data-accent="blackpurple" onclick="setTheme('blackpurple')" title="Purple" type="button"></button><button class="accent-dot" data-accent="blackorange" onclick="setTheme('blackorange')" title="Orange" type="button"></button></div></div>
+</div>
+</div>
 
-    <div class="side-section">
-      <div class="side-section-title"><span>APPEARANCE</span><i></i></div>
-      <div class="themes side-themes v26-themes">
-        <button class="theme-btn active" data-theme="blackblue" title="Black Blue" onclick="setTheme('blackblue')"><span>Black • Blue</span><i class="theme-swatch sw-blue"></i></button>
-        <button class="theme-btn" data-theme="blackred" title="Black Red" onclick="setTheme('blackred')"><span>Black • Red</span><i class="theme-swatch sw-red"></i></button>
-        <button class="theme-btn" data-theme="blackgreen" title="Black Green" onclick="setTheme('blackgreen')"><span>Black • Green</span><i class="theme-swatch sw-green"></i></button>
-        <button class="theme-btn" data-theme="blackyellow" title="Black Yellow" onclick="setTheme('blackyellow')"><span>Black • Yellow</span><i class="theme-swatch sw-yellow"></i></button>
-        <button class="theme-btn" data-theme="blackcyan" title="Black Cyan" onclick="setTheme('blackcyan')"><span>Black • Cyan</span><i class="theme-swatch sw-cyan"></i></button>
-        <button class="theme-btn" data-theme="blackpurple" title="Black Purple" onclick="setTheme('blackpurple')"><span>Black • Purple</span><i class="theme-swatch sw-purple"></i></button>
-        <button class="theme-btn" data-theme="blackorange" title="Black Orange" onclick="setTheme('blackorange')"><span>Black • Orange</span><i class="theme-swatch sw-orange"></i></button>
-        <button class="theme-btn" data-theme="glass" title="Professional Glass" onclick="setTheme('glass')"><span>Professional Glass</span><i class="theme-swatch sw-glass"></i></button>
-      </div>
-      <div class="appearance-control" aria-label="Appearance controls">
-        <div class="appearance-row"><div><b>Base</b><small>Overall light level</small></div><div class="segmented"><button type="button" class="appearance-choice active" data-mode="dark" onclick="setVisualMode('dark')">Dark</button><button type="button" class="appearance-choice" data-mode="light" onclick="setVisualMode('light')">Light</button></div></div>
-        <div class="appearance-row"><div><b>Surface</b><small>Material finish</small></div><div class="segmented"><button type="button" class="appearance-choice active" data-material="glass" onclick="setSurface('glass')">Glass</button><button type="button" class="appearance-choice" data-material="matte" onclick="setSurface('matte')">Matte</button><button type="button" class="appearance-choice" data-material="metal" onclick="setSurface('metal')">Metal</button></div></div>
-        <div class="appearance-row appearance-accent-row"><div><b>Accent</b><small>Brand colour</small></div><div class="accent-palette"><button type="button" class="accent-dot active" data-accent="blackblue" onclick="setTheme('blackblue')" title="Blue"></button><button type="button" class="accent-dot" data-accent="blackred" onclick="setTheme('blackred')" title="Red"></button><button type="button" class="accent-dot" data-accent="blackgreen" onclick="setTheme('blackgreen')" title="Green"></button><button type="button" class="accent-dot" data-accent="blackyellow" onclick="setTheme('blackyellow')" title="Yellow"></button><button type="button" class="accent-dot" data-accent="blackcyan" onclick="setTheme('blackcyan')" title="Cyan"></button><button type="button" class="accent-dot" data-accent="blackpurple" onclick="setTheme('blackpurple')" title="Purple"></button><button type="button" class="accent-dot" data-accent="blackorange" onclick="setTheme('blackorange')" title="Orange"></button></div></div>
-      </div>
-    </div>
-
-    <div class="side-section side-display-section">
-      <div class="side-section-title"><span>DISPLAY</span><i></i></div>
-      <div class="display-card">
-        <label>Conditional Formatting</label>
-        <select id="formatTheme">
-          <option value="classic">Classic Green / Yellow / Red</option><option value="soft">Soft Pastel</option><option value="strong">Strong Contrast</option><option value="minimal">Minimal Border Accent</option><option value="mono">Monochrome</option><option value="badge">Badge Style</option><option value="neon">Neon Glow</option><option value="outline">Outline Highlight</option><option value="gradient">Soft Gradient</option><option value="heat">Heatmap</option><option value="clean">Clean Professional</option>
-        </select>
-        <label class="toggle-row"><input id="grandTotalToggle" type="checkbox" checked><span class="toggle-ui"></span><span>Grand Total</span></label>
-        <small>Totals and averages appear at the bottom of the live table.</small>
-      </div>
-    </div>
-  </div>
-  <div class="sidebar-foot">
-    <div class="foot-line"><span class="foot-dot"></span><span class="foot-copy">System ready</span><span class="foot-version">SAHT</span></div>
-    <div class="sidebar-watermark">Abhijith</div>
-  </div>
-</aside><main class="main"><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
+</div>
+<div class="sidebar-foot">
+<div class="foot-line"><span class="foot-dot"></span><span class="foot-copy">System ready</span><span class="foot-version">SAHT</span></div>
+<div class="sidebar-watermark">Abhijith</div>
+</div>
+</aside><main class="main"><div class="empty-panel" id="startupError" style="display:none;margin-bottom:12px"></div>
 <section class="page active" id="page-live">
-  <header class="ref-topbar">
-    <div class="ref-search"><span>⌕</span><input id="globalSearch" placeholder="Search agent, order ID, city, DP, etc..." autocomplete="off"><kbd>Ctrl + K</kbd></div>
-    <button class="ref-icon-btn" type="button" title="Light theme only" aria-label="Light theme">☼</button>
-    <div class="ref-session"><span class="cal-icon">▣</span><div><small id="v37DayDate">Loading date…</small><b id="v37Clock">--:--:--</b><em><i></i> Live Session</em></div></div>
-    <div class="ref-user"><span id="refAvatar">AP</span><div><b id="refUserName">ABHIJITH PRASAD</b><small id="refUserRole">Admin</small></div><span>⌄</span></div>
-  </header>
+<header class="ref-topbar">
 
-  <section class="ref-hero">
-    <div><span class="ref-kicker">REAL TIME AHT MONITOR</span><h1><span id="greetingTime">Good Morning</span>, <strong id="greetingName">ABHIJITH PRASAD!</strong> <span class="wave-hand">👋</span></h1><p>Live Calls&nbsp; • &nbsp;Monitor AHT&nbsp; • &nbsp;Drive Better Conversations</p></div>
-    <div class="ref-hero-wave"><span>Every<br>Call Counts</span></div>
-  </section>
 
-  <section id="summary" class="ref-kpis"></section>
-
-  <section class="ref-grid-top">
-    <article class="ref-panel ref-trend">
-      <div class="ref-panel-head"><h2><span class="head-icon blue">⌁</span>AHT Trend <small>(Real Time)</small></h2><button class="ref-select">▣ &nbsp; Today &nbsp;⌄</button></div>
-      <div class="ref-chart-wrap"><div class="ref-ylabels"><span>300</span><span>250</span><span>200</span><span>150</span><span>100</span><span>50</span><span>0</span></div><div class="ref-chart-area"><div class="ref-grid-lines"></div><svg id="ahtTrendSvg" viewBox="0 0 700 210" preserveAspectRatio="none" aria-label="AHT trend"><defs><linearGradient id="trendFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6f7cff" stop-opacity=".25"/><stop offset="1" stop-color="#6f7cff" stop-opacity="0"/></linearGradient><linearGradient id="trendStroke"><stop stop-color="#296cff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><path id="ahtTrendArea" fill="url(#trendFill)" d="M0,190 L700,190 L700,210 L0,210 Z"></path><polyline id="ahtTrendLine" fill="none" stroke="url(#trendStroke)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="0,190 100,190 200,190 300,190 400,190 500,190 600,190 700,190"></polyline></svg><div class="ref-xlabels"><span>00:00</span><span>04:00</span><span>08:00</span><span>12:00</span><span>16:00</span><span>20:00</span><span>22:00</span></div></div></div>
-      <div id="trendEmpty" class="ref-chart-empty">No live data yet</div>
-    </article>
-    <article class="ref-panel ref-volume">
-      <div class="ref-panel-head"><h2><span class="head-icon purple">▥</span>Call Volume</h2><button class="ref-select">▣ &nbsp; Today &nbsp;⌄</button></div>
-      <div class="volume-legend"><span><i class="received-dot"></i>Received</span><span><i class="resolved-dot"></i>Resolved</span></div>
-      <div id="callVolumeChart" class="volume-chart"><div class="volume-empty">No call data available</div></div>
-    </article>
-  </section>
-
-  <section class="ref-grid-mid">
-    <article class="ref-panel ref-agents">
-      <div class="ref-panel-head"><h2><span class="head-icon blue">♙</span>Live Agents <small>(AHT View)</small></h2><button class="ref-select">▣ &nbsp; Today &nbsp;⌄</button></div>
-      <div class="ref-table-wrap"><table id="reportTable"><thead><tr><th>#</th><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th><th>Status</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table><div id="agentEmpty" class="ref-table-empty">No agents available<br><small>Agent data will appear here in real-time.</small></div></div>
-    </article>
-    <article class="ref-panel ref-status">
-      <div class="ref-panel-head"><h2><span class="head-icon green">☎</span>Call Status <small>(Live)</small></h2><button class="ref-select">▣ &nbsp; Today &nbsp;⌄</button></div>
-      <div class="status-body"><div class="status-ring" id="statusRing"><div><b id="statusTotal">0</b><small>Total Calls</small></div></div><div id="statusLegend" class="status-legend"><div><i class="c-blue"></i>In Progress <b id="statusInProgress">0</b></div><div><i class="c-pink"></i>On Hold <b id="statusOnHold">0</b></div><div><i class="c-yellow"></i>Wrap Up <b id="statusWrap">0</b></div><div><i class="c-green"></i>Available <b id="statusAvailable">0</b></div><div><i class="c-purple"></i>ACW <b id="statusAcw">0</b></div></div></div>
-    </article>
-  </section>
-
-  <section class="ref-footer-metrics">
-    <div><span class="fm-icon blue">◎</span><span><small>AHT Target</small><b id="refAhtTarget">180s</b><em>Keep it below target</em></span></div>
-    <div><span class="fm-icon purple">ϟ</span><span><small>FRT Target</small><b>60s</b><em>Quick first response</em></span></div>
-    <div><span class="fm-icon blue">♙</span><span><small>Total Agents</small><b id="refTotalAgents">0</b><em>Active today</em></span></div>
-    <div><span class="fm-icon green">☎</span><span><small>Total Calls</small><b id="refTotalCalls">0</b><em>Across all agents</em></span></div>
-    <div class="fm-message"><span class="fm-icon blue">↗</span><span><small>Consistent Effort</small><b>Creates Better Experiences</b></span><i></i></div>
-  </section>
-
-  <section class="ref-input-drawer" aria-label="Live input controls">
-    <div><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div>
-  </section>
-  <div class="ref-legacy-hooks" aria-hidden="true"><span id="recordCount">0 agents</span><span id="targetView">180</span><span id="dashAvg">0 sec</span><span id="dashAbove">0</span><span id="dashEqual">0</span><span id="dashBelow">0</span><span id="sideAgentCount">0 agents</span><span id="sideTarget">180s</span><span id="v37HeaderAgentCount">0 agents</span></div>
+<div class="ref-session"><span class="cal-icon">▣</span><div><small id="v37DayDate">Loading date…</small><b id="v37Clock">--:--:--</b><em><i></i> Live Session</em></div></div>
+<div class="ref-user" onclick="openProfileModal()" role="button" tabindex="0"><span id="refAvatar">AP</span><div><b id="refUserName">ABHIJITH PRASAD</b><small id="refUserRole">Admin</small></div><span>⌄</span></div>
+</header>
+<section class="ref-hero">
+<div><span class="ref-kicker">REAL TIME AHT MONITOR</span><h1><span id="greetingTime">Good Morning</span>, <strong id="greetingName">ABHIJITH PRASAD!</strong> <span class="wave-hand">👋</span></h1><p>Live Calls  •  Monitor AHT  •  Drive Better Conversations</p></div>
+<div class="ref-hero-wave"><span>Every<br/>Call Counts</span></div>
+</section><section aria-label="Live input controls" class="ref-input-drawer">
+<div><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea autocapitalize="off" autocomplete="off" autocorrect="off" id="rawInput" placeholder="Paste Agent / Name data here..." spellcheck="false" wrap="off"></textarea><div class="controls"><input id="threshold" min="0" placeholder="AHT Target (Sec)" type="number" value="180"/><button class="btn" onclick="clearAll()">Clear</button><button class="btn" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div>
+</section>
+<section class="ref-kpis" id="summary"></section>
+<section class="ref-grid-top">
+<article class="ref-panel ref-trend">
+<div class="ref-panel-head"><h2><span class="head-icon blue">⌁</span>AHT Trend <small>(Real Time)</small></h2><button class="ref-select">▣   Today  ⌄</button></div>
+<div class="ref-chart-wrap"><div class="ref-ylabels"><span>300</span><span>250</span><span>200</span><span>150</span><span>100</span><span>50</span><span>0</span></div><div class="ref-chart-area"><div class="ref-grid-lines"></div><svg aria-label="AHT trend" id="ahtTrendSvg" preserveaspectratio="none" viewbox="0 0 700 210"><defs><lineargradient id="trendFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6f7cff" stop-opacity=".25"></stop><stop offset="1" stop-color="#6f7cff" stop-opacity="0"></stop></lineargradient><lineargradient id="trendStroke"><stop stop-color="#296cff"></stop><stop offset="1" stop-color="#8b5cf6"></stop></lineargradient></defs><path d="M0,190 L700,190 L700,210 L0,210 Z" fill="url(#trendFill)" id="ahtTrendArea"></path><polyline fill="none" id="ahtTrendLine" points="0,190 100,190 200,190 300,190 400,190 500,190 600,190 700,190" stroke="url(#trendStroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></polyline></svg><div class="ref-xlabels"><span>00:00</span><span>04:00</span><span>08:00</span><span>12:00</span><span>16:00</span><span>20:00</span><span>22:00</span></div></div></div>
+<div class="ref-chart-empty" id="trendEmpty">No live data yet</div>
+</article>
+<article class="ref-panel ref-volume">
+<div class="ref-panel-head"><h2><span class="head-icon purple">▥</span>Call Volume</h2><button class="ref-select">▣   Today  ⌄</button></div>
+<div class="volume-legend"><span><i class="received-dot"></i>Received</span><span><i class="resolved-dot"></i>Resolved</span></div>
+<div class="volume-chart" id="callVolumeChart"><div class="volume-empty">No call data available</div></div>
+</article>
+</section>
+<section class="ref-grid-mid">
+<article class="ref-panel ref-agents">
+<div class="ref-panel-head"><h2><span class="head-icon blue">♙</span>Live Agents <small>(AHT View)</small></h2><button class="ref-select">▣   Today  ⌄</button></div>
+<div class="ref-table-wrap"><table id="reportTable"><thead><tr><th>#</th><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th><th>Status</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table><div class="ref-table-empty" id="agentEmpty">No agents available<br/><small>Agent data will appear here in real-time.</small></div></div>
+</article>
+<article class="ref-panel ref-status">
+<div class="ref-panel-head"><h2><span class="head-icon green">☎</span>Call Status <small>(Live)</small></h2><button class="ref-select">▣   Today  ⌄</button></div>
+<div class="status-body"><div class="status-ring" id="statusRing"><div><b id="statusTotal">0</b><small>Total Calls</small></div></div><div class="status-legend" id="statusLegend"><div><i class="c-blue"></i>In Progress <b id="statusInProgress">0</b></div><div><i class="c-pink"></i>On Hold <b id="statusOnHold">0</b></div><div><i class="c-yellow"></i>Wrap Up <b id="statusWrap">0</b></div><div><i class="c-green"></i>Available <b id="statusAvailable">0</b></div><div><i class="c-purple"></i>ACW <b id="statusAcw">0</b></div></div></div>
+</article>
+</section>
+<section class="ref-footer-metrics">
+<div><span class="fm-icon blue">◎</span><span><small>AHT Target</small><b id="refAhtTarget">180s</b><em>Keep it below target</em></span></div>
+<div><span class="fm-icon purple">ϟ</span><span><small>FRT Target</small><b>60s</b><em>Quick first response</em></span></div>
+<div><span class="fm-icon blue">♙</span><span><small>Total Agents</small><b id="refTotalAgents">0</b><em>Active today</em></span></div>
+<div><span class="fm-icon green">☎</span><span><small>Total Calls</small><b id="refTotalCalls">0</b><em>Across all agents</em></span></div>
+<div class="fm-message"><span class="fm-icon blue">↗</span><span><small>Consistent Effort</small><b>Creates Better Experiences</b></span><i></i></div>
 </section>
 
+<div aria-hidden="true" class="ref-legacy-hooks"><span id="recordCount">0 agents</span><span id="targetView">180</span><span id="dashAvg">0 sec</span><span id="dashAbove">0</span><span id="dashEqual">0</span><span id="dashBelow">0</span><span id="sideAgentCount">0 agents</span><span id="sideTarget">180s</span><span id="v37HeaderAgentCount">0 agents</span></div>
+</section>
 <section class="page" id="page-dashboard">
-  <div class="page-title"><div><h2>Performance Dashboard</h2><p>Management view built from the live AHT data and agent hierarchy.</p></div><button type="button" class="btn" id="dashboardCopyImage" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;" style="margin:0 0 12px 0">📷 Copy Dashboard as Image</button><span class="pill">LIVE DATA • <span id="dashPageAgents">0</span> agents</span></div><button class="btn" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;">Copy Dashboard as Image</button>
-  <div id="dashboardFilters" style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:14px 0 18px;padding:14px;border:1px solid var(--border,#d9dee8);border-radius:12px;background:var(--panel,#fff)">
-<label style="min-width:170px;flex:1">TL<select id="dashboardTlFilter" class="input" style="width:100%"><option value="">All TLs</option></select></label>
-<label style="min-width:170px;flex:1">AM<select id="dashboardAmFilter" class="input" style="width:100%"><option value="">All AMs</option></select></label>
-<label style="min-width:170px;flex:1">Process<select id="dashboardProcessFilter" class="input" style="width:100%"><option value="">All Processes</option></select></label>
-<label style="min-width:170px;flex:1">Agent<select id="dashboardAgentFilter" class="input" style="width:100%"><option value="">All Agents</option></select></label>
-<button type="button" class="btn" id="dashboardResetFilters">Reset Filters</button>
+<div class="page-title"><div><h2>Performance Dashboard</h2><p>Management view built from the live AHT data and agent hierarchy.</p></div><button class="btn" id="dashboardCopyImage" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;" style="margin:0 0 12px 0" type="button">📷 Copy Dashboard as Image</button><span class="pill">LIVE DATA • <span id="dashPageAgents">0</span> agents</span></div><button class="btn" onclick="copyPanelAsImage('page-dashboard','Performance Dashboard');return false;">Copy Dashboard as Image</button>
+<div id="dashboardFilters" style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:14px 0 18px;padding:14px;border:1px solid var(--border,#d9dee8);border-radius:12px;background:var(--panel,#fff)">
+<label style="min-width:170px;flex:1">TL<select class="input" id="dashboardTlFilter" style="width:100%"><option value="">All TLs</option></select></label>
+<label style="min-width:170px;flex:1">AM<select class="input" id="dashboardAmFilter" style="width:100%"><option value="">All AMs</option></select></label>
+<label style="min-width:170px;flex:1">Process<select class="input" id="dashboardProcessFilter" style="width:100%"><option value="">All Processes</option></select></label>
+<label style="min-width:170px;flex:1">Agent<select class="input" id="dashboardAgentFilter" style="width:100%"><option value="">All Agents</option></select></label>
+<button class="btn" id="dashboardResetFilters" type="button">Reset Filters</button>
 <span class="pill" id="dashboardFilterStatus">All data</span>
 </div>
 <div class="analytics-grid">
-    <div class="kpi"><small>RECEIVED</small><b id="kpiReceived">0</b><div class="sub">Total calls received</div></div>
-    <div class="kpi"><small>RESOLVED</small><b id="kpiResolved">0</b><div class="sub">Total calls resolved</div></div>
-    <div class="kpi"><small>RESOLUTION RATE</small><b id="kpiResolution">0%</b><div class="sub">Resolved ÷ Received</div></div>
-    <div class="kpi"><small>AVG AHT</small><b id="kpiAht">0 s</b><div class="sub">Average agent AHT</div></div>
-    <div class="kpi"><small>AVG LOGIN HOURS</small><b id="kpiLogin">0</b><div class="sub">Average available login time</div></div><div class="kpi"><small>AVG FRT</small><b id="kpiFrt">0 s</b><div class="sub">Average first response time</div></div>
-    <div class="kpi"><small>AVG HANDLE TIME</small><b id="kpiHt">0 s</b><div class="sub">Average Avg. HT</div></div>
-    <div class="kpi"><small>ABOVE TARGET</small><b id="kpiAbove">0</b><div class="sub">Agents above target</div></div>
-    <div class="kpi"><small>BELOW TARGET</small><b id="kpiBelow">0</b><div class="sub">Agents below target</div></div>
-  </div>
-  <div class="analysis-grid">
-    <div class="analytics-card"><h3>Top 10 AHT — High to Low</h3><button class="btn" onclick="copyPanelAsImage('dashboardAhtBars','Top 10 AHT')">Copy Image</button><div id="dashboardAhtBars" class="chart-bars"></div></div>
-    <div class="analytics-card"><h3>Workload & Resolution</h3><button class="btn" onclick="copyPanelAsImage('dashboardVolumeBars','Workload and Resolution')">Copy Image</button><div id="dashboardVolumeBars" class="chart-bars"></div></div>
-  </div>
-  <div class="analysis-grid">
-    <div class="analytics-card"><h3>Highest AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardTopTable','Highest AHT Agents')">Copy Image</button><div id="dashboardTopTable"></div></div>
-    <div class="analytics-card"><h3>Best AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardBestTable','Best AHT Agents')">Copy Image</button><div id="dashboardBestTable"></div></div>
-  </div>
+<div class="kpi"><small>RECEIVED</small><b id="kpiReceived">0</b><div class="sub">Total calls received</div></div>
+<div class="kpi"><small>RESOLVED</small><b id="kpiResolved">0</b><div class="sub">Total calls resolved</div></div>
+<div class="kpi"><small>RESOLUTION RATE</small><b id="kpiResolution">0%</b><div class="sub">Resolved ÷ Received</div></div>
+<div class="kpi"><small>AVG AHT</small><b id="kpiAht">0 s</b><div class="sub">Average agent AHT</div></div>
+<div class="kpi"><small>AVG LOGIN HOURS</small><b id="kpiLogin">0</b><div class="sub">Average available login time</div></div><div class="kpi"><small>AVG FRT</small><b id="kpiFrt">0 s</b><div class="sub">Average first response time</div></div>
+<div class="kpi"><small>AVG HANDLE TIME</small><b id="kpiHt">0 s</b><div class="sub">Average Avg. HT</div></div>
+<div class="kpi"><small>ABOVE TARGET</small><b id="kpiAbove">0</b><div class="sub">Agents above target</div></div>
+<div class="kpi"><small>BELOW TARGET</small><b id="kpiBelow">0</b><div class="sub">Agents below target</div></div>
+</div>
+<div class="analysis-grid">
+<div class="analytics-card"><h3>Top 10 AHT — High to Low</h3><button class="btn" onclick="copyPanelAsImage('dashboardAhtBars','Top 10 AHT')">Copy Image</button><div class="chart-bars" id="dashboardAhtBars"></div></div>
+<div class="analytics-card"><h3>Workload &amp; Resolution</h3><button class="btn" onclick="copyPanelAsImage('dashboardVolumeBars','Workload and Resolution')">Copy Image</button><div class="chart-bars" id="dashboardVolumeBars"></div></div>
+</div>
+<div class="analysis-grid">
+<div class="analytics-card"><h3>Highest AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardTopTable','Highest AHT Agents')">Copy Image</button><div id="dashboardTopTable"></div></div>
+<div class="analytics-card"><h3>Best AHT Agents</h3><button class="btn" onclick="copyPanelAsImage('dashboardBestTable','Best AHT Agents')">Copy Image</button><div id="dashboardBestTable"></div></div>
+</div>
 </section>
-
 <section class="page" id="page-agents">
-  <div class="page-title"><div><h2>Agent-wise AHT Analysis</h2><p>Filter one agent or combine TL, AM and Process hierarchy with live performance.</p></div><button type="button" class="btn" id="agentCopyImage" onclick="copyPanelAsImage('page-agents','Agent Analysis');return false;" style="margin:0 0 12px 0">📷 Copy Agent Analysis as Image</button><span class="pill">Sorted by AHT ↓</span></div>
-  <div class="filterbar">
-    <label>Agent<select id="agentFilter"><option value="">All Agents</option></select></label>
-    <label>TL<select id="agentTlFilter"><option value="">All TLs</option></select></label>
-    <label>AM<select id="agentAmFilter"><option value="">All AMs</option></select></label>
-    <label>Process<select id="agentProcessFilter"><option value="">All Processes</option></select></label>
-    <label>Bucket<select id="agentBucketFilter"><option value="">All Buckets</option></select></label>
-    <label>OJT / NonOJT<select id="agentOjtFilter"><option value="">All</option></select></label>
-    <label>Shift Status<select id="agentShiftFilter"><option value="">All Shifts</option></select></label>
-    <label>Sub Process<select id="agentSubProcessFilter"><option value="">All Sub Processes</option></select></label>
-  </div>
-  <div class="filter-actions" style="margin:-5px 0 12px"><button class="btn" onclick="resetAnalyticsFilters()">Reset Filters</button><span class="pill" id="agentFilterCount">0 agents</span></div>
-  <div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('agentAnalysisTable','Agent Wise AHT Analysis')">Copy Agent Analysis as Image</button></div><div class="analytics-card"><div id="agentAnalysisTable"></div></div>
+<div class="page-title"><div><h2>Agent-wise AHT Analysis</h2><p>Filter one agent or combine TL, AM and Process hierarchy with live performance.</p></div><button class="btn" id="agentCopyImage" onclick="copyPanelAsImage('page-agents','Agent Analysis');return false;" style="margin:0 0 12px 0" type="button">📷 Copy Agent Analysis as Image</button><span class="pill">Sorted by AHT ↓</span></div>
+<div class="filterbar">
+<label>Agent<select id="agentFilter"><option value="">All Agents</option></select></label>
+<label>TL<select id="agentTlFilter"><option value="">All TLs</option></select></label>
+<label>AM<select id="agentAmFilter"><option value="">All AMs</option></select></label>
+<label>Process<select id="agentProcessFilter"><option value="">All Processes</option></select></label>
+<label>Bucket<select id="agentBucketFilter"><option value="">All Buckets</option></select></label>
+<label>OJT / NonOJT<select id="agentOjtFilter"><option value="">All</option></select></label>
+<label>Shift Status<select id="agentShiftFilter"><option value="">All Shifts</option></select></label>
+<label>Sub Process<select id="agentSubProcessFilter"><option value="">All Sub Processes</option></select></label>
+</div>
+<div class="filter-actions" style="margin:-5px 0 12px"><button class="btn" onclick="resetAnalyticsFilters()">Reset Filters</button><span class="pill" id="agentFilterCount">0 agents</span></div>
+<div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('agentAnalysisTable','Agent Wise AHT Analysis')">Copy Agent Analysis as Image</button></div><div class="analytics-card"><div id="agentAnalysisTable"></div></div>
 </section>
-
 <section class="page" id="page-teams">
-  <div class="page-title"><div><h2>Hierarchy Analysis</h2><p>Compare performance at TL, AM and Process level using the agent directory mapping.</p></div><span class="pill">Derived from agent details + live AHT</span></div>
-  <div class="filterbar">
-    <label>View By<select id="groupByFilter"><option value="TL">TL</option><option value="AM">AM</option><option value="Process">Process</option><option value="Bucket">Bucket</option><option value="OJT/NonOJT">OJT/NonOJT</option><option value="Shift Status">Shift Status</option><option value="Sub Process">Sub Process</option></select></label>
-    <label>TL<select id="teamTlFilter"><option value="">All TLs</option></select></label>
-    <label>AM<select id="teamAmFilter"><option value="">All AMs</option></select></label>
-    <label>Process<select id="teamProcessFilter"><option value="">All Processes</option></select></label>
-    <label>Bucket<select id="teamBucketFilter"><option value="">All Buckets</option></select></label>
-    <label>OJT / NonOJT<select id="teamOjtFilter"><option value="">All</option></select></label>
-    <label>Shift Status<select id="teamShiftFilter"><option value="">All Shifts</option></select></label>
-    <label>Sub Process<select id="teamSubProcessFilter"><option value="">All Sub Processes</option></select></label>
-  </div>
-  <div class="analytics-grid">
-    <div class="kpi"><small>GROUPS</small><b id="teamGroups">0</b><div class="sub">Visible groups</div></div>
-    <div class="kpi"><small>RECEIVED</small><b id="teamReceived">0</b><div class="sub">Filtered workload</div></div>
-    <div class="kpi"><small>RESOLVED</small><b id="teamResolved">0</b><div class="sub">Filtered resolutions</div></div>
-    <div class="kpi"><small>AVG AHT</small><b id="teamAht">0 s</b><div class="sub">Filtered average</div></div>
-  </div>
-  <div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('teamAnalysisTable','Hierarchy Analysis')">Copy Hierarchy Analysis as Image</button></div><div class="analytics-card"><div id="teamAnalysisTable"></div></div>
+<div class="page-title"><div><h2>Hierarchy Analysis</h2><p>Compare performance at TL, AM and Process level using the agent directory mapping.</p></div><span class="pill">Derived from agent details + live AHT</span></div>
+<div class="filterbar">
+<label>View By<select id="groupByFilter"><option value="TL">TL</option><option value="AM">AM</option><option value="Process">Process</option><option value="Bucket">Bucket</option><option value="OJT/NonOJT">OJT/NonOJT</option><option value="Shift Status">Shift Status</option><option value="Sub Process">Sub Process</option></select></label>
+<label>TL<select id="teamTlFilter"><option value="">All TLs</option></select></label>
+<label>AM<select id="teamAmFilter"><option value="">All AMs</option></select></label>
+<label>Process<select id="teamProcessFilter"><option value="">All Processes</option></select></label>
+<label>Bucket<select id="teamBucketFilter"><option value="">All Buckets</option></select></label>
+<label>OJT / NonOJT<select id="teamOjtFilter"><option value="">All</option></select></label>
+<label>Shift Status<select id="teamShiftFilter"><option value="">All Shifts</option></select></label>
+<label>Sub Process<select id="teamSubProcessFilter"><option value="">All Sub Processes</option></select></label>
+</div>
+<div class="analytics-grid">
+<div class="kpi"><small>GROUPS</small><b id="teamGroups">0</b><div class="sub">Visible groups</div></div>
+<div class="kpi"><small>RECEIVED</small><b id="teamReceived">0</b><div class="sub">Filtered workload</div></div>
+<div class="kpi"><small>RESOLVED</small><b id="teamResolved">0</b><div class="sub">Filtered resolutions</div></div>
+<div class="kpi"><small>AVG AHT</small><b id="teamAht">0 s</b><div class="sub">Filtered average</div></div>
+</div>
+<div class="controls" style="margin-bottom:10px"><button class="btn" onclick="copyPanelAsImage('teamAnalysisTable','Hierarchy Analysis')">Copy Hierarchy Analysis as Image</button></div><div class="analytics-card"><div id="teamAnalysisTable"></div></div>
 </section>
-
-
 <section class="page" id="page-admin">
-  <div id="adminLocked">
-    <div class="admin-lock">
-      <h2>Admin Portal</h2><p>Restricted monitoring and smart identity-mapping controls.</p>
-      <div class="admin-form">
-        <input id="adminUser" placeholder="Username" autocomplete="username">
-        <input id="adminPass" type="password" placeholder="Password" autocomplete="current-password">
-        <div class="admin-alert" id="adminAlert"></div>
-        <button class="btn primary" onclick="adminLogin()">Login</button>
-      </div>
-    </div>
-  </div>
-  <div id="adminPanel" style="display:none">
-    <div class="page-title"><div><h2>Admin Monitoring Portal</h2><p>Live health, zero-value exclusions, duplicate resolution and smart identity mapping.</p></div><button class="btn primary" onclick="showPage('directory')">Manage Agent Details</button><button class="btn" onclick="adminLogout()">Lock Portal</button></div>
-    <div class="monitor-grid">
-      <div class="monitor-card"><small>VALID AGENTS SHOWN</small><b id="adminValid">0</b></div>
-      <div class="monitor-card"><small>EXCLUDED ZERO-VALUE</small><b id="adminExcluded">0</b></div>
-      <div class="monitor-card"><small>DUPLICATE RECORDS REMOVED</small><b id="adminDuplicates">0</b></div>
-      <div class="monitor-card"><small>LAST REFRESH</small><b id="adminRefresh">—</b></div>
-    </div>
-    <div class="analytics-card" style="margin-top:14px">
-      <h3>User Access Management</h3>
-      <div class="help-note">Approve or reject dashboard access requests. Approved users can sign in and read the shared Agent Details master.</div>
-      <div class="access-summary">
-        <div class="access-stat"><small>PENDING</small><b id="accessPendingCount">0</b></div>
-        <div class="access-stat"><small>APPROVED</small><b id="accessApprovedCount">0</b></div>
-        <div class="access-stat"><small>REJECTED</small><b id="accessRejectedCount">0</b></div>
-        <div class="access-stat"><small>DISABLED</small><b id="accessDisabledCount">0</b></div>
-      </div>
-      <div id="accessRequestsTable"><div class="access-empty">Loading access requests…</div></div>
-    </div>
-    <div class="analytics-card" style="margin-top:14px">
-      <h3>Smart Identity Mapping Rules</h3>
-      <div class="help-note">If Login Id / Startek ID contains a recognizable token, rules below can automatically assign TL, AM or Process. Anything not confidently mapped remains <b>Unmapped</b> instead of being guessed.</div>
-      <div id="mappingRules"></div>
-      <div class="controls"><button class="btn" onclick="addMappingRule()">Add Rule</button><button class="btn primary" onclick="saveMappingRules()">Save Rules</button></div>
-    </div>
-    <div class="analytics-card" style="margin-top:14px">
-      <h3>Unmapped / Needs Review</h3>
-      <div id="unmappedAdmin"></div>
-    </div>
-    <div class="analytics-card" id="adminAgentDetailsCard" style="margin-top:14px">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-        <div><h3 style="margin:0">Agent Details — Admin Master</h3><div class="help-note" style="margin-top:6px">Admin-only. Import the weekly master here and publish it to the shared Supabase table.</div></div>
-        <span class="pill"><span id="adminDirectoryCount">0</span> mapped agents</span>
-      </div>
-      <div class="admin-lock-banner directory-admin-banner" style="margin-top:12px"><div><b>🔐 Central Agent Details</b><br><span>Weekly CSV/TSV updates replace the current master and sync to approved sessions.</span></div></div>
-      <div class="analytics-card directory-editor-controls" style="margin:12px 0 0;padding:12px">
-        <h3>Weekly Import / Publish</h3>
-        <div class="help-note"><b>Columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process</div>
-        <textarea id="directoryInput" class="directory-input" style="min-height:180px" placeholder="Sap code	Login Id	Agent ID	TL	AM	Bucket	OJT/NonOJT	Shift Status	Sub Process"></textarea>
-        <div class="directory-toolbar" style="margin-top:10px">
-          <button class="btn primary" onclick="saveDirectory()">Save / Update Agent Details</button>
-          <button class="btn" onclick="refreshDirectory()">↻ Refresh Shared Data</button>
-          <button class="btn" onclick="clearDirectory()">Clear Master</button>
-          <button class="btn" onclick="downloadDirectoryTemplate()">Download Template</button>
-          <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Import CSV/TSV<input id="directoryFile" type="file" accept=".csv,.tsv,.txt" style="display:none" onchange="importDirectoryFile(this)"></label>
-          <span class="directory-status" id="directoryStatus">Shared master</span>
-        </div>
-      </div>
-      <div class="analytics-card" style="margin-top:12px"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><h3>Published Agent Details <span style="font-size:12px;font-weight:500;opacity:.7">(admin view)</span></h3><button class="btn" onclick="refreshDirectory()">↻ Refresh</button></div><div id="directoryTable"></div></div>
-    </div>
-  </div>
+<div id="adminLocked">
+<div class="admin-lock">
+<h2>Admin Portal</h2><p>Restricted monitoring and smart identity-mapping controls.</p>
+<div class="admin-form">
+<input autocomplete="username" id="adminUser" placeholder="Username"/>
+<input autocomplete="current-password" id="adminPass" placeholder="Password" type="password"/>
+<div class="admin-alert" id="adminAlert"></div>
+<button class="btn primary" onclick="adminLogin()">Login</button>
+</div>
+</div>
+</div>
+<div id="adminPanel" style="display:none">
+<div class="page-title"><div><h2>Admin Monitoring Portal</h2><p>Live health, zero-value exclusions, duplicate resolution and smart identity mapping.</p></div><button class="btn primary" onclick="showPage('directory')">Manage Agent Details</button><button class="btn" onclick="adminLogout()">Lock Portal</button></div>
+<div class="monitor-grid">
+<div class="monitor-card"><small>VALID AGENTS SHOWN</small><b id="adminValid">0</b></div>
+<div class="monitor-card"><small>EXCLUDED ZERO-VALUE</small><b id="adminExcluded">0</b></div>
+<div class="monitor-card"><small>DUPLICATE RECORDS REMOVED</small><b id="adminDuplicates">0</b></div>
+<div class="monitor-card"><small>LAST REFRESH</small><b id="adminRefresh">—</b></div>
+</div>
+<div class="analytics-card" style="margin-top:14px">
+<h3>User Access Management</h3>
+<div class="help-note">Approve or reject dashboard access requests. Approved users can sign in and read the shared Agent Details master.</div>
+<div class="access-summary">
+<div class="access-stat"><small>PENDING</small><b id="accessPendingCount">0</b></div>
+<div class="access-stat"><small>APPROVED</small><b id="accessApprovedCount">0</b></div>
+<div class="access-stat"><small>REJECTED</small><b id="accessRejectedCount">0</b></div>
+<div class="access-stat"><small>DISABLED</small><b id="accessDisabledCount">0</b></div>
+</div>
+<div id="accessRequestsTable"><div class="access-empty">Loading access requests…</div></div>
+</div>
+<div class="analytics-card" style="margin-top:14px">
+<h3>Smart Identity Mapping Rules</h3>
+<div class="help-note">If Login Id / Startek ID contains a recognizable token, rules below can automatically assign TL, AM or Process. Anything not confidently mapped remains <b>Unmapped</b> instead of being guessed.</div>
+<div id="mappingRules"></div>
+<div class="controls"><button class="btn" onclick="addMappingRule()">Add Rule</button><button class="btn primary" onclick="saveMappingRules()">Save Rules</button></div>
+</div>
+<div class="analytics-card" style="margin-top:14px">
+<h3>Unmapped / Needs Review</h3>
+<div id="unmappedAdmin"></div>
+</div>
+<div class="analytics-card" id="adminAgentDetailsCard" style="margin-top:14px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+<div><h3 style="margin:0">Agent Details — Admin Master</h3><div class="help-note" style="margin-top:6px">Admin-only. Import the weekly master here and publish it to the shared Supabase table.</div></div>
+<span class="pill"><span id="adminDirectoryCount">0</span> mapped agents</span>
+</div>
+<div class="admin-lock-banner directory-admin-banner" style="margin-top:12px"><div><b>🔐 Central Agent Details</b><br/><span>Weekly CSV/TSV updates replace the current master and sync to approved sessions.</span></div></div>
+<div class="analytics-card directory-editor-controls" style="margin:12px 0 0;padding:12px">
+<h3>Weekly Import / Publish</h3>
+<div class="help-note"><b>Columns:</b> Sap code | Login Id | Agent ID | TL | AM | Bucket | OJT/NonOJT | Shift Status | Sub Process</div>
+<textarea class="directory-input" id="directoryInput" placeholder="Sap code	Login Id	Agent ID	TL	AM	Bucket	OJT/NonOJT	Shift Status	Sub Process" style="min-height:180px"></textarea>
+<div class="directory-toolbar" style="margin-top:10px">
+<button class="btn primary" onclick="saveDirectory()">Save / Update Agent Details</button>
+<button class="btn" onclick="refreshDirectory()">↻ Refresh Shared Data</button>
+<button class="btn" onclick="clearDirectory()">Clear Master</button>
+<button class="btn" onclick="downloadDirectoryTemplate()">Download Template</button>
+<label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Import CSV/TSV<input accept=".csv,.tsv,.txt" id="directoryFile" onchange="importDirectoryFile(this)" style="display:none" type="file"/></label>
+<span class="directory-status" id="directoryStatus">Shared master</span>
+</div>
+</div>
+<div class="analytics-card" style="margin-top:12px"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><h3>Published Agent Details <span style="font-size:12px;font-weight:500;opacity:.7">(admin view)</span></h3><button class="btn" onclick="refreshDirectory()">↻ Refresh</button></div><div id="directoryTable"></div></div>
+</div>
+</div>
 </section>
 <section class="page" id="page-directory" style="display:none!important"></section>
 
-<div class="v35-utility-ribbon" id="v35UtilityRibbon" aria-label="Utility navigation"><span class="v35-ribbon-handle" aria-hidden="true"></span><button type="button" onclick="showPage('theme')">🎨 Theme & Appearance</button><button type="button" onclick="showPage('about')">ℹ About</button><button type="button" onclick="showPage('information')">▣ Information</button><button type="button" onclick="showPage('inspiration')">✦ Inspiration & Moto</button><button type="button" onclick="showPage('contact')">✉ Contact</button><button type="button" onclick="showPage('feedback')">💬 Feedback</button><button type="button" onclick="showPage('tips')">💡 Tips & Tricks</button><button type="button" onclick="showPage('resources')">▤ Resources</button></div><section class="page v35-info-page" id="page-theme"><div class="page-title"><div><h2>Theme & Appearance</h2><p>Customize the visual system independently from the workspace navigation.</p></div></div><div class="analytics-card"><h3>Base</h3><div class="controls"><button class="btn" onclick="setVisualMode('dark')">Dark Mode</button><button class="btn" onclick="setVisualMode('light')">Light Mode</button></div><h3 style="margin-top:18px">Surface</h3><div class="controls"><button class="btn" onclick="setSurface('glass')">Glassy</button><button class="btn" onclick="setSurface('matte')">Matte</button><button class="btn" onclick="setSurface('metal')">Metallic</button></div><h3 style="margin-top:18px">Accent</h3><div class="controls"><button class="btn" onclick="setTheme('blackblue')">Blue</button><button class="btn" onclick="setTheme('blackred')">Red</button><button class="btn" onclick="setTheme('blackgreen')">Green</button><button class="btn" onclick="setTheme('blackyellow')">Yellow</button><button class="btn" onclick="setTheme('blackcyan')">Cyan</button><button class="btn" onclick="setTheme('blackpurple')">Purple</button><button class="btn" onclick="setTheme('blackorange')">Orange</button></div></div></section>
-<section class="page v35-info-page" id="page-about"><div class="page-title"><div><h2>About Real Time Session AHT Tracker</h2><p>Built to make live session performance easier to monitor, understand and improve.</p></div></div><div class="analytics-grid"><div class="analytics-card v35-creator-card"><div class="v35-creator-head"><div class="v35-creator-avatar"><img src="neon_butterfly.png" alt="Neon butterfly logo"></div><div><span class="v35-admin-badge">ADMIN PROFILE</span><h3 style="margin:7px 0 2px">Abhijith Prasad</h3><p style="margin:0;color:var(--muted)">Creator • Designer • Administrator</p></div></div><div class="v35-creator-divider"></div><p class="help-note">Product direction, dashboard UX, operational analytics and the Session AHT monitoring experience.</p><div class="v35-creator-tags"><span>UI / UX</span><span>Operations Analytics</span><span>Session AHT</span><span>Product Design</span></div></div><div class="analytics-card"><h3>Our approach</h3><p>Monitor • Analyse • Improve</p><p class="help-note">Clear live data, practical decisions, reliable identity mapping and presentation-ready reporting.</p></div></div></section>
+<section class="page v35-info-page" id="page-about"><div class="page-title"><div><h2>About Real Time Session AHT Tracker</h2><p>Built to make live session performance easier to monitor, understand and improve.</p></div></div><div class="analytics-grid"><div class="analytics-card v35-creator-card"><div class="v35-creator-head"><div class="v35-creator-avatar"><img alt="Neon butterfly logo" src="neon_butterfly.png"/></div><div><span class="v35-admin-badge">ADMIN PROFILE</span><h3 style="margin:7px 0 2px">Abhijith Prasad</h3><p style="margin:0;color:var(--muted)">Creator • Designer • Administrator</p></div></div><div class="v35-creator-divider"></div><p class="help-note">Product direction, dashboard UX, operational analytics and the Session AHT monitoring experience.</p><div class="v35-creator-tags"><span>UI / UX</span><span>Operations Analytics</span><span>Session AHT</span><span>Product Design</span></div></div><div class="analytics-card"><h3>Our approach</h3><p>Monitor • Analyse • Improve</p><p class="help-note">Clear live data, practical decisions, reliable identity mapping and presentation-ready reporting.</p></div></div></section>
 <section class="page v35-info-page" id="page-information"><div class="page-title"><div><h2>Information</h2><p>Core capabilities of the tracker.</p></div></div><div class="analytics-card"><h3>Core capabilities</h3><ul><li>Live Session AHT monitoring and high-to-low sorting.</li><li>Duplicate-agent handling with email/Login ID identity preference.</li><li>AHT target comparison with above/equal/below indicators.</li><li>Agent, TL, AM and Process analysis.</li><li>Central Agent Details and administrator controls.</li><li>Copy-ready tables and dashboard panels.</li></ul></div></section>
-<section class="page v35-info-page" id="page-inspiration"><div class="page-title"><div><h2>Inspiration & Moto</h2><p>Small insights create bigger performance.</p></div></div><div class="analytics-card" style="text-align:center;padding:42px"><div style="font-size:30px;font-weight:900;color:var(--accent)">Monitor • Analyse • Improve</div><p style="font-size:18px;margin-top:14px">“Consistency drives excellence.”</p><p class="help-note">Make operational data easier to see, understand and act on.</p><div style="margin-top:24px;font-size:22px;font-weight:900">Abhijith Prasad</div><small>Creator & Designer</small></div></section>
-<section class="page v35-info-page" id="page-contact"><div class="page-title"><div><h2>Contact Us</h2><p>Dashboard feedback, access questions or operational suggestions.</p></div></div><div class="analytics-card"><h3>Administrator</h3><p><b>Abhijith Prasad</b> — Creator, Designer & Administrator</p><p class="help-note">Use Feedback for product suggestions or your normal team channel for access and operational requests.</p></div></section>
-<section class="page v35-info-page" id="page-feedback"><div class="page-title"><div><h2>Feedback</h2><p>Help improve the Session AHT experience.</p></div></div><div class="analytics-card"><form id="v35FeedbackForm"><div class="controls" style="grid-template-columns:1fr 1fr"><input id="v35FbName" placeholder="Your name"><select id="v35FbType"><option>UI / UX</option><option>Data / AHT</option><option>Feature request</option><option>Bug / Issue</option><option>Other</option></select></div><textarea id="v35FbText" style="margin-top:10px;min-height:150px;background:var(--panel2);color:var(--text)" placeholder="Tell us what should be improved..."></textarea><button class="btn primary" type="submit" style="margin-top:10px">Submit Feedback</button><div id="v35FbMsg" class="help-note" style="display:none;margin-top:10px"></div></form></div></section>
-<section class="page v35-info-page" id="page-tips"><div class="page-title"><div><h2>Tips & Tricks</h2><p>Practical ways to use the tracker.</p></div></div><div class="analytics-card"><ol><li>Paste the latest report into Live Input.</li><li>Set the AHT target before reviewing performance.</li><li>Use Agent Analysis for individuals and TL / AM / Process for groups.</li><li>Use Copy Image when sharing results.</li><li>Admins should publish the weekly Agent Details master before analysis.</li></ol></div></section>
-<section class="page v35-info-page" id="page-resources"><div class="page-title"><div><h2>Resources</h2><p>Quick reference for operating the dashboard.</p></div></div><div class="analytics-card"><h3>Quick access</h3><div class="controls"><button class="btn" onclick="showPage('live')">Live Monitor</button><button class="btn" onclick="showPage('dashboard')">Dashboard</button><button class="btn" onclick="showPage('agents')">Agent Analysis</button><button class="btn" onclick="showPage('teams')">TL / AM / Process</button><button class="btn" onclick="showPage('theme')">Theme & Appearance</button></div></div></section></main></div><script>
+<section class="page v35-info-page" id="page-inspiration"><div class="page-title"><div><h2>Inspiration &amp; Moto</h2><p>Small insights create bigger performance.</p></div></div><div class="analytics-card" style="text-align:center;padding:42px"><div style="font-size:30px;font-weight:900;color:var(--accent)">Monitor • Analyse • Improve</div><p style="font-size:18px;margin-top:14px">“Consistency drives excellence.”</p><p class="help-note">Make operational data easier to see, understand and act on.</p><div style="margin-top:24px;font-size:22px;font-weight:900">Abhijith Prasad</div><small>Creator &amp; Designer</small></div></section>
+<section class="page v35-info-page" id="page-contact"><div class="page-title"><div><h2>Contact Us</h2><p>Dashboard feedback, access questions or operational suggestions.</p></div></div><div class="analytics-card"><h3>Administrator</h3><p><b>Abhijith Prasad</b> — Creator, Designer &amp; Administrator</p><p class="help-note">Use Feedback for product suggestions or your normal team channel for access and operational requests.</p></div></section>
+<section class="page v35-info-page" id="page-feedback"><div class="page-title"><div><h2>Feedback</h2><p>Help improve the Session AHT experience.</p></div></div><div class="analytics-card"><form id="v35FeedbackForm"><div class="controls" style="grid-template-columns:1fr 1fr"><input id="v35FbName" placeholder="Your name"/><select id="v35FbType"><option>UI / UX</option><option>Data / AHT</option><option>Feature request</option><option>Bug / Issue</option><option>Other</option></select></div><textarea id="v35FbText" placeholder="Tell us what should be improved..." style="margin-top:10px;min-height:150px;background:var(--panel2);color:var(--text)"></textarea><button class="btn primary" style="margin-top:10px" type="submit">Submit Feedback</button><div class="help-note" id="v35FbMsg" style="display:none;margin-top:10px"></div></form></div></section>
+<section class="page v35-info-page" id="page-tips"><div class="page-title"><div><h2>Tips &amp; Tricks</h2><p>Practical ways to use the tracker.</p></div></div><div class="analytics-card"><ol><li>Paste the latest report into Live Input.</li><li>Set the AHT target before reviewing performance.</li><li>Use Agent Analysis for individuals and TL / AM / Process for groups.</li><li>Use Copy Image when sharing results.</li><li>Admins should publish the weekly Agent Details master before analysis.</li></ol></div></section>
+<section class="page v35-info-page" id="page-resources"><div class="page-title"><div><h2>Resources</h2><p>Quick reference for operating the dashboard.</p></div></div><div class="analytics-card"><h3>Quick access</h3><div class="controls"><button class="btn" onclick="showPage('live')">Live Monitor</button><button class="btn" onclick="showPage('dashboard')">Dashboard</button><button class="btn" onclick="showPage('agents')">Agent Analysis</button><button class="btn" onclick="showPage('teams')">TL / AM / Process</button><button class="btn" onclick="showPage('theme')">Theme &amp; Appearance</button></div></div></section></main></div><script>
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function clean(v){return String(v??"").trim()}
 function parseNumber(v){const n=parseFloat(String(v??"").replace(/,/g,"").replace(/[^\d.-]/g,""));return Number.isFinite(n)?n:0}
@@ -2840,7 +2796,6 @@ document.addEventListener("DOMContentLoaded",function(){const p=document.getElem
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
 })();
 </script><script id="v35-navigation-fix">(function(){const oldShowPage=window.showPage;window.showPage=function(page){const utility=['theme','about','information','inspiration','contact','feedback','tips','resources'];if(utility.includes(page)){if(document.body.classList.contains('saht-locked')){page='live';}else{document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));document.querySelectorAll('.app-nav button').forEach(b=>b.classList.remove('active'));const ribbon=document.getElementById('v35UtilityRibbon');if(ribbon)ribbon.classList.add('v35-open');window.scrollTo({top:0,behavior:'smooth'});return;}}if(typeof oldShowPage==='function')oldShowPage(page)};const form=document.getElementById('v35FeedbackForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const msg=document.getElementById('v35FbMsg');if(msg){msg.style.display='block';msg.textContent='Thank you. Your feedback has been recorded on this device.'}try{localStorage.setItem('saht-last-feedback',JSON.stringify({name:document.getElementById('v35FbName')?.value||'',type:document.getElementById('v35FbType')?.value||'',message:document.getElementById('v35FbText')?.value||'',at:new Date().toISOString()}))}catch(_){}form.reset()});const ribbon=document.getElementById('v35UtilityRibbon');if(ribbon){ribbon.addEventListener('mouseenter',()=>ribbon.classList.add('v35-open'));ribbon.addEventListener('mouseleave',()=>ribbon.classList.remove('v35-open'))}})();</script>
-
 <style id="v37-reference-ui">
 :root{--sidebar-w:274px;--v37-accent:#4b7cff;--v37-purple:#7c4dff;--v37-green:#14c98a}
 body{background:#f4f7fb;color:#17243a}
@@ -2930,7 +2885,6 @@ body.saht-locked .sidebar,body.saht-locked #sahtBrandPop,body.saht-locked #globa
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
-
 <style id="v47-welcome-integrated">
 /* V47 — welcome is part of the sidebar, not a floating card. */
 .sidebar{position:fixed!important;isolation:isolate!important}
@@ -2980,8 +2934,6 @@ body.saht-locked .sidebar,body.saht-locked #sahtBrandPop,body.saht-locked #globa
 @media(max-width:760px){.sidebar-welcome-slide{height:330px!important;min-height:330px!important;max-height:330px!important;bottom:46px!important;left:7px!important;right:7px!important}}
 @media(prefers-reduced-motion:reduce){.sws-userline,.sws-title,.sws-underline,.sws-thanks,.sws-actions,.sws-motto,.sws-bottom,.sidebar-welcome-slide:before,.sws-bfly{animation:none!important}.sws-userline,.sws-title,.sws-underline,.sws-thanks,.sws-actions,.sws-motto,.sws-bottom{opacity:1!important}}
 </style>
-
-
 <style id="v48-light-sidebar-premium">
 /* V48 — sidebar-only premium light redesign. Dashboard/content/functionality is untouched. */
 html,body{color-scheme:light!important}
@@ -3090,13 +3042,48 @@ body.sidebar-collapsed .sidebar-scroll{padding:14px 10px 8px!important}.sidebar-
   setTimeout(forceLight,300); setTimeout(forceLight,1200); setTimeout(forceLight,2500);
 })();
 </script>
-
-
 <style id="v50-pointer-animation">
 .ref-cursor-glow{position:fixed;left:0;top:0;width:18px;height:18px;border-radius:50%;pointer-events:none;z-index:2147483000;opacity:0;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(73,117,255,.28),rgba(139,92,246,.12) 45%,transparent 72%);filter:blur(.2px);transition:opacity .2s ease,width .18s ease,height .18s ease;mix-blend-mode:multiply}.ref-cursor-dot{position:fixed;left:0;top:0;width:5px;height:5px;border-radius:50%;pointer-events:none;z-index:2147483001;opacity:0;transform:translate(-50%,-50%);background:#4f63e8;box-shadow:0 0 12px rgba(79,99,232,.45);transition:opacity .2s ease,transform .08s linear}.ref-cursor-glow.on,.ref-cursor-dot.on{opacity:1}.ref-cursor-glow.click{width:34px;height:34px}.ref-cursor-dot.click{transform:translate(-50%,-50%) scale(.55)}@media(pointer:coarse){.ref-cursor-glow,.ref-cursor-dot{display:none}}
 </style>
 <script id="v50-pointer-animation-js">
 (function(){function init(){if(matchMedia('(pointer:coarse)').matches)return;var g=document.createElement('div'),d=document.createElement('div');g.className='ref-cursor-glow';d.className='ref-cursor-dot';document.body.append(g,d);var tx=0,ty=0,x=0,y=0;document.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;g.classList.add('on');d.classList.add('on')});function tick(){x+=(tx-x)*.22;y+=(ty-y)*.22;g.style.transform='translate3d('+x+'px,'+y+'px,0) translate(-50%,-50%)';d.style.left=tx+'px';d.style.top=ty+'px';requestAnimationFrame(tick)}tick();document.addEventListener('mousedown',function(){g.classList.add('click');d.classList.add('click')});document.addEventListener('mouseup',function(){g.classList.remove('click');d.classList.remove('click')});document.addEventListener('mouseleave',function(){g.classList.remove('on');d.classList.remove('on')});document.addEventListener('mouseenter',function(){g.classList.add('on');d.classList.add('on')})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init()})();
+</script>
+
+<style id="v51-final-ui-fix">
+/* FINAL LIGHT-ONLY FRAMEWORK */
+html,body{background:#f7fbff!important;color:#132149!important}
+body,body[data-theme]{--bg:#f7fbff!important;--panel:#ffffff!important;--panel2:#f4f8fd!important;--line:#dce6f4!important;--text:#132149!important;--muted:#6b7d9d!important;--accent:#4d78ee!important;--accent2:#8b5cf6!important;--good:#19c98b!important;--warn:#f5b941!important;--bad:#ef476f!important;--glow:rgba(77,120,238,.16)!important}
+/* Dark themes and obsolete appearance UI are unavailable */
+#page-theme,#v35UtilityRibbon,.side-themes,.side-display-section,.appearance-panel,.appearance-card{display:none!important}
+/* SIDEBAR */
+#appSidebar{width:282px!important;flex:0 0 282px!important;background:linear-gradient(180deg,#fff 0%,#fbfdff 58%,#f7fbff 100%)!important;border-right:1px solid #dce6f4!important;box-shadow:8px 0 30px rgba(57,83,130,.055)!important}
+.sidebar-head{height:94px!important;padding:16px!important;box-sizing:border-box!important;border-bottom:1px solid #edf2f8!important;display:flex!important;align-items:center!important}.brand{gap:11px!important;margin:0!important}.brand .logo{width:48px!important;height:48px!important;flex:0 0 48px!important;border-radius:15px!important;background:#fff!important;border:1px solid #d9e5f4!important;box-shadow:0 8px 24px rgba(61,103,184,.12),inset 0 1px #fff!important}.brand .logo img{width:84%!important;height:84%!important}.brand-copy b{font-size:13px!important;color:#132149!important}.brand-copy small{font-size:9px!important;color:#71829f!important;margin-top:2px!important}.sidebar-toggle{margin-left:auto!important;width:34px!important;height:34px!important;border-radius:11px!important;background:#fff!important;border:1px solid #dce6f4!important;color:#5367d9!important;box-shadow:0 5px 15px rgba(55,86,140,.07)!important}
+.sidebar-scroll{padding:12px 14px 5px!important;overflow:hidden!important}.side-section{margin-top:10px!important}.side-section-title{height:25px!important;margin-bottom:4px!important;padding:0 6px!important;color:#7182a1!important;font-size:8px!important;letter-spacing:2.3px!important}.side-nav{display:grid!important;gap:7px!important}.side-nav button{height:49px!important;min-height:49px!important;grid-template-columns:38px 1fr auto!important;padding:0 10px!important;border:1px solid #e2eaf5!important;border-radius:14px!important;background:rgba(255,255,255,.78)!important;box-shadow:0 4px 12px rgba(58,86,130,.035)!important;color:#132149!important}.side-nav button .nav-icon{width:34px!important;height:34px!important;border-radius:11px!important;background:linear-gradient(145deg,#f7fbff,#eef4fd)!important;border:1px solid #dce6f4!important;color:#3475ea!important}.side-nav button .nav-text{font-size:12px!important;font-weight:850!important}.side-nav button em{font-size:7px!important;padding:5px 8px!important;border-radius:999px!important;background:#f3f6fb!important;color:#64789e!important}.side-nav button:hover{transform:translateX(2px)!important;background:#fff!important;border-color:#cddcf0!important}.side-nav button.active{background:linear-gradient(100deg,rgba(74,129,244,.11),rgba(126,87,233,.10),rgba(232,92,184,.07))!important;border-color:rgba(112,100,221,.24)!important;box-shadow:0 9px 22px rgba(84,83,167,.09)!important}.side-nav button.active:before{background:linear-gradient(180deg,#4d8af3,#7658e8,#e35caf)!important}.side-nav button.active .nav-icon{color:#6753d8!important;background:linear-gradient(145deg,#edf5ff,#f2edff)!important}
+/* integrated welcome, no card shell */
+.sidebar-welcome-slide{margin:8px -2px 3px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;flex:1 1 auto!important;min-height:0!important;overflow:hidden!important}.sidebar-welcome-slide:before{opacity:.48!important;filter:blur(18px)!important}.sws-userline{margin:6px 8px 3px!important;border:1px solid rgba(110,104,202,.13)!important;background:rgba(255,255,255,.62)!important;border-radius:999px!important}.sws-title span{font-size:clamp(38px,5vh,52px)!important}.sws-actions{background:rgba(255,255,255,.30)!important;border:1px solid rgba(140,156,190,.14)!important;border-radius:18px!important}
+.sidebar-foot{flex:0 0 46px!important;height:46px!important;padding:8px 14px!important;background:rgba(255,255,255,.9)!important;border-top:1px solid #e2eaf4!important}.sidebar-watermark{display:none!important}.foot-line{position:relative!important}
+/* accent control lives in the footer */
+.v51-accent-control{position:relative!important;width:27px!important;height:27px!important;margin-left:8px!important;border:1px solid #dbe5f2!important;border-radius:9px!important;background:#fff!important;color:#5d6fdb!important;display:grid!important;place-items:center!important;cursor:pointer!important;box-shadow:0 4px 12px rgba(50,70,110,.06)!important}.v51-accent-pop{position:absolute!important;right:0!important;bottom:42px!important;width:174px!important;padding:9px!important;border:1px solid #dfe6f1!important;border-radius:14px!important;background:#fff!important;box-shadow:0 15px 35px rgba(35,55,95,.14)!important;display:none!important;grid-template-columns:repeat(7,1fr)!important;gap:7px!important;z-index:100!important}.v51-accent-pop.show{display:grid!important}.v51-accent-pop button{width:18px!important;height:18px!important;border-radius:50%!important;border:2px solid #fff!important;box-shadow:0 0 0 1px #dbe3ee!important;cursor:pointer!important}
+/* MAIN: no search bar, profile works */
+.ref-topbar{grid-template-columns:1fr 210px 255px!important;gap:16px!important}.ref-search,.ref-icon-btn{display:none!important}.ref-user{cursor:pointer!important;transition:transform .2s,box-shadow .2s,border-color .2s!important}.ref-user:hover{transform:translateY(-1px)!important;border-color:#cbd9ee!important;box-shadow:0 9px 22px rgba(55,86,140,.09)!important}
+/* raw data input is visible directly under the hero */
+#page-live>.ref-input-drawer{display:block!important;margin:0 0 12px!important;padding:13px 14px!important;border:1px solid #dce6f4!important;border-radius:18px!important;background:rgba(255,255,255,.92)!important;box-shadow:0 8px 24px rgba(46,89,143,.045)!important}.ref-input-drawer>div:first-child{display:flex!important;align-items:center!important;justify-content:space-between!important;margin-bottom:8px!important}.ref-input-drawer>div:first-child b{font-size:10px!important;letter-spacing:1.5px!important;color:#294c89!important}.ref-input-drawer>div:first-child span{font-size:9px!important;color:#7182a1!important}.ref-input-drawer textarea{height:112px!important;min-height:112px!important;background:#f7faff!important;border:1px solid #dce6f4!important;border-radius:12px!important;color:#17264b!important;padding:11px 12px!important;outline:none!important}.ref-input-drawer textarea:focus{border-color:#7b8ff0!important;box-shadow:0 0 0 3px rgba(77,120,238,.09)!important}.ref-input-drawer .controls{grid-template-columns:140px 1fr 1fr 1fr!important;gap:8px!important}.ref-input-drawer .controls>*{min-height:38px!important}
+.main{margin-left:282px!important;width:calc(100% - 282px)!important;padding:0 22px 20px!important}.ref-panel{box-shadow:0 8px 26px rgba(46,89,143,.045)!important}
+@media(max-width:1100px){.ref-topbar{grid-template-columns:1fr 190px!important}.main{margin-left:238px!important;width:calc(100% - 238px)!important}.sidebar{width:238px!important;flex-basis:238px!important}}
+@media(max-width:760px){.main{margin-left:0!important;width:100%!important}.sidebar{display:none!important}}
+</style>
+<script id="v51-final-ui-js">
+(function(){
+  const $=id=>document.getElementById(id);
+  const colors={blue:['#4d78ee','#8b5cf6'],red:['#e64d78','#f080a7'],green:['#16a77b','#48d2a0'],yellow:['#d39a22','#efc85b'],cyan:['#159db5','#50d5e2'],purple:['#7651d8','#b07bed'],orange:['#d66c22','#f3a15c']};
+  const map={blackblue:'blue',blackred:'red',blackgreen:'green',blackyellow:'yellow',blackcyan:'cyan',blackpurple:'purple',blackorange:'orange',glass:'blue',redgrey:'red',yellowgrey:'yellow',greygreen:'green',ocean:'cyan',aurora:'green',ember:'red',violet:'purple'};
+  function applyAccent(name){name=colors[name]?name:'blue';const a=colors[name][0],b=colors[name][1],r=document.documentElement.style;r.setProperty('--accent',a);r.setProperty('--accent2',b);r.setProperty('--saht-accent',a);r.setProperty('--glow',a+'2b');document.body.dataset.mode='light';document.body.dataset.surface='glass';document.body.dataset.theme='blackblue';try{localStorage.setItem('saht-accent',name);localStorage.setItem('saht-theme','blackblue');localStorage.setItem('saht-mode','light');}catch(e){}}
+  window.setTheme=function(t){applyAccent(map[t]||colors[t]?t:'blue');};
+  function installAccent(){const foot=document.querySelector('#appSidebar .foot-line');if(!foot||$('v51AccentControl'))return;const b=document.createElement('button');b.id='v51AccentControl';b.className='v51-accent-control';b.type='button';b.title='Change accent colour';b.textContent='✦';const pop=document.createElement('div');pop.id='v51AccentPop';pop.className='v51-accent-pop';Object.entries(colors).forEach(([name,v])=>{const d=document.createElement('button');d.type='button';d.title=name;d.style.background=v[0];d.onclick=e=>{e.stopPropagation();applyAccent(name);pop.classList.remove('show')};pop.appendChild(d)});b.onclick=e=>{e.stopPropagation();pop.classList.toggle('show')};foot.appendChild(b);foot.appendChild(pop);document.addEventListener('click',()=>pop.classList.remove('show'),{passive:true});}
+  function wireProfile(){const u=document.querySelector('.ref-user');if(!u||u.dataset.v51)return;u.dataset.v51='1';u.onclick=()=>{if(typeof window.openProfileModal==='function')window.openProfileModal()};u.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();u.click()}};}
+  function clean(){document.body.dataset.mode='light';document.body.dataset.surface='glass';document.querySelectorAll('[data-mode="dark"],.appearance-choice[data-mode="dark"]').forEach(x=>x.remove());document.querySelectorAll('.theme-btn').forEach(x=>x.remove());document.querySelectorAll('#page-theme,#v35UtilityRibbon,.side-themes,.side-display-section').forEach(x=>x.remove());wireProfile();installAccent();let a='blue';try{a=localStorage.getItem('saht-accent')||'blue'}catch(e){}applyAccent(a);}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();setTimeout(clean,250);setTimeout(clean,900);
+})();
 </script>
 </body></html>
 <style id="v40-clean-final">
@@ -3147,7 +3134,6 @@ body.sidebar-collapsed .sidebar-scroll{padding:14px 10px 8px!important}.sidebar-
   setInterval(refreshWelcome,1000);
 })();
 </script>
-
 <style id="v44-sidebar-welcome-poster">
 /* V44 — reference-matched welcome poster: no characters, animated butterflies + icons */
 .sidebar-welcome-slide{position:relative!important;overflow:hidden!important;isolation:isolate!important;flex:0 0 auto!important;box-sizing:border-box!important;margin:8px 10px 8px!important;height:clamp(285px,34vh,355px)!important;min-height:285px!important;max-height:355px!important;border-radius:22px!important;border:1px solid rgba(160,132,255,.38)!important;background:radial-gradient(circle at 16% 18%,rgba(70,166,255,.18),transparent 27%),radial-gradient(circle at 86% 16%,rgba(255,80,188,.19),transparent 30%),radial-gradient(circle at 50% 82%,rgba(135,89,255,.12),transparent 42%),linear-gradient(145deg,#f7fbff 0%,#f2efff 44%,#fff2fa 100%)!important;box-shadow:0 12px 38px rgba(79,55,160,.16),inset 0 0 35px rgba(255,255,255,.65)!important;opacity:0;animation:v44In .75s cubic-bezier(.2,.75,.2,1) .1s forwards!important}
@@ -3333,7 +3319,6 @@ body{min-height:100vh!important}
 /* Do not let older generic reduced-motion rules accidentally disable this layer unless the user explicitly enabled reduced motion. */
 @media(prefers-reduced-motion:reduce){.sidebar-welcome-slide,.sidebar-welcome-slide .sws-icon,.sidebar-welcome-slide .sws-bfly{animation:none!important}.sidebar-welcome-slide{opacity:1!important}}
 </style>
-
 <style id="v49-framework-light-clean">
 /* V49 framework cleanup: LIGHT ONLY + integrated premium sidebar. */
 html,body{color-scheme:light!important}
