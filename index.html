@@ -1056,6 +1056,11 @@ body.saht-locked #sahtBrandPop{display:none!important}
 body.sidebar-collapsed .sidebar-welcome-slide{height:58px;margin:10px 7px;border-radius:14px}.sidebar-collapsed .sidebar-welcome-slide>*{display:none!important}.sidebar-collapsed .sidebar-welcome-slide:after{content:"✦";height:58px;display:grid;place-items:center;color:var(--accent);font-size:18px}
 @media(max-width:760px){.sws-art{height:155px}}@media(prefers-reduced-motion:reduce){.sidebar-welcome-slide,.sws-art img,.sws-title span,.sws-brandline b,.sidebar-welcome-slide:before{animation:none!important}}
 </style>
+
+
+
+
+
 </head><body class="saht-locked" data-theme="white"><div aria-hidden="true" class="butterfly-entrance" id="butterflyEntrance">
 <div class="be-stars"></div><div class="be-glow g1"></div><div class="be-glow g2"></div>
 <div class="be-caption"><span>SESSION AHT</span><b>Welcome to your workspace</b><small>Live performance intelligence • Workforce control</small></div>
@@ -2118,7 +2123,7 @@ function clearAll(){document.getElementById("rawInput").value="";processData()}
 function exportToExcel(){
  const table=document.getElementById("reportTable");
  if(!table || !table.querySelector("tr")){alert("There is no report data to export yet.");return;}
- const html='<html><head><meta charset="utf-8"></head><body>'+table.outerHTML+'<p>Abhijith</p></body></html>';
+ const html='<html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif}table{border-collapse:collapse;width:100%}th,td{border:1px solid #d8e0eb;padding:8px;text-align:center}th{background:#eef3ff;font-weight:800}td:first-child,th:first-child{text-align:left}</style></head><body>'+table.outerHTML+'<p>Abhijith</p></body></html>';
  const blob=new Blob([html],{type:"application/vnd.ms-excel"});
  const url=URL.createObjectURL(blob);
  const a=document.createElement("a");a.href=url;a.download="Real_Time_AHT_Report.xls";
@@ -3085,7 +3090,14 @@ body,body[data-theme]{--bg:#f7fbff!important;--panel:#ffffff!important;--panel2:
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();setTimeout(clean,250);setTimeout(clean,900);
 })();
 </script>
-</body></html>
+<script id="v52-sidebar-final-js">(function(){
+const A={blackblue:['#3b82f6','#8b5cf6'],blackred:['#ef476f','#fb7185'],blackgreen:['#10b981','#34d399'],blackyellow:['#f59e0b','#fbbf24'],blackcyan:['#06b6d4','#22d3ee'],blackpurple:['#8b5cf6','#a78bfa'],blackorange:['#f97316','#fb923c'],glass:['#3b82f6','#8b5cf6'],white:['#3b82f6','#8b5cf6']};
+window.setVisualMode=function(){document.body.dataset.mode='light';localStorage.setItem('saht-mode','light')};window.setSurface=function(){document.body.dataset.surface='glass'};window.setTheme=function(t){if(!A[t])t='blackblue';document.body.dataset.theme=t;document.body.dataset.mode='light';document.documentElement.style.setProperty('--accent',A[t][0]);document.documentElement.style.setProperty('--accent2',A[t][1]);document.documentElement.style.setProperty('--saht-accent',A[t][0]);document.documentElement.style.setProperty('--saht-accent2',A[t][1]);try{localStorage.setItem('saht-theme',t)}catch(e){}document.querySelectorAll('.accent-dot').forEach(x=>x.classList.toggle('active',x.dataset.accent===t))};
+function moveAccent(){const row=document.querySelector('.appearance-accent-row'),foot=document.querySelector('.sidebar-foot');if(!row||!foot||foot.querySelector('.accent-footer-control'))return;const wrap=document.createElement('div');wrap.className='accent-footer-control';wrap.innerHTML='<span class="accent-footer-label">Accent</span><div class="accent-footer-palette"></div>';wrap.querySelector('.accent-footer-palette').append(...row.querySelectorAll('.accent-dot'));foot.querySelector('.foot-line').before(wrap)}
+function profile(){const u=document.querySelector('.ref-user');if(!u||u.dataset.v52)return;u.dataset.v52='1';u.removeAttribute('onclick');const m=document.createElement('div');m.className='profile-popover';m.innerHTML='<div class="pp-head"><div class="pp-avatar" id="ppAvatar">AP</div><div><b id="ppName">ABHIJITH PRASAD</b><small id="ppRole">Admin</small></div></div><div class="pp-actions"><button id="ppOpen" type="button">Open Profile</button><button id="ppSignOut" type="button">Sign Out</button></div>';u.appendChild(m);u.addEventListener('click',e=>{if(!e.target.closest('.profile-popover'))m.classList.toggle('show')});m.querySelector('#ppOpen').onclick=e=>{e.stopPropagation();m.classList.remove('show');if(window.openProfileModal)window.openProfileModal()};m.querySelector('#ppSignOut').onclick=e=>{e.stopPropagation();if(window.sahtSignOut)window.sahtSignOut()};document.addEventListener('click',e=>{if(!u.contains(e.target))m.classList.remove('show')});const sync=()=>{const n=document.getElementById('refUserName'),r=document.getElementById('refUserRole'),a=document.getElementById('refAvatar');m.querySelector('#ppName').textContent=n?.textContent||'User';m.querySelector('#ppRole').textContent=r?.textContent||'User';m.querySelector('#ppAvatar').textContent=a?.textContent||'U'};sync();new MutationObserver(sync).observe(u,{subtree:true,childList:true,characterData:true})}
+function guard(){const orig=window.showPage;if(typeof orig!=='function'||orig.__v52)return;function g(p){return orig.call(this,['live','dashboard','agents','teams','admin'].includes(p)?p:'live')}g.__v52=true;window.showPage=g}
+function init(){moveAccent();profile();guard();window.setVisualMode();window.setSurface();let t='blackblue';try{if(A[localStorage.getItem('saht-theme')])t=localStorage.getItem('saht-theme')}catch(e){}window.setTheme(t);document.querySelectorAll('.appearance-control,.side-status').forEach(x=>x.remove());document.querySelectorAll('#page-theme,#page-about,#page-information,#page-inspiration,#page-contact,#page-feedback,#page-tips,#page-resources,#v35UtilityRibbon').forEach(x=>x.remove())}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();</script></body></html>
 <style id="v40-clean-final">
 /* V40 CLEAN: no profile card, no global search, no floating account control. */
 #globalProfileButton,#sidebarProfileCard,#navMyProfile{display:none!important}
