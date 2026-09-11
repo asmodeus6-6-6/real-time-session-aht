@@ -1055,34 +1055,15 @@ body.saht-locked #sahtBrandPop{display:none!important}
 @media(max-width:900px){.v37-context-label{display:none!important}.v37-top-tools{justify-content:flex-end!important}}
 @media(max-width:640px){.v37-top-tools{height:48px!important}.v37-date-card{display:none!important}.v37-tool-chip{height:38px!important}.v37-tool-icon{width:38px!important;height:38px!important}}
 </style>
-<style id="sidebar-welcome-band-v42">
-/* V42 — bottom sidebar welcome band: reference-inspired, no characters */
-.sidebar-welcome-slide{
-  position:relative;flex:0 0 auto;overflow:hidden;margin:10px 12px 10px;
-  min-height:390px;border:1px solid rgba(178,153,255,.42);border-radius:22px;
-  background:linear-gradient(145deg,rgba(247,249,255,.98),rgba(240,239,255,.96) 48%,rgba(255,239,249,.96));
-  box-shadow:0 12px 34px rgba(54,39,105,.18),inset 0 1px 0 rgba(255,255,255,.9);
-  isolation:isolate;opacity:0;transform:translateY(18px) scale(.985);animation:swsBandIn .8s cubic-bezier(.2,.8,.2,1) .15s forwards;
-}
-.sidebar-welcome-slide:before{content:"";position:absolute;inset:-35%;z-index:-2;background:radial-gradient(circle at 18% 18%,rgba(77,154,255,.24),transparent 30%),radial-gradient(circle at 86% 22%,rgba(255,91,197,.22),transparent 28%),radial-gradient(circle at 50% 88%,rgba(137,102,255,.18),transparent 34%);filter:blur(12px);animation:swsBandGlow 6s ease-in-out infinite}
-.sidebar-welcome-slide:after{content:"";position:absolute;left:-12%;right:-12%;bottom:-26px;height:95px;background:linear-gradient(180deg,transparent,rgba(112,150,255,.12));border-radius:50% 50% 0 0;z-index:-1}
-.sws-topline{margin:12px 14px 0;padding:9px 12px;border:1px solid rgba(132,111,230,.28);border-radius:18px;background:rgba(255,255,255,.62);box-shadow:0 6px 18px rgba(75,65,130,.08);display:flex;align-items:center;justify-content:center;gap:7px;font-size:9px;font-weight:950;color:#14213d;white-space:nowrap}
-.sws-topline .crown{font-size:14px;color:#5a22e8}.sws-topline .person-name{color:#e71d63}.sws-topline .role{padding:4px 8px;border-radius:999px;background:linear-gradient(90deg,#5424e9,#c22df0);color:#fff;font-size:8px;letter-spacing:.04em;box-shadow:0 5px 13px rgba(119,47,239,.24)}
-.sws-title{text-align:center;padding:20px 8px 0;line-height:.82;position:relative}.sws-title span{display:block;font-family:cursive;font-style:italic;font-size:42px;font-weight:900;background:linear-gradient(90deg,#1467ea,#365eea,#a33df0);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 5px 18px rgba(63,91,235,.18);animation:swsTitlePulse 4s ease-in-out infinite}.sws-title b{display:block;font-size:23px;font-weight:950;color:#111b39;margin-top:7px}.sws-underline{width:78%;height:4px;margin:8px auto 0;border-radius:99px;background:linear-gradient(90deg,#1ba7ff,#6b42e9,#f42b93);box-shadow:0 0 13px rgba(102,71,239,.25)}
-.sws-copy{text-align:center;padding:13px 15px 12px;color:#526786;font-size:10px;line-height:1.45;font-weight:750}.sws-copy b{display:block;color:#14213d;font-size:12px;margin-bottom:2px}
-.sws-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:0 9px;padding:10px 7px;border:1px solid rgba(143,150,204,.25);border-radius:17px;background:rgba(255,255,255,.48)}
-.sws-action{min-width:0;text-align:center}.sws-action .ico{width:38px;height:38px;margin:0 auto 5px;border-radius:12px;display:grid;place-items:center;font-size:19px;border:1px solid rgba(115,130,220,.28);box-shadow:0 6px 14px rgba(72,75,145,.08)}.sws-action:nth-child(1) .ico{background:#ffe8f1;color:#ec1460}.sws-action:nth-child(2) .ico{background:#eaf2ff;color:#1767df}.sws-action:nth-child(3) .ico{background:#fff3d9;color:#e79500}.sws-action:nth-child(4) .ico{background:#e5fbf4;color:#08a976}.sws-action b{display:block;font-size:9px;color:#14213d}.sws-action small{display:block;font-size:7px;color:#58708f;margin-top:2px;line-height:1.15}
-.sws-tagline{margin:10px 14px 7px;padding:7px 6px;border:1px solid rgba(110,109,211,.28);border-radius:999px;background:rgba(255,255,255,.42);text-align:center;font-size:7px;font-weight:900;letter-spacing:.13em;color:#49658e}
-.sws-bottom{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:5px;padding:0 11px 11px}.sws-credit{text-align:center}.sws-credit small{display:block;font-size:7px;color:#667b98;margin-bottom:2px}.sws-credit strong{display:block;font-size:12px;color:#242f68}.sws-credit.left strong{color:#315ee8}.sws-credit.right strong{color:#9c1e68}.sws-credit em{display:block;font-style:normal;font-size:6px;color:#71829c;margin-top:2px;white-space:nowrap}.sws-better{font-family:cursive;font-style:italic;font-size:15px;line-height:.95;color:#213b8d;text-align:center}.sws-better small{display:block;font-family:inherit;font-size:8px;margin-top:3px;color:#c11c79}.sws-brandline{display:flex;align-items:center;justify-content:center;gap:6px;border-top:1px solid rgba(125,137,189,.22);padding:8px 10px 9px;background:rgba(255,255,255,.34)}.sws-brandline b{font-size:8px;font-weight:950;color:#7425df;animation:swsBrand 3.8s ease-in-out infinite}.sws-brandline b span{color:#1c2946;font-size:7px;letter-spacing:.1em;margin-left:3px}.sws-brandline small{font-size:7px;color:#6c7b96;font-weight:800}
-.sws-fly{position:absolute;z-index:4;pointer-events:none;width:27px;height:27px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(94,83,255,.65)) drop-shadow(0 0 13px rgba(217,60,255,.28));opacity:0}.sws-fly.f1{left:4%;top:42%;animation:swsFly1 6.5s ease-in-out infinite}.sws-fly.f2{right:3%;top:57%;width:24px;height:24px;animation:swsFly2 7.2s ease-in-out -2.4s infinite}.sws-fly.f3{left:67%;top:18%;width:19px;height:19px;animation:swsFly3 5.8s ease-in-out -1.2s infinite}
-@keyframes swsBandIn{to{opacity:1;transform:none}}@keyframes swsBandGlow{0%,100%{transform:translate3d(-2%,0,0) scale(1)}50%{transform:translate3d(3%,-2%,0) scale(1.08)}}@keyframes swsTitlePulse{0%,100%{opacity:.82;filter:drop-shadow(0 0 0 rgba(120,65,255,0))}50%{opacity:1;filter:drop-shadow(0 0 9px rgba(120,65,255,.28))}}@keyframes swsBrand{0%,18%{opacity:.35;transform:translateY(3px)}35%,72%{opacity:1;transform:none}88%,100%{opacity:.35;transform:translateY(-2px)}}
-@keyframes swsFly1{0%{opacity:0;transform:translate(-10px,25px) rotate(-12deg) scale(.55)}12%{opacity:.9}35%{transform:translate(35px,-6px) rotate(10deg) scale(.95)}60%{transform:translate(3px,-42px) rotate(-8deg) scale(.8)}82%{opacity:.55;transform:translate(56px,-72px) rotate(14deg) scale(.65)}100%{opacity:0;transform:translate(80px,-98px) rotate(4deg) scale(.45)}}
-@keyframes swsFly2{0%{opacity:0;transform:translate(10px,20px) rotate(10deg) scale(.5)}15%{opacity:.8}38%{transform:translate(-35px,-20px) rotate(-12deg) scale(.9)}66%{transform:translate(-8px,-58px) rotate(7deg) scale(.75)}100%{opacity:0;transform:translate(-52px,-94px) rotate(-4deg) scale(.45)}}
-@keyframes swsFly3{0%{opacity:0;transform:translate(0,0) rotate(-8deg)}20%{opacity:.75}55%{transform:translate(28px,17px) rotate(11deg)}100%{opacity:0;transform:translate(64px,-20px) rotate(-7deg)}}
-.sidebar-welcome-slide .sws-art{display:none}.sidebar-welcome-slide .sws-names{display:none}
-@media(max-width:900px){.sidebar-welcome-slide{min-height:360px}.sws-title span{font-size:37px}.sws-title b{font-size:21px}}
-@media(max-width:760px){.sidebar-welcome-slide{margin:8px 8px 8px;min-height:345px}.sws-title span{font-size:34px}.sws-actions{gap:3px}.sws-action .ico{width:34px;height:34px;font-size:17px}}
-@media(prefers-reduced-motion:reduce){.sidebar-welcome-slide,.sidebar-welcome-slide:before,.sws-title span,.sws-brandline b,.sws-fly{animation:none!important;opacity:1;transform:none}}
+<style id="sidebar-welcome-slide-v41">
+.sidebar-welcome-slide{position:relative;overflow:hidden;margin:12px 12px 14px;border:1px solid color-mix(in srgb,var(--accent) 24%,var(--line));border-radius:20px;background:linear-gradient(155deg,color-mix(in srgb,var(--panel) 96%,var(--accent) 4%),color-mix(in srgb,var(--panel2) 88%,#fff 12%));box-shadow:0 12px 32px rgba(22,28,55,.10);isolation:isolate;animation:swsIn .65s ease both}
+.sidebar-welcome-slide:before{content:"";position:absolute;inset:-45% -30%;z-index:-1;background:radial-gradient(circle at 20% 35%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 36%),radial-gradient(circle at 80% 70%,color-mix(in srgb,var(--accent2) 20%,transparent),transparent 40%);filter:blur(10px);animation:swsGlow 5s ease-in-out infinite}
+.sws-title{text-align:center;padding:13px 8px 3px;line-height:.86}.sws-title span{display:block;font-family:cursive;font-style:italic;font-size:31px;font-weight:900;background:linear-gradient(90deg,#2563eb,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;animation:swsText 3.8s ease-in-out infinite}.sws-title b{display:block;font-size:18px;font-weight:950;color:var(--text);margin-top:5px}
+.sws-art{height:170px;margin:0 2px;overflow:hidden;position:relative}.sws-art img{width:100%;height:100%;object-fit:cover;object-position:center 44%;display:block;animation:swsFloat 4.8s ease-in-out infinite;filter:saturate(1.04) drop-shadow(0 8px 14px rgba(65,45,120,.14))}.sws-art:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-1px;height:32px;background:linear-gradient(180deg,transparent,var(--panel) 86%);pointer-events:none}
+.sws-names{text-align:center;padding:1px 8px 7px}.sws-names small{display:block;color:var(--muted);font-size:8px;font-weight:800;margin-bottom:5px}.sws-names>div{display:flex;align-items:center;justify-content:center;gap:5px}.sws-names strong{font-size:12px;line-height:1;padding:7px 9px;border-radius:999px;background:color-mix(in srgb,var(--accent) 10%,var(--panel));border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));color:var(--text);white-space:nowrap}.sws-names strong:last-child{background:color-mix(in srgb,var(--accent2) 11%,var(--panel));border-color:color-mix(in srgb,var(--accent2) 25%,var(--line))}.sws-names i{font-style:normal;color:var(--accent);font-weight:950;font-size:13px}.sws-copy{text-align:center;font-size:8px;color:var(--muted);font-weight:800;padding:0 8px 8px}.sws-brandline{border-top:1px solid color-mix(in srgb,var(--line) 72%,transparent);padding:8px 8px 10px;text-align:center;background:color-mix(in srgb,var(--panel2) 42%,transparent)}.sws-brandline b{display:block;font-size:9px;font-weight:950;color:var(--accent2);animation:swsBrand 3.8s ease-in-out infinite}.sws-brandline b span{color:var(--text);font-size:7px;letter-spacing:.12em;margin-left:4px}.sws-brandline small{display:block;font-size:7px;color:var(--muted);font-weight:800;margin-top:3px}
+@keyframes swsIn{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}@keyframes swsFloat{0%,100%{transform:translateY(2px) scale(1)}50%{transform:translateY(-4px) scale(1.012)}}@keyframes swsGlow{0%,100%{transform:translate3d(-2%,0,0) scale(1)}50%{transform:translate3d(3%,-2%,0) scale(1.06)}}@keyframes swsText{0%,18%{opacity:.55;transform:translateY(5px)}35%,72%{opacity:1;transform:translateY(0)}88%,100%{opacity:.55;transform:translateY(-3px)}}@keyframes swsBrand{0%,18%{opacity:.25;transform:translateY(4px)}35%,70%{opacity:1;transform:none}88%,100%{opacity:.25;transform:translateY(-3px)}}
+body.sidebar-collapsed .sidebar-welcome-slide{height:58px;margin:10px 7px;border-radius:14px}.sidebar-collapsed .sidebar-welcome-slide>*{display:none!important}.sidebar-collapsed .sidebar-welcome-slide:after{content:"✦";height:58px;display:grid;place-items:center;color:var(--accent);font-size:18px}
+@media(max-width:760px){.sws-art{height:155px}}@media(prefers-reduced-motion:reduce){.sidebar-welcome-slide,.sws-art img,.sws-title span,.sws-brandline b,.sidebar-welcome-slide:before{animation:none!important}}
 </style>
 </head><body data-theme="blackblue" class="saht-locked"><div id="butterflyEntrance" class="butterfly-entrance" aria-hidden="true">
   <div class="be-stars"></div><div class="be-glow g1"></div><div class="be-glow g2"></div>
@@ -1143,6 +1124,13 @@ body.saht-locked #sahtBrandPop{display:none!important}
     </div>
     <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
   </div>
+<div class="sidebar-welcome-slide" id="sidebarWelcomeSlide" aria-label="Team welcome branding">
+  <div class="sws-title"><span>Welcome</span><b>Everyone!</b></div>
+  <div class="sws-art"><img src="sidebar_characters.png" alt="Khijar and Shazia Bano celebrating together"></div>
+  <div class="sws-names"><small>Inspired by</small><div><strong>Khijar</strong><i>×</i><strong>Shazia Bano</strong></div></div>
+  <div class="sws-copy">Good Data • Brighter Tomorrow</div>
+  <div class="sws-brandline"><b id="sidebarBrandGreeting">Hi Abhijith Here. <span>ADMIN</span></b><small id="sidebarBrandDesigner">Designed by Khijar</small></div>
+</div>
 <div class="profile-modal" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><div class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle"><div class="profile-modal-head"><div class="profile-modal-avatar" id="profileModalAvatar">U</div><div class="profile-modal-title"><b id="profileModalTitle">My Profile</b><small><span id="profileModalRole">VISITOR</span> • <span id="profileModalStatus">APPROVED</span></small></div><button class="profile-modal-close" type="button" onclick="closeProfileModal()">×</button></div><div class="profile-modal-body"><div class="profile-modal-grid"><div><label>Full Name</label><input id="profileFullName" type="text" placeholder="Your name"></div><div><label>Agent ID</label><input id="profileAgentId" type="text" placeholder="Agent ID / Employee ID"></div><div><label>Email</label><input id="profileEmail" class="profile-readonly" type="email" readonly></div><div><label>Role</label><select id="profileRole"><option value="user">Visitor</option><option value="admin">Admin</option></select></div><div><label>Supabase User ID</label><input id="profileUserId" class="profile-readonly" type="text" readonly></div><div><label>Profile Picture</label><input id="profileAvatarFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewProfileAvatar(this)"><div class="profile-avatar-actions"><button class="btn" type="button" onclick="document.getElementById('profileAvatarFile').click()">Upload / Change</button><button class="btn" type="button" onclick="removeProfileAvatar()">Remove</button></div></div></div><div id="profileEditLock" class="profile-edit-lock">Profile details can be updated once every 7 days.</div><div id="profileMsg" class="help-note" style="display:none;margin:10px 0 0"></div><div class="profile-modal-foot"><button class="btn primary" type="button" onclick="saveMyProfile()">Save Profile</button><button class="btn" type="button" onclick="loadMyProfile()">↻ Refresh</button><button class="btn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div></div></div></div>
   
 <div class="sidebar-scroll">
@@ -1194,26 +1182,6 @@ body.saht-locked #sahtBrandPop{display:none!important}
       </div>
     </div>
   </div>
-<div class="sidebar-welcome-slide" id="sidebarWelcomeSlide" aria-label="Team welcome branding">
-  <img class="sws-fly f1" src="neon_butterfly.png" alt=""><img class="sws-fly f2" src="neon_butterfly.png" alt=""><img class="sws-fly f3" src="neon_butterfly.png" alt="">
-  <div class="sws-topline"><span class="crown">♛</span><span>Hi <span class="person-name" id="swsHeaderName">ABHIJITH PRASAD</span> Here.</span><span class="role" id="swsHeaderRole">ADMIN</span></div>
-  <div class="sws-title"><span>Welcome</span><b>Everyone!</b><div class="sws-underline"></div></div>
-  <div class="sws-copy"><b>Thank you all!</b>Hope this will be helpful to<br>track your team’s AHT.</div>
-  <div class="sws-actions">
-    <div class="sws-action"><div class="ico">▮▮▮</div><b>Track</b><small>Monitor<br>performance</small></div>
-    <div class="sws-action"><div class="ico">⌕</div><b>Analyse</b><small>Find<br>insights</small></div>
-    <div class="sws-action"><div class="ico">💡</div><b>Improve</b><small>Take<br>action</small></div>
-    <div class="sws-action"><div class="ico">↗</div><b>Grow</b><small>Stronger<br>teams</small></div>
-  </div>
-  <div class="sws-tagline">Same Team&nbsp; • &nbsp;Higher Goals&nbsp; • &nbsp;Better Tomorrow</div>
-  <div class="sws-bottom">
-    <div class="sws-credit left"><small>Inspired by</small><strong>Khijar</strong><em>IDEAS • SUPPORT • MOTIVATION</em></div>
-    <div class="sws-better">Let’s<br>Do Better<br>Together ♡</div>
-    <div class="sws-credit right"><small>Inspired by</small><strong>Shazia Bano</strong><em>GUIDANCE • ENCOURAGEMENT • SUPPORT</em></div>
-  </div>
-  <div class="sws-brandline"><b id="sidebarBrandGreeting">Hi Abhijith Here. <span>ADMIN</span></b><small id="sidebarBrandDesigner">Designed by Khijar</small></div>
-</div>
-</div>
   <div class="sidebar-foot">
     <div class="foot-line"><span class="foot-dot"></span><span class="foot-copy">System ready</span><span class="foot-version">SAHT</span></div>
     <div class="sidebar-watermark">Abhijith</div>
@@ -2947,22 +2915,87 @@ body.saht-locked .sidebar,body.saht-locked #sahtBrandPop,body.saht-locked #globa
     var bg=document.getElementById('brandGreeting'),bd=document.getElementById('brandDesigner');
     var roleLabel=(String(p.role||'user').toLowerCase()==='admin'?'ADMIN':'VISITOR');
     if(bg)bg.innerHTML='Hi '+name+' Here. <span>'+roleLabel+'</span>';
-    if(bd)bd.textContent='Designed by Khijar';
+    if(bd)bd.textContent='';
     var sbg=document.getElementById('sidebarBrandGreeting'),sbd=document.getElementById('sidebarBrandDesigner');
     if(sbg)sbg.innerHTML='Hi '+name+' Here. <span>'+roleLabel+'</span>';
-    if(sbd)sbd.textContent='Designed by Khijar';
-    var shn=document.getElementById('swsHeaderName'),shr=document.getElementById('swsHeaderRole'); if(shn)shn.textContent=name.toUpperCase(); if(shr)shr.textContent=roleLabel;
+    if(sbd)sbd.textContent='';
   }
   window.v40RefreshWelcome=refreshWelcome;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refreshWelcome,{once:true});else refreshWelcome();
   setInterval(refreshWelcome,1000);
 })();
 </script>
-<style id="v42-sidebar-layout-final">
-/* V42 final layout: welcome band is anchored at the bottom of the sidebar */
-.sidebar{display:flex!important;flex-direction:column!important;padding:0!important;overflow:hidden!important}
-.sidebar-head{flex:0 0 72px!important}
-.sidebar-scroll{height:auto!important;flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important}
-.sidebar-welcome-slide{flex:0 0 auto!important}
-.sidebar-foot{flex:0 0 48px!important}
+<style id="v43-sidebar-fit-fix">
+/* V43 — clean sidebar + single-viewport layout */
+html,body{height:100%;overflow:hidden!important}
+body{min-height:100vh!important}
+.app{height:100vh!important;min-height:0!important;overflow:hidden!important}
+.sidebar{height:100vh!important;min-height:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
+.sidebar-scroll{overflow:hidden!important;min-height:0!important;flex:1 1 auto!important;padding-bottom:8px!important}
+/* Remove the redundant second LIVE MONITOR card from the sidebar. */
+.sidebar-scroll>.side-status{display:none!important}
+/* Keep the welcome band at the bottom of the sidebar without floating over navigation. */
+.sidebar-welcome-slide{order:5!important;flex:0 0 auto!important;margin:8px 12px 8px!important;height:clamp(250px,31vh,320px)!important;min-height:250px!important;max-height:320px!important;border-radius:20px!important;opacity:0;animation:v43WelcomeIn .9s cubic-bezier(.2,.75,.2,1) .15s forwards!important;box-shadow:0 10px 34px color-mix(in srgb,var(--accent) 16%,transparent)!important}
+@keyframes v43WelcomeIn{from{opacity:0;transform:translateY(18px) scale(.985);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+/* Hide the old creator line entirely. */
+#sidebarBrandDesigner,#brandDesigner{display:none!important}
+.sws-brandline small{display:none!important}
+/* Make the names readable but compact. */
+.sws-names strong{font-size:11px!important;line-height:1.1!important;white-space:nowrap!important}
+.sws-names small{font-size:7px!important}
+.sws-names i{font-size:10px!important}
+/* Make the band fit its available sidebar height. */
+.sws-title{transform:scale(.82);transform-origin:top center;margin-bottom:-3px!important}
+.sws-art{display:none!important}
+.sws-copy{font-size:8px!important;margin:5px 0!important}
+.sws-brandline b{font-size:9px!important}
+/* Use the band as a compact information panel, not a giant poster. */
+.sws-names{margin-top:8px!important}
+/* Footer stays visible; no vertical sidebar scrolling. */
+.sidebar-foot{flex:0 0 42px!important;height:42px!important;padding:8px 12px!important}
+/* Main workspace: fit the primary live/dashboard view to one viewport. */
+.main{height:100vh!important;min-height:0!important;overflow:hidden!important;padding-top:0!important;padding-bottom:12px!important}
+.page{height:100%!important;min-height:0!important;overflow:hidden!important}
+#page-live{overflow:hidden!important}
+#page-dashboard{overflow:auto!important;scrollbar-width:thin}
+/* Compress the live monitor composition so header, input, summary, chart and table are visible together. */
+#page-live .top{min-height:82px!important;height:82px!important}
+#page-live .hero{min-height:92px!important;padding:18px 24px!important}
+#page-live .input{margin-top:10px!important}
+#page-live .input textarea{height:78px!important;min-height:78px!important}
+#page-live .summary{margin:10px 0!important;min-height:0!important}
+#page-live .dashboard{margin-bottom:10px!important}
+#page-live .dash{min-height:150px!important}
+#page-live .tablecard{max-height:calc(100vh - 610px)!important;min-height:150px!important;overflow:hidden!important}
+#page-live .tablecard .wrap{max-height:calc(100vh - 665px)!important;overflow:auto!important}
+/* When there is little vertical space, tighten the composition further. */
+@media(max-height:850px){
+ #page-live .top{height:72px!important;min-height:72px!important}
+ #page-live .hero{min-height:78px!important;padding:14px 20px!important}
+ #page-live .input textarea{height:60px!important;min-height:60px!important}
+ #page-live .dashboard{grid-template-columns:1fr 1fr!important}
+ #page-live .dash{min-height:125px!important}
+}
+@media(max-width:900px){
+ html,body{overflow:auto!important}
+ .app{overflow:visible!important;height:auto!important;min-height:100vh!important}
+ .sidebar{height:auto!important;min-height:100vh!important;overflow:visible!important}
+ .sidebar-scroll{overflow:visible!important}
+ .main{height:auto!important;min-height:100vh!important;overflow:visible!important}
+ .page{height:auto!important;overflow:visible!important}
+}
+@media(prefers-reduced-motion:reduce){.sidebar-welcome-slide{animation:none!important;opacity:1!important}}
 </style>
+<script id="v43-sidebar-fit-fix-js">
+(function(){
+  function cleanSidebar(){
+    var status=document.querySelector('#appSidebar .sidebar-scroll > .side-status');
+    if(status) status.remove();
+    var designer=document.getElementById('sidebarBrandDesigner');
+    if(designer) designer.remove();
+    var oldDesigner=document.getElementById('brandDesigner');
+    if(oldDesigner) oldDesigner.remove();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',cleanSidebar,{once:true}); else cleanSidebar();
+})();
+</script>
