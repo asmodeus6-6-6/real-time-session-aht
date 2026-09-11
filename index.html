@@ -1486,7 +1486,7 @@ function processData(){
  const body=document.getElementById("tableBody");if(body)body.innerHTML="";
  if(body)processedData.forEach((r,i)=>{const st=exactAHTStatus(r.ahtSec,target);body.insertAdjacentHTML("beforeend",`<tr><td class="agent">${escapeHtml(r.name)}</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${escapeHtml(r.avgHt)}</td><td class="aht ${st.cls}">${r.ahtSec} <em>${st.symbol}</em></td><td>${escapeHtml(r.avgFrt)}</td></tr>`)});
  const gt=document.getElementById("grandTotalRow");
- if(document.getElementById("grandTotalToggle").checked&&processedData.length){
+ if((document.getElementById("grandTotalToggle")?.checked ?? true)&&processedData.length){
   const rec=processedData.reduce((a,r)=>a+parseNumber(r.received),0),res=processedData.reduce((a,r)=>a+parseNumber(r.resolved),0);
   const ah=processedData.reduce((a,r)=>a+r.ahtSec,0)/processedData.length;
   if(gt)gt.innerHTML=`<td class="agent">GRAND TOTAL / AVG</td><td>${rec}</td><td>${res}</td><td>${dur(avg(processedData,"avgHt"))}</td><td class="aht">${Math.round(ah)} —</td><td>${dur(avg(processedData,"avgFrt"))}</td>`;gt.style.display="table-row"
@@ -2521,8 +2521,9 @@ function bootApp(){
     loadDirectory();
     loadMappingRules();
     restoreCustomization();
-    setTheme(storageGet("saht-theme")||"normal");
     document.body.classList.remove("sidebar-collapsed");
+    document.body.dataset.mode="light";
+    document.body.dataset.surface="glass";
 
     const raw=document.getElementById("rawInput");
     const threshold=document.getElementById("threshold");
@@ -3097,7 +3098,110 @@ function moveAccent(){const row=document.querySelector('.appearance-accent-row')
 function profile(){const u=document.querySelector('.ref-user');if(!u||u.dataset.v52)return;u.dataset.v52='1';u.removeAttribute('onclick');const m=document.createElement('div');m.className='profile-popover';m.innerHTML='<div class="pp-head"><div class="pp-avatar" id="ppAvatar">AP</div><div><b id="ppName">ABHIJITH PRASAD</b><small id="ppRole">Admin</small></div></div><div class="pp-actions"><button id="ppOpen" type="button">Open Profile</button><button id="ppSignOut" type="button">Sign Out</button></div>';u.appendChild(m);u.addEventListener('click',e=>{if(!e.target.closest('.profile-popover'))m.classList.toggle('show')});m.querySelector('#ppOpen').onclick=e=>{e.stopPropagation();m.classList.remove('show');if(window.openProfileModal)window.openProfileModal()};m.querySelector('#ppSignOut').onclick=e=>{e.stopPropagation();if(window.sahtSignOut)window.sahtSignOut()};document.addEventListener('click',e=>{if(!u.contains(e.target))m.classList.remove('show')});const sync=()=>{const n=document.getElementById('refUserName'),r=document.getElementById('refUserRole'),a=document.getElementById('refAvatar');m.querySelector('#ppName').textContent=n?.textContent||'User';m.querySelector('#ppRole').textContent=r?.textContent||'User';m.querySelector('#ppAvatar').textContent=a?.textContent||'U'};sync();new MutationObserver(sync).observe(u,{subtree:true,childList:true,characterData:true})}
 function guard(){const orig=window.showPage;if(typeof orig!=='function'||orig.__v52)return;function g(p){return orig.call(this,['live','dashboard','agents','teams','admin'].includes(p)?p:'live')}g.__v52=true;window.showPage=g}
 function init(){moveAccent();profile();guard();window.setVisualMode();window.setSurface();let t='blackblue';try{if(A[localStorage.getItem('saht-theme')])t=localStorage.getItem('saht-theme')}catch(e){}window.setTheme(t);document.querySelectorAll('.appearance-control,.side-status').forEach(x=>x.remove());document.querySelectorAll('#page-theme,#page-about,#page-information,#page-inspiration,#page-contact,#page-feedback,#page-tips,#page-resources,#v35UtilityRibbon').forEach(x=>x.remove())}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();</script></body></html>
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();</script><style id="v53-final-clean-ui">
+/* V53: authoritative final light-only sidebar layer. Legacy rules above are intentionally neutralized here. */
+html,body{background:#f7faff!important;color:#18233d!important}
+body[data-mode="dark"],body[data-theme="ocean"],body[data-theme="aurora"],body[data-theme="ember"],body[data-theme="violet"],body[data-theme="glass"],body[data-theme="midnight"],body[data-theme="neon"]{background:#f7faff!important;color:#18233d!important}
+body[data-mode="dark"] .app,body[data-theme="ocean"] .app,body[data-theme="aurora"] .app,body[data-theme="ember"] .app,body[data-theme="violet"] .app,body[data-theme="glass"] .app,body[data-theme="midnight"] .app,body[data-theme="neon"] .app{background:#f7faff!important}
+#appSidebar{width:282px!important;flex:0 0 282px!important;background:linear-gradient(180deg,#ffffff 0%,#fbfdff 55%,#f7f8ff 100%)!important;border-right:1px solid #e3e9f4!important;box-shadow:10px 0 32px rgba(70,96,145,.07)!important;overflow:hidden!important}
+#appSidebar .sidebar-head{height:78px!important;flex:0 0 78px!important;padding:13px 16px!important;background:rgba(255,255,255,.92)!important;border-bottom:1px solid #edf1f7!important}
+#appSidebar .brand-logo-butterfly{width:46px!important;height:46px!important;border-radius:15px!important;background:linear-gradient(145deg,#f1f7ff,#f8f0ff)!important;border:1px solid #dbe5ff!important;box-shadow:0 7px 20px rgba(74,105,205,.12)!important}
+#appSidebar .brand-logo-butterfly img{width:36px!important;height:36px!important;animation:v53LogoFloat 4s ease-in-out infinite!important;filter:drop-shadow(0 4px 9px rgba(91,84,240,.22))!important}
+@keyframes v53LogoFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-2px) rotate(-2deg)}}
+#appSidebar .sidebar-scroll{height:auto!important;flex:1 1 auto!important;min-height:0!important;overflow:hidden!important;padding:13px 13px 0!important;display:flex!important;flex-direction:column!important}
+#appSidebar .sidebar-scroll>.side-status{display:none!important}
+#appSidebar .sidebar-scroll>.side-section{display:block!important;flex:0 0 auto!important}
+#appSidebar .sidebar-scroll>.side-section:not(:first-of-type){display:none!important}
+#appSidebar .side-section-title{margin:5px 7px 9px!important;color:#7383a3!important;font-size:9px!important;letter-spacing:3px!important;font-weight:900!important}
+#appSidebar .side-nav{display:grid!important;gap:8px!important}
+#appSidebar .side-nav button{height:52px!important;min-height:52px!important;width:100%!important;padding:0 11px!important;border:1px solid #e4eaf4!important;border-radius:15px!important;background:linear-gradient(180deg,#fff,#fbfdff)!important;color:#162344!important;box-shadow:0 4px 12px rgba(58,85,133,.045)!important;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease!important}
+#appSidebar .side-nav button:hover{transform:translateX(2px)!important;border-color:#cbd7f5!important;box-shadow:0 8px 18px rgba(76,92,166,.08)!important}
+#appSidebar .side-nav button.active{background:linear-gradient(100deg,rgba(71,126,255,.10),rgba(139,92,246,.10),rgba(244,114,182,.08))!important;border-color:#d6ccff!important;box-shadow:0 8px 20px rgba(93,83,205,.10)!important}
+#appSidebar .side-nav button.active:before{content:""!important;position:absolute!important;left:-1px!important;top:10px!important;bottom:10px!important;width:3px!important;border-radius:0 4px 4px 0!important;background:linear-gradient(180deg,#3b82f6,#8b5cf6,#ec4899)!important}
+#appSidebar .nav-icon{width:34px!important;height:34px!important;border-radius:11px!important;display:grid!important;place-items:center!important;background:#f5f8ff!important;border:1px solid #dfe7f5!important;color:#326cf1!important;font-size:16px!important;transition:transform .2s ease,box-shadow .2s ease!important}
+#appSidebar .side-nav button:hover .nav-icon,#appSidebar .side-nav button.active .nav-icon{transform:scale(1.04)!important;box-shadow:0 0 14px rgba(70,110,240,.13)!important}
+#appSidebar .nav-text{font-size:11px!important;font-weight:900!important;letter-spacing:-.01em!important}
+#appSidebar .side-nav em{font-size:7px!important;font-weight:950!important;letter-spacing:.05em!important;padding:5px 8px!important;border-radius:999px!important;background:#f2f5fb!important;color:#6b7b9c!important;font-style:normal!important}
+#appSidebar .side-nav button.active em{background:linear-gradient(90deg,#efe9ff,#ffe9f6)!important;color:#7651d8!important}
+/* Integrated welcome: it is a sibling section in the sidebar flow, never a floating card. */
+#appSidebar .sidebar-welcome-slide{order:initial!important;position:relative!important;flex:1 1 auto!important;width:calc(100% + 26px)!important;height:auto!important;min-height:0!important;max-height:none!important;margin:16px -13px 0!important;padding:18px 17px 12px!important;box-sizing:border-box!important;border:0!important;border-top:1px solid rgba(125,145,205,.14)!important;border-radius:0!important;background:linear-gradient(180deg,rgba(247,250,255,.72),rgba(248,244,255,.58))!important;box-shadow:none!important;overflow:hidden!important;isolation:isolate!important;animation:v53WelcomeIn .75s ease both!important}
+#appSidebar .sidebar-welcome-slide:before{content:""!important;position:absolute!important;inset:0!important;z-index:-2!important;background:radial-gradient(circle at 20% 20%,rgba(63,133,255,.10),transparent 34%),radial-gradient(circle at 84% 28%,rgba(236,72,153,.08),transparent 34%),radial-gradient(circle at 50% 86%,rgba(124,77,255,.08),transparent 42%)!important;filter:blur(9px)!important;animation:v53Aura 10s ease-in-out infinite!important}
+#appSidebar .sidebar-welcome-slide:after{content:""!important;position:absolute!important;left:-8%!important;right:-8%!important;bottom:-1px!important;height:62px!important;z-index:-1!important;background:linear-gradient(170deg,transparent 28%,rgba(65,133,245,.08) 29%,transparent 57%),linear-gradient(188deg,transparent 39%,rgba(226,83,190,.08) 40%,transparent 69%)!important;animation:v53Wave 12s ease-in-out infinite!important;pointer-events:none!important}
+@keyframes v53WelcomeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes v53Aura{0%,100%{transform:translate3d(0,0,0);opacity:.75}50%{transform:translate3d(6px,-4px,0);opacity:1}}
+@keyframes v53Wave{0%,100%{transform:translateX(-2%)}50%{transform:translateX(3%)}}
+#appSidebar .sws-userline{position:relative!important;z-index:3!important;display:flex!important;align-items:center!important;gap:7px!important;margin:0 0 11px!important;padding:7px 9px!important;border:1px solid rgba(93,122,196,.16)!important;border-radius:999px!important;background:rgba(255,255,255,.64)!important;box-shadow:0 5px 16px rgba(64,83,135,.05)!important;animation:v53Fade .55s .1s both!important}
+#appSidebar .sws-crown{color:#6947dd!important;font-size:15px!important}
+#appSidebar #sidebarBrandGreeting{font-size:9px!important;font-weight:950!important;color:#172344!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+#appSidebar .sws-admin{margin-left:auto!important;font-size:7px!important;font-weight:950!important;padding:5px 8px!important;border-radius:999px!important;color:#fff!important;background:linear-gradient(90deg,#536df2,#9b51df)!important;box-shadow:0 4px 12px rgba(103,78,218,.18)!important;animation:v53Shine 4.5s ease-in-out infinite!important}
+#appSidebar .sws-title{position:relative!important;z-index:3!important;margin:7px 0 0!important;text-align:center!important;line-height:.9!important;animation:v53Fade .65s .18s both!important}
+#appSidebar .sws-title span{font-size:clamp(30px,3.2vw,38px)!important;font-weight:900!important;font-style:italic!important;letter-spacing:-.055em!important;background:linear-gradient(100deg,#2f72ef,#754de0,#ef3d9a)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;text-shadow:0 7px 20px rgba(89,86,224,.10)!important}
+#appSidebar .sws-title b{display:block!important;font-size:23px!important;line-height:1!important;color:#132042!important;letter-spacing:-.04em!important}
+#appSidebar .sws-underline{height:4px!important;width:70%!important;margin:9px auto 11px!important;border-radius:999px!important;background:linear-gradient(90deg,#28b8ef,#7057e8,#f04ba7)!important;animation:v53Sweep 4s ease-in-out infinite!important}
+#appSidebar .sws-thanks{position:relative!important;z-index:3!important;text-align:center!important;animation:v53Fade .65s .28s both!important}
+#appSidebar .sws-thanks b{display:block!important;font-size:12px!important;color:#172344!important}
+#appSidebar .sws-thanks small{display:block!important;margin-top:4px!important;font-size:8px!important;line-height:1.35!important;color:#647492!important}
+#appSidebar .sws-actions{position:relative!important;z-index:3!important;display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:7px!important;margin:15px 0 10px!important;animation:v53Fade .65s .36s both!important}
+#appSidebar .sws-action{display:flex!important;flex-direction:column!important;align-items:center!important;gap:4px!important;text-align:center!important}
+#appSidebar .sws-icon{width:39px!important;height:39px!important;display:grid!important;place-items:center!important;border-radius:12px!important;border:1px solid #dce6f6!important;background:#fff!important;box-shadow:0 6px 14px rgba(66,88,140,.07)!important;font-size:18px!important;transition:transform .22s ease,box-shadow .22s ease!important}
+#appSidebar .sws-action:hover .sws-icon{transform:translateY(-3px) scale(1.05)!important;box-shadow:0 10px 20px rgba(83,99,168,.12)!important}
+#appSidebar .sws-action b{font-size:8px!important;color:#182548!important}
+#appSidebar .sws-action small{display:none!important}
+#appSidebar .sws-motto{position:relative!important;z-index:3!important;text-align:center!important;border:1px solid #dfe6f4!important;border-radius:999px!important;padding:7px 6px!important;font-size:7px!important;font-weight:850!important;letter-spacing:.08em!important;color:#64769b!important;background:rgba(255,255,255,.48)!important;animation:v53Fade .65s .42s both!important}
+#appSidebar .sws-bottom{position:relative!important;z-index:3!important;display:grid!important;grid-template-columns:1fr auto 1fr!important;align-items:end!important;gap:7px!important;margin-top:13px!important;animation:v53Fade .65s .48s both!important}
+#appSidebar .sws-name{min-width:0!important;text-align:left!important}.sws-name.right{text-align:right!important}
+#appSidebar .sws-name small{display:block!important;font-size:7px!important;color:#7382a0!important}
+#appSidebar .sws-name strong{display:block!important;margin-top:3px!important;font-size:13px!important;color:#355fd2!important;white-space:nowrap!important}
+#appSidebar .sws-name.right strong{color:#bd2376!important}
+#appSidebar .sws-name em{display:block!important;margin-top:3px!important;font-size:5px!important;line-height:1.25!important;color:#8793ac!important;font-style:normal!important;white-space:nowrap!important}
+#appSidebar .sws-together{text-align:center!important;font-size:10px!important;line-height:1.05!important;font-style:italic!important;color:#283d83!important;white-space:nowrap!important}
+#appSidebar .sws-together b{font-size:12px!important}.sws-together span{color:#e53f93!important}
+#appSidebar .sws-bfly{position:absolute!important;width:25px!important;height:25px!important;object-fit:contain!important;z-index:2!important;pointer-events:none!important;filter:drop-shadow(0 3px 8px rgba(91,90,230,.26))!important;opacity:0!important}
+#appSidebar .sws-bfly.bf-a{animation:v53FlyA 7s 1s ease-in-out infinite!important}.sws-bfly.bf-b{animation:v53FlyB 8.5s 2.2s ease-in-out infinite!important}.sws-bfly.bf-c{animation:v53FlyC 9.5s 3.5s ease-in-out infinite!important}
+@keyframes v53FlyA{0%{left:4%;top:35%;opacity:0;transform:rotate(-12deg) scale(.7)}15%{opacity:.72}50%{left:82%;top:25%;transform:rotate(12deg) scale(1)}85%{opacity:.65}100%{left:30%;top:72%;opacity:0;transform:rotate(-8deg) scale(.72)}}
+@keyframes v53FlyB{0%{left:86%;top:52%;opacity:0;transform:rotate(8deg) scale(.65)}18%{opacity:.7}50%{left:10%;top:18%;transform:rotate(-12deg) scale(1)}82%{opacity:.58}100%{left:74%;top:82%;opacity:0;transform:rotate(15deg) scale(.7)}}
+@keyframes v53FlyC{0%{left:46%;top:74%;opacity:0;transform:rotate(0) scale(.65)}18%{opacity:.55}50%{left:70%;top:38%;transform:rotate(-10deg) scale(.9)}80%{opacity:.5}100%{left:15%;top:50%;opacity:0;transform:rotate(12deg) scale(.65)}}
+@keyframes v53Fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}@keyframes v53Shine{0%,78%,100%{filter:brightness(1)}85%{filter:brightness(1.18)}}@keyframes v53Sweep{0%,100%{opacity:.72;transform:scaleX(.92)}50%{opacity:1;transform:scaleX(1)}}
+#appSidebar .sidebar-foot{flex:0 0 46px!important;height:46px!important;padding:8px 14px!important;border-top:1px solid #e7ecf4!important;background:rgba(255,255,255,.88)!important}
+#appSidebar .sidebar-watermark{display:none!important}
+/* Remove every top search surface, without touching functional filters elsewhere. */
+.v37-search,.ref-topbar .search,.top-search,#globalSearch,.header-search{display:none!important}
+/* Remove old profile card if a legacy copy survives. */
+#appSidebar .profile-card,#appSidebar #navMyProfile{display:none!important}
+/* Profile dropdown: premium, reliable, visible above all content. */
+.ref-user{position:relative!important;cursor:pointer!important;pointer-events:auto!important;z-index:200001!important}
+.ref-user .profile-popover{position:absolute!important;right:0!important;top:calc(100% + 8px)!important;display:none!important;width:190px!important;padding:10px!important;border:1px solid #dfe6f2!important;border-radius:15px!important;background:rgba(255,255,255,.98)!important;box-shadow:0 18px 45px rgba(39,58,97,.16)!important;z-index:2147483000!important}
+.ref-user .profile-popover.show{display:block!important;animation:v53Fade .16s ease both!important}
+.profile-popover .pp-head{display:flex!important;align-items:center!important;gap:8px!important;padding:4px 3px 9px!important;border-bottom:1px solid #edf1f6!important}
+.profile-popover .pp-avatar{width:30px!important;height:30px!important;border-radius:9px!important;display:grid!important;place-items:center!important;color:#fff!important;background:linear-gradient(135deg,#4d78ee,#8b5cf6)!important;font-weight:900!important;font-size:10px!important}
+.profile-popover .pp-head b{display:block!important;font-size:10px!important;color:#18233d!important}.profile-popover .pp-head small{display:block!important;font-size:8px!important;color:#71809a!important;margin-top:2px!important}
+.profile-popover .pp-actions{display:grid!important;gap:5px!important;padding-top:8px!important}.profile-popover .pp-actions button{border:1px solid #e4e9f2!important;background:#f8faff!important;border-radius:9px!important;padding:8px!important;text-align:left!important;font-size:9px!important;font-weight:800!important;color:#253553!important;cursor:pointer!important}.profile-popover .pp-actions button:hover{border-color:#cbd8f7!important;background:#f1f5ff!important}
+/* Light-only enforcement: old theme selectors cannot darken the visible app. */
+body[data-mode="dark"] .sidebar,body[data-theme="midnight"] .sidebar,body[data-theme="ocean"] .sidebar,body[data-theme="aurora"] .sidebar,body[data-theme="ember"] .sidebar,body[data-theme="violet"] .sidebar,body[data-theme="glass"] .sidebar{background:linear-gradient(180deg,#fff,#fbfdff)!important;color:#18233d!important}
+@media(max-width:900px){#appSidebar{width:238px!important;flex-basis:238px!important}.sidebar-welcome-slide{min-height:300px!important}.main{margin-left:238px!important;width:calc(100% - 238px)!important}}
+@media(max-height:820px) and (min-width:901px){#appSidebar .sidebar-welcome-slide{padding-top:13px!important}.sws-title span{font-size:31px!important}.sws-title b{font-size:20px!important}.sws-actions{margin-top:10px!important}.sws-icon{width:34px!important;height:34px!important}}
+@media(prefers-reduced-motion:reduce){#appSidebar *{animation:none!important;transition:none!important}}
+</style>
+<script id="v53-final-framework-fix">
+(function(){
+  const colors={blue:['#3b82f6','#8b5cf6'],red:['#ef476f','#fb7185'],green:['#10b981','#34d399'],yellow:['#f59e0b','#fbbf24'],cyan:['#06b6d4','#22d3ee'],purple:['#8b5cf6','#a78bfa'],orange:['#f97316','#fb923c']};
+  const $=id=>document.getElementById(id);
+  function applyAccent(name){if(!colors[name])name='blue';const [a,b]=colors[name];document.documentElement.style.setProperty('--accent',a);document.documentElement.style.setProperty('--accent2',b);document.documentElement.style.setProperty('--saht-accent',a);document.documentElement.style.setProperty('--saht-accent2',b);document.documentElement.style.setProperty('--glow',a+'33');document.body.dataset.mode='light';document.body.dataset.surface='glass';try{localStorage.setItem('saht-accent',name);localStorage.setItem('saht-theme','blackblue');localStorage.setItem('saht-mode','light')}catch(e){}}
+  window.setTheme=function(t){const map={blackblue:'blue',blackred:'red',blackgreen:'green',blackyellow:'yellow',blackcyan:'cyan',blackpurple:'purple',blackorange:'orange'};applyAccent(map[t]||t)};
+  window.setVisualMode=function(){document.body.dataset.mode='light';try{localStorage.setItem('saht-mode','light')}catch(e){}};
+  window.setSurface=function(){document.body.dataset.surface='glass'};
+  function moveWelcome(){const side=$('appSidebar'),welcome=$('sidebarWelcomeSlide'),scroll=side&&side.querySelector('.sidebar-scroll');if(side&&welcome&&scroll&&welcome.parentElement!==scroll){scroll.appendChild(welcome)}}
+  function removeLegacy(){document.querySelectorAll('#appSidebar .side-status,#appSidebar .appearance-control,#appSidebar .side-display-section,#appSidebar .side-themes,.v37-search').forEach(e=>e.remove());document.querySelectorAll('#page-theme,#page-about,#page-information,#page-inspiration,#page-contact,#page-feedback,#page-tips,#page-resources,#v35UtilityRibbon').forEach(e=>e.remove());document.querySelectorAll('body[data-mode="dark"]').forEach(e=>e.dataset.mode='light');}
+  function installAccent(){const foot=document.querySelector('#appSidebar .sidebar-foot');if(!foot||foot.querySelector('.v53-accent-wrap'))return;const wrap=document.createElement('div');wrap.className='v53-accent-wrap';wrap.style.cssText='position:absolute;right:42px;bottom:7px;display:flex;gap:4px;align-items:center;z-index:30';const label=document.createElement('span');label.textContent='';label.style.cssText='font-size:0';const palette=document.createElement('div');palette.style.cssText='display:flex;gap:4px';Object.keys(colors).forEach(n=>{const d=document.createElement('button');d.type='button';d.title='Accent: '+n;d.style.cssText='width:11px;height:11px;border-radius:50%;border:1px solid rgba(255,255,255,.9);background:'+colors[n][0]+';box-shadow:0 1px 4px rgba(40,55,90,.12);cursor:pointer;padding:0';d.onclick=e=>{e.stopPropagation();applyAccent(n);document.querySelectorAll('.v53-accent-dot').forEach(x=>x.style.outline=x.dataset.accent===n?'2px solid '+colors[n][0]:'none')};d.className='v53-accent-dot';d.dataset.accent=n;palette.appendChild(d)});wrap.append(label,palette);foot.appendChild(wrap)}
+  function profile(){const u=document.querySelector('.ref-user');if(!u||u.dataset.v53)return;u.dataset.v53='1';u.removeAttribute('onclick');let m=u.querySelector('.profile-popover');if(!m){m=document.createElement('div');m.className='profile-popover';m.innerHTML='<div class="pp-head"><div class="pp-avatar" id="ppAvatar">AP</div><div><b id="ppName">User</b><small id="ppRole">User</small></div></div><div class="pp-actions"><button id="ppOpen" type="button">Open Profile</button><button id="ppSignOut" type="button">Sign Out</button></div>';u.appendChild(m)}
+    const sync=()=>{const n=$('refUserName'),r=$('refUserRole'),a=$('refAvatar');if($('ppName'))$('ppName').textContent=n?.textContent||'User';if($('ppRole'))$('ppRole').textContent=r?.textContent||'User';if($('ppAvatar'))$('ppAvatar').textContent=a?.textContent||'U'};sync();
+    u.addEventListener('click',e=>{if(!e.target.closest('.profile-popover')){e.stopPropagation();m.classList.toggle('show')}});u.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();m.classList.toggle('show')}});m.querySelector('#ppOpen')?.addEventListener('click',e=>{e.stopPropagation();m.classList.remove('show');window.openProfileModal?.()});m.querySelector('#ppSignOut')?.addEventListener('click',e=>{e.stopPropagation();window.sahtSignOut?.()});document.addEventListener('click',e=>{if(!u.contains(e.target))m.classList.remove('show')});new MutationObserver(sync).observe(u,{subtree:true,childList:true,characterData:true});
+  }
+  function init(){moveWelcome();removeLegacy();installAccent();profile();applyAccent((()=>{try{return localStorage.getItem('saht-accent')||'blue'}catch(e){return'blue'}})());document.querySelectorAll('input[placeholder*="Search agent"],input[placeholder*="Search agents"],input[placeholder*="Search here"]').forEach(e=>{if(e.closest('.ref-topbar'))e.remove()});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();setTimeout(init,250);setTimeout(init,900);
+})();
+</script>
+</body></html>
 <style id="v40-clean-final">
 /* V40 CLEAN: no profile card, no global search, no floating account control. */
 #globalProfileButton,#sidebarProfileCard,#navMyProfile{display:none!important}
