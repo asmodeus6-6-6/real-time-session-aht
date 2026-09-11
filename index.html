@@ -3076,3 +3076,51 @@ body{min-height:100vh!important}
   .sidebar-welcome-slide{width:calc(100% - 20px)!important;height:390px!important;min-height:390px!important;max-height:none!important}
 }
 </style>
+<style id="v46-welcome-motion-fix">
+/* V46 — explicit, visible welcome-panel motion layer. */
+.sidebar-welcome-slide{will-change:transform,opacity;}
+.sidebar-welcome-slide .sws-bfly{display:block!important;visibility:visible!important;will-change:transform,opacity,filter;transform-origin:50% 50%;mix-blend-mode:multiply;}
+.sidebar-welcome-slide .bf-a{width:31px!important;height:31px!important;left:4%!important;top:28%!important;animation:v46ButterflyA 5.8s cubic-bezier(.42,0,.58,1) infinite!important;}
+.sidebar-welcome-slide .bf-b{width:25px!important;height:25px!important;right:3%!important;top:13%!important;animation:v46ButterflyB 6.6s cubic-bezier(.42,0,.58,1) .8s infinite!important;}
+.sidebar-welcome-slide .bf-c{width:21px!important;height:21px!important;right:10%!important;bottom:15%!important;animation:v46ButterflyC 7.2s cubic-bezier(.42,0,.58,1) 1.5s infinite!important;}
+.sidebar-welcome-slide .sws-bfly::after{content:"";display:block;}
+@keyframes v46ButterflyA{
+  0%{opacity:0;transform:translate3d(-10px,20px,0) rotate(-18deg) scale(.55)}
+  10%{opacity:.95}
+  25%{transform:translate3d(20px,-4px,0) rotate(10deg) scale(1)}
+  45%{transform:translate3d(52px,17px,0) rotate(-7deg) scale(.9)}
+  65%{opacity:.82;transform:translate3d(82px,-25px,0) rotate(12deg) scale(.82)}
+  82%{opacity:.5;transform:translate3d(52px,-52px,0) rotate(-8deg) scale(.68)}
+  100%{opacity:0;transform:translate3d(104px,-72px,0) rotate(5deg) scale(.42)}
+}
+@keyframes v46ButterflyB{
+  0%{opacity:0;transform:translate3d(16px,8px,0) rotate(12deg) scale(.45)}
+  12%{opacity:.8}
+  32%{transform:translate3d(-24px,25px,0) rotate(-10deg) scale(1)}
+  52%{transform:translate3d(-62px,4px,0) rotate(7deg) scale(.88)}
+  72%{opacity:.48;transform:translate3d(-35px,-38px,0) rotate(-12deg) scale(.72)}
+  100%{opacity:0;transform:translate3d(-82px,-62px,0) rotate(6deg) scale(.4)}
+}
+@keyframes v46ButterflyC{
+  0%{opacity:0;transform:translate3d(8px,15px,0) rotate(-8deg) scale(.4)}
+  16%{opacity:.7}
+  42%{transform:translate3d(-30px,-8px,0) rotate(9deg) scale(1)}
+  68%{opacity:.45;transform:translate3d(-8px,-42px,0) rotate(-5deg) scale(.78)}
+  100%{opacity:0;transform:translate3d(32px,-66px,0) rotate(10deg) scale(.38)}
+}
+/* Make the four action icons visibly animate independently. */
+.sidebar-welcome-slide .sws-icon{will-change:transform,box-shadow;transform-origin:center bottom;animation:v46Icon1 2.1s ease-in-out infinite!important;}
+.sidebar-welcome-slide .sws-action:nth-child(2) .sws-icon{animation:v46Icon2 2.35s ease-in-out .2s infinite!important}
+.sidebar-welcome-slide .sws-action:nth-child(3) .sws-icon{animation:v46Icon3 2.55s ease-in-out .4s infinite!important}
+.sidebar-welcome-slide .sws-action:nth-child(4) .sws-icon{animation:v46Icon4 2.2s ease-in-out .6s infinite!important}
+@keyframes v46Icon1{0%,100%{transform:translateY(0) scale(1);box-shadow:0 4px 12px rgba(237,36,112,.12)}50%{transform:translateY(-5px) scale(1.08);box-shadow:0 0 18px rgba(237,36,112,.34),0 9px 18px rgba(62,69,150,.12)}}
+@keyframes v46Icon2{0%,100%{transform:translateY(0) rotate(0) scale(1);box-shadow:0 4px 12px rgba(45,114,238,.12)}50%{transform:translateY(-4px) rotate(-5deg) scale(1.07);box-shadow:0 0 18px rgba(45,114,238,.34),0 9px 18px rgba(62,69,150,.12)}}
+@keyframes v46Icon3{0%,100%{transform:translateY(0) scale(1);box-shadow:0 4px 12px rgba(241,163,11,.12)}45%{transform:translateY(-5px) scale(1.09);box-shadow:0 0 19px rgba(241,163,11,.38),0 9px 18px rgba(62,69,150,.12)}60%{transform:translateY(-3px) scale(1.03)}}
+@keyframes v46Icon4{0%,100%{transform:translateY(0) rotate(0) scale(1);box-shadow:0 4px 12px rgba(0,185,144,.12)}50%{transform:translateY(-5px) rotate(5deg) scale(1.08);box-shadow:0 0 18px rgba(0,185,144,.34),0 9px 18px rgba(62,69,150,.12)}}
+/* Subtle breathing glow around the whole poster. */
+.sidebar-welcome-slide{animation:v46PanelIn .85s cubic-bezier(.2,.75,.2,1) .12s both,v46PanelGlow 5s ease-in-out 1s infinite!important;}
+@keyframes v46PanelIn{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes v46PanelGlow{0%,100%{box-shadow:0 12px 38px rgba(79,55,160,.16),inset 0 0 35px rgba(255,255,255,.65)}50%{box-shadow:0 14px 44px rgba(91,68,220,.26),0 0 22px rgba(205,80,235,.13),inset 0 0 38px rgba(255,255,255,.78)}}
+/* Do not let older generic reduced-motion rules accidentally disable this layer unless the user explicitly enabled reduced motion. */
+@media(prefers-reduced-motion:reduce){.sidebar-welcome-slide,.sidebar-welcome-slide .sws-icon,.sidebar-welcome-slide .sws-bfly{animation:none!important}.sidebar-welcome-slide{opacity:1!important}}
+</style>
