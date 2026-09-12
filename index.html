@@ -1034,35 +1034,26 @@ body.saht-locked #sahtBrandPop{display:none!important}
 </style>
 
 
-<style id="v55-stable-ui">
-/* V55: safe recovery layer — visual only, never changes application sizing/scrolling/routing */
-html,body{min-height:100%;}
-body{overflow-x:hidden!important;overflow-y:auto!important;}
-/* Light-only visual system. Accent remains selectable without enabling dark surfaces. */
-body[data-theme]{--bg:#f5f7fb!important;--panel:#ffffff!important;--panel2:#f3f6fa!important;--line:#dbe3ec!important;--text:#18283b!important;--muted:#708096!important;}
-body[data-theme="blackred"]{--accent:#d83b55!important;--accent2:#ff7083!important;}
-body[data-theme="blackgreen"]{--accent:#139c69!important;--accent2:#35cf96!important;}
-body[data-theme="blackyellow"]{--accent:#ad7800!important;--accent2:#e2b127!important;}
-body[data-theme="blackcyan"]{--accent:#008fa3!important;--accent2:#22c9dc!important;}
-body[data-theme="blackpurple"]{--accent:#7445bf!important;--accent2:#a276ec!important;}
-body[data-theme="blackorange"]{--accent:#c65c00!important;--accent2:#ef8c38!important;}
-body[data-theme="blackblue"],body[data-theme="glass"]{--accent:#2f7eea!important;--accent2:#8a62e8!important;}
-/* Search is intentionally not part of the interface. */
-.v37-search{display:none!important;}
-/* Old appearance/theme page controls are not exposed. */
-.sidebar-scroll>.side-section:has(.appearance-control){display:none!important;}
-#page-theme,.v35-utility-ribbon{display:none!important;}
-/* Integrated welcome: no card boundary, no floating positioning. */
-.saht-integrated-welcome{position:relative;flex:0 0 auto;margin:4px 12px 8px;padding:14px 12px 11px;overflow:hidden;border:0;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(239,246,255,.72));box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -1px 0 rgba(130,150,190,.08);isolation:isolate;animation:siwIn .65s ease both;}
-.siw-glow{position:absolute;border-radius:50%;filter:blur(22px);opacity:.28;pointer-events:none;z-index:-1}.siw-glow.g1{width:90px;height:90px;left:-35px;bottom:-38px;background:#6ea9ff}.siw-glow.g2{width:90px;height:90px;right:-35px;top:-35px;background:#c68cff}
-.siw-head{display:flex;align-items:center;gap:7px;font-size:8px;color:var(--accent);font-weight:900;letter-spacing:.02em;white-space:nowrap}.siw-head b{margin-left:auto;font-size:7px;padding:3px 7px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 18%,transparent);animation:siwShine 4.8s ease-in-out infinite}
-.siw-title{text-align:center;margin:8px 0 3px;line-height:.92}.siw-title span{display:block;font-size:22px;font-weight:800;font-style:italic;color:var(--accent);background:linear-gradient(90deg,var(--accent),var(--accent2),#ed72a9,var(--accent));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:siwGradient 8s linear infinite}.siw-title strong{display:block;font-size:18px;color:var(--text);letter-spacing:-.5px}.siw-rule{height:1px;margin:8px auto;width:72%;background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);opacity:.45}
-.siw-thanks{text-align:center;font-size:10px;font-weight:900;color:var(--text)}.siw-sub{text-align:center;color:var(--muted);font-size:7px;margin-top:2px}
-.siw-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:10px}.siw-actions>div{text-align:center;padding:5px 2px;border-radius:9px;background:rgba(255,255,255,.6);border:1px solid rgba(130,150,190,.13);transition:transform .2s,box-shadow .2s}.siw-actions>div:hover{transform:translateY(-2px);box-shadow:0 7px 16px rgba(70,100,150,.1)}.siw-actions i{display:block;font-style:normal;color:var(--accent);font-size:11px;line-height:1;transition:transform .2s,filter .2s}.siw-actions>div:hover i{transform:scale(1.12);filter:drop-shadow(0 0 5px var(--accent))}.siw-actions b{display:block;font-size:7px;margin-top:3px;color:var(--text)}
-.siw-motto{text-align:center;font-size:6px;letter-spacing:.45px;color:var(--muted);margin-top:9px}.siw-motto em{font-style:normal;color:var(--accent);padding:0 2px}.siw-names{display:flex;justify-content:space-between;align-items:center;margin-top:9px;font-size:7px;font-weight:800;color:var(--muted);position:relative}.siw-names:before{content:"";position:absolute;left:22%;right:22%;top:50%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);opacity:.35}.siw-names span{position:relative;background:rgba(245,248,252,.78);padding:0 4px}.siw-wave{position:absolute;left:-10%;right:-10%;bottom:-18px;height:40px;border-radius:50%;background:linear-gradient(90deg,rgba(47,126,234,.10),rgba(138,98,232,.13),rgba(237,114,169,.08),rgba(47,126,234,.10));filter:blur(2px);animation:siwWave 12s linear infinite}.siw-butterfly{position:absolute;width:16px;height:16px;object-fit:contain;pointer-events:none;opacity:0;filter:drop-shadow(0 0 5px var(--accent));z-index:3}.siw-b1{left:4%;bottom:18%;animation:siwFly1 7.5s ease-in-out infinite}.siw-b2{right:5%;top:15%;animation:siwFly2 9s ease-in-out 1.5s infinite}
-@keyframes siwIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes siwShine{0%,82%,100%{filter:none}88%{filter:brightness(1.18)}}@keyframes siwGradient{0%{background-position:0 0}100%{background-position:220% 0}}@keyframes siwWave{0%{transform:translateX(-8%)}50%{transform:translateX(8%)}100%{transform:translateX(-8%)}}@keyframes siwFly1{0%,100%{opacity:0;transform:translate(0,10px) rotate(-12deg) scale(.65)}15%{opacity:.7}45%{opacity:.5;transform:translate(38px,-15px) rotate(8deg) scale(1)}78%{opacity:.12;transform:translate(10px,-48px) rotate(-7deg) scale(.75)}}@keyframes siwFly2{0%,100%{opacity:0;transform:translate(0,8px) rotate(10deg) scale(.6)}18%{opacity:.65}52%{opacity:.42;transform:translate(-42px,20px) rotate(-8deg) scale(.95)}82%{opacity:.08;transform:translate(-18px,56px) rotate(9deg) scale(.65)}}
-@media(max-width:760px){.saht-integrated-welcome{margin-left:8px;margin-right:8px}.siw-title span{font-size:19px}.siw-title strong{font-size:16px}}
-@media(prefers-reduced-motion:reduce){.saht-integrated-welcome,.siw-head b,.siw-title span,.siw-wave,.siw-butterfly{animation:none!important}.siw-butterfly{display:none!important}}
+<style id="v40-clean-profile-header">
+/* V40: clean identity card + no fake global search */
+.v37-top-tools{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;height:54px!important;width:100%!important;margin-bottom:10px!important}
+.v37-context-label{margin-right:auto!important;height:38px;display:flex;align-items:center;gap:7px;color:var(--muted);font-size:9px;font-weight:900;letter-spacing:1.4px}
+.context-dot{width:7px;height:7px;border-radius:50%;background:#20c98a;box-shadow:0 0 0 4px rgba(32,201,138,.10),0 0 12px rgba(32,201,138,.45)}
+.v37-search{display:none!important}
+/* Profile lives in the sidebar flow. It can never float over sign-out/status/content. */
+.sidebar-scroll>#globalProfileButton{position:relative!important;top:auto!important;right:auto!important;left:auto!important;z-index:4!important;width:100%!important;min-width:0!important;height:64px!important;margin:0 0 12px!important;padding:8px 10px!important;display:flex!important;align-items:center!important;gap:10px!important;box-sizing:border-box!important;border:1px solid color-mix(in srgb,var(--accent) 24%,var(--line))!important;border-radius:16px!important;background:linear-gradient(135deg,color-mix(in srgb,var(--panel) 94%,var(--accent) 6%),color-mix(in srgb,var(--panel2) 88%,transparent))!important;box-shadow:0 8px 24px rgba(20,30,50,.08)!important;backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important;cursor:pointer!important;overflow:hidden!important}
+.sidebar-scroll>#globalProfileButton:before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(180deg,var(--accent),var(--accent2));opacity:.9}
+.sidebar-scroll>#globalProfileButton:hover{transform:translateY(-1px)!important;border-color:color-mix(in srgb,var(--accent) 48%,var(--line))!important;box-shadow:0 12px 30px rgba(20,30,50,.12)!important}
+.sidebar-scroll>#globalProfileButton .global-avatar{width:40px!important;height:40px!important;flex:0 0 40px!important;border-radius:13px!important;overflow:hidden!important;display:grid!important;place-items:center!important;background:linear-gradient(135deg,var(--accent),var(--accent2))!important;color:#fff!important;border:2px solid color-mix(in srgb,#fff 75%,var(--accent))!important;box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 9%,transparent),0 5px 14px rgba(0,0,0,.10)!important}
+.sidebar-scroll>#globalProfileButton .global-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
+.sidebar-scroll>#globalProfileButton .global-profile-copy{min-width:0!important;display:block!important;line-height:1.15!important}
+.sidebar-scroll>#globalProfileButton .global-profile-copy b{display:block!important;font-size:12px!important;font-weight:950!important;color:var(--text)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:155px!important}
+.sidebar-scroll>#globalProfileButton .global-profile-copy small{display:inline-flex!important;align-items:center!important;gap:5px!important;margin-top:5px!important;font-size:8px!important;letter-spacing:.12em!important;font-weight:950!important;color:var(--accent)!important}
+.sidebar-scroll>#globalProfileButton .global-profile-copy small:before{content:"";width:5px;height:5px;border-radius:50%;background:#20c98a;box-shadow:0 0 7px #20c98a}
+.sidebar-scroll>#globalProfileButton .global-profile-chevron{margin-left:auto!important;width:26px!important;height:26px!important;display:grid!important;place-items:center!important;border:1px solid var(--line)!important;border-radius:8px!important;color:var(--muted)!important;background:color-mix(in srgb,var(--panel2) 72%,transparent)!important;font-size:13px!important}
+.saht-auth-actions{display:none!important}
+@media(max-width:900px){.v37-context-label{display:none!important}.v37-top-tools{justify-content:flex-end!important}}
+@media(max-width:640px){.v37-top-tools{height:48px!important}.v37-date-card{display:none!important}.v37-tool-chip{height:38px!important}.v37-tool-icon{width:38px!important;height:38px!important}}
 </style>
 </head><body data-theme="blackblue" class="saht-locked"><div id="butterflyEntrance" class="butterfly-entrance" aria-hidden="true">
   <div class="be-stars"></div><div class="be-glow g1"></div><div class="be-glow g2"></div>
@@ -1123,15 +1114,11 @@ body[data-theme="blackblue"],body[data-theme="glass"]{--accent:#2f7eea!important
     </div>
     <button class="sidebar-toggle" id="sidebarToggle" type="button" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><span>‹</span></button>
   </div>
-<div class="saht-brand-pop" id="sahtBrandPop" role="button" tabindex="0" aria-label="Abhijith branding — click for butterfly effect" title="Click for a butterfly effect">
-  <div class="brand-butterfly-orbit" aria-hidden="true">
-    <img src="neon_butterfly.png" alt="" class="brand-bfly bf1"><img src="neon_butterfly.png" alt="" class="brand-bfly bf2"><img src="neon_butterfly.png" alt="" class="brand-bfly bf3">
-  </div>
-  <div class="bp-avatar"><img src="neon_butterfly.png" alt="Butterfly" /></div>
-  <div class="bp-copy"><b>Hello! 👋 Abhijith here</b><small>ADMIN</small></div>
+<div class="saht-brand-pop" id="sahtBrandPop" aria-label="Session AHT branding">
+  <div class="brand-copyline"><b id="brandGreeting">Hi Abhijith Here. <span>ADMIN</span></b><small id="brandDesigner">Designed by Khijar</small></div>
 </div>
 <div class="profile-modal" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><div class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle"><div class="profile-modal-head"><div class="profile-modal-avatar" id="profileModalAvatar">U</div><div class="profile-modal-title"><b id="profileModalTitle">My Profile</b><small><span id="profileModalRole">VISITOR</span> • <span id="profileModalStatus">APPROVED</span></small></div><button class="profile-modal-close" type="button" onclick="closeProfileModal()">×</button></div><div class="profile-modal-body"><div class="profile-modal-grid"><div><label>Full Name</label><input id="profileFullName" type="text" placeholder="Your name"></div><div><label>Agent ID</label><input id="profileAgentId" type="text" placeholder="Agent ID / Employee ID"></div><div><label>Email</label><input id="profileEmail" class="profile-readonly" type="email" readonly></div><div><label>Role</label><select id="profileRole"><option value="user">Visitor</option><option value="admin">Admin</option></select></div><div><label>Supabase User ID</label><input id="profileUserId" class="profile-readonly" type="text" readonly></div><div><label>Profile Picture</label><input id="profileAvatarFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewProfileAvatar(this)"><div class="profile-avatar-actions"><button class="btn" type="button" onclick="document.getElementById('profileAvatarFile').click()">Upload / Change</button><button class="btn" type="button" onclick="removeProfileAvatar()">Remove</button></div></div></div><div id="profileEditLock" class="profile-edit-lock">Profile details can be updated once every 7 days.</div><div id="profileMsg" class="help-note" style="display:none;margin:10px 0 0"></div><div class="profile-modal-foot"><button class="btn primary" type="button" onclick="saveMyProfile()">Save Profile</button><button class="btn" type="button" onclick="loadMyProfile()">↻ Refresh</button><button class="btn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div></div></div></div>
-  <div class="saht-auth-actions"><button class="btn saht-logout-btn" id="sahtLogoutBtn" type="button" onclick="sahtSignOut()">↪ Sign Out</button></div>
+  
 <div class="sidebar-scroll">
     <div class="side-status">
       <div class="status-top"><span class="dot"></span><b>LIVE MONITOR</b><span class="status-ping"></span></div>
@@ -1181,33 +1168,21 @@ body[data-theme="blackblue"],body[data-theme="glass"]{--accent:#2f7eea!important
       </div>
     </div>
   </div>
-  <section class="saht-integrated-welcome" id="sahtIntegratedWelcome" aria-label="Team welcome">
-  <span class="siw-glow g1"></span><span class="siw-glow g2"></span>
-  <img class="siw-butterfly siw-b1" src="neon_butterfly.png" alt="">
-  <img class="siw-butterfly siw-b2" src="neon_butterfly.png" alt="">
-  <div class="siw-head"><span id="siwGreeting">Hi Abhijith Prasad Here.</span><b id="siwRole">ADMIN</b></div>
-  <div class="siw-title"><span>Welcome</span><strong>Everyone!</strong></div>
-  <div class="siw-rule"></div>
-  <div class="siw-thanks">Thank you all!</div>
-  <div class="siw-sub">Track better. Improve together.</div>
-  <div class="siw-actions">
-    <div><i>▮▮▮</i><b>Track</b></div><div><i>⌁</i><b>Analyse</b></div><div><i>✦</i><b>Improve</b></div><div><i>↗</i><b>Grow</b></div>
-  </div>
-  <div class="siw-motto">SAME TEAM <em>•</em> HIGHER GOALS <em>•</em> BETTER TOMORROW</div>
-  <div class="siw-names"><span>Khijar</span><span>Shazia Bano</span></div>
-  <div class="siw-wave"></div>
-</section>
-<div class="sidebar-foot">
+  <div class="sidebar-foot">
     <div class="foot-line"><span class="foot-dot"></span><span class="foot-copy">System ready</span><span class="foot-version">SAHT</span></div>
     <div class="sidebar-watermark">Abhijith</div>
   </div>
-</aside><main class="main"><div class="global-profile" id="globalProfileButton" role="button" tabindex="0" aria-label="Open profile" style="display:none" title="Open profile"><div class="global-avatar" id="globalProfileAvatar">U</div><div class="global-profile-copy"><b id="globalProfileName">User</b><small><span id="globalProfileRole">VISITOR</span></small></div><span class="global-profile-chevron">⌄</span></div><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
+</aside><main class="main"><div id="startupError" class="empty-panel" style="display:none;margin-bottom:12px"></div>
 <section class="page active" id="page-live">
-<div class="top"><div class="v37-top-tools" aria-label="Session controls">
+<div class="top"><div class="v37-welcome">
+  <div class="v37-welcome-kicker">BPO PERFORMANCE CONTROL ROOM</div>
+  <h1><span id="greetingTime">Good Evening</span>, <strong id="greetingName">User</strong></h1>
+  <p>Here’s your real-time session performance overview.</p>
+</div><div class="v37-top-tools" aria-label="Session controls">
   <div class="v37-tool-chip live"><i></i><b>LIVE</b><span id="v37HeaderAgentCount">0 agents</span></div>
   <button class="v37-tool-icon" type="button" aria-label="Notifications" title="Notifications">♧<i></i></button>
   <div class="v37-date-card"><span class="cal">▣</span><div><small id="v37DayDate">Loading date…</small><b id="v37Clock">--:--:--</b><em><i></i> Live Session</em></div></div>
-</div><div><h1>Good Evening, <strong class="v37-greeting-name">Abhijith!</strong></h1><p>Here’s your real-time session performance overview.</p></div><div class="v37-top-quote">“Small insights create<br><b>bigger performance.</b>”</div><div class="live"><span class="dot"></span>LIVE • <span id="recordCount">0 agents</span></div><div class="header-watermark">Abhijith</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" title="Copy table as PNG image; browser security may require a secure page" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section id="summary" class="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div class="v26-card-head"><h3>Live Status</h3><div><small>Target: <span id="targetView">180</span>s</small><button class="btn tiny-copy" onclick="copyPanelAsImage('page-live-status','Live Status')">Copy Image</button></div></div><div id="page-live-status"><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><div class="tablehead-tools"><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span><button class="btn tiny-copy" onclick="copyTableAsImage()">Copy Image</button></div></div><div class="wrap"><div class="watermark" aria-hidden="true">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
+</div></div><section class="hero"><div class="grid"></div><div class="hero-content"><div class="kicker">BPO PERFORMANCE CONTROL ROOM</div><h2>Session AHT Monitor</h2><p>Paste the same live report data here. The parser, duplicate handling, sorting and AHT logic are preserved; the layout is completely rebuilt.</p></div><div class="pulsebars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section><section class="input"><div class="inputhead"><b>LIVE INPUT</b><span>Paste the original report</span></div><textarea id="rawInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" wrap="off" placeholder="Paste Agent / Name data here..."></textarea><div class="controls"><input id="threshold" type="number" value="180" min="0" placeholder="AHT Target (Sec)"><button class="btn" onclick="clearAll()">Clear</button><button class="btn" title="Copy table as PNG image; browser security may require a secure page" onclick="copyTableAsImage()">Copy Real Time AHT</button><button class="btn primary" onclick="exportToExcel()">Export Excel</button></div></section><section id="summary" class="summary"></section><section class="dashboard"><div class="dash"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><h3>Live AHT Distribution</h3><small>Top 10 • High → Low</small></div><div id="chart"><div class="empty">Paste data to display live AHT.</div></div></div><div class="dash"><div class="v26-card-head"><h3>Live Status</h3><div><small>Target: <span id="targetView">180</span>s</small><button class="btn tiny-copy" onclick="copyPanelAsImage('page-live-status','Live Status')">Copy Image</button></div></div><div id="page-live-status"><div class="ring"><div class="ringin"><div><b id="dashAvg">0 sec</b><small>AVERAGE AHT</small></div></div></div><div class="mini"><div><b id="dashAbove">0</b><small>ABOVE</small></div><div><b id="dashEqual">0</b><small>AT TARGET</small></div><div><b id="dashBelow">0</b><small>BELOW</small></div></div></div></section><section class="tablecard"><div class="tablehead"><b>Agent Performance</b><div class="tablehead-tools"><span>Red ▲ Above • Yellow ! Equal • Green ▼ Below</span><button class="btn tiny-copy" onclick="copyTableAsImage()">Copy Image</button></div></div><div class="wrap"><div class="watermark" aria-hidden="true">Abhijith</div><table id="reportTable"><thead><tr><th>Agent Name</th><th>Received</th><th>Resolved</th><th>Avg. HT</th><th>AHT (Sec)</th><th>Avg. FRT</th></tr></thead><tbody id="tableBody"></tbody><tfoot><tr id="grandTotalRow"></tr></tfoot></table></div></section>
 </section>
 
 <section class="page" id="page-dashboard">
@@ -1467,8 +1442,8 @@ function fmtPct(v){return ((Number(v)||0)*100).toFixed(2)+"%"}
 function dur(s){s=Math.round(Number(s)||0);return s>=60?`${Math.floor(s/60)} m ${s%60} s`:`${s} s`}
 function avg(rows,f){return rows.length?rows.reduce((a,r)=>a+parseDurationToSeconds(r[f]),0)/rows.length:0}
 function processData(){
- const target=parseNumber(document.getElementById("threshold").value)||180;
- const parsedRecords=parseBlockText(document.getElementById("rawInput").value||"");
+ const target=parseNumber(document.getElementById("threshold")?.value)||180;
+ const parsedRecords=parseBlockText(document.getElementById("rawInput")?.value||"");
  window._sahtRawCount=parsedRecords.length;
  const validRecords=parsedRecords.filter(r=>Number(r.ahtSec)>0);
  window._sahtExcludedCount=parsedRecords.length-validRecords.length;
@@ -1479,21 +1454,22 @@ function processData(){
   const sideTarget=document.getElementById("sideTarget");
   if(sideCount)sideCount.textContent=processedData.length+" agent"+(processedData.length===1?"":"s");
   if(sideTarget)sideTarget.textContent=(parseNumber(document.getElementById("threshold")?.value)||180)+"s";
- const body=document.getElementById("tableBody");body.innerHTML="";
- processedData.forEach((r,i)=>{const st=exactAHTStatus(r.ahtSec,target);body.insertAdjacentHTML("beforeend",`<tr><td class="agent">${escapeHtml(r.name)}</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${escapeHtml(r.avgHt)}</td><td class="aht ${st.cls}">${r.ahtSec} <em>${st.symbol}</em></td><td>${escapeHtml(r.avgFrt)}</td></tr>`)});
+ const body=document.getElementById("tableBody");if(body)body.innerHTML="";
+ if(body)processedData.forEach((r,i)=>{const st=exactAHTStatus(r.ahtSec,target);body.insertAdjacentHTML("beforeend",`<tr><td class="agent">${escapeHtml(r.name)}</td><td>${escapeHtml(r.received)}</td><td>${escapeHtml(r.resolved)}</td><td>${escapeHtml(r.avgHt)}</td><td class="aht ${st.cls}">${r.ahtSec} <em>${st.symbol}</em></td><td>${escapeHtml(r.avgFrt)}</td></tr>`)});
  const gt=document.getElementById("grandTotalRow");
  if(document.getElementById("grandTotalToggle").checked&&processedData.length){
   const rec=processedData.reduce((a,r)=>a+parseNumber(r.received),0),res=processedData.reduce((a,r)=>a+parseNumber(r.resolved),0);
   const ah=processedData.reduce((a,r)=>a+r.ahtSec,0)/processedData.length;
-  gt.innerHTML=`<td class="agent">GRAND TOTAL / AVG</td><td>${rec}</td><td>${res}</td><td>${dur(avg(processedData,"avgHt"))}</td><td class="aht">${Math.round(ah)} —</td><td>${dur(avg(processedData,"avgFrt"))}</td>`;gt.style.display="table-row"
- }else gt.style.display="none";
+  if(gt)gt.innerHTML=`<td class="agent">GRAND TOTAL / AVG</td><td>${rec}</td><td>${res}</td><td>${dur(avg(processedData,"avgHt"))}</td><td class="aht">${Math.round(ah)} —</td><td>${dur(avg(processedData,"avgFrt"))}</td>`;gt.style.display="table-row"
+ }else if(gt)gt.style.display="none";
  const n=processedData.length,below=processedData.filter(r=>r.ahtSec<target).length,equal=processedData.filter(r=>r.ahtSec===target).length;
- document.getElementById("summary").innerHTML=`<div class="metric"><small>TOTAL AGENTS</small><b>${n}</b></div><div class="metric good"><small>BELOW TARGET</small><b>${below}</b></div><div class="metric warn"><small>AT TARGET</small><b>${equal}</b></div><div class="metric bad"><small>ABOVE TARGET</small><b>${n-below-equal}</b></div>`;
- document.getElementById("recordCount").textContent=n+" agents";document.getElementById("targetView").textContent=target;
- const av=n?Math.round(processedData.reduce((a,r)=>a+r.ahtSec,0)/n):0;document.getElementById("dashAvg").textContent=av+" sec";
- document.getElementById("dashAbove").textContent=n-below-equal;document.getElementById("dashEqual").textContent=equal;document.getElementById("dashBelow").textContent=below;
+ const summary=document.getElementById("summary");if(summary)summary.innerHTML=`<div class="metric"><small>TOTAL AGENTS</small><b>${n}</b></div><div class="metric good"><small>BELOW TARGET</small><b>${below}</b></div><div class="metric warn"><small>AT TARGET</small><b>${equal}</b></div><div class="metric bad"><small>ABOVE TARGET</small><b>${n-below-equal}</b></div>`;
+ const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+ setText("recordCount",n+" agents");setText("targetView",target);
+ const av=n?Math.round(processedData.reduce((a,r)=>a+r.ahtSec,0)/n):0;setText("dashAvg",av+" sec");
+ setText("dashAbove",n-below-equal);setText("dashEqual",equal);setText("dashBelow",below);
  const max=Math.max(target*1.5,...processedData.map(r=>r.ahtSec),1);
- document.getElementById("chart").innerHTML=processedData.slice(0,10).map(r=>{const st=exactAHTStatus(r.ahtSec,target);return `<div class="bar-row"><span>${escapeHtml(r.name)}</span><div class="track"><i class="${st.cls}" style="width:${Math.max(4,Math.min(100,r.ahtSec/max*100))}%"></i></div><b>${r.ahtSec}</b></div>`}).join("")||`<div class="empty">Paste data to display live AHT.</div>`;
+ const chart=document.getElementById("chart");if(chart)chart.innerHTML=processedData.slice(0,10).map(r=>{const st=exactAHTStatus(r.ahtSec,target);return `<div class="bar-row"><span>${escapeHtml(r.name)}</span><div class="track"><i class="${st.cls}" style="width:${Math.max(4,Math.min(100,r.ahtSec/max*100))}%"></i></div><b>${r.ahtSec}</b></div>`}).join("")||`<div class="empty">Paste data to display live AHT.</div>`;
  refreshAllAnalytics(); if(typeof refreshAdmin==="function")refreshAdmin();
 }
 
@@ -2011,7 +1987,7 @@ function refreshAllAnalytics(){
 }
 
 function updateProfileUI(){
- const p=profile||{}; const name=p.full_name||p.email||"User"; const email=p.email||""; const role=(p.role||"user").toLowerCase();
+ const p=window.profile||{}; const name=p.full_name||p.email||"User"; const email=p.email||""; const role=(p.role||"user").toLowerCase();
  document.body.classList.toggle("saht-admin",role==="admin" && p.status==="approved");
  document.body.classList.toggle("saht-visitor",!(role==="admin" && p.status==="approved"));
  const adminNav=document.getElementById("navAdminPortal"); if(adminNav) adminNav.style.display=(role==="admin"&&p.status==="approved")?"grid":"none";
@@ -2027,7 +2003,7 @@ async function loadMyProfile(){
  const c=window.sahtSupabase; if(!c)return; const u=(await c.auth.getUser()).data?.user; if(!u)return;
  const q=await c.from("profiles").select("id,full_name,email,role,status,approved_at,agent_id,avatar_url,last_profile_edit_at").eq("id",u.id).maybeSingle();
  if(q.error){showProfileMsg(q.error.message,true);return;}
- profile=q.data||profile; updateProfileUI(); showProfileMsg("Profile refreshed.",false);
+ window.profile=q.data||window.profile; updateProfileUI(); showProfileMsg("Profile refreshed.",false);
 }
 function showProfileMsg(message,error){const e=document.getElementById("profileMsg");if(e){e.style.display="block";e.textContent=message;e.style.borderColor=error?"#cf3047":"var(--line)";}}
 async function saveMyProfile(){
@@ -2038,7 +2014,7 @@ async function saveMyProfile(){
  if(!fullName){showProfileMsg("Full Name is required.",true);return;}
  const q=await c.rpc("update_my_profile_v2",{p_full_name:fullName,p_agent_id:agentId,p_role:role,p_avatar_url:avatar});
  if(q.error){showProfileMsg(q.error.message||"Unable to save profile.",true);return;}
- profile=q.data||profile; window._pendingProfileAvatar=undefined; updateProfileUI(); showProfileMsg("Profile saved successfully.",false);
+ window.profile=q.data||window.profile; window._pendingProfileAvatar=undefined; updateProfileUI(); showProfileMsg("Profile saved successfully.",false);
 }
 function openProfileModal(){
  const m=document.getElementById("profileModal"); if(!m)return; if(m.parentElement!==document.body)document.body.appendChild(m); m.classList.add("show"); m.style.display="flex"; loadMyProfile();
@@ -2113,7 +2089,7 @@ function restoreCustomization(){
     if(ft && savedFormat) ft.value=savedFormat;
   }catch(e){console.warn("Customization restore failed:",e)}
 }
-function toggleSidebar(){const c=document.body.classList.toggle("sidebar-collapsed");storageSet("saht-sidebar-collapsed",c?"1":"0");}
+function toggleSidebar(){document.body.classList.remove("sidebar-collapsed");storageSet("saht-sidebar-collapsed","0");}document.body.classList.remove("sidebar-collapsed");
 function clearAll(){document.getElementById("rawInput").value="";processData()}
 function exportToExcel(){
  const table=document.getElementById("reportTable");
@@ -2543,7 +2519,7 @@ function bootApp(){
     const msg=document.getElementById("startupError");
     if(msg){
       msg.style.display="block";
-      msg.textContent="The tracker could not start: "+(err&&err.message?err.message:"Unknown error")+". Please reload the page.";
+      msg.textContent="The tracker could not start: "+(err&&err.message?err.message:"Unknown error")+". Please check the page console.";
     }
   }
 }
@@ -2579,7 +2555,7 @@ document.addEventListener("DOMContentLoaded",function(){
  const C=window.SAHT_CONFIG||{};
  const configured=!!(C.SUPABASE_URL&&C.SUPABASE_ANON_KEY&&!/YOUR-/i.test(C.SUPABASE_URL)&&!/YOUR_/i.test(C.SUPABASE_ANON_KEY));
  const gate=document.getElementById("sahtGate"),msg=document.getElementById("sahtMsg");
- let mode="login",client,profile;
+ let mode="login",client; window.window.profile=null;
  const setMsg=x=>{if(msg){msg.textContent=x||"";msg.classList.toggle("show",!!x)}};
  const setMode=m=>{mode=m;const r=m==="request";const nf=document.getElementById("sahtNameField"),rf=document.getElementById("sahtReasonField"),pw=document.getElementById("sahtPassword");if(nf)nf.style.display=r?"grid":"none";if(rf)rf.style.display=r?"grid":"none";if(pw)pw.autocomplete=r?"new-password":"current-password";const t=document.getElementById("sahtGateTitle"),sub=document.getElementById("sahtGateSub"),submit=document.getElementById("sahtSubmit");if(t)t.textContent=r?"Request dashboard access":"Welcome back";if(sub)sub.textContent=r?"Create your account. An administrator will approve dashboard access.":"Sign in to access your Session AHT Monitor.";if(submit)submit.textContent=r?"Request Access":"Sign In";document.getElementById("sahtSignInTab")?.classList.toggle("active",!r);document.getElementById("sahtRequestTab")?.classList.toggle("active",r);setMsg("");};
  const open=()=>{gate.style.display="none";document.body.classList.remove("saht-locked");};
@@ -2593,7 +2569,7 @@ document.addEventListener("DOMContentLoaded",function(){
    if(!u){locked();return false;}
    const q=await client.from("profiles").select("*").eq("id",u.id).maybeSingle();
    if(q.error){console.error("Profile lookup failed",q.error);locked("Unable to verify your access right now. Please try again.");return false;}
-   profile=q.data;
+   window.profile=q.data;
    if(!profile){locked("Your profile is not ready yet. Please contact the administrator.");return false;}
    if(profile.status!=="approved"){window.sahtUserApproved=false;window.sahtAdminApproved=false;locked(profile.status==="pending"?"Your access request is pending admin approval.":"Access is "+profile.status+".");return false;}
    window.sahtUserApproved=true;window.sahtAdminApproved=profile.role==="admin";
@@ -2673,7 +2649,7 @@ document.addEventListener("DOMContentLoaded",function(){
      }
    }catch(e){console.error(e);setMsg(e.message||"Authentication failed.");}
  });
- client.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT"){window.sahtUserApproved=false;window.sahtAdminApproved=false;profile=null;locked();return;}if((event==="SIGNED_IN"||event==="USER_UPDATED"||event==="INITIAL_SESSION")&&session?.user){enter(session.user).catch(console.error);}});
+ client.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT"){window.sahtUserApproved=false;window.sahtAdminApproved=false;window.profile=null;locked();return;}if((event==="SIGNED_IN"||event==="USER_UPDATED"||event==="INITIAL_SESSION")&&session?.user){enter(session.user).catch(console.error);}});
  client.channel("agent-details-v20").on("postgres_changes",{event:"*",schema:"public",table:"agent_details"},()=>window.sahtSyncAgents()).subscribe();
  client.channel("profile-access-v20").on("postgres_changes",{event:"UPDATE",schema:"public",table:"profiles"},p=>{if(profile?.id&&p?.new?.id===profile.id){enter(profile).catch(console.error);}}).subscribe();
  setInterval(()=>{if(window.sahtUserApproved)window.sahtSyncAgents().catch(()=>{})},10000);
@@ -2866,8 +2842,8 @@ body.saht-locked .sidebar,body.saht-locked #sahtBrandPop,body.saht-locked #globa
 (function(){
   var timerStarted=false;
   function moveProfile(){
-    var p=document.getElementById('globalProfileButton'),s=document.getElementById('appSidebar');
-    if(p&&s&&p.parentElement!==s)s.insertBefore(p,s.querySelector('.saht-auth-actions')||s.querySelector('.sidebar-scroll'));
+    var p=document.getElementById('globalProfileButton'),s=document.getElementById('appSidebar'),scroll=s&&s.querySelector('.sidebar-scroll');
+    if(p&&scroll&&p.parentElement!==scroll)scroll.insertBefore(p,scroll.firstElementChild);
     if(p)p.style.setProperty('display',document.body.classList.contains('saht-locked')?'none':'flex','important');
   }
   function clock(){
@@ -2886,17 +2862,48 @@ body.saht-locked .sidebar,body.saht-locked #sahtBrandPop,body.saht-locked #globa
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
-<script id="v55-safe-runtime">
+</body></html>
+<style id="v40-clean-final">
+/* V40 CLEAN: no profile card, no global search, no floating account control. */
+#globalProfileButton,#sidebarProfileCard,#navMyProfile{display:none!important}
+.v37-search{display:none!important}
+.top{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:24px!important;min-height:116px!important;height:116px!important;padding:0!important}
+.v37-welcome{min-width:0!important;align-self:center!important}
+.v37-welcome-kicker{font-size:9px!important;font-weight:950!important;letter-spacing:.18em!important;color:var(--accent)!important;margin-bottom:8px!important}
+.v37-welcome h1{margin:0!important;font-size:clamp(26px,2.8vw,39px)!important;line-height:1.04!important;letter-spacing:-.045em!important}
+.v37-welcome h1 strong{color:var(--accent2)!important}
+.v37-welcome p{margin:8px 0 0!important;font-size:11px!important;color:var(--muted)!important}
+.v37-top-tools{grid-column:2!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;margin:0!important;height:auto!important}
+.v37-tool-chip{height:40px!important;padding:0 13px!important;border-radius:13px!important}
+.v37-tool-icon{width:40px!important;height:40px!important;border-radius:13px!important}
+.v37-date-card{height:40px!important;min-width:184px!important;border-radius:13px!important}
+.top>.live,.v37-top-quote,.header-watermark{display:none!important}
+/* Branding: transparent text only, no butterfly/background/card. */
+#sahtBrandPop{position:fixed!important;right:28px!important;bottom:24px!important;left:auto!important;top:auto!important;width:auto!important;min-width:0!important;height:auto!important;padding:0!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:block!important;z-index:2147483640!important;pointer-events:none!important;animation:v40BrandPulse 3.8s ease-in-out infinite!important}
+#sahtBrandPop:before,#sahtBrandPop:after,#sahtBrandPop .brand-butterfly-orbit,#sahtBrandPop .bp-avatar{display:none!important}
+#sahtBrandPop .brand-copyline{display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:3px!important}
+#sahtBrandPop .brand-copyline b{font-size:11px!important;font-weight:950!important;color:var(--accent2)!important;white-space:nowrap!important;text-shadow:0 0 14px var(--glow)!important}
+#sahtBrandPop .brand-copyline b span{display:block!important;font-size:8px!important;letter-spacing:.12em!important;color:var(--text)!important;margin-top:2px!important}
+#sahtBrandPop .brand-copyline small{font-size:8px!important;font-weight:800!important;letter-spacing:.08em!important;color:var(--muted)!important;margin:2px 0 0!important;white-space:nowrap!important}
+@keyframes v40BrandPulse{0%,100%{opacity:0;transform:translateY(6px)}12%,78%{opacity:1;transform:translateY(0)}90%{opacity:0;transform:translateY(-4px)}}
+@media(max-width:900px){.top{grid-template-columns:1fr!important;grid-template-rows:auto auto!important;height:auto!important;min-height:0!important;padding:14px 0 16px!important;gap:14px!important}.v37-top-tools{grid-column:1!important;justify-content:flex-start!important;flex-wrap:wrap!important}}
+@media(max-width:640px){.v37-date-card{display:none!important}.v37-tool-chip{display:none!important}#sahtBrandPop{right:14px!important;bottom:14px!important}}
+</style>
+<script id="v40-clean-final-js">
 (function(){
-  function syncWelcome(){
-    var p=window.profile||null;
-    var name=(p&& (p.full_name||p.email)) || (document.getElementById('globalProfileName')?.textContent||'Abhijith Prasad');
-    var role=(p&&p.role)|| (document.getElementById('globalProfileRole')?.textContent||'ADMIN');
-    var a=document.getElementById('siwGreeting'),b=document.getElementById('siwRole');
-    if(a)a.textContent='Hi '+String(name).toUpperCase()+' Here.';
-    if(b)b.textContent=String(role).toUpperCase();
+  function refreshWelcome(){
+    var p=window.profile||{};
+    var name=(p.full_name||p.email||'User').trim()||'User';
+    var h=new Date().getHours();
+    var part=h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening';
+    var gt=document.getElementById('greetingTime'),gn=document.getElementById('greetingName');
+    if(gt)gt.textContent=part; if(gn)gn.textContent=name;
+    var bg=document.getElementById('brandGreeting'),bd=document.getElementById('brandDesigner');
+    if(bg)bg.innerHTML='Hi '+name+' Here. <span>'+(String(p.role||'user').toLowerCase()==='admin'?'ADMIN':'VISITOR')+'</span>';
+    if(bd)bd.textContent='Designed by Khijar';
   }
-  document.addEventListener('DOMContentLoaded',function(){syncWelcome();setTimeout(syncWelcome,1200);setTimeout(syncWelcome,3000);});
+  window.v40RefreshWelcome=refreshWelcome;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refreshWelcome,{once:true});else refreshWelcome();
+  setInterval(refreshWelcome,1000);
 })();
 </script>
-</body></html>
